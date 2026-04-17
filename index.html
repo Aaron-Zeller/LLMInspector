@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Literacy Assessment — COLORCODE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="nav-logo">
+    COLORCODE
+    <div class="vr"></div>
+    <span class="sub">AI Literacy Assessment</span>
+  </div>
+  <div class="nav-steps">
+    <div class="nav-step active" id="nav-0" onclick="goTo(0)"><div class="step-num">1</div> Overview</div>
+    <div class="nav-step" id="nav-1" onclick="goTo(1)"><div class="step-num">2</div> Diagnostic</div>
+    <div class="nav-step" id="nav-2" onclick="goTo(2)"><div class="step-num">3</div> Critical Thinking</div>
+    <div class="nav-step" id="nav-3" onclick="goTo(3)"><div class="step-num">4</div> Privacy</div>
+    <div class="nav-step" id="nav-4" onclick="goTo(4)"><div class="step-num">5</div> Simulation</div>
+    <div class="nav-step" id="nav-5" onclick="goTo(5)"><div class="step-num">6</div> Results</div>
+  </div>
+</nav>
+<div class="progress-strip"><div class="progress-fill" id="progress-bar"></div></div>
+
+<!-- PAGE 0 — LANDING -->
+<div class="page active" id="page-0">
+  <div class="hero">
+    <div class="hero-eyebrow">ETH Zurich · AI Literacy Initiative</div>
+    <h1 class="hero-title">How AI-Literate Is Your Organisation?</h1>
+    <p class="hero-desc">A rigorous, scenario-based assessment for business professionals — measuring critical evaluation, data privacy awareness, and responsible AI delegation.</p>
+    <div class="hero-meta">
+      <div class="hero-stat"><strong>25</strong>Minutes</div>
+      <div class="hero-stat"><strong>3</strong>Domains</div>
+      <div class="hero-stat"><strong>100</strong>Points</div>
+    </div>
+    <button class="btn-primary" onclick="goTo(1)">Begin Assessment →</button>
+  </div>
+  <div class="content-wrap">
+    <div class="section-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">What you will be assessed on</div></div>
+    <h2 class="section-title">Three Core Competencies</h2>
+    <p class="section-desc">Each domain is grounded in established AI literacy frameworks including the EU AI Act, NIST AI RMF, and the AI Literacy Development Canvas.</p>
+    <div class="comp-grid">
+      <div class="comp-card" style="border-top:3px solid #1d4ed8;">
+        <div class="comp-icon">🔍</div>
+        <div class="comp-domain-label" style="color:#1d4ed8;">Domain 1</div>
+        <div class="comp-name">Critical Evaluation</div>
+        <div class="comp-desc">Recognising hallucinations, verifying outputs, and challenging overconfident AI responses.</div>
+      </div>
+      <div class="comp-card" style="border-top:3px solid var(--gold);">
+        <div class="comp-icon">🔒</div>
+        <div class="comp-domain-label" style="color:var(--gold);">Domain 2</div>
+        <div class="comp-name">Data Privacy</div>
+        <div class="comp-desc">Identifying sensitive data, safe sharing practices, and understanding GDPR obligations.</div>
+      </div>
+      <div class="comp-card" style="border-top:3px solid var(--success);">
+        <div class="comp-icon">⚖️</div>
+        <div class="comp-domain-label" style="color:var(--success);">Domain 3</div>
+        <div class="comp-name">Appropriate Delegation</div>
+        <div class="comp-desc">Knowing when and how to delegate tasks to AI, and when human judgment is essential.</div>
+      </div>
+    </div>
+    <div class="callout info">
+      <div class="callout-icon">ℹ</div>
+      <div><strong>Confidential Assessment</strong>Your responses are used solely to generate your personal score report. This assessment does not share data externally.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 1 — DIAGNOSTIC MCQ -->
+<div class="page" id="page-1">
+  <div class="content-wrap">
+    <div class="section-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Section 1 · Diagnostic</div></div>
+    <h2 class="section-title">Baseline Knowledge Check</h2>
+    <p class="section-desc">Answer each question based on your current understanding. Select the most accurate response.</p>
+
+    <div class="quiz-card" id="qc-q1">
+      <div class="q-meta"><div class="q-num">Question 1 of 6</div><span class="q-badge badge-awareness">Awareness</span></div>
+      <div class="q-text">A colleague uses an AI assistant to draft a market analysis report with specific statistics and citations. What should they do before presenting it?</div>
+      <div class="options-list">
+        <div class="option-item" onclick="selectOption(this,'q1',false)"><div class="option-radio"></div>Present it directly — AI tools are trained on reliable data sources.</div>
+        <div class="option-item" onclick="selectOption(this,'q1',true)"><div class="option-radio"></div>Verify all statistics and citations against original sources before presenting.</div>
+        <div class="option-item" onclick="selectOption(this,'q1',false)"><div class="option-radio"></div>Add a disclaimer that AI was used, then present without further checks.</div>
+        <div class="option-item" onclick="selectOption(this,'q1',false)"><div class="option-radio"></div>Ask the AI to double-check its own output for accuracy.</div>
+      </div>
+      <div class="feedback-box" id="fb-q1"></div>
+    </div>
+
+    <div class="quiz-card" id="qc-q2">
+      <div class="q-meta"><div class="q-num">Question 2 of 6</div><span class="q-badge badge-awareness">Awareness</span></div>
+      <div class="q-text">Which of the following best describes an AI "hallucination"?</div>
+      <div class="options-list">
+        <div class="option-item" onclick="selectOption(this,'q2',false)"><div class="option-radio"></div>When an AI system crashes or becomes unresponsive.</div>
+        <div class="option-item" onclick="selectOption(this,'q2',false)"><div class="option-radio"></div>When an AI gives a creative but unexpected answer.</div>
+        <div class="option-item" onclick="selectOption(this,'q2',true)"><div class="option-radio"></div>When an AI generates plausible-sounding but factually incorrect or fabricated information.</div>
+        <div class="option-item" onclick="selectOption(this,'q2',false)"><div class="option-radio"></div>When an AI refuses to answer a question for safety reasons.</div>
+      </div>
+      <div class="feedback-box" id="fb-q2"></div>
+    </div>
+
+    <div class="quiz-card" id="qc-q3">
+      <div class="q-meta"><div class="q-num">Question 3 of 6</div><span class="q-badge badge-privacy">Privacy</span></div>
+      <div class="q-text">Under GDPR, what is the primary risk of pasting a spreadsheet containing employee names, salaries, and dates of birth into a public AI chatbot?</div>
+      <div class="options-list">
+        <div class="option-item" onclick="selectOption(this,'q3',false)"><div class="option-radio"></div>No risk — AI chatbots are bound by data protection law in the same way as internal systems.</div>
+        <div class="option-item" onclick="selectOption(this,'q3',true)"><div class="option-radio"></div>The personal data may be stored, processed, or used for model training without lawful basis, constituting a potential GDPR violation.</div>
+        <div class="option-item" onclick="selectOption(this,'q3',false)"><div class="option-radio"></div>Minimal risk — only names are protected under GDPR, not salary data.</div>
+        <div class="option-item" onclick="selectOption(this,'q3',false)"><div class="option-radio"></div>Risk exists, but it is the AI provider's legal responsibility, not the user's.</div>
+      </div>
+      <div class="feedback-box" id="fb-q3"></div>
+    </div>
+
+    <div class="quiz-card" id="qc-q4">
+      <div class="q-meta"><div class="q-num">Question 4 of 6</div><span class="q-badge badge-critical">Critical Thinking</span></div>
+      <div class="q-text">An AI assistant states: "Our competitor's Q3 revenue was €4.2 billion, a 12% decline." No source is cited. How should you treat this?</div>
+      <div class="options-list">
+        <div class="option-item" onclick="selectOption(this,'q4',false)"><div class="option-radio"></div>Accept it — AI tools have access to current financial data.</div>
+        <div class="option-item" onclick="selectOption(this,'q4',false)"><div class="option-radio"></div>Accept it if the figure seems plausible given your industry knowledge.</div>
+        <div class="option-item" onclick="selectOption(this,'q4',true)"><div class="option-radio"></div>Treat it as unverified and confirm against official financial disclosures before using it.</div>
+        <div class="option-item" onclick="selectOption(this,'q4',false)"><div class="option-radio"></div>Ask the AI for a source; if it provides one, the information is reliable.</div>
+      </div>
+      <div class="feedback-box" id="fb-q4"></div>
+    </div>
+
+    <div class="quiz-card" id="qc-q5">
+      <div class="q-meta"><div class="q-num">Question 5 of 6</div><span class="q-badge badge-practice">Delegation</span></div>
+      <div class="q-text">Which of the following tasks is LEAST appropriate to delegate entirely to an AI assistant without human review?</div>
+      <div class="options-list">
+        <div class="option-item" onclick="selectOption(this,'q5',false)"><div class="option-radio"></div>Drafting a first version of an internal meeting agenda.</div>
+        <div class="option-item" onclick="selectOption(this,'q5',false)"><div class="option-radio"></div>Summarising a lengthy internal policy document.</div>
+        <div class="option-item" onclick="selectOption(this,'q5',true)"><div class="option-radio"></div>Making a final decision on a candidate's performance review outcome.</div>
+        <div class="option-item" onclick="selectOption(this,'q5',false)"><div class="option-radio"></div>Generating a list of questions for a client discovery call.</div>
+      </div>
+      <div class="feedback-box" id="fb-q5"></div>
+    </div>
+
+    <div class="quiz-card" id="qc-q6">
+      <div class="q-meta"><div class="q-num">Question 6 of 6</div><span class="q-badge badge-privacy">Privacy</span></div>
+      <div class="q-text">Your organisation uses an enterprise AI tool with a data processing agreement. A colleague wants to use a free public AI tool for the same task because it is faster. What is the key concern?</div>
+      <div class="options-list">
+        <div class="option-item" onclick="selectOption(this,'q6',false)"><div class="option-radio"></div>Free tools are always less accurate than enterprise tools.</div>
+        <div class="option-item" onclick="selectOption(this,'q6',true)"><div class="option-radio"></div>The free public tool likely lacks the contractual data protection safeguards that your enterprise agreement provides, creating compliance and security risk.</div>
+        <div class="option-item" onclick="selectOption(this,'q6',false)"><div class="option-radio"></div>There is no concern if the task does not involve customer data.</div>
+        <div class="option-item" onclick="selectOption(this,'q6',false)"><div class="option-radio"></div>Speed should take priority over compliance for non-critical tasks.</div>
+      </div>
+      <div class="feedback-box" id="fb-q6"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="btn-secondary" onclick="goTo(0)">← Back</button>
+      <div class="nav-footer-left">Section 1 of 4</div>
+      <button class="btn-nav" onclick="goTo(2)">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2 — CRITICAL THINKING -->
+<div class="page" id="page-2">
+  <div class="content-wrap">
+    <div class="section-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Section 2 · Critical Evaluation</div></div>
+    <h2 class="section-title">Identifying Unreliable AI Outputs</h2>
+    <p class="section-desc">Review the following AI-generated responses and assess their reliability. This section tests your ability to detect hallucinations, overconfidence, and unverifiable claims.</p>
+
+    <div class="module-intro">
+      <p>Large language models generate responses that are statistically plausible — not necessarily factually correct. They do not "look up" information; they predict the most likely continuation of text. Even specific, confident-sounding figures can be entirely fabricated.</p>
+      <p>A professionally AI-literate person treats all AI outputs as <strong>drafts requiring verification</strong>, not authoritative sources.</p>
+    </div>
+
+    <div class="scenario-block">
+      <div class="scenario-hdr">
+        <div class="scenario-icon">🔍</div>
+        <div>
+          <div class="scenario-title">Exercise 2.1 — Spot the Hallucination</div>
+          <div class="scenario-subtitle">Review this AI-generated research summary and assess it critically.</div>
+        </div>
+      </div>
+      <div class="scenario-body">
+        <div class="ai-chat">
+          <div class="ai-chat-hdr"><div class="ai-dot"></div> AI Assistant</div>
+          <div class="chat-msg">
+            <div class="chat-av av-user">You</div>
+            <div class="chat-bubble">
+              <div class="chat-role">User</div>
+              <div class="chat-text">What did the European Commission's report on AI adoption in SMEs find in March 2024?</div>
+            </div>
+          </div>
+          <div class="chat-msg">
+            <div class="chat-av av-ai">AI</div>
+            <div class="chat-bubble">
+              <div class="chat-role">AI Assistant</div>
+              <div class="chat-text">The European Commission's <span class="chat-hl">March 2024 SME AI Adoption Report</span> found that <span class="chat-hl">67% of European SMEs</span> had integrated at least one AI tool into their operations, up from 41% in 2022. The report, authored by Commissioner <span class="chat-hl">Helena Varga</span>, recommended a <span class="chat-hl">€2.1 billion</span> investment programme to support AI upskilling across the bloc.</div>
+            </div>
+          </div>
+        </div>
+        <div class="decision-label">What is the most accurate assessment of this AI response?</div>
+        <div class="decision-options">
+          <div class="decision-option" onclick="selectDecision(this,'d1',false)"><strong>Reliable</strong>Statistics and citations are specific and plausible — usable directly.</div>
+          <div class="decision-option" onclick="selectDecision(this,'d1',false)"><strong>Partially reliable</strong>Statistics seem accurate, but the commissioner's name should be verified.</div>
+          <div class="decision-option" onclick="selectDecision(this,'d1',true)"><strong>Hallucination risk — do not use</strong>No such report has been verified. All specific claims require confirmation from the original source before any professional use.</div>
+          <div class="decision-option" onclick="selectDecision(this,'d1',false)"><strong>Formatting issue only</strong>The content is likely correct but the AI should have cited a URL.</div>
+        </div>
+        <div class="feedback-box" id="fb-d1"></div>
+      </div>
+    </div>
+
+    <div class="quiz-card" id="qc-q7">
+      <div class="q-meta"><div class="q-num">Exercise 2.2</div><span class="q-badge badge-critical">Critical Thinking</span></div>
+      <div class="q-text">An AI calculates the mean of a dataset and presents a result. Which is the most rigorous verification approach?</div>
+      <div class="options-list">
+        <div class="option-item" onclick="selectOption(this,'q7',false)"><div class="option-radio"></div>Ask the AI to recalculate and compare the two answers.</div>
+        <div class="option-item" onclick="selectOption(this,'q7',true)"><div class="option-radio"></div>Independently verify using a spreadsheet formula or calculator applied to the raw data.</div>
+        <div class="option-item" onclick="selectOption(this,'q7',false)"><div class="option-radio"></div>Accept the result — AI arithmetic is generally reliable.</div>
+        <div class="option-item" onclick="selectOption(this,'q7',false)"><div class="option-radio"></div>Ask a colleague whether the figure seems reasonable.</div>
+      </div>
+      <div class="feedback-box" id="fb-q7"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="btn-secondary" onclick="goTo(1)">← Back</button>
+      <div class="nav-footer-left">Section 2 of 4</div>
+      <button class="btn-nav" onclick="goTo(3)">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3 — PRIVACY -->
+<div class="page" id="page-3">
+  <div class="content-wrap">
+    <div class="section-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Section 3 · Data Privacy</div></div>
+    <h2 class="section-title">Safe Data Practices with AI Tools</h2>
+    <p class="section-desc">This section examines your ability to identify sensitive data and apply appropriate handling practices before engaging an AI system.</p>
+
+    <div class="module-intro">
+      <p>Under GDPR, organisations bear responsibility for all personal data processing — including via third-party AI tools. Pasting personal data into an AI system without lawful basis and a data processing agreement may constitute a reportable data breach.</p>
+      <p><strong>Personal data includes:</strong> names, email addresses, salaries, performance ratings, dates of birth, and any information that can identify a living individual, directly or indirectly.</p>
+    </div>
+
+    <div class="scenario-block">
+      <div class="scenario-hdr">
+        <div class="scenario-icon">📊</div>
+        <div>
+          <div class="scenario-title">Exercise 3.1 — The Payroll Summary</div>
+          <div class="scenario-subtitle">Your manager needs a Q3 payroll expenditure summary by department. You have the file below and access to an AI assistant.</div>
+        </div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-context"><strong>Your task:</strong> Produce a summary of total payroll spend by department for Q3. Your manager needs it within the hour.</div>
+        <div class="data-preview">
+          <div class="data-preview-hdr">📎 employees_q3.xlsx — 200 rows</div>
+          <table>
+            <tr><th>Full Name</th><th>Department</th><th>Salary (CHF)</th><th>Performance Band</th><th>Date of Birth</th></tr>
+            <tr><td class="pii">Anna Müller</td><td>Finance</td><td class="pii">112,000</td><td>B+</td><td class="pii" style="filter:blur(3px);user-select:none">1984-03-12</td></tr>
+            <tr><td class="pii">James Okafor</td><td>Engineering</td><td class="pii">134,500</td><td>A</td><td class="pii" style="filter:blur(3px);user-select:none">1991-07-28</td></tr>
+            <tr><td colspan="5" style="color:var(--muted);font-size:12px;padding:8px 14px;">+ 198 more rows…</td></tr>
+          </table>
+          <div class="data-preview-note">⚠ Columns in red contain personal data under GDPR Article 4(1).</div>
+        </div>
+        <div class="decision-label">What is the most appropriate approach?</div>
+        <div class="decision-options">
+          <div class="decision-option" onclick="selectDecision(this,'d2',false)"><strong>A — Paste the full file</strong>Copy the entire spreadsheet into the AI prompt for a quick summary.</div>
+          <div class="decision-option" onclick="selectDecision(this,'d2',true)"><strong>B — Share only aggregated data</strong>Use a formula to compute department totals in Excel first, then share only those figures with the AI.</div>
+          <div class="decision-option" onclick="selectDecision(this,'d2',false)"><strong>C — Remove names only</strong>Delete the Full Name column, then paste the remaining data including salaries and birth dates.</div>
+          <div class="decision-option" onclick="selectDecision(this,'d2',false)"><strong>D — Ask AI to generate the script</strong>Describe the task verbally and ask the AI to write code to process the file locally.</div>
+        </div>
+        <div class="feedback-box" id="fb-d2"></div>
+      </div>
+    </div>
+
+    <div class="quiz-card" id="qc-q8">
+      <div class="q-meta"><div class="q-num">Exercise 3.2</div><span class="q-badge badge-privacy">Privacy</span></div>
+      <div class="q-text">Which represents the most privacy-preserving approach when using AI to analyse client feedback?</div>
+      <div class="options-list">
+        <div class="option-item" onclick="selectOption(this,'q8',false)"><div class="option-radio"></div>Share raw feedback with client names — the AI needs context to give useful analysis.</div>
+        <div class="option-item" onclick="selectOption(this,'q8',true)"><div class="option-radio"></div>Remove or pseudonymise identifying information from the feedback before sharing it with the AI tool.</div>
+        <div class="option-item" onclick="selectOption(this,'q8',false)"><div class="option-radio"></div>Share only feedback from clients who have given explicit consent for AI processing.</div>
+        <div class="option-item" onclick="selectOption(this,'q8',false)"><div class="option-radio"></div>Rely on the AI tool's built-in anonymisation feature, which strips names before processing.</div>
+      </div>
+      <div class="feedback-box" id="fb-q8"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="btn-secondary" onclick="goTo(2)">← Back</button>
+      <div class="nav-footer-left">Section 3 of 4</div>
+      <button class="btn-nav" onclick="goTo(4)">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4 — SIMULATION -->
+<div class="page" id="page-4">
+  <div class="content-wrap">
+    <div class="section-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Section 4 · Applied Simulation</div></div>
+    <h2 class="section-title">Real-World Decision Making</h2>
+    <p class="section-desc">Apply everything from the previous sections to navigate a realistic business scenario. Each decision is scored.</p>
+
+    <div class="callout warn">
+      <div class="callout-icon">⚠</div>
+      <div><strong>Applied Scenario</strong>This section simulates a real workplace situation under time pressure. Select the best course of action at each decision point.</div>
+    </div>
+
+    <div class="scenario-block">
+      <div class="scenario-hdr">
+        <div class="scenario-icon">💼</div>
+        <div>
+          <div class="scenario-title">Scenario — The Board Report</div>
+          <div class="scenario-subtitle">You are a Senior Manager at a consulting firm. A board presentation is due in 90 minutes.</div>
+        </div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-context">Your firm is preparing a board-level report on the financial health of Luxe AG (a client). You have access to Luxe AG's confidential internal financial model, a dataset of client contacts, and an enterprise AI tool with a data processing agreement in place.<br><br><strong>Decision Point 1:</strong> You need to summarise key financial indicators. How do you proceed?</div>
+        <div class="decision-label">Select your approach:</div>
+        <div class="decision-options">
+          <div class="decision-option" onclick="selectDecision(this,'sim1',false)"><strong>Option A</strong>Paste the full confidential financial model into the enterprise AI tool for a quick summary.</div>
+          <div class="decision-option" onclick="selectDecision(this,'sim1',true)"><strong>Option B</strong>Extract only the specific KPIs needed (revenue, EBITDA, debt ratio) and share those with the enterprise AI for formatting help.</div>
+          <div class="decision-option" onclick="selectDecision(this,'sim1',false)"><strong>Option C</strong>Use a free public AI tool — it is faster and the enterprise tool is slow today.</div>
+          <div class="decision-option" onclick="selectDecision(this,'sim1',false)"><strong>Option D</strong>Ask the AI to generate estimated financial figures based on Luxe AG's industry benchmarks.</div>
+        </div>
+        <div class="feedback-box" id="fb-sim1"></div>
+      </div>
+    </div>
+
+    <div class="scenario-block">
+      <div class="scenario-hdr">
+        <div class="scenario-icon">📈</div>
+        <div>
+          <div class="scenario-title">Decision Point 2 — Reviewing the AI Output</div>
+          <div class="scenario-subtitle">The AI produces the following financial summary for your board report.</div>
+        </div>
+      </div>
+      <div class="scenario-body">
+        <div class="ai-chat">
+          <div class="ai-chat-hdr"><div class="ai-dot"></div> Enterprise AI Assistant</div>
+          <div class="chat-msg">
+            <div class="chat-av av-ai">AI</div>
+            <div class="chat-bubble">
+              <div class="chat-role">AI Summary</div>
+              <div class="chat-text">
+                Luxe AG Financial Summary — Q3 2024<br><br>
+                · Revenue: <span class="chat-hl">€18.4M</span> (↑ 8.2% YoY)<br>
+                · EBITDA Margin: 22.1%<br>
+                · Net Debt / EBITDA: 1.4x<br>
+                · Free Cash Flow: €2.1M<br><br>
+                Luxe AG demonstrates robust financial health and appears well-positioned for strategic acquisition activity in 2025.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="scenario-context" style="margin-bottom:16px;">You notice the revenue figure should be <strong>€16.8M</strong> based on the source data you provided. How do you proceed?</div>
+        <div class="decision-label">Select your response:</div>
+        <div class="decision-options">
+          <div class="decision-option" onclick="selectDecision(this,'sim2',false)"><strong>Trust the AI</strong>The AI may have more recent data — use the €18.4M figure in the report.</div>
+          <div class="decision-option" onclick="selectDecision(this,'sim2',true)"><strong>Correct and proceed</strong>The AI has produced an incorrect figure. Correct it from the source document before presenting. Never present AI output that contradicts verified source data.</div>
+          <div class="decision-option" onclick="selectDecision(this,'sim2',false)"><strong>Include a footnote</strong>Note the discrepancy and let the board decide which figure to use.</div>
+          <div class="decision-option" onclick="selectDecision(this,'sim2',false)"><strong>Re-prompt the AI</strong>Ask the AI to recalculate — if it gives the same answer twice, it is likely correct.</div>
+        </div>
+        <div class="feedback-box" id="fb-sim2"></div>
+      </div>
+    </div>
+
+    <div class="quiz-card" id="qc-q9">
+      <div class="q-meta"><div class="q-num">Decision Point 3</div><span class="q-badge badge-practice">Delegation</span></div>
+      <div class="q-text">The board report requires a section on recommended strategic direction for Luxe AG. Should you use AI to generate this recommendation?</div>
+      <div class="options-list">
+        <div class="option-item" onclick="selectOption(this,'q9',false)"><div class="option-radio"></div>Yes — AI can synthesise industry trends and generate sound strategic recommendations without further review.</div>
+        <div class="option-item" onclick="selectOption(this,'q9',false)"><div class="option-radio"></div>Yes — draft the AI recommendation and present it unmodified to save time.</div>
+        <div class="option-item" onclick="selectOption(this,'q9',true)"><div class="option-radio"></div>Partially — AI can support analysis and structure supporting evidence, but the final recommendation must reflect expert human judgment and professional accountability.</div>
+        <div class="option-item" onclick="selectOption(this,'q9',false)"><div class="option-radio"></div>No — AI should never be used in any part of a board-level document.</div>
+      </div>
+      <div class="feedback-box" id="fb-q9"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="btn-secondary" onclick="goTo(3)">← Back</button>
+      <div class="nav-footer-left">Section 4 of 4 — Final section</div>
+      <button class="btn-nav" onclick="computeAndShowResults()">View My Results →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 5 — RESULTS -->
+<div class="page" id="page-5">
+  <div class="results-hero">
+    <div class="results-eyebrow">Assessment Complete</div>
+    <div class="results-name">Your AI Literacy Report</div>
+    <div class="results-sub">COLORCODE · ETH Zurich AI Literacy Programme · <span id="result-date"></span></div>
+    <div class="score-ring-wrap">
+      <div class="score-ring">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle cx="70" cy="70" r="58" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="10"/>
+          <circle cx="70" cy="70" r="58" fill="none" stroke="#b8963e" stroke-width="10"
+            stroke-dasharray="364.4" stroke-dashoffset="364.4"
+            id="score-circle" stroke-linecap="round"/>
+        </svg>
+        <div class="score-ring-num" id="score-display">—<span>/ 100</span></div>
+      </div>
+      <div class="score-grade-badge" id="score-grade">—</div>
+    </div>
+  </div>
+
+  <div class="results-body">
+    <div class="section-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Domain Breakdown</div></div>
+    <h2 class="section-title">Performance by Competency</h2>
+
+    <div class="domain-grid">
+      <div class="domain-card">
+        <div class="domain-label">Critical Evaluation</div>
+        <div class="domain-score" id="d-score-1">—</div>
+        <div class="domain-max">out of 35 pts</div>
+        <div class="domain-bar"><div class="domain-bar-fill" id="d-bar-1"></div></div>
+        <div class="domain-desc" id="d-desc-1">Detecting hallucinations and verifying AI outputs.</div>
+      </div>
+      <div class="domain-card">
+        <div class="domain-label">Data Privacy</div>
+        <div class="domain-score" id="d-score-2">—</div>
+        <div class="domain-max">out of 35 pts</div>
+        <div class="domain-bar"><div class="domain-bar-fill" id="d-bar-2"></div></div>
+        <div class="domain-desc" id="d-desc-2">Safe data handling and GDPR awareness.</div>
+      </div>
+      <div class="domain-card">
+        <div class="domain-label">Appropriate Delegation</div>
+        <div class="domain-score" id="d-score-3">—</div>
+        <div class="domain-max">out of 30 pts</div>
+        <div class="domain-bar"><div class="domain-bar-fill" id="d-bar-3"></div></div>
+        <div class="domain-desc" id="d-desc-3">Knowing when human oversight is essential.</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Recommendations</div></div>
+    <h2 class="section-title">Next Steps</h2>
+    <div id="recommendations-container"></div>
+
+    <div class="results-note">
+      <div style="font-size:20px;flex-shrink:0">📋</div>
+      <div>
+        <strong>About this assessment</strong>
+        Scores reflect demonstrated AI literacy behaviours across three competency domains aligned to the EU AI Act, NIST AI Risk Management Framework, and the AI Literacy Development Canvas. This report is intended as a professional development guide.
+      </div>
+    </div>
+
+    <div class="action-row">
+      <button class="btn-primary" onclick="window.print()">Download PDF Report</button>
+      <button class="btn-secondary" onclick="resetAssessment()">Retake Assessment</button>
+    </div>
+  </div>
+</div>
+
+<!-- Load database helper first, then main logic -->
+<script src="js/database.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
