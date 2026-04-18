@@ -45,7 +45,7 @@ export function TopNavigation() {
                 type="button"
               >
                 <span className="step-num">{index + 1}</span>
-                <span>{section.label}</span>
+                <span className="nav-step__label">{section.label}</span>
               </button>
             );
           })}
