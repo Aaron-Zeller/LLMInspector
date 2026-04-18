@@ -90,3 +90,80 @@ You can change the default with `VITE_SHOW_SEGMENT_IDS`, and the in-browser togg
 ## Data and Submission Flow
 
 The frontend submits only the answer map. The backend recomputes totals and domain scores from the shared scoring rules before writing to Postgres. That keeps the stored results aligned with the canonical assessment logic.
+
+## Working With AI Coding Tools
+
+If you use ChatGPT, Claude, Codex, Cursor, or another AI coding tool on this repo, treat the current codebase as the source of truth. This project already went through a major refactor, and a few important design and structure choices are intentional.
+
+### Starter Prompt
+
+Use this as a starting prompt before asking an AI tool to change the code:
+
+```text
+Read the entire codebase before making changes.
+
+This project uses a modular React frontend, Zustand stores, and an Express backend. Preserve the existing architecture and visual style unless I explicitly ask for a redesign.
+
+Important project rules:
+- Do not simplify or redesign the current website style.
+- Do not replace the current UI with a generic AI-looking interface.
+- Keep the current COLORCODE visual language, spacing, typography, and section pacing.
+- Use the existing modular structure in src/components, src/store, src/data, and src/lib.
+- Keep assessment flow and content structure intact unless asked otherwise.
+- Respect the current developer segment overlay system.
+- Keep pre and post assessments structurally aligned unless a change explicitly requires divergence.
+- Keep the feedback page after the post assessment and the thank-you page after submission.
+- Preserve anonymised database submissions for pre assessment, post assessment, and experience feedback.
+- If you make frontend changes, use Uncodixfy as guidance: https://github.com/cyxzdev/Uncodixfy
+
+Before editing:
+- Read README.md
+- Read src/data/assessmentContent.js
+- Read src/store/useAssessmentStore.js
+- Read src/components/layout/PageRenderer.jsx
+- Read src/styles/app.css
+- Read server.js and src/server/database.js if your work touches submission logic
+
+When implementing:
+- Reuse existing components where possible
+- Add or adjust components instead of collapsing things back into one file
+- Keep the current assessment split into internal parts with sub-progress
+- Do not remove section intros, scenario framing, or contextual callouts
+- Avoid changing copy, order, or labels unless the task requires it
+
+After implementing:
+- Build the project and check for regressions
+- Summarise exactly what changed and what was intentionally preserved
+```
+
+### Project-Specific Guardrails
+
+- Preserve the current style. The app should not drift into a generic AI-generated dashboard or landing-page aesthetic.
+- Keep the frontend modular. New work should fit into the existing React component structure rather than reintroducing a monolithic page.
+- Use Zustand for shared state. Assessment flow, feedback state, and developer toggles should continue to live in stores rather than being scattered across local component state.
+- Treat `src/data/assessmentContent.js` as the central content registry. Page order, section order, segment configuration, and assessment items should stay data-driven.
+- Keep the developer segment overlay. The visible segment IDs and toggle are intentional and help teams discuss exact parts of the interface during development.
+- Preserve the current learner flow:
+  `Overview` -> `Pre Assessment` -> `Main Part` -> `Post Assessment` -> `Feedback` -> `Thank You`
+- Keep the pre and post assessments aligned. The post assessment is meant to mirror the pre assessment for before-and-after comparison.
+- Keep the assessment split into four internal parts with sub-progress:
+  `Baseline Knowledge Check`, `Identifying Unreliable AI Outputs`, `Safe Data Practices with AI Tools`, and `Real-World Decision Making`
+- Preserve the richer assessment framing restored from the original branch, especially:
+  critical-evaluation intros
+  privacy/GDPR framing
+  simulation warning/context blocks
+- Do not remove anonymisation. Only per-question outcomes and feedback responses should be stored, not raw identifiable user data.
+- Keep Render compatibility intact. The app is set up to deploy with `render.yaml`, Express static serving, and Render Postgres schema bootstrapping.
+
+### Files AI Tools Should Understand First
+
+- [README.md](/Users/aaronzeller/Documents/FS26/Design%20in%20Educational%20Technology/Project/README.md)
+- [src/data/assessmentContent.js](/Users/aaronzeller/Documents/FS26/Design%20in%20Educational%20Technology/Project/src/data/assessmentContent.js)
+- [src/store/useAssessmentStore.js](/Users/aaronzeller/Documents/FS26/Design%20in%20Educational%20Technology/Project/src/store/useAssessmentStore.js)
+- [src/components/layout/PageRenderer.jsx](/Users/aaronzeller/Documents/FS26/Design%20in%20Educational%20Technology/Project/src/components/layout/PageRenderer.jsx)
+- [src/components/assessment/AssessmentSections.jsx](/Users/aaronzeller/Documents/FS26/Design%20in%20Educational%20Technology/Project/src/components/assessment/AssessmentSections.jsx)
+- [src/components/common/LikertFeedbackSection.jsx](/Users/aaronzeller/Documents/FS26/Design%20in%20Educational%20Technology/Project/src/components/common/LikertFeedbackSection.jsx)
+- [src/styles/app.css](/Users/aaronzeller/Documents/FS26/Design%20in%20Educational%20Technology/Project/src/styles/app.css)
+- [server.js](/Users/aaronzeller/Documents/FS26/Design%20in%20Educational%20Technology/Project/server.js)
+- [src/server/database.js](/Users/aaronzeller/Documents/FS26/Design%20in%20Educational%20Technology/Project/src/server/database.js)
+- [schema.sql](/Users/aaronzeller/Documents/FS26/Design%20in%20Educational%20Technology/Project/schema.sql)
