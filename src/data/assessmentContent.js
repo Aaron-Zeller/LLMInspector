@@ -70,8 +70,8 @@ export const DOMAIN_DEFINITIONS = {
 
 export const OVERVIEW_STATS = [
   { label: 'Estimated time', value: '25 min' },
-  { label: 'Core lenses', value: '2' },
-  { label: 'Major sections', value: '6' },
+  { label: 'Core lenses', value: '3' },
+  { label: 'Major sections', value: '12' },
 ];
 
 export const OVERVIEW_DOMAINS = [
@@ -85,22 +85,22 @@ export const OVERVIEW_DOMAINS = [
       'What employees upload, paste, or connect to an LLM, and how that data can leak or create legal exposure.',
   },
   {
-    id: 'platform-choice',
-    overviewLabel: 'Lens 2',
-    overviewIcon: '🧭',
-    accent: 'privacy',
-    label: 'Platform Choice',
-    overviewDescription:
-      'How ChatGPT, Claude, Gemini, and local or internal deployments should be compared before a team trusts them with work.',
-  },
-  {
     id: 'output-assurance',
-    overviewLabel: 'Lens 3',
+    overviewLabel: 'Lens 2',
     overviewIcon: '⚠️',
     accent: 'delegation',
     label: 'Output Assurance',
     overviewDescription:
       'How teams verify AI outputs, bound consequences, and decide who remains responsible when the model is wrong.',
+  },
+  {
+    id: 'platform-choice',
+    overviewLabel: 'Lens 3',
+    overviewIcon: '🧭',
+    accent: 'privacy',
+    label: 'Platform Choice',
+    overviewDescription:
+      'How ChatGPT, Claude, Gemini, and local or internal deployments should be compared before a team trusts them with work.',
   },
 ];
 
@@ -631,19 +631,68 @@ export const PAGE_SEQUENCE = [
   },
   {
     id: 'main-part',
-    label: 'Main Part',
+    label: 'Lens Split',
+    segmentIds: ['main-header', 'main-intro', 'main-terms', 'main-problem-map', 'main-footer'],
+  },
+  {
+    id: 'main-sensitive-disclosure',
+    label: 'Sensitive Data',
     segmentIds: [
-      'main-header',
-      'main-intro',
-      'main-terms',
-      'main-case-studies',
-      'main-input-consequences',
+      'main-sensitive-header',
+      'main-sensitive-intro',
+      'main-sensitive-risks',
+      'main-sensitive-footer',
+    ],
+  },
+  {
+    id: 'main-prompt-injection',
+    label: 'Prompt Injection',
+    segmentIds: [
+      'main-prompt-header',
+      'main-prompt-intro',
+      'main-prompt-risks',
+      'main-prompt-footer',
+    ],
+  },
+  {
+    id: 'main-misinformation',
+    label: 'Misinformation',
+    segmentIds: [
+      'main-misinformation-header',
+      'main-misinformation-intro',
+      'main-misinformation-risks',
+      'main-misinformation-footer',
+    ],
+  },
+  {
+    id: 'main-output-handling',
+    label: 'Output Handling',
+    segmentIds: [
+      'main-output-header',
+      'main-output-intro',
+      'main-output-risks',
+      'main-output-footer',
+    ],
+  },
+  {
+    id: 'main-excessive-agency',
+    label: 'Oversight',
+    segmentIds: [
+      'main-agency-header',
+      'main-agency-intro',
+      'main-agency-risks',
+      'main-agency-footer',
+    ],
+  },
+  {
+    id: 'main-platform-choice',
+    label: 'Platforms',
+    segmentIds: [
+      'main-platform-header',
+      'main-platform-intro',
       'main-platforms',
-      'main-simulation',
-      'main-output-assurance',
-      'main-output-consequences',
       'main-conclusion',
-      'main-footer',
+      'main-platform-footer',
     ],
   },
   {
@@ -663,6 +712,47 @@ export const PAGE_SEQUENCE = [
   },
 ];
 
+export const NAV_SECTIONS = [
+  {
+    id: 'overview',
+    label: 'Overview',
+    pageIds: ['overview'],
+  },
+  {
+    id: 'pre-assessment',
+    label: 'Pre Assessment',
+    pageIds: ['pre-assessment'],
+  },
+  {
+    id: 'main-part',
+    label: 'Main Part',
+    pageIds: [
+      'main-part',
+      'main-sensitive-disclosure',
+      'main-prompt-injection',
+      'main-misinformation',
+      'main-output-handling',
+      'main-excessive-agency',
+      'main-platform-choice',
+    ],
+  },
+  {
+    id: 'post-assessment',
+    label: 'Post Assessment',
+    pageIds: ['post-assessment'],
+  },
+  {
+    id: 'experience-feedback',
+    label: 'Feedback',
+    pageIds: ['experience-feedback'],
+  },
+  {
+    id: 'thank-you',
+    label: 'Thank You',
+    pageIds: ['thank-you'],
+  },
+];
+
 export const SEGMENTS = {
   'overview-intro': {
     type: 'overviewIntro',
@@ -679,7 +769,7 @@ export const SEGMENTS = {
     type: 'domainGrid',
     title: 'How the website is organised',
     description:
-      'The main teaching section now follows the distinction between what goes into the model, how platforms differ, and how outputs should be evaluated.',
+      'The main teaching section first separates input and output risk, then walks through the major problems one by one before ending with platform choice.',
   },
   'overview-callout': {
     type: 'callout',
@@ -713,20 +803,20 @@ export const SEGMENTS = {
     previousPageId: 'overview',
     action: 'submitPreAssessment',
     nextPageId: 'main-part',
-    caption: 'Section 2 of 6',
+    caption: 'Section 2 of 12',
   },
   'main-header': {
     type: 'pageHeader',
     eyebrow: 'Section 3 · Main Part',
     title: 'Input Governance and Output Assurance',
     description:
-      'The main part now follows your meeting notes: misconceptions first, then input-side risks, platform choices, supervision ideas, and finally output-side verification and responsibility.',
+      'This first lesson page defines the two core lenses for the rest of the learning experience and names the main problems that sit under each one.',
   },
   'main-intro': {
     type: 'moduleIntro',
     paragraphs: [
       'A useful distinction from the meeting is that one half of the problem is what an employee gives to an LLM, and the other half is what the LLM gives back. “Privacy” and “security” point in that direction, but they can be made more specific.',
-      'One option for the site language is to call the input side Input Governance and the output side Output Assurance. That makes the distinction less abstract and more actionable for learners.',
+      'On this site, the input side is framed as Input Governance and the output side is framed as Output Assurance. That makes the distinction less abstract and gives learners a stable lens for the pages that follow.',
     ],
   },
   'main-terms': {
@@ -740,61 +830,104 @@ export const SEGMENTS = {
         eyebrow: 'Input to the model',
         title: 'Input Governance',
         body:
-          'What kinds of internal data can be entered into an LLM, how much of it should be shared, and what contractual or organisational safeguards need to exist first.',
+          'What kinds of internal data can be entered into an LLM, how much of it should be shared, and how untrusted documents, websites, or retrieved content can manipulate the model before work is completed.',
         bullets: [
-          'What happens with uploaded or pasted data',
-          'How internal documents should be reduced before prompting',
-          'When local or internal tools are preferable to cloud tools',
+          'Sensitive information disclosure through uploads, prompts, and copied internal material',
+          'Prompt injection through external documents, retrieved content, and hidden instructions',
+          'Wrong platform choice before the organisation has decided where data should go',
         ],
       },
       {
         eyebrow: 'Output from the model',
         title: 'Output Assurance',
         body:
-          'How employees evaluate AI outputs, detect hallucinations, verify code or recommendations, and decide where human supervision must remain.',
+          'How employees evaluate AI outputs, detect hallucinations, verify code or recommendations, and decide when a model should not be allowed to act without approval.',
         bullets: [
-          'Verification of answers, code, and recommendations',
-          'Bounding consequences of inaction or blind trust',
-          'Clarifying who remains responsible when the output is wrong',
+          'Misinformation, hallucinations, and false confidence',
+          'Improper output handling when unchecked answers are passed downstream',
+          'Excessive agency when systems act without sufficient human oversight',
         ],
       },
     ],
   },
-  'main-case-studies': {
+  'main-problem-map': {
     type: 'contentCards',
-    eyebrow: 'Start Here',
-    title: 'Begin with misconceptions and concrete leakage stories',
+    eyebrow: 'Problem Map',
+    title: 'The main problems that follow from each lens',
     description:
-      'The meeting notes suggest starting with case studies so the abstract rules feel real before the framework is introduced.',
+      'The next lesson pages unpack each of these problems in turn, starting with input-side risks and then moving to output-side judgement and oversight.',
     cards: [
       {
-        eyebrow: 'Case Study',
-        title: 'Internal data pasted into a public chatbot',
+        eyebrow: 'Input Governance',
+        title: 'Sensitive Information Disclosure',
         body:
-          'An employee pastes product requirements, client information, or board material into a cloud LLM to save time. The task is completed, but the organisation has now lost control over where that content may be stored or processed.',
+          'Employees often start by pasting data into an LLM to get the task done quickly. The core question is what should never go in, what can be reduced, and what legal or commercial harm follows when that judgement fails.',
         bullets: [
-          'Why this feels harmless in the moment',
-          'Which misconception is driving the behaviour',
-          'What should have happened before the prompt was sent',
+          'Personal data, product designs, board material, and client information',
+          'Data minimisation and lawful processing',
+          'Practical leakage before anybody realises what happened',
         ],
       },
       {
-        eyebrow: 'Case Study',
-        title: 'Prompt injection or hidden instructions in retrieved content',
+        eyebrow: 'Input Governance',
+        title: 'Prompt Injection',
         body:
-          'A user or connected document manipulates the model into revealing information, ignoring rules, or taking unsafe actions. The learner needs to see that access controls and prompt design do not eliminate this risk entirely.',
+          'Inputs are not neutral. A document, webpage, or retrieved chunk of text can contain instructions that manipulate the model and change its behaviour in ways the user did not intend.',
         bullets: [
-          'How other people can influence a model through inputs',
-          'Why “the model will follow our instructions” is not enough',
-          'What supervision and containment look like in practice',
+          'Hidden instructions in uploaded or retrieved content',
+          'Why system prompts do not fully solve the problem',
+          'Why untrusted content must be handled as untrusted',
+        ],
+      },
+      {
+        eyebrow: 'Output Assurance',
+        title: 'Misinformation and Hallucinations',
+        body:
+          'On the output side, the first problem is false confidence. A model can produce polished claims, code, figures, and recommendations that look usable but are unsupported or wrong.',
+        bullets: [
+          'Invented citations and statistics',
+          'Misleading expertise and overconfident tone',
+          'Bad code or insecure code that appears plausible',
+        ],
+      },
+      {
+        eyebrow: 'Output Assurance',
+        title: 'Improper Output Handling and Excessive Agency',
+        body:
+          'The output problem is not only that the model can be wrong. It is also what happens when people or systems pass that output forward without validation, approval, or clear ownership.',
+        bullets: [
+          'Unchecked outputs moving into reports, decisions, or systems',
+          'Automation without meaningful approval points',
+          'Confusion about who remains responsible when the model is wrong',
         ],
       },
     ],
   },
-  'main-input-consequences': {
+  'main-footer': {
+    type: 'navigationFooter',
+    previousPageId: 'pre-assessment',
+    nextPageId: 'main-sensitive-disclosure',
+    caption: 'Section 3 of 12',
+    nextLabel: 'Go to Sensitive Information Disclosure →',
+  },
+  'main-sensitive-header': {
+    type: 'pageHeader',
+    eyebrow: 'Section 4 · Sensitive Information Disclosure',
+    title: 'What should never be pasted or uploaded casually',
+    description:
+      'This page introduces the most immediate input-side risk: employees sharing internal or personal data with an LLM before deciding whether the tool and the data are appropriate.',
+  },
+  'main-sensitive-intro': {
+    type: 'moduleIntro',
+    paragraphs: [
+      'Sensitive information disclosure is often the first mistake because it feels productive in the moment. A spreadsheet, board deck, customer email, or product draft gets pasted into a model because the employee wants a faster answer.',
+      'The learning goal here is not only to say “do not upload sensitive data.” It is to teach how to reduce, transform, aggregate, or withhold information while still completing the task.',
+    ],
+  },
+  'main-sensitive-risks': {
     type: 'contentCards',
     eyebrow: 'Input Side',
-    title: 'Input to the model: what can be uploaded, and what can go wrong',
+    title: 'The legal and practical consequences of unsafe input',
     description:
       'This section can explicitly connect data handling choices to both legal and practical consequences.',
     cards: [
@@ -833,6 +966,279 @@ export const SEGMENTS = {
       },
     ],
   },
+  'main-sensitive-footer': {
+    type: 'navigationFooter',
+    previousPageId: 'main-part',
+    nextPageId: 'main-prompt-injection',
+    caption: 'Section 4 of 12',
+    nextLabel: 'Go to Prompt Injection →',
+  },
+  'main-prompt-header': {
+    type: 'pageHeader',
+    eyebrow: 'Section 5 · Prompt Injection',
+    title: 'Why untrusted content can steer the model',
+    description:
+      'After learners understand unsafe data entry, the next step is seeing that inputs can also manipulate the model itself through hidden or indirect instructions.',
+  },
+  'main-prompt-intro': {
+    type: 'moduleIntro',
+    paragraphs: [
+      'Prompt injection is important here because it shows that the problem is not only what an employee types. A file, webpage, retrieval result, or embedded instruction can alter the behaviour of the model in unintended ways.',
+      'This makes the issue more subtle: even a well-meaning employee can expose the system to risk if they treat external content as trustworthy just because it looks normal.',
+    ],
+  },
+  'main-prompt-risks': {
+    type: 'contentCards',
+    eyebrow: 'Input Side',
+    title: 'How prompt injection changes behaviour and access',
+    description:
+      'This page should help learners see that prompt injection is not a niche technical trick. It is a practical trust-boundary problem whenever models ingest external content.',
+    cards: [
+      {
+        eyebrow: 'Mechanism',
+        title: 'Indirect instructions hidden in content',
+        body:
+          'A retrieved webpage, uploaded PDF, or internal document can contain instructions that the model follows even though the human reader does not notice them. The employee thinks they are summarising content, but the model is also obeying it.',
+        bullets: [
+          'Hidden instructions in websites or files',
+          'Retrieved content that alters the model’s behaviour',
+          'Prompt design that is overruled by untrusted content',
+        ],
+      },
+      {
+        eyebrow: 'Consequence',
+        title: 'What can go wrong',
+        body:
+          'Once the model is influenced, it may reveal information, ignore guardrails, produce biased or manipulated answers, or trigger downstream actions that should never have happened automatically.',
+        bullets: [
+          'Disclosure of sensitive information',
+          'Manipulated summaries or recommendations',
+          'Unsafe actions in connected systems',
+        ],
+      },
+      {
+        eyebrow: 'Response',
+        title: 'What supervision looks like here',
+        body:
+          'The practical lesson is to treat external content as untrusted, separate it clearly, limit what the model can do with it, and avoid assuming that a system prompt will reliably override malicious instructions.',
+        bullets: [
+          'Separate trusted and untrusted content',
+          'Limit tool access and downstream actions',
+          'Require review for high-risk operations',
+        ],
+      },
+    ],
+  },
+  'main-prompt-footer': {
+    type: 'navigationFooter',
+    previousPageId: 'main-sensitive-disclosure',
+    nextPageId: 'main-misinformation',
+    caption: 'Section 5 of 12',
+    nextLabel: 'Go to Misinformation →',
+  },
+  'main-misinformation-header': {
+    type: 'pageHeader',
+    eyebrow: 'Section 6 · Misinformation and Hallucinations',
+    title: 'When confident output is still wrong',
+    description:
+      'This is the first output-side page. It focuses on false facts, unsupported claims, and plausible but unsafe code or recommendations.',
+  },
+  'main-misinformation-intro': {
+    type: 'moduleIntro',
+    paragraphs: [
+      'A major output-side risk is that the model sounds more certain than it deserves to. Learners need to recognise that polished language, structured reasoning, and specific figures do not guarantee correctness.',
+      'This is where many workplace failures begin: the output looks complete enough to use, so nobody stops to verify it before it enters a report, decision, or repository.',
+    ],
+  },
+  'main-misinformation-risks': {
+    type: 'contentCards',
+    eyebrow: 'Output Side',
+    title: 'Hallucinations, false confidence, and unsupported claims',
+    description:
+      'The emphasis here is on recognising unreliable output before it becomes business input.',
+    cards: [
+      {
+        eyebrow: 'Risk',
+        title: 'False facts and invented support',
+        body:
+          'The model can produce incorrect statistics, fabricated citations, or unsupported statements while sounding authoritative. That makes misinformation dangerous precisely because it often looks credible.',
+        bullets: [
+          'Incorrect business recommendations',
+          'Invented citations and statistics',
+          'Misrepresentation of expertise or certainty',
+        ],
+      },
+      {
+        eyebrow: 'Engineering',
+        title: 'Unsafe or misleading code output',
+        body:
+          'For technical work, misinformation also appears as plausible code that does not run, uses insecure patterns, or recommends libraries and dependencies that should not be trusted without review.',
+        bullets: [
+          'Bad code quality in the repository',
+          'Security vulnerabilities from unchecked snippets',
+          'False confidence because the code “looks right”',
+        ],
+      },
+      {
+        eyebrow: 'Practice',
+        title: 'What responsible verification looks like',
+        body:
+          'The didactic goal is to teach cross-checking, source verification, and explicit doubt when the output matters. A trustworthy workflow never treats the model as its own validator.',
+        bullets: [
+          'Verify against trusted sources',
+          'Check critical numbers independently',
+          'Treat AI output as draft material, not finished truth',
+        ],
+      },
+    ],
+  },
+  'main-misinformation-footer': {
+    type: 'navigationFooter',
+    previousPageId: 'main-prompt-injection',
+    nextPageId: 'main-output-handling',
+    caption: 'Section 6 of 12',
+    nextLabel: 'Go to Improper Output Handling →',
+  },
+  'main-output-header': {
+    type: 'pageHeader',
+    eyebrow: 'Section 7 · Improper Output Handling',
+    title: 'The risk grows when unchecked output moves downstream',
+    description:
+      'This page shifts from “the model was wrong” to “the system or user passed the wrong output forward without validation, sanitisation, or review.”',
+  },
+  'main-output-intro': {
+    type: 'moduleIntro',
+    paragraphs: [
+      'Improper output handling matters because a bad model answer becomes more dangerous when it is inserted into a report, workflow, codebase, or automated system without checks.',
+      'That means the learning focus here is procedural: what should happen between generation and use, and where validation or review routines should interrupt the flow.',
+    ],
+  },
+  'main-output-risks': {
+    type: 'contentCards',
+    eyebrow: 'Output Side',
+    title: 'What happens when output is passed on too quickly',
+    description:
+      'This page connects verification to concrete organisational controls and downstream consequences.',
+    cards: [
+      {
+        eyebrow: 'Mechanism',
+        title: 'Unchecked outputs enter real workflows',
+        body:
+          'An answer can be copied into a board report, pasted into a client message, committed into a repository, or sent into another system before anyone has validated it. At that point the damage is no longer just theoretical.',
+        bullets: [
+          'Outputs moving into decision-making without review',
+          'Code or text passed to downstream systems',
+          'Automation chains built on unvalidated output',
+        ],
+      },
+      {
+        eyebrow: 'Consequence',
+        title: 'Practical and legal consequences',
+        body:
+          'The consequences range from quality problems and security flaws to liability and compliance issues. Once the output has moved forward, accountability is still human even if the initial text came from a model.',
+        bullets: [
+          'Broken tools, insecure code, and operational mistakes',
+          'Misleading reports or recommendations',
+          'Liability when people act on bad output',
+        ],
+      },
+      {
+        eyebrow: 'Control',
+        title: 'Bounding consequences before release',
+        body:
+          'Good practice means validating output formats, checking critical content before reuse, and limiting blast radius when a model participates in a high-consequence process.',
+        bullets: [
+          'Human review before deployment or publication',
+          'Validation against expected structure or source data',
+          'Escalation when certainty is not high enough',
+        ],
+      },
+    ],
+  },
+  'main-output-footer': {
+    type: 'navigationFooter',
+    previousPageId: 'main-misinformation',
+    nextPageId: 'main-excessive-agency',
+    caption: 'Section 7 of 12',
+    nextLabel: 'Go to Human Oversight →',
+  },
+  'main-agency-header': {
+    type: 'pageHeader',
+    eyebrow: 'Section 8 · Excessive Agency and Human Oversight',
+    title: 'When the model should not act on its own',
+    description:
+      'This final output-side page focuses on responsibility, approvals, and the limits of automation when the consequences are meaningful.',
+  },
+  'main-agency-intro': {
+    type: 'moduleIntro',
+    paragraphs: [
+      'The core question here is not whether the model can assist. It is whether the model is being allowed to act, decide, or trigger consequences without sufficient human approval.',
+      'This page should leave learners with a strong sense that high-impact actions still need a clearly accountable human in the loop.',
+    ],
+  },
+  'main-agency-risks': {
+    type: 'contentCards',
+    eyebrow: 'Oversight',
+    title: 'Agency, approvals, and accountability',
+    description:
+      'This page ties the output-side risks back to supervision, workflow design, and professional responsibility.',
+    cards: [
+      {
+        eyebrow: 'Risk',
+        title: 'Excessive agency in connected systems',
+        body:
+          'Once an LLM can call functions, draft external communications, approve actions, or influence a consequential workflow, the risk is no longer just “bad advice.” It becomes unauthorised or poorly supervised action.',
+        bullets: [
+          'Functions or tools triggered too freely',
+          'Approvals skipped because the model seems helpful',
+          'High-impact operations without enough human review',
+        ],
+      },
+      {
+        eyebrow: 'Supervision',
+        title: 'Human approval as a real control',
+        body:
+          'Human-in-the-loop should be treated as an operational safeguard, not as a slogan. Approval points need to exist where the cost of being wrong is significant.',
+        bullets: [
+          'User approval for privileged operations',
+          'Explicit review steps before publication or execution',
+          'Clear separation between AI support and human decision',
+        ],
+      },
+      {
+        eyebrow: 'Responsibility',
+        title: 'Who remains accountable',
+        body:
+          'The page should end with the principle that using AI output or automation does not transfer accountability away from the employee, manager, or organisation that chose to rely on it.',
+        bullets: [
+          'Responsibility stays with the team using the system',
+          'Inaction is also a decision when warning signs exist',
+          'Good governance means designing approvals in advance',
+        ],
+      },
+    ],
+  },
+  'main-agency-footer': {
+    type: 'navigationFooter',
+    previousPageId: 'main-output-handling',
+    nextPageId: 'main-platform-choice',
+    caption: 'Section 8 of 12',
+    nextLabel: 'Go to Platform Choice →',
+  },
+  'main-platform-header': {
+    type: 'pageHeader',
+    eyebrow: 'Section 9 · Platform Choice',
+    title: 'Different tools create different governance choices',
+    description:
+      'This final main-part page compares major LLM platforms only after learners understand why platform differences matter in the first place.',
+  },
+  'main-platform-intro': {
+    type: 'moduleIntro',
+    paragraphs: [
+      'Platform choice comes at the end on purpose. Once learners understand the input and output risks, they are better positioned to compare tools without treating the section like a product ranking.',
+      'The goal is to ask the right governance questions about ChatGPT, Claude, Gemini, and local or internal deployments rather than memorising unstable feature claims.',
+    ],
+  },
   'main-platforms': {
     type: 'contentCards',
     eyebrow: 'Platform Choice',
@@ -864,129 +1270,23 @@ export const SEGMENTS = {
       },
     ],
   },
-  'main-simulation': {
-    type: 'contentCards',
-    eyebrow: 'Teaching Format',
-    title: 'Simulation and supervision ideas from the meeting',
-    description:
-      'The interactive pieces can be built around an employee still needing to finish the task, not just around catching them doing something wrong.',
-    cards: [
-      {
-        eyebrow: 'Simulation',
-        title: 'Employee interaction with an LLM',
-        body:
-          'Present the learner with input documents, a task description, a chatbot, and several prompts or upload choices. Each decision leads to the next prompt and a running measure of where leakage happened.',
-        bullets: [
-          'Which documents get uploaded',
-          'What prompt gets sent',
-          'How much data was leaked by the end of the scenario',
-        ],
-      },
-      {
-        eyebrow: 'Supervision',
-        title: 'Manager reviews a chain of employee actions',
-        body:
-          'A second mode can ask a manager to inspect an employee workflow and identify the moment where the process became unsafe, while still keeping the task objective in view.',
-        bullets: [
-          'Spot the first meaningful mistake',
-          'Explain what corrective intervention looks like',
-          'Balance productivity with safe process',
-        ],
-      },
-      {
-        eyebrow: 'Constraint',
-        title: 'Human in the loop',
-        body:
-          'The challenge is not to block all AI use. It is to preserve supervision while allowing the employee to actually complete the work.',
-      },
-    ],
-  },
-  'main-output-assurance': {
-    type: 'contentCards',
-    eyebrow: 'Output Side',
-    title: 'Security as output verification, not just system hardening',
-    description:
-      'The second half of the content can pivot to the outputs: hallucinations, insecure code, bad recommendations, and what happens when nobody checks them.',
-    cards: [
-      {
-        eyebrow: 'Risk',
-        title: 'LLM hallucinations and false confidence',
-        body:
-          'The learner should understand what can go wrong when an answer looks polished, sourced, or technical but is still fabricated or unsupported.',
-        bullets: [
-          'Incorrect business recommendations',
-          'Invented citations and statistics',
-          'Code that appears plausible but does not work',
-        ],
-      },
-      {
-        eyebrow: 'Practice',
-        title: 'Bounding the consequences of AI output',
-        body:
-          'Teach the idea of limiting blast radius: sandboxing code, checking claims before publication, and requiring review before high-consequence actions go live.',
-        bullets: [
-          'Human review before deployment',
-          'Verification against trusted sources',
-          'Clear escalation when uncertainty remains',
-        ],
-      },
-      {
-        eyebrow: 'Responsibility',
-        title: 'Who is accountable if the output is wrong?',
-        body:
-          'This is where legal and organisational responsibility become concrete. The model may produce the output, but people still decide to rely on it or ignore warning signs.',
-        bullets: [
-          'Human in the loop',
-          'Consequences of inaction',
-          'Why using AI output does not transfer responsibility away from the team',
-        ],
-      },
-    ],
-  },
-  'main-output-consequences': {
-    type: 'contentCards',
-    eyebrow: 'Consequences',
-    title: 'Practical and legal consequences of unsafe output use',
-    description:
-      'The meeting notes point to both compliance questions and concrete engineering consequences.',
-    cards: [
-      {
-        eyebrow: 'Legal',
-        title: 'Responsibility and liability',
-        body:
-          'The content can ask which employee, manager, or organisation remains responsible when AI-generated content is wrong and someone still acts on it.',
-      },
-      {
-        eyebrow: 'Practical',
-        title: 'Quality, reliability, and engineering risk',
-        body:
-          'Unchecked AI output can mean bad code quality in the repository, code that does not run, security vulnerabilities, and broken internal tools.',
-      },
-      {
-        eyebrow: 'Assessment Link',
-        title: 'Why the multiple-choice quiz still matters',
-        body:
-          'The quiz then becomes a compact way to test whether the learner can recognise risk on both the input side and the output side after seeing the richer examples.',
-      },
-    ],
-  },
   'main-conclusion': {
     type: 'moduleIntro',
     paragraphs: [
-      'The conclusion can reinforce one central message: responsible LLM use is not about banning tools. It is about governing inputs, choosing the right platform, and verifying outputs before consequences spread.',
+      'The conclusion can reinforce one central message: responsible LLM use is not about banning tools. It is about governing inputs, verifying outputs, and choosing tools with a clear understanding of where the data and decision risk sit.',
       'That sets up the post assessment naturally, because the learner has now moved through the exact concepts the second assessment is meant to test.',
     ],
   },
-  'main-footer': {
+  'main-platform-footer': {
     type: 'navigationFooter',
-    previousPageId: 'pre-assessment',
+    previousPageId: 'main-excessive-agency',
     nextPageId: 'post-assessment',
-    caption: 'Section 3 of 6',
+    caption: 'Section 9 of 12',
     nextLabel: 'Go to Post Assessment →',
   },
   'post-header': {
     type: 'pageHeader',
-    eyebrow: 'Section 4 · Post Assessment',
+    eyebrow: 'Section 10 · Post Assessment',
     title: 'Post assessment',
     description:
       'The post assessment is a direct copy of the pre assessment so later comparison remains clean and intentional.',
@@ -1011,14 +1311,14 @@ export const SEGMENTS = {
   },
   'post-footer': {
     type: 'navigationFooter',
-    previousPageId: 'main-part',
+    previousPageId: 'main-platform-choice',
     nextPageId: 'experience-feedback',
-    caption: 'Section 4 of 6',
+    caption: 'Section 10 of 12',
     nextLabel: 'Go to Feedback →',
   },
   'feedback-header': {
     type: 'pageHeader',
-    eyebrow: 'Section 5 · Experience Feedback',
+    eyebrow: 'Section 11 · Experience Feedback',
     title: 'Overall qualitative feedback',
     description:
       'After the post assessment, learners can now complete the Likert-scale feedback as a separate final step.',
@@ -1027,12 +1327,12 @@ export const SEGMENTS = {
     type: 'navigationFooter',
     previousPageId: 'post-assessment',
     action: 'submitPostFlow',
-    caption: 'Section 5 of 6',
+    caption: 'Section 11 of 12',
     nextLabel: 'Submit Assessment and Feedback',
   },
   'thanks-header': {
     type: 'pageHeader',
-    eyebrow: 'Section 6 · Completion',
+    eyebrow: 'Section 12 · Completion',
     title: 'Thank you',
     description:
       'Your post assessment and qualitative feedback have been submitted. Thank you for taking part in the experience.',
@@ -1056,7 +1356,7 @@ export const SEGMENTS = {
     type: 'navigationFooter',
     previousPageId: 'experience-feedback',
     action: 'resetAssessment',
-    caption: 'Section 6 of 6',
+    caption: 'Section 12 of 12',
     nextLabel: 'Return to Overview',
   },
 };

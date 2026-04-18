@@ -34,7 +34,7 @@ export function AssessmentSections({ segment, segmentId }) {
   const activeSection = sections[activeIndex];
   const totalItems = sections.reduce((sum, section) => sum + section.itemIds.length, 0);
   const totalAnswered = sections.reduce((sum, section) => sum + countAnswered(section.itemIds, answers), 0);
-  const overallProgress = totalItems ? Math.round((totalAnswered / totalItems) * 100) : 0;
+  const overallProgress = sections.length ? Math.round(((activeIndex + 1) / sections.length) * 100) : 0;
   const activeAnswered = countAnswered(activeSection.itemIds, answers);
   const stageLabel = segment.stage === 'post' ? 'Post assessment' : 'Pre assessment';
 
@@ -55,14 +55,14 @@ export function AssessmentSections({ segment, segmentId }) {
           <div>
             <p className="assessment-subprogress__label">{stageLabel} sub progress</p>
             <h2 className="assessment-subprogress__title">
-              {totalAnswered} of {totalItems} items answered
+              Part {activeIndex + 1} of {sections.length}
             </h2>
             <p className="assessment-subprogress__description">
               The assessment is split into four parts so learners can move through it in smaller units without losing their place.
             </p>
           </div>
           <p className="assessment-subprogress__summary">
-            Part {activeIndex + 1} of {sections.length}
+            {totalAnswered} of {totalItems} items answered
           </p>
         </div>
         <div

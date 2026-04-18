@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { SEGMENTS } from '../../data/assessmentContent.js';
 import { OverviewIntro } from '../assessment/OverviewIntro.jsx';
 import { CompetencyGrid } from '../assessment/CompetencyGrid.jsx';
@@ -8,6 +9,7 @@ import { ScenarioCard } from '../assessment/ScenarioCard.jsx';
 import { SegmentCallout } from '../common/SegmentCallout.jsx';
 import { NavigationFooter } from '../common/NavigationFooter.jsx';
 import { PageHeader } from '../common/PageHeader.jsx';
+import { SectionProgress } from '../common/SectionProgress.jsx';
 import { ContentCardSection } from '../common/ContentCardSection.jsx';
 import { LikertFeedbackSection } from '../common/LikertFeedbackSection.jsx';
 import { DomainBreakdown } from '../results/DomainBreakdown.jsx';
@@ -66,8 +68,11 @@ export function PageRenderer({ page }) {
   return (
     <main className={pageClassName}>
       <div className={page.id === 'results' ? 'page-column page-column--results' : 'page-column'}>
-        {page.segmentIds.map((segmentId) => (
-          <SegmentRenderer key={segmentId} segmentId={segmentId} />
+        {page.segmentIds.map((segmentId, index) => (
+          <Fragment key={segmentId}>
+            <SegmentRenderer segmentId={segmentId} />
+            {index === 0 ? <SectionProgress pageId={page.id} /> : null}
+          </Fragment>
         ))}
       </div>
     </main>

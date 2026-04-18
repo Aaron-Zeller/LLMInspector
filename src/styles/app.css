@@ -99,6 +99,15 @@ button:disabled {
 .nav-steps {
   display: flex;
   align-items: center;
+  gap: 0;
+  margin-left: 24px;
+  max-width: min(68vw, 980px);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-steps::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-step {
@@ -153,19 +162,6 @@ button:disabled {
 
 .nav-step.completed .step-num {
   background: rgba(255, 255, 255, 0.15);
-}
-
-.progress-strip {
-  height: 3px;
-  background: var(--border);
-}
-
-.progress-fill {
-  display: block;
-  height: 100%;
-  background: linear-gradient(90deg, var(--navy-mid), var(--gold));
-  transition: width 0.5s ease;
-  width: 0;
 }
 
 .page-shell {
@@ -356,6 +352,43 @@ button:disabled {
 
 .page-header {
   margin-bottom: 8px;
+}
+
+.section-progress {
+  margin-bottom: 18px;
+}
+
+.section-progress__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.section-progress__label,
+.section-progress__count {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.section-progress__track {
+  height: 6px;
+  border-radius: 999px;
+  background: #efe4c5;
+  overflow: hidden;
+}
+
+.section-progress__fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: var(--gold);
+  transition: width 0.35s ease;
 }
 
 .section-eyebrow {
@@ -768,9 +801,9 @@ button:disabled {
 }
 
 .assessment-subprogress__track {
-  height: 8px;
+  height: 6px;
   border-radius: 999px;
-  background: var(--surface);
+  background: #efe4c5;
   overflow: hidden;
 }
 
@@ -778,7 +811,7 @@ button:disabled {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--navy), var(--gold));
+  background: var(--gold);
 }
 
 .assessment-subprogress__steps {
@@ -1714,12 +1747,14 @@ button:disabled {
 
   .assessment-subprogress__header,
   .assessment-group__header,
-  .assessment-group__footer {
+  .assessment-group__footer,
+  .section-progress__meta {
     flex-direction: column;
   }
 
   .assessment-subprogress__summary,
-  .assessment-group__count {
+  .assessment-group__count,
+  .section-progress__count {
     text-align: left;
   }
 
