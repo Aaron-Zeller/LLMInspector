@@ -12,6 +12,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = Number(process.env.PORT || 3001);
+const HOST = process.env.HOST || '0.0.0.0';
 const databaseUrl = process.env.DATABASE_URL;
 const pool = createDatabasePool(databaseUrl);
 
@@ -205,8 +206,8 @@ async function startServer() {
     }
   }
 
-  app.listen(PORT, () => {
-    console.log(`COLORCODE API running on port ${PORT}`);
+  app.listen(PORT, HOST, () => {
+    console.log(`COLORCODE API running on http://${HOST}:${PORT}`);
   });
 }
 
