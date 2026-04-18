@@ -2,6 +2,8 @@
 
 COLORCODE is a scenario-based AI literacy assessment for business professionals. The app now uses a modular React frontend, Zustand stores for assessment state and developer tooling, and an Express backend that can initialise and write to Render Postgres automatically.
 
+Live site: [https://colorcode-ypsp.onrender.com](https://colorcode-ypsp.onrender.com)
+
 ## Architecture
 
 The project is split into a few clear layers:
