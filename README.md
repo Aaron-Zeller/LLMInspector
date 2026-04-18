@@ -95,7 +95,20 @@ The frontend submits only the answer map. The backend recomputes totals and doma
 
 If you use ChatGPT, Claude, Codex, Cursor, or another AI coding tool on this repo, treat the current codebase as the source of truth. This project already went through a major refactor, and a few important design and structure choices are intentional.
 
-Step 1: In a separate window unrelated to the current project, add Uncodixfy as a skill.
+Step 1: In a separate window unrelated to the current project, first set up `Uncodixfy` so the AI tool does not drift into generic frontend styling.
+
+Use a prompt like this in that separate session:
+
+```text
+I want to use Uncodixfy as a skill for frontend work.
+
+Please help me install or load the skill from:
+https://github.com/cyxzdev/Uncodixfy
+
+If installation is required, walk me through the exact steps for my AI tool.
+If the skill can be added directly, add it and confirm that it is available for future frontend prompts.
+After setup, briefly explain how I should reference or invoke the skill when I start working on a project.
+```
 
 ### Starter Prompt
 
