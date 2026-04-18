@@ -1,89 +1,213 @@
-/* ============================================================
-   COLORCODE — server.js
-   Node.js / Express backend for assessment result storage.
+import 'dotenv/config';
+import { existsSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import cors from 'cors';
+import express from 'express';
+import { summarizeStageResults } from './src/lib/assessment.js';
+import { createDatabasePool, initializeDatabase } from './src/server/database.js';
 
-   Requires environment variables (see .env.example):
-     DATABASE_URL  — Render PostgreSQL Internal Database URL
-     PORT          — defaults to 3001
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-   Run locally:
-     npm install
-     cp .env.example .env   # fill in your DATABASE_URL
-     npm run dev
-   ============================================================ */
+const app = express();
+const PORT = Number(process.env.PORT || 3001);
+const databaseUrl = process.env.DATABASE_URL;
+const pool = createDatabasePool(databaseUrl);
 
-require('dotenv').config();
-const express = require('express');
-const cors    = require('cors');
-const { Pool } = require('pg');
+app.use(cors());
+app.use(express.json());
 
-const app  = express();
-const PORT = process.env.PORT || 3001;
+function isUuid(value) {
+  return typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+}
 
-/* ── Database connection ─────────────────────────────────────
-   Uses the DATABASE_URL env var set on Render.
-   ssl: rejectUnauthorized: false is required for Render's
-   managed PostgreSQL instances.
-   ──────────────────────────────────────────────────────────── */
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
-});
-
-/* ── Middleware ──────────────────────────────────────────────*/
-app.use(cors());                    // allow requests from the frontend origin
-app.use(express.json());            // parse JSON request bodies
-app.use(express.static('.'));       // serve index.html + css/js files from root
-
-/* ── Health check ────────────────────────────────────────────
-   GET /api/health
-   Useful for Render's health-check ping and local smoke tests.
-   ──────────────────────────────────────────────────────────── */
-app.get('/api/health', (_req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
-});
-
-/* ── Submit assessment result ────────────────────────────────
-   POST /api/submit
-   Body: { total, domain1, domain2, domain3, grade, answers }
-   Inserts one row into the `responses` table and returns the
-   new row's id.
-   ──────────────────────────────────────────────────────────── */
-app.post('/api/submit', async (req, res) => {
-  const { total, domain1, domain2, domain3, grade, answers } = req.body;
-
-  // Basic input validation — reject obviously malformed payloads
-  if (
-    typeof total   !== 'number' ||
-    typeof domain1 !== 'number' ||
-    typeof domain2 !== 'number' ||
-    typeof domain3 !== 'number' ||
-    typeof grade   !== 'string'
-  ) {
-    return res.status(400).json({ error: 'Invalid payload' });
+app.get('/api/health', async (_req, res) => {
+  if (!pool) {
+    res.json({
+      status: 'ok',
+      database: 'not-configured',
+      timestamp: new Date().toISOString(),
+    });
+    return;
   }
 
   try {
-    const result = await pool.query(
-      `INSERT INTO responses
-         (total_score, domain_1_score, domain_2_score, domain_3_score, grade, answers)
-       VALUES ($1, $2, $3, $4, $5, $6)
-       RETURNING id, submitted_at`,
-      [total, domain1, domain2, domain3, grade, JSON.stringify(answers)]
+    await pool.query('SELECT 1');
+    res.json({
+      status: 'ok',
+      database: 'connected',
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    res.status(503).json({
+      status: 'degraded',
+      database: 'unavailable',
+      error: error.message,
+      timestamp: new Date().toISOString(),
+    });
+  }
+});
+
+app.post('/api/assessment-submissions', async (req, res) => {
+  const sessionId = req.body?.sessionId;
+  const assessmentStage = req.body?.assessmentStage;
+
+  if (!isUuid(sessionId)) {
+    res.status(400).json({ error: 'A valid anonymous session ID is required.' });
+    return;
+  }
+
+  if (!['pre', 'post'].includes(assessmentStage)) {
+    res.status(400).json({ error: 'Assessment stage must be `pre` or `post`.' });
+    return;
+  }
+
+  if (!pool) {
+    res.status(503).json({ error: 'Database is not configured.' });
+    return;
+  }
+
+  const summary = summarizeStageResults(assessmentStage, req.body?.answers);
+
+  try {
+    const queryResult = await pool.query(
+      `INSERT INTO assessment_submissions (
+        session_id,
+        assessment_stage,
+        question_results,
+        answered_count,
+        correct_count,
+        total_questions,
+        app_version
+      )
+      VALUES ($1::uuid, $2, $3::jsonb, $4, $5, $6, $7)
+      ON CONFLICT (session_id, assessment_stage)
+      DO UPDATE SET
+        question_results = EXCLUDED.question_results,
+        answered_count = EXCLUDED.answered_count,
+        correct_count = EXCLUDED.correct_count,
+        total_questions = EXCLUDED.total_questions,
+        app_version = EXCLUDED.app_version,
+        submitted_at = NOW()
+      RETURNING id, submitted_at`,
+      [
+        sessionId,
+        assessmentStage,
+        JSON.stringify(summary.questionResults),
+        summary.answeredCount,
+        summary.correctCount,
+        summary.totalQuestions,
+        'v3',
+      ],
     );
 
     res.status(201).json({
       success: true,
-      id: result.rows[0].id,
-      submitted_at: result.rows[0].submitted_at,
+      id: queryResult.rows[0].id,
+      submittedAt: queryResult.rows[0].submitted_at,
+      assessmentStage,
+      answeredCount: summary.answeredCount,
     });
-  } catch (err) {
-    console.error('DB insert error:', err.message);
-    res.status(500).json({ error: 'Database error' });
+  } catch (error) {
+    console.error('Assessment submission failed:', error);
+    res.status(500).json({ error: 'Unable to store the assessment submission.' });
   }
 });
 
-/* ── Start server ────────────────────────────────────────────*/
-app.listen(PORT, () => {
-  console.log(`COLORCODE API running on port ${PORT}`);
+app.post('/api/experience-feedback', async (req, res) => {
+  const sessionId = req.body?.sessionId;
+  const responses = req.body?.responses;
+  const comment = typeof req.body?.comment === 'string' ? req.body.comment.trim() : '';
+
+  if (!isUuid(sessionId)) {
+    res.status(400).json({ error: 'A valid anonymous session ID is required.' });
+    return;
+  }
+
+  if (!responses || typeof responses !== 'object' || Array.isArray(responses)) {
+    res.status(400).json({ error: 'Feedback responses are required.' });
+    return;
+  }
+
+  const normalizedResponses = Object.entries(responses).reduce((accumulator, [questionId, value]) => {
+    if (Number.isInteger(value) && value >= 1 && value <= 5) {
+      accumulator[questionId] = value;
+    }
+    return accumulator;
+  }, {});
+
+  if (Object.keys(normalizedResponses).length !== 5) {
+    res.status(400).json({ error: 'All five Likert feedback responses are required.' });
+    return;
+  }
+
+  if (!pool) {
+    res.status(503).json({ error: 'Database is not configured.' });
+    return;
+  }
+
+  try {
+    const queryResult = await pool.query(
+      `INSERT INTO experience_feedback (
+        session_id,
+        responses,
+        comment,
+        app_version
+      )
+      VALUES ($1::uuid, $2::jsonb, $3, $4)
+      ON CONFLICT (session_id)
+      DO UPDATE SET
+        responses = EXCLUDED.responses,
+        comment = EXCLUDED.comment,
+        app_version = EXCLUDED.app_version,
+        submitted_at = NOW()
+      RETURNING id, submitted_at`,
+      [
+        sessionId,
+        JSON.stringify(normalizedResponses),
+        comment || null,
+        'v3',
+      ],
+    );
+
+    res.status(201).json({
+      success: true,
+      id: queryResult.rows[0].id,
+      submittedAt: queryResult.rows[0].submitted_at,
+    });
+  } catch (error) {
+    console.error('Feedback submission failed:', error);
+    res.status(500).json({ error: 'Unable to store the experience feedback.' });
+  }
 });
+
+const distDirectory = path.join(__dirname, 'dist');
+const distIndex = path.join(distDirectory, 'index.html');
+
+if (existsSync(distIndex)) {
+  app.use(express.static(distDirectory));
+  app.get(/^(?!\/api).*/, (_req, res) => {
+    res.sendFile(distIndex);
+  });
+} else {
+  app.get('/', (_req, res) => {
+    res.type('text/plain').send('Frontend build not found. Run `npm run dev` or `npm run build`.');
+  });
+}
+
+async function startServer() {
+  if (pool) {
+    try {
+      await initializeDatabase(pool);
+    } catch (error) {
+      console.error('Database initialisation failed:', error);
+    }
+  }
+
+  app.listen(PORT, () => {
+    console.log(`COLORCODE API running on port ${PORT}`);
+  });
+}
+
+void startServer();

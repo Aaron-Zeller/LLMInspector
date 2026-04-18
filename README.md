@@ -1,111 +1,92 @@
-# COLORCODE — AI Literacy Assessment Tool
+# COLORCODE
 
-A scenario-based AI literacy assessment for business professionals, developed for the ETH Zurich AI Literacy Initiative. It measures three competency domains: Critical Evaluation, Data Privacy, and Appropriate Delegation.
+COLORCODE is a scenario-based AI literacy assessment for business professionals. The app now uses a modular React frontend, Zustand stores for assessment state and developer tooling, and an Express backend that can initialise and write to Render Postgres automatically.
 
----
+## Architecture
 
-## Project Overview
+The project is split into a few clear layers:
 
-| File / Folder | Purpose |
-|---|---|
-| `index.html` | Main frontend — all pages and quiz content |
-| `css/style.css` | All styles and design tokens |
-| `js/script.js` | Assessment logic: navigation, scoring, results |
-| `js/database.js` | Frontend API helper — posts results to the backend |
-| `server.js` | Node.js/Express backend — receives results and writes to PostgreSQL |
-| `schema.sql` | PostgreSQL table definition — run once to set up the database |
-| `package.json` | Node dependencies |
-| `.env.example` | Template for environment variables |
+- `src/data/assessmentContent.js`: shared assessment content, page order, segment registry, and item definitions
+- `src/lib/assessment.js`: shared scoring and answer sanitisation used by both frontend and backend
+- `src/store/`: Zustand stores for the assessment flow and the developer segment overlay
+- `src/components/`: modular UI pieces for pages, questions, scenarios, results, and developer helpers
+- `src/styles/app.css`: the global interface styles
+- `server.js` and `src/server/database.js`: API routes, schema bootstrap, and static asset serving for production
 
----
+Two structural choices matter for maintainability:
 
-## Running Locally (Frontend Only)
+1. Page composition is data-driven.
+   Reordering a section is usually just a matter of moving segment IDs inside `PAGE_SEQUENCE`.
+2. Every major UI container is wrapped in a segment component.
+   In development, segment IDs can be shown as overlays so teammates can refer to exact parts of the UI quickly.
 
-No backend needed to view and test the assessment UI.
+## Local Development
 
-**Option A — VS Code Live Server**
-1. Install the [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
-2. Right-click `index.html` → **Open with Live Server**.
+Install dependencies:
 
-**Option B — Python**
 ```bash
-python -m http.server 8080
-# then open http://localhost:8080
+npm install
 ```
 
-**Option C — Node**
+Create a local environment file:
+
 ```bash
-npx serve .
+cp .env.example .env
 ```
 
-> Result submission will fail silently (logged to the browser console) if the backend is not running — the assessment itself works fully offline.
+Then start both processes:
 
----
+```bash
+npm run dev
+```
 
-## Running Locally (With Backend)
+That gives you:
 
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
+- frontend on `http://localhost:3002`
+- API on `http://localhost:3001`
 
-2. **Set up environment variables**
-   ```bash
-   cp .env.example .env
-   ```
-   Open `.env` and paste your Render **External Database URL** as `DATABASE_URL`.
+The Vite dev server proxies `/api` to the backend automatically.
 
-3. **Create the database table** (first time only)
-   ```bash
-   psql "$DATABASE_URL" -f schema.sql
-   ```
+## Production Build
 
-4. **Start the dev server**
-   ```bash
-   npm run dev
-   # API available at http://localhost:3001
-   # Frontend served at http://localhost:3001/index.html
-   ```
+Build the frontend bundle:
 
----
+```bash
+npm run build
+```
 
-## Database Setup (for the Render teammate)
+Then run the Node server:
 
-1. Log in to [render.com](https://render.com) and open your PostgreSQL instance.
-2. Copy the **Internal Database URL** (use this in production) or **External Database URL** (use this for local dev).
-3. Add it as `DATABASE_URL` in your `.env` file and in the Render Web Service's **Environment Variables** panel.
-4. Run `schema.sql` once via the Render Shell tab or `psql`.
+```bash
+npm start
+```
 
-> **Security rule:** Never hardcode `DATABASE_URL` in any JavaScript file. Always use `.env` locally and Render's Environment Variables in production. The `.env` file is in `.gitignore` and must never be committed.
+In production, Express serves the built frontend from `dist/` and exposes the API from the same service.
 
----
+## Render Setup
 
-## Deploying to Render
+This repo includes a `render.yaml` blueprint that provisions:
 
-1. Push the repository to GitHub.
-2. In Render, create a new **Web Service** → connect your repo.
-3. Set:
-   - **Build Command:** `npm install`
-   - **Start Command:** `node server.js`
-4. Add the `DATABASE_URL` environment variable (Internal URL).
-5. Render assigns `PORT` automatically — `server.js` reads it from `process.env.PORT`.
+- one Node web service
+- one Render Postgres database
 
----
+The web service receives `DATABASE_URL` from the Render database connection string and builds the frontend during deployment. On startup, the backend reads `schema.sql` and ensures the database schema exists.
 
-## Contribution Guide
+Render notes:
 
-**Adding new questions**
-- HTML: add a `.quiz-card` block in the relevant `<div class="page">` in `index.html`.
-- Scoring: add an entry to the `SCORING` object in `js/script.js`.
-- Feedback: add matching `c` (correct) and `w` (wrong) entries to the `FEEDBACK` object.
+- use the internal Postgres connection string in production
+- set `VITE_SHOW_SEGMENT_IDS=false` in production builds
+- keep `PORT` unmanaged on Render unless you need a custom local override
 
-**Adding CSS**
-- Add new rules to `css/style.css`.
-- Use the CSS custom properties (`--navy`, `--gold`, etc.) defined in `:root` for colours — do not hardcode hex values.
+## Developer Segment Overlay
 
-**Adding JS utilities**
-- Self-contained helpers that are not specific to the assessment logic belong in a new file under `js/` (e.g. `js/analytics.js`), loaded via a `<script>` tag before `js/script.js` in `index.html`.
+The interface includes a global segment overlay system for development. By default:
 
-**Adding API endpoints**
-- New routes go in `server.js` following the existing pattern (`app.get` / `app.post`).
-- Keep route handlers thin — extract any non-trivial DB logic into a separate function.
+- local development shows segment IDs
+- production builds hide them
+
+You can change the default with `VITE_SHOW_SEGMENT_IDS`, and the in-browser toggle persists locally through Zustand.
+
+## Data and Submission Flow
+
+The frontend submits only the answer map. The backend recomputes totals and domain scores from the shared scoring rules before writing to Postgres. That keeps the stored results aligned with the canonical assessment logic.

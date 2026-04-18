@@ -1,0 +1,23 @@
+services:
+  - name: colorcode-app
+    type: web
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: colorcode-db
+          property: connectionString
+      - key: VITE_SHOW_SEGMENT_IDS
+        value: "false"
+
+databases:
+  - name: colorcode-db
+    plan: free
+    region: frankfurt

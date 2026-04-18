@@ -1,26 +1,32 @@
 -- ============================================================
 -- COLORCODE — schema.sql
--- Run this once in your Render PostgreSQL database to create
--- the responses table.
---
--- How to run:
---   1. Open your Render dashboard → PostgreSQL instance → Shell
---   2. Paste and execute the statements below.
---   Or use psql locally:
---   psql "$DATABASE_URL" -f schema.sql
 -- ============================================================
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
-CREATE TABLE IF NOT EXISTS responses (
-  id             SERIAL PRIMARY KEY,
-  session_id     UUID DEFAULT gen_random_uuid(),   -- anonymous session identifier
-  total_score    INTEGER NOT NULL,                  -- 0–100
-  domain_1_score INTEGER NOT NULL,                  -- Critical Evaluation, 0–35
-  domain_2_score INTEGER NOT NULL,                  -- Data Privacy, 0–35
-  domain_3_score INTEGER NOT NULL,                  -- Appropriate Delegation, 0–30
-  grade          VARCHAR(20) NOT NULL,              -- Foundational / Developing / Proficient / Distinguished
-  answers        JSONB,                             -- raw answer map { qid: boolean }
-  submitted_at   TIMESTAMPTZ DEFAULT NOW()
+CREATE TABLE IF NOT EXISTS assessment_submissions (
+  id               SERIAL PRIMARY KEY,
+  session_id       UUID NOT NULL,
+  assessment_stage VARCHAR(10) NOT NULL CHECK (assessment_stage IN ('pre', 'post')),
+  question_results JSONB NOT NULL,
+  answered_count   INTEGER NOT NULL CHECK (answered_count BETWEEN 0 AND 13),
+  correct_count    INTEGER NOT NULL CHECK (correct_count BETWEEN 0 AND 13),
+  total_questions  INTEGER NOT NULL CHECK (total_questions = 13),
+  app_version      VARCHAR(12) NOT NULL DEFAULT 'v3',
+  submitted_at     TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  UNIQUE (session_id, assessment_stage)
 );
 
--- Index for time-series queries (e.g. "responses this month")
-CREATE INDEX IF NOT EXISTS idx_responses_submitted_at ON responses (submitted_at);
+CREATE TABLE IF NOT EXISTS experience_feedback (
+  id           SERIAL PRIMARY KEY,
+  session_id   UUID NOT NULL UNIQUE,
+  responses    JSONB NOT NULL,
+  comment      TEXT,
+  app_version  VARCHAR(12) NOT NULL DEFAULT 'v3',
+  submitted_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_assessment_submissions_submitted_at
+  ON assessment_submissions (submitted_at);
+
+CREATE INDEX IF NOT EXISTS idx_experience_feedback_submitted_at
+  ON experience_feedback (submitted_at);
