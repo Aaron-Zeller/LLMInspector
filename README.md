@@ -95,6 +95,8 @@ The frontend submits only the answer map. The backend recomputes totals and doma
 
 If you use ChatGPT, Claude, Codex, Cursor, or another AI coding tool on this repo, treat the current codebase as the source of truth. This project already went through a major refactor, and a few important design and structure choices are intentional.
 
+Step 1: In a separate window unrelated to the current project, add Uncodixfy as a skill.
+
 ### Starter Prompt
 
 Use this as a starting prompt before asking an AI tool to change the code:
@@ -109,11 +111,21 @@ Important project rules:
 - Do not replace the current UI with a generic AI-looking interface.
 - Keep the current COLORCODE visual language, spacing, typography, and section pacing.
 - Use the existing modular structure in src/components, src/store, src/data, and src/lib.
+- Keep the frontend modular instead of reintroducing a monolithic page.
+- Use Zustand for shared state where shared flow state is needed.
+- Treat src/data/assessmentContent.js as the central content registry.
 - Keep assessment flow and content structure intact unless asked otherwise.
 - Respect the current developer segment overlay system.
+- Preserve the current learner flow:
+  Overview -> Pre Assessment -> Main Part -> Post Assessment -> Feedback -> Thank You
 - Keep pre and post assessments structurally aligned unless a change explicitly requires divergence.
+- Keep the assessment split into four internal parts with sub-progress:
+  Baseline Knowledge Check, Identifying Unreliable AI Outputs, Safe Data Practices with AI Tools, and Real-World Decision Making
+- Do not remove section intros, privacy/GDPR framing, simulation warning blocks, or other contextual assessment framing that exists on purpose.
 - Keep the feedback page after the post assessment and the thank-you page after submission.
 - Preserve anonymised database submissions for pre assessment, post assessment, and experience feedback.
+- Do not remove anonymisation or start storing raw identifiable user data.
+- Keep Render compatibility intact, including render.yaml, Express static serving, and schema bootstrapping.
 - If you make frontend changes, use Uncodixfy as guidance: https://github.com/cyxzdev/Uncodixfy
 
 Before editing:
