@@ -95,7 +95,7 @@ The frontend submits only the answer map. The backend recomputes totals and doma
 
 If you use ChatGPT, Claude, Codex, Cursor, or another AI coding tool on this repo, treat the current codebase as the source of truth. This project already went through a major refactor, and a few important design and structure choices are intentional.
 
-Step 1: In a separate window unrelated to the current project, first set up `Uncodixfy` so the AI tool does not drift into generic frontend styling.
+**Important:** In a separate window unrelated to the current project, first set up `Uncodixfy` so the AI tool does not drift into generic frontend styling.
 
 Use a prompt like this in that separate session:
 
@@ -108,6 +108,12 @@ https://github.com/cyxzdev/Uncodixfy
 If installation is required, walk me through the exact steps for my AI tool.
 If the skill can be added directly, add it and confirm that it is available for future frontend prompts.
 After setup, briefly explain how I should reference or invoke the skill when I start working on a project.
+```
+
+Minimal prompt for this step:
+
+```text
+Help me install or load Uncodixfy from https://github.com/cyxzdev/Uncodixfy and confirm how I should invoke it in future frontend prompts.
 ```
 
 ### Starter Prompt
@@ -159,6 +165,28 @@ When implementing:
 After implementing:
 - Build the project and check for regressions
 - Summarise exactly what changed and what was intentionally preserved
+```
+
+### Minimal Prompts By Step
+
+If you do not want to paste the full starter prompt every time, use these shorter prompts for the specific step you are on.
+
+Review the codebase first:
+
+```text
+Read README.md, src/data/assessmentContent.js, src/store/useAssessmentStore.js, src/components/layout/PageRenderer.jsx, src/components/assessment/AssessmentSections.jsx, src/styles/app.css, and if relevant server.js plus src/server/database.js. Summarise the current structure, flow, and constraints before making changes.
+```
+
+Implement a change safely:
+
+```text
+Implement the requested change without redesigning the site. Preserve the current COLORCODE style, modular React/Zustand architecture, assessment flow, sub-progress structure, developer overlay, anonymised submission flow, and Render compatibility. Reuse existing components where possible and do not remove contextual section framing.
+```
+
+Verify after implementation:
+
+```text
+Build the project, check for regressions, and summarise what changed, what was intentionally preserved, and any remaining risks or follow-up items.
 ```
 
 ### Project-Specific Guardrails
