@@ -47,6 +47,12 @@ That gives you:
 
 The Vite dev server proxies `/api` to the backend automatically.
 
+Minimal prompt for this step:
+
+```text
+Set up this project for local development. Install dependencies, create the local environment file if needed, start the development servers, and tell me which URLs to use for the frontend and API.
+```
+
 ## Production Build
 
 Build the frontend bundle:
@@ -62,6 +68,12 @@ npm start
 ```
 
 In production, Express serves the built frontend from `dist/` and exposes the API from the same service.
+
+Minimal prompt for this step:
+
+```text
+Build this project for production, start the production server, and confirm how the built frontend and API are being served.
+```
 
 ## Render Setup
 
@@ -169,7 +181,7 @@ After implementing:
 
 ### Minimal Prompts By Step
 
-If you do not want to paste the full starter prompt every time, use these shorter prompts for the specific step you are on.
+If you notice that your AI tool starts drifting away from the starter prompt or violating its constraints, add one of these shorter prompts to your current prompt to correct the issue for the specific step you are on.
 
 Review the codebase first:
 
