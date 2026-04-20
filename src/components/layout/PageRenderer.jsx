@@ -6,6 +6,10 @@ import { ModuleIntro } from '../assessment/ModuleIntro.jsx';
 import { AssessmentSections } from '../assessment/AssessmentSections.jsx';
 import { QuestionCard } from '../assessment/QuestionCard.jsx';
 import { ScenarioCard } from '../assessment/ScenarioCard.jsx';
+import { SpotHallucination } from '../assessment/SpotHallucination.jsx';
+import { SourceVerification } from '../assessment/SourceVerification.jsx';
+import { ApproveOrEscalate } from '../assessment/ApproveOrEscalate.jsx';
+import { SystemTuning } from '../assessment/SystemTuning.jsx';
 import { SegmentCallout } from '../common/SegmentCallout.jsx';
 import { NavigationFooter } from '../common/NavigationFooter.jsx';
 import { PageHeader } from '../common/PageHeader.jsx';
@@ -27,6 +31,10 @@ const segmentRenderers = {
   contentCards: ContentCardSection,
   likertFeedback: LikertFeedbackSection,
   navigationFooter: NavigationFooter,
+  spotHallucination: SpotHallucination,
+  sourceVerification: SourceVerification,
+  approveOrEscalate: ApproveOrEscalate,
+  systemTuning: SystemTuning,
   resultsSummary: ResultsSummary,
   resultsBreakdown: DomainBreakdown,
   resultsRecommendations: RecommendationList,
