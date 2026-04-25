@@ -640,7 +640,9 @@ export const PAGE_SEQUENCE = [
     segmentIds: [
       'main-sensitive-header',
       'main-sensitive-intro',
+      'main-sensitive-input-types',
       'main-sensitive-risks',
+      'main-sensitive-lab',
       'main-sensitive-footer',
     ],
   },
@@ -917,58 +919,129 @@ export const SEGMENTS = {
   'main-sensitive-header': {
     type: 'pageHeader',
     eyebrow: 'Section 4 · Sensitive Information Disclosure',
-    title: 'What should never be pasted or uploaded casually',
+    title: 'What enters an LLM — and how it leaks out',
     description:
-      'This page introduces the most immediate input-side risk: employees sharing internal or personal data with an LLM before deciding whether the tool and the data are appropriate.',
+      'Sensitive data reaches AI tools through multiple input channels. This section explains the difference between an AI data breach and an AI data leak, maps what employees actually send to LLMs, and shows how leakage occurs — often without any malicious actor involved.',
   },
   'main-sensitive-intro': {
     type: 'moduleIntro',
     paragraphs: [
-      'Sensitive information disclosure is often the first mistake because it feels productive in the moment. A spreadsheet, board deck, customer email, or product draft gets pasted into a model because the employee wants a faster answer.',
-      'The learning goal here is not only to say “do not upload sensitive data.” It is to teach how to reduce, transform, aggregate, or withhold information while still completing the task.',
+      'An AI data breach involves a malicious actor extracting information from a system. An AI data leak is different: it is involuntary. Confidential data enters an AI tool through a user prompt — a pasted email, an uploaded spreadsheet, a typed financial figure — and the employee often does not realise the exposure until it is too late. Most workplace incidents are leaks, not breaches.',
+      'The platform tier compounds the risk. Content sent through a personal account receives weaker protection than content sent through an enterprise agreement. On the standard ChatGPT tier, conversations are stored by default, metadata is logged, and deletion is opt-in rather than automatic. Many employees cannot tell which tier they are using, or what that means for the data they are sharing.',
+    ],
+  },
+  'main-sensitive-input-types': {
+    type: 'contentCards',
+    eyebrow: 'Input Channels',
+    title: 'What employees send to an LLM',
+    description:
+      'AI tools accept input through several channels. Each creates a different exposure surface — and not all employees recognise which channel they are using or what it costs.',
+    cards: [
+      {
+        eyebrow: 'Direct input',
+        title: 'Text prompts and pasted content',
+        body:
+          'Employees type queries, instructions, and questions directly into chat interfaces. They also paste content — meeting notes, emails, code snippets, client communications — often without removing names, figures, or internal references first. This is the most common leakage pathway.',
+        bullets: [
+          'Names, job titles, and salary figures pasted from HR documents',
+          'Financial projections and board materials copied from internal dashboards',
+          'Client names and deal terms taken directly from CRM notes or emails',
+        ],
+      },
+      {
+        eyebrow: 'Indirect input',
+        title: 'File uploads',
+        body:
+          'Most major LLM platforms accept file uploads. A PDF, spreadsheet, or image may contain structured personal data, embedded metadata, version history, or internal comments that the employee did not intend to share alongside the document.',
+        bullets: [
+          'Spreadsheets with employee records, salary bands, or financial models',
+          'PDFs with tracked changes, internal author metadata, or revision history',
+          'Screenshots of internal systems, dashboards, or confidential slides',
+        ],
+      },
+      {
+        eyebrow: 'Extended access',
+        title: 'Connected integrations and plugins',
+        body:
+          'Enterprise AI tools increasingly connect to calendars, email, CRM systems, and file stores. Once connected, the model can read and act on data across those systems — often more broadly than the employee expects when they first enable the integration.',
+        bullets: [
+          'Calendar and email content surfaced automatically in conversation context',
+          'CRM and project records retrieved through plugin or tool-use access',
+          'Downstream system actions triggered by the model on behalf of the user',
+        ],
+      },
+      {
+        eyebrow: 'Platform tier',
+        title: 'Personal account vs enterprise agreement',
+        body:
+          'ChatGPT\'s standard tier stores conversation content by default, logs metadata, and makes deletion opt-in rather than automatic. Enterprise agreements typically include data processing agreements, opt-out from model training, and admin controls. The same prompt carries different risk depending on which tier handles it.',
+        bullets: [
+          'Standard accounts: content stored by default, metadata logged, deletion is opt-in',
+          'Enterprise accounts: DPA in place, training opt-out available, admin controls active',
+          'Employees often cannot tell which tier they are using during a given session',
+        ],
+      },
     ],
   },
   'main-sensitive-risks': {
     type: 'contentCards',
-    eyebrow: 'Input Side',
-    title: 'The legal and practical consequences of unsafe input',
+    eyebrow: 'Leakage Mechanisms',
+    title: 'Four ways sensitive data leaks through AI tools',
     description:
-      'This section can explicitly connect data handling choices to both legal and practical consequences.',
+      'Research from Cyberhaven documents four distinct leakage pathways. Employees who understand each mechanism can make better decisions before they input data — rather than discovering the exposure after the fact.',
     cards: [
       {
-        eyebrow: 'Legal',
-        title: 'Consequences of unsafe input',
+        eyebrow: 'Pathway 1',
+        title: 'Training data leakage',
         body:
-          'The legal story is not just “privacy matters.” It is about lawful processing, contractual obligations, sector rules, and the practical meaning of frameworks such as the EU AI Act and data protection law.',
+          'When AI models are trained on datasets that include sensitive content, they can later reproduce that material verbatim. A model trained on medical records or proprietary documents may surface patient data or confidential text when users query related topics — even long after the original training run.',
         bullets: [
-          'Which kinds of internal data are especially sensitive',
-          'How to explain lawful basis and organisational responsibility',
-          'Why data handling decisions should not be delegated casually to employees under time pressure',
+          'Model reproduces verbatim content from training corpora in later responses',
+          'Sensitive records surface through queries on related topics',
+          'The organisation has no visibility into what the model has retained',
         ],
       },
       {
-        eyebrow: 'Practical',
-        title: 'Commercial and operational leakage',
+        eyebrow: 'Pathway 2',
+        title: 'Inference-time leakage',
         body:
-          'Even when the legal framing is not the first thing a learner cares about, the practical consequences are immediate: leaked product design, exposed strategy, broken confidentiality, and loss of trust.',
+          'Inference-time leakage occurs when a model reveals sensitive information in response to crafted queries, without any attack on training data. Attackers can use prompt injection techniques to extract system prompts containing proprietary business logic, internal instructions, or confidential configuration.',
         bullets: [
-          'Leaking product design before patents',
-          'Revealing customer or employee information',
-          'Sharing internal planning documents with the wrong system',
+          'Crafted queries coax the model into revealing its system prompt contents',
+          'Prompt injection in uploaded documents redirects model behaviour',
+          'System prompts frequently contain proprietary logic or internal policy details',
         ],
       },
       {
-        eyebrow: 'Guidance',
-        title: 'Teach employees how to input internal data',
+        eyebrow: 'Pathway 3',
+        title: 'RAG leakage',
         body:
-          'The content should not only forbid behaviour. It should show how to still complete the task with reduced inputs, abstraction, aggregation, or approved internal tools.',
+          'Retrieval-augmented generation (RAG) systems fetch relevant documents to provide context. If those documents contain passwords, high-level system information, or internal architecture details, that information can enter the model\'s response window and be surfaced to a user who was not authorised to see it.',
         bullets: [
-          'Minimise and transform data before prompting',
-          'Use internal or approved enterprise instances where possible',
-          'Escalate when the task cannot be completed safely',
+          'Fetched documents contain credentials, passwords, or access tokens',
+          'System architecture or network topology included in retrieved context',
+          'User receives information from documents they were not authorised to access',
+        ],
+      },
+      {
+        eyebrow: 'Prevention',
+        title: 'Data classification, DLP, and platform governance',
+        body:
+          'Effective prevention combines three layers: classify data before it reaches any AI tool, apply data loss prevention controls to block sensitive data at the edge, and match the right platform tier to the task. Profiling AI services before use — understanding what each one stores, shares, and retains — is a prerequisite, not an afterthought.',
+        bullets: [
+          'Classify data sensitivity before prompting: reduce, transform, or withhold as needed',
+          'Use DLP controls to intercept sensitive data before it reaches AI endpoints',
+          'Match platform tier to task: enterprise agreements for anything internal or regulated',
         ],
       },
     ],
+  },
+  'main-sensitive-lab': {
+    type: 'governanceLab',
+    eyebrow: 'Interactive Lab',
+    title: 'The Governance Lab: Input & Output Assurance',
+    description:
+      'Experience the full LLM task pipeline. Choose which documents to upload, how to phrase your prompt, and how to handle the output. Find the balance: too open leaks data, too restricted makes the task impossible.',
   },
   'main-sensitive-footer': {
     type: 'navigationFooter',
