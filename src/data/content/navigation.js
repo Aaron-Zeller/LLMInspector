@@ -23,6 +23,7 @@ export const PAGE_SEQUENCE = [
       'main-sensitive-legal',
       'main-sensitive-practical',
       'main-sensitive-guidance',
+      'main-sensitive-lab',
       'main-sensitive-footer',
     ],
   },

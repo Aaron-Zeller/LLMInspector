@@ -44,6 +44,13 @@ export const mainSensitiveSegments = {
       'Sensitive information disclosure is the most immediate "input-side" risk. By moving to intentional, transformed prompting, we can harness AI without compromising our reputation.',
     ],
   },
+  'main-sensitive-lab': {
+    type: 'governanceLab',
+    eyebrow: 'Interactive Lab',
+    title: 'The Governance Lab: Input & Output Assurance',
+    description:
+      'Experience the full LLM task pipeline. Choose which documents to upload, how to phrase your prompt, and how to handle the output. Find the balance: too open leaks data, too restricted makes the task impossible.',
+  },
   'main-sensitive-footer': {
     type: 'navigationFooter',
     previousPageId: 'main-part',
