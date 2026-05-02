@@ -13,12 +13,15 @@ import { SystemTuning } from '../assessment/SystemTuning.jsx';
 import { GovernanceLab } from '../assessment/GovernanceLab.jsx';
 import { RichModuleIntro } from '../assessment/RichModuleIntro.jsx';
 import { PromptInjectionDemo } from '../assessment/PromptInjectionDemo.jsx';
+import { SensitiveDisclosureWalkthrough } from '../assessment/SensitiveDisclosureWalkthrough.jsx';
+import { SafeTransformationStudio } from '../assessment/SafeTransformationStudio.jsx';
 import { SegmentCallout } from '../common/SegmentCallout.jsx';
 import { NavigationFooter } from '../common/NavigationFooter.jsx';
 import { PageHeader } from '../common/PageHeader.jsx';
 import { SectionProgress } from '../common/SectionProgress.jsx';
 import { ContentCardSection } from '../common/ContentCardSection.jsx';
 import { LikertFeedbackSection } from '../common/LikertFeedbackSection.jsx';
+import { TransferCallout } from '../common/TransferCallout.jsx';
 import { DomainBreakdown } from '../results/DomainBreakdown.jsx';
 import { RecommendationList } from '../results/RecommendationList.jsx';
 import { ResultsActions } from '../results/ResultsActions.jsx';
@@ -32,6 +35,7 @@ const segmentRenderers = {
   pageHeader: PageHeader,
   moduleIntro: ModuleIntro,
   contentCards: ContentCardSection,
+  transferCallout: TransferCallout,
   likertFeedback: LikertFeedbackSection,
   navigationFooter: NavigationFooter,
   spotHallucination: SpotHallucination,
@@ -41,6 +45,8 @@ const segmentRenderers = {
   governanceLab: GovernanceLab,
   richModuleIntro: RichModuleIntro,
   promptInjectionDemo: PromptInjectionDemo,
+  sensitiveDisclosureWalkthrough: SensitiveDisclosureWalkthrough,
+  safeTransformationStudio: SafeTransformationStudio,
   resultsSummary: ResultsSummary,
   resultsBreakdown: DomainBreakdown,
   resultsRecommendations: RecommendationList,

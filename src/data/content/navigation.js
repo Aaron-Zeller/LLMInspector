@@ -19,10 +19,11 @@ export const PAGE_SEQUENCE = [
     label: 'Sensitive Data',
     segmentIds: [
       'main-sensitive-header',
+      'main-sensitive-outcomes',
       'main-sensitive-intro',
       'main-sensitive-legal',
-      'main-sensitive-practical',
       'main-sensitive-guidance',
+      'main-sensitive-transfer',
       'main-sensitive-lab',
       'main-sensitive-footer',
     ],
