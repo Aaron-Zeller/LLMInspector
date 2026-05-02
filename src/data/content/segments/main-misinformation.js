@@ -6,55 +6,42 @@ export const mainMisinformationSegments = {
     description:
       'This is the first output-side page. It focuses on false facts, unsupported claims, and plausible but unsafe code or recommendations.',
   },
-  'main-misinformation-intro': {
+  'main-misinformation-hallucinations': {
     type: 'moduleIntro',
     paragraphs: [
-      'A major output-side risk is that the model sounds more certain than it deserves to. Learners need to recognise that polished language, structured reasoning, and specific figures do not guarantee correctness.',
-      'This is where many workplace failures begin: the output looks complete enough to use, so nobody stops to verify it before it enters a report, decision, or repository.',
+      'As humans, we pay a lot of attention not only to what is being presented to us, but also how. Herein lies one of the most deceptive traits of Large Language Models: their ability to present complete nonsense with absolute conviction.',
+      'This phenomenon, often called "hallucination," occurs when a model generates incorrect statistics, fabricated citations, or entirely invented events while maintaining a perfectly professional and authoritative tone. Because the language is polished and the reasoning appears structured, these errors are notoriously difficult to spot at a glance.',      
+    ],
+    },
+  'main-misinformation-engineering': {
+    type: 'moduleIntro',
+    paragraphs: [
+      'To understand why this happens, we must remember that LLMs are not databases of verified facts; they are highly advanced probabilistic engines designed to predict the next most plausible word.',
+      '• The Plausibility Trap: Models prioritise sounding plausible over being factually accurate. If a legal citation or scientific paper looks structurally correct, the model considers its job done, even if that paper does not actually exist.',
+      '• The Illusion of Understanding: Misinformation is dangerous precisely because it often looks credible, leading users to lower their guard and accept plausible-sounding claims as established facts.',
+      ],
+  },
+  'main-misinformation-verification': {
+    type: 'moduleIntro',
+    paragraphs: [
+      'The risk extends far beyond narrative text. In technical and business contexts, hallucinations have immediate, tangible consequences:',
+      '1. Technical & Security Vulnerabilities: When asked for code, a model may suggest snippets that look syntactically correct but fail to run or, worse, introduce subtle security flaws. It might invent "hallucinated" software libraries that do not exist, or rely on deprecated coding patterns.',
+      '2. Flawed Strategic Planning: If asked for architectural advice or market analysis, the model may suggest a completely infeasible plan and present it as an easy, manageable task. Relying on this without oversight can lead to massive misallocation of resources and waste of time.',
+      '3. Erosion of Quality and Reputation: Publishing internal or external documents containing fabricated statistics, fake legal precedents, or non-existent product features can severely damage an organisation\'s credibility and erode client trust.',
     ],
   },
   'main-misinformation-risks': {
-    type: 'contentCards',
-    eyebrow: 'Output Side',
-    title: 'Hallucinations, false confidence, and unsupported claims',
-    description:
-      'The emphasis here is on recognising unreliable output before it becomes business input.',
-    cards: [
-      {
-        eyebrow: 'Risk',
-        title: 'False facts and invented support',
-        body:
-          'The model can produce incorrect statistics, fabricated citations, or unsupported statements while sounding authoritative. That makes misinformation dangerous precisely because it often looks credible.',
-        bullets: [
-          'Incorrect business recommendations',
-          'Invented citations and statistics',
-          'Misrepresentation of expertise or certainty',
-        ],
-      },
-      {
-        eyebrow: 'Engineering',
-        title: 'Unsafe or misleading code output',
-        body:
-          'For technical work, misinformation also appears as plausible code that does not run, uses insecure patterns, or recommends libraries and dependencies that should not be trusted without review.',
-        bullets: [
-          'Bad code quality in the repository',
-          'Security vulnerabilities from unchecked snippets',
-          'False confidence because the code “looks right”',
-        ],
-      },
-      {
-        eyebrow: 'Practice',
-        title: 'What responsible verification looks like',
-        body:
-          'The didactic goal is to teach cross-checking, source verification, and explicit doubt when the output matters. A trustworthy workflow never treats the model as its own validator.',
-        bullets: [
-          'Verify against trusted sources',
-          'Check critical numbers independently',
-          'Treat AI output as draft material, not finished truth',
-        ],
-      },
-    ],
-  },
+    type: 'moduleIntro',
+    paragraphs: [
+      'To mitigate these risks, a responsible workflow must move from blind trust to systematic verification. We cannot "patch" hallucinations out of the model entirely, but we can design processes to catch them:',
+      '• Trust, but Verify: Treat every AI output as a first draft. Critical figures, legal citations, and complex logic must be independently cross-checked against trusted primary sources before being integrated into any final product.',
+      '• Provide Grounding Context: Instead of asking the model to recall facts from its training data, provide the necessary information in your prompt (e.g., "Based only on the provided financial report, summarize..."). This constrains the model\'s tendency to invent details.',
+      '• Domain-Expert Review: A trustworthy workflow never treats the model as its own validator. Code must be tested and reviewed by engineers; architectural plans must be scrutinized by architects.',
+      '• Ask for "Chain of Thought": Encourage the model to break down its reasoning step-by-step. Asking it to explain how it arrived at an answer often reduces hallucinations and makes logical leaps easier for a human to spot.',
+      'A reliable AI workflow uses the model as a powerful accelerator, not an infallible oracle. By understanding the illusion of confidence, we can protect our projects from the hidden costs of misinformation.',
+      ],
+    },
+
   'main-misinformation-spot': {
     type: 'spotHallucination',
     eyebrow: 'Interactive Exercise',
