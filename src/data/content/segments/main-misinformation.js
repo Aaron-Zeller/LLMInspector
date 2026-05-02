@@ -271,7 +271,6 @@ export const mainMisinformationSegments = {
     type: 'navigationFooter',
     previousPageId: 'main-prompt-injection',
     nextPageId: 'main-output-handling',
-    caption: 'Section 6 of 12',
     nextLabel: 'Go to Improper Output Handling →',
   },
 };

@@ -55,7 +55,6 @@ export const mainSensitiveSegments = {
     type: 'navigationFooter',
     previousPageId: 'main-part',
     nextPageId: 'main-prompt-injection',
-    caption: 'Section 4 of 12',
     nextLabel: 'Go to Prompt Injection →',
   },
 };

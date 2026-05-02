@@ -42,7 +42,6 @@ export const mainPlatformSegments = {
     type: 'navigationFooter',
     previousPageId: 'main-excessive-agency',
     nextPageId: 'post-assessment',
-    caption: 'Section 9 of 12',
     nextLabel: 'Go to Post Assessment →',
   },
 };

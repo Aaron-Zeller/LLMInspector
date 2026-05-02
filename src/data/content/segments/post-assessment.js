@@ -30,7 +30,6 @@ export const postAssessmentSegments = {
     type: 'navigationFooter',
     previousPageId: 'main-platform-choice',
     nextPageId: 'experience-feedback',
-    caption: 'Section 10 of 12',
     nextLabel: 'Go to Feedback →',
   },
 };

@@ -473,7 +473,6 @@ export const mainOutputSegments = {
     type: 'navigationFooter',
     previousPageId: 'main-misinformation',
     nextPageId: 'main-excessive-agency',
-    caption: 'Section 7 of 12',
     nextLabel: 'Go to Human Oversight →',
   },
 };

@@ -38,7 +38,6 @@ export const mainOversightSegments = {
     type: 'navigationFooter',
     previousPageId: 'main-output-handling',
     nextPageId: 'main-platform-choice',
-    caption: 'Section 8 of 12',
     nextLabel: 'Go to Platform Choice →',
   },
 };

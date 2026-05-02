@@ -33,6 +33,9 @@ export const PAGE_SEQUENCE = [
     segmentIds: [
       'main-prompt-header',
       'main-prompt-intro',
+      'main-prompt-mechanism',
+      'main-prompt-risks',
+      'main-prompt-supervision',
       'main-prompt-demo',
       'main-prompt-footer',
     ],

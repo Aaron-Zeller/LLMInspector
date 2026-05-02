@@ -15,7 +15,6 @@ export const mainPartSegments = {
     type: 'navigationFooter',
     previousPageId: 'pre-assessment',
     nextPageId: 'main-sensitive-disclosure',
-    caption: 'Section 3 of 12',
     nextLabel: 'Go to Sensitive Information Disclosure →',
   },
 };
