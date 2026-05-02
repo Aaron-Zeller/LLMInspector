@@ -6,39 +6,461 @@ export const mainOutputSegments = {
     description:
       'This page shifts from “the model was wrong” to “the system or user passed the wrong output forward without validation, sanitisation, or review.”',
   },
+  'main-output-outcomes': {
+    type: 'contentCards',
+    eyebrow: 'Your Outcomes',
+    title: 'What you should be able to do before AI output enters a real workflow',
+    description:
+      'This section is about what happens after generation. By the end, you should be able to do three things more consistently.',
+    columns: 3,
+    cards: [
+      {
+        tone: 'output',
+        eyebrow: 'Outcome 1',
+        title: 'Recognise when a draft is about to become an operational decision',
+        body:
+          'Spot the moment AI output stops being harmless text and starts influencing customers, systems, reports, or approvals.',
+      },
+      {
+        tone: 'output',
+        eyebrow: 'Outcome 2',
+        title: 'Match the review gate to the consequence',
+        body:
+          'Decide when an output can be approved directly, when it needs review, and when it must be escalated before it moves any further.',
+      },
+      {
+        tone: 'output',
+        eyebrow: 'Outcome 3',
+        title: 'Design workflows that keep accountability human',
+        body:
+          'Set thresholds, sign-off rules, and handoff logic so speed does not quietly replace control.',
+      },
+    ],
+  },
   'main-output-workflows': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'An incorrect AI response is relatively harmless as long as it stays isolated in a chat window. The danger escalates exponentially the moment that output is inserted into a report, workflow, codebase, or automated system. This is the crux of improper output handling: a procedural failure where the pursuit of efficiency bypasses the essential review gates designed to protect our standards.',
-      'The fundamental principle of AI integration is that accountability remains strictly human. The model might generate the text, write the script, or summarise the data, but the person who approves, commits, or distributes that output bears full responsibility for its real-world impact.',
+    type: 'outputHandlingWalkthrough',
+    eyebrow: 'Worked Examples',
+    title: 'See how small review skips become downstream failures',
+    description:
+      'Each case begins with an AI output that looks useful enough to move forward. Then it shows what was handed off, what review step was skipped, what the downstream cost becomes, and what gate you should already have required.',
+    scenarios: [
+      {
+        id: 'bulk-email',
+        eyebrow: 'Case 1',
+        title: 'Bulk outbound email',
+        meta: 'Client-facing communication',
+        role: 'Your Situation',
+        headline: 'A campaign draft looks routine, so the team is tempted to let it send on schedule.',
+        context:
+          'The output is not malicious and the wording is mostly fine. The risk comes from pushing it into a high-volume channel before anyone checks whether the final message is actually ready.',
+        riskLabel: 'Customer Impact',
+        managerPressure:
+          'Keep the send on time without turning every campaign into a slow approval process.',
+        managerDecision:
+          'Decide whether this is still a draft or whether it has already become a customer-facing action with downstream consequences.',
+        decisionPrompt:
+          'What is the safer stance when AI output is about to reach hundreds of customers at once?',
+        decisionOptions: [
+          {
+            id: 'trust-template',
+            label: 'If the draft follows a familiar template, approval can usually be automatic.',
+            feedback:
+              'That is too weak. Familiar structure does not remove the need to check what is actually about to be sent at scale.',
+          },
+          {
+            id: 'review-before-send',
+            label: 'Treat bulk outbound content as a high-consequence output and require a final review before send.',
+            feedback:
+              'This is the stronger move. The cost of one quick review is small compared with the cost of a mass error.',
+            correct: true,
+          },
+        ],
+        handoffTitle: 'A draft turns into an outbound action',
+        handoffBody:
+          'The AI output is no longer just text on a screen. It is about to become a real email in hundreds of inboxes, which means the workflow has crossed from drafting into execution.',
+        handoffBullets: [
+          'The channel is external, not internal',
+          'The action is hard to reverse once sent',
+          'One unnoticed placeholder or false claim multiplies instantly',
+        ],
+        failureTitle: 'The workflow skipped the last mile check',
+        failureBody:
+          'The team trusted the draft because it looked routine. What was missing was not a deep investigation, but a small review gate that checks the actual final output before distribution.',
+        failureBullets: [
+          'Template familiarity lowered attention',
+          'The review step felt optional because the content was not strategic',
+          'The workflow treated generation and publication as nearly the same thing',
+        ],
+        consequenceTitle: 'A trivial error becomes a visible incident',
+        consequenceBody:
+          'An unfilled variable, broken link, or wrong claim may be minor in isolation, but at scale it becomes a customer experience problem, a reputation problem, and often a rework problem.',
+        consequenceBullets: [
+          'The message cannot be unsent',
+          'Corrections often create more attention than the original campaign',
+          'Teams spend more time repairing the error than preventing it would have taken',
+        ],
+        controlTitle: 'Require a pre-send gate for high-volume output',
+        controlBody:
+          'For mass outbound communication, the relevant control is not to distrust AI completely. It is to make sure publication still passes through a final human checkpoint.',
+        controlBullets: [
+          'Review the actual final message before distribution',
+          'Treat placeholders, regulated phrases, and audience-facing claims as mandatory checks',
+          'Keep the approval gate lightweight but non-optional',
+        ],
+        takeaway:
+          'When output is about to become a customer action, generation is over and review must begin.',
+      },
+      {
+        id: 'financial-threshold',
+        eyebrow: 'Case 2',
+        title: 'Refund or financial approval',
+        meta: 'Threshold and delegation control',
+        role: 'Your Situation',
+        headline: 'The AI recommendation looks correct, but the amount or consequence exceeds the workflow’s delegated limit.',
+        context:
+          'The output may be accurate. The real issue is whether the workflow lets confidence in the answer override the authority boundary that should still govern the action.',
+        riskLabel: 'Authority Boundary',
+        managerPressure:
+          'Resolve the case quickly without creating unnecessary delay for the customer or operator.',
+        managerDecision:
+          'Decide whether correctness is enough to approve, or whether delegation limits still require a different path.',
+        decisionPrompt:
+          'What matters more when an AI recommendation crosses a policy or value threshold?',
+        decisionOptions: [
+          {
+            id: 'if-correct-approve',
+            label: 'If the AI appears correct after a quick check, approving it is usually fine.',
+            feedback:
+              'That confuses factual confidence with authority. A correct recommendation can still require escalation if it crosses a control boundary.',
+          },
+          {
+            id: 'threshold-beats-confidence',
+            label: 'If the output crosses a threshold, escalation remains the correct path even when the recommendation looks right.',
+            feedback:
+              'This is the stronger move. Thresholds exist precisely so confidence does not quietly replace formal authority.',
+            correct: true,
+          },
+        ],
+        handoffTitle: 'The output is now asking for a consequential action',
+        handoffBody:
+          'At this point the question is no longer only “is the AI right?” The question is whether the workflow should allow this operator or system to act at this level at all.',
+        handoffBullets: [
+          'The value or impact exceeds routine handling',
+          'The action creates an auditable decision trail',
+          'Authority matters even when the recommendation feels reasonable',
+        ],
+        failureTitle: 'Confidence replaced delegation',
+        failureBody:
+          'The workflow treated a plausible AI recommendation as if it were permission. That bypasses the human authority design that should still govern financial or high-impact actions.',
+        failureBullets: [
+          'The operator may feel pressured to keep momentum',
+          'The system wording can make the action sound pre-approved',
+          'A correct recommendation can still be processed through the wrong path',
+        ],
+        consequenceTitle: 'The exception becomes your accountability problem',
+        consequenceBody:
+          'Once the action is approved outside the proper authority path, the issue is no longer just model quality. It becomes a governance, audit, and accountability failure.',
+        consequenceBullets: [
+          'The action may be logged as a control exception',
+          'Review later does not erase the path failure',
+          'You inherit responsibility for the handoff, not only the outcome',
+        ],
+        controlTitle: 'Keep thresholds stronger than confidence',
+        controlBody:
+          'When outputs touch money, compliance, or exceptions, the workflow should preserve delegated authority even if the AI recommendation looks highly plausible.',
+        controlBullets: [
+          'Make value ceilings and escalation paths explicit',
+          'Do not let “AI already checked it” substitute for authority',
+          'Treat threshold breaches as workflow events, not optional judgement calls',
+        ],
+        takeaway:
+          'A correct answer still needs the correct approval path.',
+      },
+      {
+        id: 'system-write',
+        eyebrow: 'Case 3',
+        title: 'External system write or automated action',
+        meta: 'Irreversible downstream effects',
+        role: 'Your Situation',
+        headline: 'An AI-generated output is about to update an external system, send a message, or trigger an automated workflow.',
+        context:
+          'The output may not look dramatic, but the system effect is. Once the action executes, rollback may be partial, delayed, or impossible.',
+        riskLabel: 'Irreversible Action',
+        managerPressure:
+          'Increase throughput by letting the system act without waiting for a person each time.',
+        managerDecision:
+          'Decide which downstream actions can be automated safely and which ones need a human checkpoint outside the model.',
+        decisionPrompt:
+          'What is the stronger design stance once AI output can trigger a live system change?',
+        decisionOptions: [
+          {
+            id: 'monitor-after',
+            label: 'If the action is logged and monitored, it can usually proceed automatically.',
+            feedback:
+              'Logging is useful, but it is not the same as preventing a bad action. For irreversible or externally visible effects, prevention matters more than traceability alone.',
+          },
+          {
+            id: 'confirm-before-write',
+            label: 'If the action changes an external system or sends something real, keep a checkpoint before execution.',
+            feedback:
+              'This is the stronger move. Once the workflow can act, controls must exist before the write, not only after the fact.',
+            correct: true,
+          },
+        ],
+        handoffTitle: 'The output becomes a system event',
+        handoffBody:
+          'The handoff is no longer between two people. It is between a generated output and a live system, which raises the cost of being wrong even when the text itself looked ordinary.',
+        handoffBullets: [
+          'The effect may be invisible until later',
+          'Rollback may be incomplete or operationally expensive',
+          'The model’s draft has become a system instruction',
+        ],
+        failureTitle: 'The workflow removed the last human interruption',
+        failureBody:
+          'The system is no longer asking whether the action should happen. It is only asking whether the AI output exists. That is a control design problem, not merely a content problem.',
+        failureBullets: [
+          'Monitoring happens after the action',
+          'A later audit cannot undo the original exposure',
+          'The real missing safeguard is an execution checkpoint',
+        ],
+        consequenceTitle: 'The cost arrives downstream and often late',
+        consequenceBody:
+          'A wrong write, wrong recipient, or wrong record update can trigger delayed consequences that surface long after the AI output looked harmless.',
+        consequenceBullets: [
+          'Bad data can propagate into later reports or audits',
+          'Customers or partners may experience the result before anyone reviews it',
+          'The root cause becomes harder to trace once multiple systems have moved',
+        ],
+        controlTitle: 'Keep live actions behind live controls',
+        controlBody:
+          'As soon as output can cause an external system change, approval should focus on write permissions, execution gates, and reversibility rather than trusting the generated text.',
+        controlBullets: [
+          'Require confirmation before externally visible or irreversible actions',
+          'Constrain which systems the workflow may write to',
+          'Design review around execution impact, not only content quality',
+        ],
+        takeaway:
+          'If the output can act, your workflow should treat it like a decision, not just a draft.',
+      },
     ],
   },
   'main-output-consequences': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'When unchecked output is passed forward too quickly, the consequences may very quickly stop being theoretical and become immediate and serious risks:',
-      '1. **Systemic Error Propagation:** Automation chains built on unvalidated AI output can replicate and broadcast errors across an entire organisation—or worse, directly to clients—before anyone even detects the original mistake.',
-      '2. **Liability and Compliance Breaches:** A single "hallucinated" fact in a legal filing, or an unverified financial figure pasted into a board report, can result in severe financial penalties and lasting reputational damage.',
-      '3. **Security Flaws in Production:** Blindly committing AI-generated code to a repository without thorough testing bypasses standard security protocols, potentially introducing critical, hard-to-detect vulnerabilities into your infrastructure.',
-      'Effective output handling requires "bounding" these consequences through intentional controls. We must design workflows where validation and review routines naturally interrupt the flow of unvetted information. In other words, you should always know what exactly happens between generation of content and its use - **always be in control**.',
+    type: 'contentCards',
+    eyebrow: 'Risk Clusters',
+    title: 'What goes wrong when unchecked output keeps moving',
+    description:
+      'The failure is not only that the model produced something weak. The failure is that the workflow gave the weak output reach, authority, or execution power.',
+    columns: 3,
+    cards: [
+      {
+        tone: 'output',
+        eyebrow: 'Cluster 1',
+        title: 'Systemic error propagation',
+        body:
+          'Once output enters reports, mailings, or automation chains, one weak claim can be copied, broadcast, or re-used across many contexts before anyone notices the original mistake.',
+      },
+      {
+        tone: 'output',
+        eyebrow: 'Cluster 2',
+        title: 'Liability and compliance exposure',
+        body:
+          'A fabricated fact in a filing, a sensitive field in a client email, or an out-of-policy approval can create a governance problem even when the model “mostly got it right.”',
+      },
+      {
+        tone: 'output',
+        eyebrow: 'Cluster 3',
+        title: 'Irreversible operational damage',
+        body:
+          'The risk rises sharply when output can send, write, approve, or trigger. At that point the key issue is not content generation alone, but what the system let the output do.',
+      },
     ],
   },
   'main-output-controls': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'To safeguard your operations, implement the following handling protocols:',
-      '• **Establish Mandatory Review Gates:** Implement strict, non-negotiable human review routines before any AI-generated content is used in high-stakes, public-facing, or structural contexts. The human user is the final line of defence against operational mistakes.',
-      '• **Restrict the autonomy of AI systems:** If an AI drafts a client communication, ensure a human must click "send." If it writes code, ensure it goes through a standard pull request and automated testing pipeline.',
-      '• **Validate Against Source Data:** Never take the model\'s output at face value. Always cross-reference generated summaries, figures, or claims against the original, expected structures and primary data sources.',
-      '• **Define Escalation Paths:** Ensure teams know exactly when to escalate a complex, ambiguous, or critical AI output to senior oversight or subject matter experts, rather than taking a guess under time pressure.',
-     ],
+    type: 'outputControlStudio',
+    eyebrow: 'Manager Playbook',
+    title: 'Replace ad hoc caution with review gates your team can actually follow',
+    description:
+      'The goal is not to slow everything down. The goal is to decide explicitly what can move on trust, what must be reviewed, and what must be escalated before the system acts.',
+    scenarios: [
+      {
+        id: 'internal-summary',
+        eyebrow: 'Case 1',
+        title: 'Routine internal summary',
+        meta: 'Low-sensitivity internal use',
+        role: 'Safer Workflow',
+        headline: 'Keep the efficiency gain, but define clearly when direct approval is actually appropriate.',
+        context:
+          'Some AI outputs really can move with minimal friction. The control problem is making that choice deliberate rather than letting every category drift toward either blind trust or blanket caution.',
+        riskLabel: 'Low-Risk Output',
+        managerGoal: 'Allow low-risk internal automation to stay fast.',
+        designMove: 'Reserve heavier review for outputs whose audience, consequence, or authority demand it.',
+        unsafeTitle: 'Review everything or trust everything',
+        unsafeBody:
+          'A weak workflow treats all AI outputs the same way, either by over-reviewing harmless internal drafts or by under-reviewing high-consequence outputs.',
+        unsafeWhy:
+          'Without explicit categories, the team falls back on habit instead of calibrated judgement.',
+        verifyTitle: 'Define what low-risk direct approval actually means',
+        verifyBody:
+          'Routine internal summaries can move faster when they are sourced from controlled systems, contain no sensitive fields, and do not create external or structural consequences.',
+        standardLabel: 'Workflow Check',
+        standardTitle: 'Approve directly only when the consequence stays low',
+        standardBody:
+          'The question is not whether the output is internal. It is whether the channel, source, and consequence justify minimal review.',
+        standardChecks: [
+          'Is the source controlled and internally trusted?',
+          'Is the audience internal only?',
+          'Would an error be easy to catch and low-cost to correct?',
+        ],
+        ruleLabel: 'Team Rule',
+        ruleTitle: 'Keep low-risk automation narrow and explicit',
+        ruleBody:
+          'Define which output classes may move quickly so the team does not generalise that trust to higher-consequence situations.',
+        ruleBullets: [
+          'List routine output categories that can be approved directly',
+          'Keep the boundary visible for anything customer-facing, sensitive, or structural',
+          'Teach the team that “internal” is not the same as “always safe”',
+        ],
+        takeaway:
+          'The safest fast workflow is the one whose low-risk cases are defined in advance.',
+      },
+      {
+        id: 'external-message',
+        eyebrow: 'Case 2',
+        title: 'External communication or regulated content',
+        meta: 'Review gate before release',
+        role: 'Safer Workflow',
+        headline: 'Keep drafting support, but stop the output from becoming communication before it passes review.',
+        context:
+          'The productivity gain stays real because AI still drafts the content. The change is that the final handoff into the outside world now passes through a non-optional gate.',
+        riskLabel: 'Release Gate',
+        managerGoal: 'Keep teams fast without letting weak output reach customers or regulators unchecked.',
+        designMove: 'Separate drafting from release and require review at the point of publication.',
+        unsafeTitle: 'Treat the draft as nearly ready because the wording looks polished',
+        unsafeBody:
+          'The workflow assumes that good phrasing and a familiar format are close enough to final approval, even when the message is customer-facing or regulated.',
+        unsafeWhy:
+          'Teams often underestimate the last-mile risk because the draft already looks professional.',
+        verifyTitle: 'Hold the gate where the output becomes real',
+        verifyBody:
+          'The control belongs at the moment of release: before send, before publication, before filing, or before client delivery.',
+        standardLabel: 'Workflow Check',
+        standardTitle: 'Review at the point of external impact',
+        standardBody:
+          'Customer-facing or regulated outputs deserve a final check that looks at the actual message, the fields, the claims, and the effect of sending it now.',
+        standardChecks: [
+          'Does the output contain sensitive fields, regulated language, or precise claims?',
+          'Will it be externally visible or hard to reverse once released?',
+          'Has someone reviewed the actual final version rather than the idea of the draft?',
+        ],
+        ruleLabel: 'Team Rule',
+        ruleTitle: 'Draft quickly, release deliberately',
+        ruleBody:
+          'Use AI to accelerate preparation, but do not let preparation and publication collapse into the same step.',
+        ruleBullets: [
+          'Keep a final review gate before any external release',
+          'Use checklists for recurring communication categories',
+          'Make release authority explicit instead of implied',
+        ],
+        takeaway:
+          'If the output is about to leave the organisation, the last check should happen at the last mile.',
+      },
+      {
+        id: 'automated-action',
+        eyebrow: 'Case 3',
+        title: 'Automated action or system write',
+        meta: 'Execution control',
+        role: 'Safer Workflow',
+        headline: 'Keep automation benefits, but put execution behind controls that do not depend on the model policing itself.',
+        context:
+          'The system can still assist at speed. The safer move is to decide which actions remain bounded, reversible, or approval-based before the output can trigger them.',
+        riskLabel: 'Execution Control',
+        managerGoal: 'Gain efficiency from automation without quietly handing over unsafe authority.',
+        designMove: 'Tie automation level and system access to explicit human checkpoints.',
+        unsafeTitle: 'Let the output execute because it is logged and seems low-friction',
+        unsafeBody:
+          'The workflow treats logging, dashboards, or later audits as if they were enough control for actions that can already affect live systems.',
+        unsafeWhy:
+          'This feels efficient because it removes interruptions, but it often moves the control too late to prevent damage.',
+        verifyTitle: 'Design the checkpoint before the action',
+        verifyBody:
+          'For writes, sends, approvals, or other irreversible steps, the relevant control is not better wording. It is permission design, confirmation logic, and bounded autonomy.',
+        standardLabel: 'Workflow Check',
+        standardTitle: 'Match the gate to the execution risk',
+        standardBody:
+          'High-impact actions should be limited by value thresholds, role boundaries, reversibility, and explicit human intervention where needed.',
+        standardChecks: [
+          'What exactly can this output cause the system to do?',
+          'Is the action reversible if it is wrong?',
+          'Does the checkpoint happen before execution, not only after?',
+        ],
+        ruleLabel: 'Team Rule',
+        ruleTitle: 'Automation is a design choice, not a default reward for useful output',
+        ruleBody:
+          'Do not let strong-looking output silently accumulate stronger execution powers. Expand autonomy only when the safeguards expand with it.',
+        ruleBullets: [
+          'Keep high-impact actions behind thresholds and approvals',
+          'Constrain write access and outbound actions tightly',
+          'Review automation settings as governance decisions, not convenience settings',
+        ],
+        takeaway:
+          'When output can trigger action, your real control lives in the workflow, not in the confidence of the draft.',
+      },
+    ],
+  },
+  'main-output-transfer': {
+    type: 'transferCallout',
+    eyebrow: 'Before You Continue',
+    title: 'Carry these three output-handling checks into the labs',
+    description:
+      'Use these checks whenever AI output is about to leave the draft stage and enter a real workflow, audience, or system.',
+    prompt:
+      'As you work through the labs, keep asking what exactly happens between generation and use, and whether the current gate is strong enough for that consequence.',
+    checks: [
+      {
+        title: 'What changes once this output moves forward?',
+        body: 'A draft in a chat is different from an email, approval, code commit, or system write. The handoff changes the risk.',
+      },
+      {
+        title: 'What review gate belongs at this moment?',
+        body: 'The right question is not “should AI ever be used?” but “what check belongs before this exact kind of output is used?”',
+      },
+      {
+        title: 'Who is still accountable after the model speaks?',
+        body: 'The model may generate the content, but accountability for releasing, approving, or executing it remains human.',
+      },
+    ],
   },
   'main-output-approve-escalate': {
     type: 'approveOrEscalate',
-    eyebrow: 'Decision Simulator',
+    eyebrow: 'Interactive Lab',
     title: 'Approve or Escalate?',
     description:
-      'Seven workplace scenarios. An AI output is already in front of you — choose how to respond. Sometimes the right call is to approve immediately. Sometimes it is to review. Sometimes it is to escalate. A risk meter tracks the cumulative cost of your choices.',
+      'Seven workplace scenarios. An AI output is already in front of you. Choose how it should move next: approve, review, or escalate. A cumulative risk meter shows what those choices add up to over time.',
+    frame: {
+      role: 'You are the person deciding what happens after the AI has already produced a usable-looking output.',
+      watch:
+        'Do not ask only whether the draft looks reasonable. Ask what kind of consequence follows if you let it move now.',
+      emphasis:
+        'This lab is about downstream judgement. The failure pattern is not only a wrong answer. It is a workflow that let the wrong answer keep travelling.',
+    },
+    debrief: {
+      eyebrow: 'After the Lab',
+      title: 'What stronger output handling looks like',
+      items: [
+        {
+          title: 'Match the gate to the consequence',
+          body: 'Routine internal outputs can move faster. External, financial, regulated, or irreversible outputs need a stronger handoff before they continue.',
+        },
+        {
+          title: 'Correctness is not the only question',
+          body: 'Even a plausible or correct-looking output may still require escalation if it crosses a threshold, authority boundary, or release gate.',
+        },
+        {
+          title: 'Workflow discipline prevents cumulative failure',
+          body: 'One weak approval may seem manageable. Repeating that decision pattern is what turns AI convenience into systemic operational risk.',
+        },
+      ],
+    },
     scenarios: [
       {
         id: 'aoe-s1',
@@ -464,10 +886,35 @@ export const mainOutputSegments = {
   },
   'main-output-system-tuning': {
     type: 'systemTuning',
-    eyebrow: 'System Tuning Game',
+    eyebrow: 'Interactive Lab',
     title: 'Too Much Power',
     description:
-      'Adjust two controls — Automation Level and External Access — and watch how efficiency, risk, oversight, and failure probability shift in real time. When ready, simulate a working day and watch the incident feed stream live. Then see what would have happened under three different configurations.',
+      'Adjust two controls — Automation Level and External Access — and watch how efficiency, risk, oversight, and failure probability shift in real time. Then simulate a working day and see what the workflow actually does under that configuration.',
+    frame: {
+      role: 'You are configuring how much autonomy and system reach an AI workflow should get before it goes live.',
+      watch:
+        'Do not look only at efficiency. Watch what becomes irreversible, what loses oversight, and which failures surface only after the action has already happened.',
+      emphasis:
+        'This lab turns output handling into a systems question. The issue is not only what the AI says, but what your configuration allows its output to trigger.',
+    },
+    debrief: {
+      eyebrow: 'After the Lab',
+      title: 'What stronger configuration decisions look like',
+      items: [
+        {
+          title: 'More automation is not a neutral upgrade',
+          body: 'Every increase in autonomy changes the handoff between output and action. The right question is what safeguards expanded along with that power.',
+        },
+        {
+          title: 'Access level and review gates have to move together',
+          body: 'Read-only suggestions, external writes, and automated sends cannot share the same approval logic. System reach should tighten the workflow, not loosen it.',
+        },
+        {
+          title: 'Downstream failures are often delayed',
+          body: 'A configuration can look efficient in the morning and still create audit, compliance, or customer problems later in the day. Design for the delayed consequence, not only the immediate success path.',
+        },
+      ],
+    },
   },
   'main-output-footer': {
     type: 'navigationFooter',

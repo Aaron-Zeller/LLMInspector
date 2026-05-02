@@ -52,6 +52,26 @@ export function ApproveOrEscalate({ segment, segmentId }) {
       </div>
       <h2 className="section-title">{segment.title}</h2>
       <p className="section-desc">{segment.description}</p>
+      {segment.frame ? (
+        <div className="lab-brief">
+          <div className="lab-brief__grid">
+            <article className="lab-brief__item">
+              <p className="lab-brief__label">Your Role</p>
+              <p className="lab-brief__body">{segment.frame.role}</p>
+            </article>
+            <article className="lab-brief__item">
+              <p className="lab-brief__label">What To Watch</p>
+              <p className="lab-brief__body">{segment.frame.watch}</p>
+            </article>
+            {segment.frame.emphasis ? (
+              <article className="lab-brief__item lab-brief__item--full">
+                <p className="lab-brief__label">Why This Lab Matters</p>
+                <p className="lab-brief__body">{segment.frame.emphasis}</p>
+              </article>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
 
       {/* Persistent risk meter */}
       <div className="aoe-meter">
@@ -176,44 +196,60 @@ export function ApproveOrEscalate({ segment, segmentId }) {
 
       {/* Final summary */}
       {allDone && (
-        <div className="aoe-summary">
-          <div className={`aoe-summary__score aoe-summary__score--${band.tone}`}>
-            <strong className="aoe-summary__num">{riskLevel}%</strong>
-            <span className="aoe-summary__label">Final Risk Level — {band.label}</span>
-          </div>
+        <>
+          <div className="aoe-summary">
+            <div className={`aoe-summary__score aoe-summary__score--${band.tone}`}>
+              <strong className="aoe-summary__num">{riskLevel}%</strong>
+              <span className="aoe-summary__label">Final Risk Level — {band.label}</span>
+            </div>
 
-          <div className="aoe-summary__rows">
-            {scenarios.map((scenario) => {
-              const opt = scenario.options.find((o) => o.id === choices[scenario.id]);
-              return (
-                <div
-                  key={scenario.id}
-                  className={`aoe-summary__row aoe-summary__row--${opt?.consequence.tone ?? 'warn'}`}
-                >
-                  <span className="aoe-summary__row-title">{scenario.title}</span>
-                  <span
-                    className={`aoe-summary__row-verdict aoe-summary__row-verdict--${opt?.consequence.tone}`}
+            <div className="aoe-summary__rows">
+              {scenarios.map((scenario) => {
+                const opt = scenario.options.find((o) => o.id === choices[scenario.id]);
+                return (
+                  <div
+                    key={scenario.id}
+                    className={`aoe-summary__row aoe-summary__row--${opt?.consequence.tone ?? 'warn'}`}
                   >
-                    {opt?.consequence.verdict}
-                  </span>
-                  <span className="aoe-summary__row-delta">+{opt?.riskDelta ?? 0}%</span>
-                </div>
-              );
-            })}
-          </div>
+                    <span className="aoe-summary__row-title">{scenario.title}</span>
+                    <span
+                      className={`aoe-summary__row-verdict aoe-summary__row-verdict--${opt?.consequence.tone}`}
+                    >
+                      {opt?.consequence.verdict}
+                    </span>
+                    <span className="aoe-summary__row-delta">+{opt?.riskDelta ?? 0}%</span>
+                  </div>
+                );
+              })}
+            </div>
 
-          <div className={`aoe-summary__message aoe-summary__message--${band.tone}`}>
-            {riskLevel <= 25
-              ? 'Strong oversight applied throughout. Every decision kept accountability with a human where it mattered most.'
-              : riskLevel <= 55
-                ? 'Some oversight gaps present. Review the scenarios where risk was added — each one represents a real-world failure pattern that escalation would have prevented.'
-                : 'Significant oversight failures accumulated. Each approval without adequate review or escalation represents a decision pattern that compounds over time in live systems.'}
-          </div>
+            <div className={`aoe-summary__message aoe-summary__message--${band.tone}`}>
+              {riskLevel <= 25
+                ? 'Strong oversight applied throughout. Every decision kept accountability with a human where it mattered most.'
+                : riskLevel <= 55
+                  ? 'Some oversight gaps present. Review the scenarios where risk was added — each one represents a real-world failure pattern that escalation would have prevented.'
+                  : 'Significant oversight failures accumulated. Each approval without adequate review or escalation represents a decision pattern that compounds over time in live systems.'}
+            </div>
 
-          <button className="btn-secondary" onClick={reset} type="button">
-            Try Again
-          </button>
-        </div>
+            <button className="btn-secondary" onClick={reset} type="button">
+              Try Again
+            </button>
+          </div>
+          {segment.debrief ? (
+            <div className="lab-debrief">
+              <p className="lab-debrief__eyebrow">{segment.debrief.eyebrow}</p>
+              <h3 className="lab-debrief__title">{segment.debrief.title}</h3>
+              <div className="lab-debrief__grid">
+                {segment.debrief.items.map((item) => (
+                  <article className="lab-debrief__item" key={item.title}>
+                    <h4 className="lab-debrief__item-title">{item.title}</h4>
+                    <p className="lab-debrief__item-body">{item.body}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </>
       )}
     </Segment>
   );

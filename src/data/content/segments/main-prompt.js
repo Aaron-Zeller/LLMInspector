@@ -6,24 +6,397 @@ export const mainPromptSegments = {
     description:
       'After understanding unsafe data entry, the next step is seeing that inputs can also manipulate the model itself through hidden or indirect instructions.',
   },
+  'main-prompt-outcomes': {
+    type: 'contentCards',
+    eyebrow: 'Your Outcomes',
+    title: 'What you should be able to do before approving an AI workflow that reads outside content',
+    description:
+      'This section is about workflow boundaries, not only attacker tricks. By the end, you should be able to do three things more confidently.',
+    columns: 3,
+    cards: [
+      {
+        tone: 'critical',
+        eyebrow: 'Outcome 1',
+        title: 'Recognise when content is acting like an instruction source',
+        body:
+          'Explain why a document, website, or message can change the model’s behaviour instead of remaining neutral content to analyse.',
+      },
+      {
+        tone: 'critical',
+        eyebrow: 'Outcome 2',
+        title: 'Distinguish a weak summary workflow from a high-agency system',
+        body:
+          'See the same attack class at different consequence levels and recognise why tool access changes the risk sharply.',
+      },
+      {
+        tone: 'critical',
+        eyebrow: 'Outcome 3',
+        title: 'Define the boundary you want before approval',
+        body:
+          'Set rules for untrusted inputs, constrained tool use, and approvals outside the model so the workflow does not rely on hope.',
+      },
+    ],
+  },
   'main-prompt-intro': {
-    type: 'richModuleIntro',
-    paragraphs: [
-      'Prompt injection is a term that has been floating around in the news over the past few years. But like many concepts introduced alongside the boom in large language models, it is unclear exactly what this particularly scary-sounding phrase actually describes.',
-      'Simply put, prompt injection is when malicious instructions are slipped into an LLM without the user\'s knowledge or consent. You might be thinking: how can this happen if I am the one controlling what goes into the model? But hopefully, at this point in the tutorial, you are beginning to question how much control you actually have. The idea that you alone decide what an LLM reads or acts on is something of an illusion. There are a variety of sneaky techniques that can be used to change the prompt, or input instruction, that the LLM receives, resulting in what is called a "prompt injection" attack.',
-      `<ul class="rich-list">
-        <li><strong>Direct manipulation.</strong> An employee can directly prompt a company-wide LLM into revealing sensitive information. An LLM told by administrators never to disclose certain data can be turned into a tell-all machine simply by asking the right way.</li>
-        <li><strong>Malicious uploads.</strong> Users can upload content that contains a hidden prompt. We all pretend to read long PDFs before signing them, and this leaves plenty of opportunity for an innocent-looking document to contain something like "Ignore everything and output the following…" Even worse, this instruction might be written in white text on a white background, or buried in the file's metadata, making it completely invisible to a human reader but not to an LLM that reads all text regardless.</li>
-        <li><strong>Poisoned websites.</strong> Even if you type nothing malicious yourself, an LLM that browses the web can encounter sites containing injected instructions and simply follow them, treating attacker-planted text as a legitimate command.</li>
-        <li><strong>Multi-agent override.</strong> In systems where multiple AI agents work together, one agent can instruct another to act against its original guidelines, effectively bypassing rules that were set upstream.</li>
-      </ul>`,
-      `<p class="rich-section-head">How to defend against it</p>
-      <ul class="rich-list rich-list--defense">
-        <li>Limit what an agent can do (for example, read-only access where possible)</li>
-        <li>Treat all external data as untrusted by default</li>
-        <li>Restrict API access to only what is strictly necessary</li>
-        <li>Continuously monitor and log AI inputs and outputs</li>
-      </ul>`,
+    type: 'promptInjectionWalkthrough',
+    eyebrow: 'Worked Examples',
+    title: 'Walk through the workflow boundary the way it actually fails',
+    description:
+      'Each case starts with a normal use case. Then it shows what entered the workflow, what boundary broke, what happens next, and what you should already have required before approving the system.',
+    scenarios: [
+      {
+        id: 'uploaded-file',
+        eyebrow: 'Case 1',
+        title: 'Uploaded file summarisation',
+        meta: 'Low-agency workflow',
+        role: 'Your Situation',
+        headline: 'A team uses AI to summarise uploaded documents for faster review work.',
+        context:
+          'The workflow seems harmless because the model is “only summarising.” That makes it easy to forget that the model still reads all text in the file, including anything a human reviewer never notices.',
+        riskLabel: 'Untrusted File Risk',
+        managerPressure:
+          'Keep document review fast without making every upload a manual bottleneck.',
+        managerDecision:
+          'Decide whether uploaded files should be treated as trusted content or as untrusted inputs that need a stronger boundary.',
+        decisionPrompt:
+          'Which boundary would you rather normalise before your team starts using this kind of workflow?',
+        decisionOptions: [
+          {
+            id: 'trust-human-readable',
+            label: 'If the document looks normal to a human reader, the workflow can usually trust it as neutral content.',
+            feedback:
+              'That is too weak. A model can read hidden or attacker-planted text that no one saw during a quick human review.',
+          },
+          {
+            id: 'treat-upload-untrusted',
+            label: 'Treat uploaded files as untrusted by default and limit what the model may do with them.',
+            feedback:
+              'This is the stronger boundary. It assumes the file may carry hostile instructions and stops the workflow from giving it more authority than it deserves.',
+            correct: true,
+          },
+        ],
+        triggerTitle: 'A normal document enters the workflow',
+        triggerBody:
+          'A PDF, spreadsheet, or note is uploaded so the model can summarise it or extract key points. The team experiences this as convenience rather than as opening a new instruction channel.',
+        triggerBullets: [
+          'The file looks like ordinary content to the employee',
+          'The task sounds passive because the model is “just reading”',
+          'The workflow often lacks any explicit distinction between trusted and untrusted files',
+        ],
+        boundaryTitle: 'The workflow treats content like authority',
+        boundaryBody:
+          'The model does not reliably separate “text to analyse” from “text to obey” unless the workflow enforces that boundary itself.',
+        boundaryBullets: [
+          'Hidden text can be read even if a human never noticed it',
+          'The model may follow attacker language as if it were part of the prompt',
+          'A simple summarisation task can still become a corrupted output problem',
+        ],
+        consequenceTitle: 'The summary becomes the carrier of the attack',
+        consequenceBody:
+          'The visible document stays ordinary, but the summary quietly repeats a false warning, false instruction, or false recommendation with professional confidence.',
+        consequenceBullets: [
+          'Reviewers may trust the summary more than the original file',
+          'The team may act on a conclusion the document never supported',
+          'A low-agency workflow still creates real decision risk',
+        ],
+        controlTitle: 'Require untrusted-input handling before approval',
+        controlBody:
+          'If a workflow reads uploaded files, approval should depend on how it handles hostile or hidden content, not only on how useful the summaries look in the happy path.',
+        controlBullets: [
+          'Treat uploaded documents as untrusted by default',
+          'Limit what the model can do with their contents',
+          'Test the workflow with adversarial files before routine use',
+        ],
+        takeaway:
+          'If a file can influence the model, it is not just content. It is part of the workflow boundary you approved.',
+      },
+      {
+        id: 'external-source',
+        eyebrow: 'Case 2',
+        title: 'Browsing or retrieval workflow',
+        meta: 'Externally sourced content',
+        role: 'Your Situation',
+        headline: 'A team asks the model to browse, retrieve, or summarise content from external websites and linked material.',
+        context:
+          'This often feels safer than direct uploading because the content comes through a tool rather than from an employee paste action. The boundary problem is still the same.',
+        riskLabel: 'External Source Risk',
+        managerPressure:
+          'Let the team gather information faster without manually reading every page first.',
+        managerDecision:
+          'Decide whether “available on the web” is enough to treat the content as safe input for the model.',
+        decisionPrompt:
+          'Which approval stance is stronger when a workflow retrieves outside content automatically?',
+        decisionOptions: [
+          {
+            id: 'available-means-safe',
+            label: 'If the workflow only reads public content, the main concern is answer quality, not manipulation.',
+            feedback:
+              'That is too optimistic. Public availability does not make the content safe as an instruction source for the model.',
+          },
+          {
+            id: 'external-stays-untrusted',
+            label: 'Treat retrieved external content as untrusted and limit what conclusions or actions the model may take from it.',
+            feedback:
+              'This is the stronger boundary. It recognises that attacker-planted instructions can arrive through browsing just as easily as through uploads.',
+            correct: true,
+          },
+        ],
+        triggerTitle: 'The workflow pulls in outside text automatically',
+        triggerBody:
+          'The model reads websites, linked pages, or retrieved snippets to help answer a question faster. That means external text is entering the model context even when no employee explicitly pasted it.',
+        triggerBullets: [
+          'The retrieval tool can import text from places no one has reviewed closely',
+          'The workflow often hides how much raw content the model actually saw',
+          'The team may focus on speed and coverage rather than input trust',
+        ],
+        boundaryTitle: 'Availability gets mistaken for trust',
+        boundaryBody:
+          'The workflow confuses “content the model can access” with “content the model should treat as safe to follow or prioritise.”',
+        boundaryBullets: [
+          'The model may absorb attacker text from a website or embedded source',
+          'Retrieval can amplify instructions the user never intended to authorise',
+          'The workflow may lack any stage that filters hostile content before the model reads it',
+        ],
+        consequenceTitle: 'Bad external content shapes internal decisions',
+        consequenceBody:
+          'The model may produce a confident answer, recommendation, or warning based on manipulated content that looked like ordinary source material.',
+        consequenceBullets: [
+          'A web-derived answer can quietly inherit an attacker’s agenda',
+          'The team may mistake retrieval for verification',
+          'The problem surfaces only after the output has already influenced people',
+        ],
+        controlTitle: 'Separate retrieval from authority',
+        controlBody:
+          'Approval should depend on whether the workflow limits what retrieved content can do, how it is attributed, and what human checks remain before the output is used.',
+        controlBullets: [
+          'Treat external retrieval as untrusted input by default',
+          'Keep human review between retrieval and sensitive use',
+          'Do not let the model treat outside text as automatically authoritative',
+        ],
+        takeaway:
+          'If the workflow reads from the outside world, the outside world is now part of your threat surface.',
+      },
+      {
+        id: 'tool-agent',
+        eyebrow: 'Case 3',
+        title: 'Tool-using internal agent',
+        meta: 'High-agency workflow',
+        role: 'Your Situation',
+        headline: 'An internal assistant can read documents, query systems, and trigger downstream actions on behalf of users.',
+        context:
+          'The workflow still begins with a document or message, but the consequences are much higher because the model can now do more than generate text.',
+        riskLabel: 'Agent Control Risk',
+        managerPressure:
+          'Capture productivity gains from automation without adding a manual approval step to every routine task.',
+        managerDecision:
+          'Decide which actions the model may take on its own and which approvals must exist outside the model.',
+        decisionPrompt:
+          'Which approval boundary matters most once the model can use tools and access systems?',
+        decisionOptions: [
+          {
+            id: 'system-prompt-enough',
+            label: 'A strong system prompt should be enough if it clearly tells the agent not to break the rules.',
+            feedback:
+              'That is too fragile. If the model can still read hostile instructions and use powerful tools, wording alone is not a sufficient control.',
+          },
+          {
+            id: 'constrain-outside-model',
+            label: 'Sensitive actions should be constrained outside the model, and tool permissions should stay narrow by default.',
+            feedback:
+              'This is the stronger boundary. Once tool access exists, the workflow has to assume the model may be manipulated and still prevent unsafe actions.',
+            correct: true,
+          },
+        ],
+        triggerTitle: 'The same input weakness meets real agency',
+        triggerBody:
+          'A file, webpage, or message still carries the hidden instruction. The difference is that the model can now query systems, send messages, or trigger automations instead of stopping at a bad summary.',
+        triggerBullets: [
+          'The attack still starts as text entering the model context',
+          'Tool access turns a content problem into a systems problem',
+          'The employee may see only a normal output while hidden actions happen elsewhere',
+        ],
+        boundaryTitle: 'The workflow trusts the model with authority it cannot safely hold',
+        boundaryBody:
+          'If the model can directly call tools, confirmation rules and sensitive approvals cannot live only inside the model’s prompt. They need enforcement outside the model as well.',
+        boundaryBullets: [
+          'A hostile instruction can override behavioural guidance',
+          'The agent may query systems or send data before a human notices',
+          'Logging alone is not the same as preventing the action',
+        ],
+        consequenceTitle: 'The model can act before anyone reviews the output',
+        consequenceBody:
+          'A prompt injection can now trigger data access, outbound communication, or other downstream effects even if the employee only sees a normal-looking summary.',
+        consequenceBullets: [
+          'Sensitive data can move without informed user approval',
+          'A quiet tool action may do more damage than a bad answer',
+          'The workflow failure becomes a security and governance event',
+        ],
+        controlTitle: 'Move sensitive control outside the model',
+        controlBody:
+          'Once the system can act, the approval decision should focus on permission design, confirmation steps, and tool constraints rather than relying on the model to police itself.',
+        controlBullets: [
+          'Keep tool permissions narrow and role-specific',
+          'Require confirmation outside the model for sensitive actions',
+          'Test the workflow as if hostile content will eventually reach it',
+        ],
+        takeaway:
+          'The same injection pattern becomes far more serious when the model can do more than speak.',
+      },
+    ],
+  },
+  'main-prompt-boundaries': {
+    type: 'promptBoundaryStudio',
+    eyebrow: 'Manager Playbook',
+    title: 'Replace vague trust with boundaries your team can actually follow',
+    description:
+      'Keep the productivity goal, but decide explicitly what the model may read, what it may treat as authority, and what it may never do on its own.',
+    scenarios: [
+      {
+        id: 'uploaded-file',
+        eyebrow: 'Case 1',
+        title: 'Uploaded file workflow',
+        meta: 'Summary support without blind trust',
+        role: 'Safer Workflow',
+        headline: 'Keep document summarisation, but stop the file from being treated as trusted instruction space.',
+        context:
+          'The task is still useful. The safer move is to preserve the productivity benefit while narrowing what an uploaded file is allowed to influence.',
+        riskLabel: 'Untrusted File Risk',
+        managerGoal: 'Keep document review assistance available for routine work.',
+        designMove: 'Treat uploaded files as untrusted input and constrain what the model can do with them.',
+        unsafeTitle: 'Assume any readable file is safe to summarise normally',
+        unsafeBody:
+          'The workflow gives the model the file and trusts it to distinguish document content from hostile instructions on its own.',
+        unsafeWhy:
+          'This feels efficient because the task sounds passive, but the file still becomes part of the model’s full instruction context.',
+        boundaryTitle: 'Require an untrusted-input boundary',
+        boundaryBody:
+          'The workflow should assume that uploaded content may contain hostile text and should limit the model to the narrowest safe task that still solves the problem.',
+        checkLabel: 'Workflow Check',
+        checkTitle: 'Make the boundary visible before approval',
+        checkBody:
+          'The approval question is not only “does the summary look good?” It is “what exactly can this file cause the model to do?”',
+        checks: [
+          'Does the workflow treat uploaded files as untrusted by default?',
+          'Is the model limited to a narrow read-only task?',
+          'Has the system been tested with adversarial or hidden instructions?',
+        ],
+        ruleLabel: 'Team Rule',
+        ruleTitle: 'Uploaded content is readable, not trustworthy',
+        ruleBody:
+          'Teach the team that a file being available to the model does not mean it becomes a valid source of instructions or authority.',
+        ruleBullets: [
+          'Use uploaded files for bounded tasks only',
+          'Do not trust file content just because a human opened it first',
+          'Test summary workflows with hostile examples before rollout',
+        ],
+        takeaway:
+          'A useful summary workflow still needs an explicit trust boundary around the file.',
+      },
+      {
+        id: 'external-source',
+        eyebrow: 'Case 2',
+        title: 'Browsing or retrieval workflow',
+        meta: 'Outside information without outside control',
+        role: 'Safer Workflow',
+        headline: 'Keep retrieval support, but stop public content from acting like policy inside your workflow.',
+        context:
+          'The team still benefits from faster information gathering. The safer move is to keep retrieval useful while preventing outside content from gaining automatic authority.',
+        riskLabel: 'External Source Risk',
+        managerGoal: 'Keep research and retrieval workflows productive.',
+        designMove: 'Allow retrieval, but keep human review and authority checks between the content and the decision.',
+        unsafeTitle: 'Assume retrieved content is safe because it came through a tool',
+        unsafeBody:
+          'The workflow treats retrieved snippets and webpages as if availability through the system already made them safe to trust.',
+        unsafeWhy:
+          'Automation makes the input path less visible, which can hide the fact that the model is still reading untrusted external text.',
+        boundaryTitle: 'Require authority checks between retrieval and use',
+        boundaryBody:
+          'Retrieval can speed up discovery, but the workflow should still distinguish between “content the model saw” and “content the organisation is willing to rely on.”',
+        checkLabel: 'Workflow Check',
+        checkTitle: 'Make retrieval helpful without making it authoritative',
+        checkBody:
+          'Your workflow should preserve review, attribution, and escalation instead of letting outside text turn directly into internal guidance.',
+        checks: [
+          'Is retrieved content still treated as untrusted input?',
+          'Does a human review the output before sensitive use?',
+          'Can the workflow show what sources actually shaped the answer?',
+        ],
+        ruleLabel: 'Team Rule',
+        ruleTitle: 'External content may inform, not decide',
+        ruleBody:
+          'Retrieved text can support research, but it should not become internal authority without a review step that checks source quality and relevance.',
+        ruleBullets: [
+          'Keep source visibility in the workflow',
+          'Do not confuse retrieval with verification',
+          'Escalate when outside content influences high-impact decisions',
+        ],
+        takeaway:
+          'A retrieval workflow is only safe if outside content stays outside your authority chain until reviewed.',
+      },
+      {
+        id: 'tool-agent',
+        eyebrow: 'Case 3',
+        title: 'Tool-using internal agent',
+        meta: 'Automation with real limits',
+        role: 'Safer Workflow',
+        headline: 'Keep the productivity gain, but move real control outside the model before you approve the agent.',
+        context:
+          'You may still want an assistant that reads documents, queries systems, and drafts actions. The safer design choice is to decide which permissions stay narrow and which approvals must happen outside the model.',
+        riskLabel: 'Agent Control Risk',
+        managerGoal: 'Gain operational efficiency without handing the model unsafe authority.',
+        designMove: 'Constrain permissions, require external confirmation, and assume hostile content may eventually reach the agent.',
+        unsafeTitle: 'Let the prompt carry the whole safety burden',
+        unsafeBody:
+          'The workflow relies on the model’s instructions to protect sensitive actions, even though the model can read hostile content and still access real tools.',
+        unsafeWhy:
+          'This feels elegant because it avoids operational friction, but it assumes the same model that can be manipulated will also reliably enforce the rule.',
+        boundaryTitle: 'Require controls the model cannot talk itself around',
+        boundaryBody:
+          'Sensitive actions need technical and procedural constraints outside the model, not only behavioural guidance inside it.',
+        checkLabel: 'Workflow Check',
+        checkTitle: 'Design for the bad day, not only the good demo',
+        checkBody:
+          'If the agent is compromised by hostile content, the system should still prevent the most damaging actions from happening automatically.',
+        checks: [
+          'Are tool permissions narrow, explicit, and role-based?',
+          'Do sensitive actions require confirmation outside the model?',
+          'Would the workflow remain safe if the model obeyed hostile text?',
+        ],
+        ruleLabel: 'Team Rule',
+        ruleTitle: 'The model may assist, but it does not get final authority',
+        ruleBody:
+          'Use the agent to speed up preparation and low-risk steps, while keeping high-impact permissions and approvals in systems or processes outside the model.',
+        ruleBullets: [
+          'Keep outbound actions and sensitive queries tightly constrained',
+          'Move confirmations outside the model for meaningful actions',
+          'Review agent tool access as a governance decision, not a convenience feature',
+        ],
+        takeaway:
+          'Once the model can act, safe design depends on what the system forbids, not only on what the prompt requests.',
+      },
+    ],
+  },
+  'main-prompt-transfer': {
+    type: 'transferCallout',
+    eyebrow: 'Before You Continue',
+    title: 'Carry these three prompt-injection checks forward',
+    description:
+      'Use these checks whenever a model reads outside content or has access to tools, data, or downstream systems.',
+    prompt:
+      'As you move into the lab, keep asking whether the model is only generating text or whether it is in a position to influence something real.',
+    checks: [
+      {
+        title: 'Is the content trusted, or merely available?',
+        body: 'A file or webpage being present does not mean it is safe to treat as an instruction source.',
+      },
+      {
+        title: 'Can the workflow separate content from authority?',
+        body: 'If the workflow does not enforce that boundary, the model may follow attacker text as if it were part of the prompt.',
+      },
+      {
+        title: 'What real actions could follow from a bad output?',
+        body: 'The risk grows quickly when the model can query systems, send messages, or trigger automated steps.',
+      },
     ],
   },
   'main-prompt-demo': {

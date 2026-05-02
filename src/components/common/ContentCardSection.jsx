@@ -11,7 +11,7 @@ export function ContentCardSection({ segment, segmentId }) {
       ) : null}
       <h2 className="section-title">{segment.title}</h2>
       {segment.description ? <p className="section-desc">{segment.description}</p> : null}
-      <div className="content-card-grid">
+      <div className={`content-card-grid${segment.columns ? ` content-card-grid--${segment.columns}` : ''}`}>
         {segment.cards.map((card) => (
           <article
             className={`content-card${card.tone ? ` content-card--${card.tone}` : ''}`}

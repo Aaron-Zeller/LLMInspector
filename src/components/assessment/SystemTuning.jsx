@@ -266,6 +266,26 @@ export function SystemTuning({ segment, segmentId }) {
       </div>
       <h2 className="section-title">{segment.title}</h2>
       <p className="section-desc">{segment.description}</p>
+      {segment.frame ? (
+        <div className="lab-brief">
+          <div className="lab-brief__grid">
+            <article className="lab-brief__item">
+              <p className="lab-brief__label">Your Role</p>
+              <p className="lab-brief__body">{segment.frame.role}</p>
+            </article>
+            <article className="lab-brief__item">
+              <p className="lab-brief__label">What To Watch</p>
+              <p className="lab-brief__body">{segment.frame.watch}</p>
+            </article>
+            {segment.frame.emphasis ? (
+              <article className="lab-brief__item lab-brief__item--full">
+                <p className="lab-brief__label">Why This Lab Matters</p>
+                <p className="lab-brief__body">{segment.frame.emphasis}</p>
+              </article>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
 
       {/* Goal tracker */}
       <div className="st-goal">
@@ -556,6 +576,20 @@ export function SystemTuning({ segment, segmentId }) {
           )}
         </div>
       )}
+      {streamDone && segment.debrief ? (
+        <div className="lab-debrief">
+          <p className="lab-debrief__eyebrow">{segment.debrief.eyebrow}</p>
+          <h3 className="lab-debrief__title">{segment.debrief.title}</h3>
+          <div className="lab-debrief__grid">
+            {segment.debrief.items.map((item) => (
+              <article className="lab-debrief__item" key={item.title}>
+                <h4 className="lab-debrief__item-title">{item.title}</h4>
+                <p className="lab-debrief__item-body">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      ) : null}
     </Segment>
   );
 }

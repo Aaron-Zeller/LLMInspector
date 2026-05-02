@@ -15,6 +15,16 @@ import { RichModuleIntro } from '../assessment/RichModuleIntro.jsx';
 import { PromptInjectionDemo } from '../assessment/PromptInjectionDemo.jsx';
 import { SensitiveDisclosureWalkthrough } from '../assessment/SensitiveDisclosureWalkthrough.jsx';
 import { SafeTransformationStudio } from '../assessment/SafeTransformationStudio.jsx';
+import { MisinformationWalkthrough } from '../assessment/MisinformationWalkthrough.jsx';
+import { VerificationWorkflowStudio } from '../assessment/VerificationWorkflowStudio.jsx';
+import { PromptInjectionWalkthrough } from '../assessment/PromptInjectionWalkthrough.jsx';
+import { PromptBoundaryStudio } from '../assessment/PromptBoundaryStudio.jsx';
+import { OutputHandlingWalkthrough } from '../assessment/OutputHandlingWalkthrough.jsx';
+import { OutputControlStudio } from '../assessment/OutputControlStudio.jsx';
+import { AgencyWalkthrough } from '../assessment/AgencyWalkthrough.jsx';
+import { AgencyControlStudio } from '../assessment/AgencyControlStudio.jsx';
+import { PlatformChoiceWalkthrough } from '../assessment/PlatformChoiceWalkthrough.jsx';
+import { PlatformGovernanceStudio } from '../assessment/PlatformGovernanceStudio.jsx';
 import { SegmentCallout } from '../common/SegmentCallout.jsx';
 import { NavigationFooter } from '../common/NavigationFooter.jsx';
 import { PageHeader } from '../common/PageHeader.jsx';
@@ -22,6 +32,7 @@ import { SectionProgress } from '../common/SectionProgress.jsx';
 import { ContentCardSection } from '../common/ContentCardSection.jsx';
 import { LikertFeedbackSection } from '../common/LikertFeedbackSection.jsx';
 import { TransferCallout } from '../common/TransferCallout.jsx';
+import { InteractiveLabPlaceholder } from '../common/InteractiveLabPlaceholder.jsx';
 import { DomainBreakdown } from '../results/DomainBreakdown.jsx';
 import { RecommendationList } from '../results/RecommendationList.jsx';
 import { ResultsActions } from '../results/ResultsActions.jsx';
@@ -36,6 +47,7 @@ const segmentRenderers = {
   moduleIntro: ModuleIntro,
   contentCards: ContentCardSection,
   transferCallout: TransferCallout,
+  interactiveLabPlaceholder: InteractiveLabPlaceholder,
   likertFeedback: LikertFeedbackSection,
   navigationFooter: NavigationFooter,
   spotHallucination: SpotHallucination,
@@ -47,6 +59,16 @@ const segmentRenderers = {
   promptInjectionDemo: PromptInjectionDemo,
   sensitiveDisclosureWalkthrough: SensitiveDisclosureWalkthrough,
   safeTransformationStudio: SafeTransformationStudio,
+  misinformationWalkthrough: MisinformationWalkthrough,
+  verificationWorkflowStudio: VerificationWorkflowStudio,
+  promptInjectionWalkthrough: PromptInjectionWalkthrough,
+  promptBoundaryStudio: PromptBoundaryStudio,
+  outputHandlingWalkthrough: OutputHandlingWalkthrough,
+  outputControlStudio: OutputControlStudio,
+  agencyWalkthrough: AgencyWalkthrough,
+  agencyControlStudio: AgencyControlStudio,
+  platformChoiceWalkthrough: PlatformChoiceWalkthrough,
+  platformGovernanceStudio: PlatformGovernanceStudio,
   resultsSummary: ResultsSummary,
   resultsBreakdown: DomainBreakdown,
   resultsRecommendations: RecommendationList,
