@@ -9,50 +9,29 @@ export const mainOversightSegments = {
   'main-agency-intro': {
     type: 'moduleIntro',
     paragraphs: [
-      'The core question here is not whether the model can assist. It is whether the model is being allowed to act, decide, or trigger consequences without sufficient human approval.',
-      'This page should leave learners with a strong sense that high-impact actions still need a clearly accountable human in the loop.',
+      'Up until now, we have discussed the risks of the model giving us bad information. But the risk profile of Generative AI shifts entirely when the model is granted "agency"—the ability to independently act, decide, or trigger external events.',
+      'The core question here is not whether the model can assist us, but whether it is allowed to execute actions without sufficient human approval. Once an AI is integrated with system tools—given the ability to execute code, send emails, alter database records, or initiate transactions—we are no longer just dealing with bad advice. We are dealing with an automated system that has its hands on the steering wheel.',
+      'Without rigorous supervision, granting an AI excessive agency can lead to actions that directly impact clients, budgets, and operational stability. The danger arises when approvals are skipped because the model seems helpful, or because engineers want to build completely "frictionless" automated pipelines.',
     ],
   },
   'main-agency-risks': {
-    type: 'contentCards',
-    eyebrow: 'Oversight',
-    title: 'Agency, approvals, and accountability',
-    description:
-      'This page ties the output-side risks back to supervision, workflow design, and professional responsibility.',
-    cards: [
-      {
-        eyebrow: 'Risk',
-        title: 'Excessive agency in connected systems',
-        body:
-          'Once an LLM can call functions, draft external communications, approve actions, or influence a consequential workflow, the risk is no longer just “bad advice.” It becomes unauthorised or poorly supervised action.',
-        bullets: [
-          'Functions or tools triggered too freely',
-          'Approvals skipped because the model seems helpful',
-          'High-impact operations without enough human review',
-        ],
-      },
-      {
-        eyebrow: 'Supervision',
-        title: 'Human approval as a real control',
-        body:
-          'Human-in-the-loop should be treated as an operational safeguard, not as a slogan. Approval points need to exist where the cost of being wrong is significant.',
-        bullets: [
-          'User approval for privileged operations',
-          'Explicit review steps before publication or execution',
-          'Clear separation between AI support and human decision',
-        ],
-      },
-      {
-        eyebrow: 'Responsibility',
-        title: 'Who remains accountable',
-        body:
-          'The page should end with the principle that using AI output or automation does not transfer accountability away from the employee, manager, or organisation that chose to rely on it.',
-        bullets: [
-          'Responsibility stays with the team using the system',
-          'Inaction is also a decision when warning signs exist',
-          'Good governance means designing approvals in advance',
-        ],
-      },
+    type: 'moduleIntro',
+    paragraphs: [
+      'When an AI system takes action without a human in the loop, the consequences are immediate and tangible:',
+      '1. Unsanctioned Operations: An autonomous agent tasked with optimizing cloud infrastructure might unexpectedly delete active servers, or an AI managing supply chain orders might execute massive, unauthorized financial purchases based on a hallucinated market trend.',
+      '2. Cascading System Failures: Because AI agents operate at machine speed, a flawed decision can trigger a domino effect across interconnected APIs before a human even realizes an error has occurred.',
+      '3. Automated Client Friction: An AI given access to customer support channels might automatically send inappropriate replies, issue unapproved refunds, or make legally binding promises to clients without human consent.',
+      'The ultimate rule of AI integration is that automation does not transfer accountability. Whether it is an individual employee or the organisation as a whole, the responsibility for the outcome stays with those who chose to rely on the system.',
+    ],
+  },
+  'main-agency-supervision': {
+    type: 'moduleIntro',
+    paragraphs: [
+      'To prevent these failures, “human-in-the-loop" must be treated as a hardcoded operational safeguard, not just a corporate slogan:',
+      '• Design Intentional Friction: High-impact operations—such as financial transfers, data deletion, or public communications—must require a cryptographic or physical human approval step (e.g., clicking "Approve Action") before the AI can proceed.',
+      '• Implement Granular Permissions: If an AI model needs access to internal tools, operate on the principle of least privilege. Give the model read-only access where possible, and strictly limit its write/execute capabilities.',
+      '• Monitor "Agentic" Workflows: Set up alerting systems that notify human operators whenever an AI attempts to perform an action outside of its expected, narrowly defined parameters.',
+      '• Acknowledge Warning Signs: Inaction is also a decision. If an automated workflow shows signs of erratic behavior or hallucination, it must be paused immediately. Good governance means ensuring that responsibility is never accidentally delegated to a "black box."',
     ],
   },
   'main-agency-footer': {

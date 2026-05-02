@@ -6,53 +6,32 @@ export const mainOutputSegments = {
     description:
       'This page shifts from “the model was wrong” to “the system or user passed the wrong output forward without validation, sanitisation, or review.”',
   },
-  'main-output-intro': {
+  'main-output-workflows': {
     type: 'moduleIntro',
     paragraphs: [
-      'Improper output handling matters because a bad model answer becomes more dangerous when it is inserted into a report, workflow, codebase, or automated system without checks.',
-      'That means the learning focus here is procedural: what should happen between generation and use, and where validation or review routines should interrupt the flow.',
+      'An incorrect AI response is relatively harmless as long as it stays isolated in a chat window. The danger escalates exponentially the moment that output is inserted into a report, workflow, codebase, or automated system. This is the crux of improper output handling: a procedural failure where the pursuit of efficiency bypasses the essential review gates designed to protect our standards.',
+      'The fundamental principle of AI integration is that accountability remains strictly human. The model might generate the text, write the script, or summarise the data, but the person who approves, commits, or distributes that output bears full responsibility for its real-world impact. When we allow unvetted AI output to flow downstream, we surrender our commitment to quality.',
     ],
   },
-  'main-output-risks': {
-    type: 'contentCards',
-    eyebrow: 'Output Side',
-    title: 'What happens when output is passed on too quickly',
-    description:
-      'This page connects verification to concrete organisational controls and downstream consequences.',
-    cards: [
-      {
-        eyebrow: 'Mechanism',
-        title: 'Unchecked outputs enter real workflows',
-        body:
-          'An answer can be copied into a board report, pasted into a client message, committed into a repository, or sent into another system before anyone has validated it. At that point the damage is no longer just theoretical.',
-        bullets: [
-          'Outputs moving into decision-making without review',
-          'Code or text passed to downstream systems',
-          'Automation chains built on unvalidated output',
-        ],
-      },
-      {
-        eyebrow: 'Consequence',
-        title: 'Practical and legal consequences',
-        body:
-          'The consequences range from quality problems and security flaws to liability and compliance issues. Once the output has moved forward, accountability is still human even if the initial text came from a model.',
-        bullets: [
-          'Broken tools, insecure code, and operational mistakes',
-          'Misleading reports or recommendations',
-          'Liability when people act on bad output',
-        ],
-      },
-      {
-        eyebrow: 'Control',
-        title: 'Bounding consequences before release',
-        body:
-          'Good practice means validating output formats, checking critical content before reuse, and limiting blast radius when a model participates in a high-consequence process.',
-        bullets: [
-          'Human review before deployment or publication',
-          'Validation against expected structure or source data',
-          'Escalation when certainty is not high enough',
-        ],
-      },
+  'main-output-consequences': {
+    type: 'moduleIntro',
+    paragraphs: [
+      'When unchecked output is passed forward too quickly, the consequences stop being theoretical and become immediate business risks:',
+      '1. Systemic Error Propagation: Automation chains built on unvalidated AI output can replicate and broadcast errors across an entire organisation—or worse, directly to clients—before anyone even detects the original mistake.',
+      '2. Liability and Compliance Breaches: A single "hallucinated" fact in a legal filing, or an unverified financial figure pasted into a board report, can result in severe financial penalties and lasting reputational damage.',
+      '3. Security Flaws in Production: Blindly committing AI-generated code to a repository without thorough testing bypasses standard security protocols, potentially introducing critical, hard-to-detect vulnerabilities into your infrastructure.',
+      'Effective output handling requires "bounding" these consequences through intentional controls. We must design workflows where validation and review routines naturally interrupt the flow of unvetted information. The learning focus here is procedural: determining exactly what must happen between generation and use.',
+    ],
+  },
+  'main-output-controls': {
+    type: 'moduleIntro',
+    paragraphs: [
+      'To safeguard your operations, implement the following handling protocols:',
+      '• Establish Mandatory Review Gates: Implement strict, non-negotiable human review routines before any AI-generated content is used in high-stakes, public-facing, or structural contexts. The human user is the final line of defence against operational mistakes.',
+      '• Limit the "Blast Radius": Restrict the autonomy of AI systems. If an AI drafts a client communication, ensure a human must click "send." If it writes code, ensure it goes through a standard pull request and automated testing pipeline.',
+      '• Validate Against Source Data: Never take the model\'s output at face value. Always cross-reference generated summaries, figures, or claims against the original, expected structures and primary data sources.',
+      '• Define Escalation Paths: Ensure teams know exactly when to escalate a complex, ambiguous, or critical AI output to senior oversight or subject matter experts, rather than taking a guess under time pressure.',
+      'By establishing these intentional controls, we can harness the immense productivity of AI without compromising our integrity, security, or professional standards.',
     ],
   },
   'main-output-approve-escalate': {
