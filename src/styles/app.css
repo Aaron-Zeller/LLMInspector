@@ -570,6 +570,32 @@ button:disabled {
   margin-bottom: 0;
 }
 
+.intro-list {
+  color: var(--text-mid);
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0 0 12px;
+  padding-left: 24px;
+}
+
+.intro-list:last-child {
+  margin-bottom: 0;
+}
+
+.intro-list__item {
+  margin: 0 0 8px;
+}
+
+.intro-list__item:last-child {
+  margin-bottom: 0;
+}
+
+.intro-list__item strong,
+.intro-copy strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
 .content-section {
   margin-top: 8px;
 }
