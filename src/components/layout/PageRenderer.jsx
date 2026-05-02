@@ -11,6 +11,8 @@ import { SourceVerification } from '../assessment/SourceVerification.jsx';
 import { ApproveOrEscalate } from '../assessment/ApproveOrEscalate.jsx';
 import { SystemTuning } from '../assessment/SystemTuning.jsx';
 import { GovernanceLab } from '../assessment/GovernanceLab.jsx';
+import { RichModuleIntro } from '../assessment/RichModuleIntro.jsx';
+import { PromptInjectionDemo } from '../assessment/PromptInjectionDemo.jsx';
 import { SegmentCallout } from '../common/SegmentCallout.jsx';
 import { NavigationFooter } from '../common/NavigationFooter.jsx';
 import { PageHeader } from '../common/PageHeader.jsx';
@@ -37,6 +39,8 @@ const segmentRenderers = {
   approveOrEscalate: ApproveOrEscalate,
   systemTuning: SystemTuning,
   governanceLab: GovernanceLab,
+  richModuleIntro: RichModuleIntro,
+  promptInjectionDemo: PromptInjectionDemo,
   resultsSummary: ResultsSummary,
   resultsBreakdown: DomainBreakdown,
   resultsRecommendations: RecommendationList,
