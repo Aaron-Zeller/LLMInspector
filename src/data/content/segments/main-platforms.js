@@ -9,46 +9,33 @@ export const mainPlatformSegments = {
   'main-platform-intro': {
     type: 'moduleIntro',
     paragraphs: [
-      'Platform choice comes at the end on purpose. Once learners understand the input and output risks, they are better positioned to compare tools without treating the section like a product ranking.',
-      'The goal is to ask the right governance questions about ChatGPT, Claude, Gemini, and local or internal deployments rather than memorising unstable feature claims.',
+      'We have placed platform choice at the end of this journey intentionally. Now that you understand the mechanics of input risks (sensitive data disclosure, prompt injection) and output risks (hallucinations, excessive agency), you are fully equipped to evaluate AI tools through the lens of governance rather than getting distracted by flashy, unstable feature claims.',
+      'The goal here is not to rank products like ChatGPT, Claude, or Gemini against one another. Instead, the focus must be on asking the right questions about data sovereignty and administrative control.',
     ],
   },
-  'main-platforms': {
-    type: 'contentCards',
-    eyebrow: 'Platform Choice',
-    title: 'Compare major LLM platforms without turning the section into a product ad',
-    description:
-      'Rather than hard-coding fast-changing platform claims, this section can teach learners which questions to ask when comparing ChatGPT, Claude, Gemini, and local or internal deployments.',
-    cards: [
-      {
-        eyebrow: 'Cloud Platform',
-        title: 'ChatGPT, Claude, and Gemini',
-        body:
-          'These tools can be compared through governance questions: where data goes, what admin controls exist, what retention choices are available, and what kinds of integrations or document access they allow.',
-        bullets: [
-          'What happens to prompts, files, and chats',
-          'What organisational controls are available',
-          'How enterprise versions differ from public consumer use',
-        ],
-      },
-      {
-        eyebrow: 'Private Deployment',
-        title: 'Local or internal LLM instances',
-        body:
-          'Local or internally hosted LLMs shift the trade-offs. They may reduce cloud exposure, but they do not remove the need for supervision, quality checks, or internal access controls.',
-        bullets: [
-          'Benefits of not uploading data to a public cloud service',
-          'Operational cost and maintenance burden',
-          'Why “local” does not automatically mean “safe” or “reliable”',
-        ],
-      },
+  'main-platform-cloud': {
+    type: 'moduleIntro',
+    paragraphs: [
+      'When evaluating AI platforms, organisations generally face three distinct paths, each carrying its own structural trade-offs:',
+      '1. **Public Consumer Cloud (High Data Risk):** Standard, free, or basic subscription versions of popular LLMs. The primary risk here is data sovereignty. Unless specifically stated otherwise, the data you input may be stored on external servers and used to train the provider\'s future models, putting intellectual property and client confidentiality at immediate risk.',
+      '2. **Enterprise Cloud Instances (Managed Risk):** Enterprise versions often offer the exact same underlying intelligence as the consumer version, but with strictly different legal and data-handling guarantees. They ensure your prompts and files are ring-fenced, explicitly forbidding the provider from using your data for model training.',
+      '3. **Local or Internal Deployments (Operational Shift):** Hosting models within your own controlled infrastructure offers the highest level of data privacy, as your information never touches a public cloud. However, "local" does not automatically mean "safe." These deployments carry heavy operational and maintenance burdens. Furthermore, a local model is still entirely vulnerable to hallucinations, bias, and prompt injection.',
+    ],
+  },
+  'main-platform-private': {
+    type: 'moduleIntro',
+    paragraphs: [
+      'To navigate this landscape responsibly, organisations must move past comparing benchmarks and focus on establishing robust governance. Before adopting any AI tool, evaluate it against these core criteria:',
+      '• **Verify Data Usage Policies:** Ensure that contracts or terms of service explicitly prohibit the AI provider from using your inputs, uploads, and chat history to train their base models.',
+      '• **Assess Data Storage and Sovereignty:** Determine exactly where the data is being stored and processed, ensuring it complies with regional frameworks like GDPR or industry-specific regulations.',
+      '• **Demand Administrative Controls:** Prioritise platforms that allow IT and security teams to manage access, enforce strict data retention policies, and monitor usage logs across the organisation.',
+      '• **Maintain Output Oversight:** Remember that choosing a secure, enterprise-grade platform only solves the input side of the risk equation. You must still apply the rigorous output verification and human-in-the-loop workflows discussed in previous chapters.',
     ],
   },
   'main-conclusion': {
     type: 'moduleIntro',
     paragraphs: [
-      'The conclusion can reinforce one central message: responsible LLM use is not about banning tools. It is about governing inputs, verifying outputs, and choosing tools with a clear understanding of where the data and decision risk sit.',
-      'That sets up the post assessment naturally, because the learner has now moved through the exact concepts the second assessment is meant to test.',
+      'Ultimately, responsible LLM use is not about banning tools or fearing the technology. It is about intentionally governing your inputs, systematically verifying your outputs, and choosing platforms with a crystal-clear understanding of where the risk resides. By applying these principles, we can safely and confidently harness the transformative power of Generative AI.',
     ],
   },
   'main-platform-footer': {
