@@ -570,6 +570,46 @@ button:disabled {
   margin-bottom: 0;
 }
 
+.rich-list {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rich-list li {
+  padding-left: 22px;
+  position: relative;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-mid);
+}
+
+.rich-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.rich-list--defense li::before {
+  content: '✓';
+  color: var(--success);
+}
+
+.rich-section-head {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 10px !important;
+  padding-top: 4px;
+}
+
 .content-section {
   margin-top: 8px;
 }
@@ -3415,6 +3455,7 @@ button:disabled {
     margin-right: 0;
   }
 }
+
 /* ── Governance Lab ───────────────────────────────────────────────────── */
 
 .gl-task-banner {
@@ -4268,4 +4309,1214 @@ button:disabled {
   .gl-review-btns {
     flex-direction: column;
   }
+}
+
+/* ── Prompt Injection Interactive Demo ────────────────────────────── */
+
+.pi-demo {
+  margin-top: 8px;
+}
+
+.pi-header {
+  margin-bottom: 24px;
+}
+
+.pi-header__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.pi-header__title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 8px;
+  line-height: 1.25;
+}
+
+.pi-header__desc {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+  max-width: 580px;
+}
+
+/* Tabs */
+
+.pi-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.pi-tab {
+  padding: 11px 22px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.pi-tab:hover {
+  color: var(--text-mid);
+}
+
+.pi-tab--a-active {
+  color: var(--warn);
+  border-bottom-color: var(--warn);
+}
+
+.pi-tab--b-active {
+  color: var(--danger);
+  border-bottom-color: var(--danger);
+}
+
+/* Scenario wrapper */
+
+.pi-scenario {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Two-column layout (Scenario A) */
+
+.pi-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.pi-col__label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.pi-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+/* Document card */
+
+.pi-doc-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.pi-doc-card__bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pi-dots {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.pi-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.pi-dot--red { background: #f97171; }
+.pi-dot--amber { background: #fbbf24; }
+.pi-dot--green { background: #4ade80; }
+
+.pi-doc-card__filename {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.pi-doc-card__text {
+  padding: 16px 18px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-mid);
+}
+
+.pi-doc-card__text p {
+  margin: 0 0 10px;
+}
+
+.pi-doc-card__text p:last-child {
+  margin-bottom: 0;
+}
+
+.pi-doc-card__doctitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px !important;
+}
+
+.pi-doc-card__meta {
+  font-size: 11px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  margin-top: 8px !important;
+}
+
+/* Hidden injection zone */
+
+.pi-hidden-zone {
+  padding: 12px 14px;
+  border-top: 1px dashed var(--border-strong);
+}
+
+.pi-hidden-zone--a {
+  background: #fffdf7;
+}
+
+.pi-hidden-zone--b {
+  background: #fff8f8;
+}
+
+.pi-hidden-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.pi-textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 9px 11px;
+  font-size: 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  line-height: 1.55;
+  resize: vertical;
+  background: var(--white);
+  color: var(--text-mid);
+  transition: border-color 0.15s;
+}
+
+.pi-textarea--a {
+  border-color: #fde68a;
+  background: #fffbeb;
+}
+
+.pi-textarea--a:focus {
+  outline: none;
+  border-color: var(--warn);
+}
+
+.pi-textarea--b {
+  border-color: #fca5a5;
+  background: #fff5f5;
+}
+
+.pi-textarea--b:focus {
+  outline: none;
+  border-color: var(--danger);
+}
+
+.pi-textarea:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* AI output panel */
+
+.pi-output {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px 18px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-mid);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.pi-output p {
+  margin: 0 0 10px;
+}
+
+.pi-output p:last-child {
+  margin-bottom: 0;
+}
+
+.pi-output--clean {
+  border-top: 3px solid var(--success);
+}
+
+.pi-output--injected-a {
+  border-top: 3px solid var(--warn);
+  background: var(--warn-bg);
+}
+
+.pi-output__badge {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 3px;
+  margin-bottom: 12px;
+}
+
+.pi-output__badge--clean {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.pi-output__badge--injected-a {
+  background: #fde68a;
+  color: var(--warn);
+}
+
+.pi-output__confidence {
+  font-size: 11px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  margin-top: 8px !important;
+}
+
+/* Injection banners */
+
+.pi-banner {
+  border-radius: 5px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+
+.pi-banner--a {
+  background: var(--warn-bg);
+  border: 1px solid #fbbf24;
+  color: var(--warn);
+}
+
+.pi-banner--b {
+  background: var(--danger-bg);
+  border: 1px solid #f9b4b4;
+  color: var(--danger);
+  margin-top: 8px;
+}
+
+/* Buttons */
+
+.pi-btn {
+  padding: 11px 28px;
+  border: none;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.pi-btn--a {
+  background: var(--warn);
+  color: #fff;
+}
+
+.pi-btn--a:hover {
+  background: #7c3516;
+}
+
+.pi-btn--b {
+  background: var(--danger);
+  color: #fff;
+}
+
+.pi-btn--b:hover {
+  background: #7f1d1d;
+}
+
+.pi-btn--reset {
+  background: transparent;
+  color: var(--navy);
+  border: 1.5px solid var(--border-strong);
+}
+
+.pi-btn--reset:hover {
+  border-color: var(--navy);
+  background: var(--surface);
+}
+
+/* Explainer details/summary */
+
+.pi-explainer {
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.pi-explainer__toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.pi-explainer__toggle::-webkit-details-marker {
+  display: none;
+}
+
+.pi-explainer__toggle::before {
+  content: '▶';
+  font-size: 9px;
+  transition: transform 0.2s;
+}
+
+details[open] .pi-explainer__toggle::before {
+  transform: rotate(90deg);
+}
+
+.pi-explainer__body {
+  padding: 0 16px 14px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-mid);
+  border-top: 1px solid var(--border);
+}
+
+.pi-explainer__body p {
+  margin: 12px 0 0;
+}
+
+/* ── Scenario B — terminal context card ─────────────────────────── */
+
+.pi-terminal {
+  background: var(--navy);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pi-terminal__bar {
+  background: var(--navy-mid);
+  padding: 9px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pi-terminal__title {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 500;
+}
+
+.pi-terminal__body {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pi-terminal__row {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  font-size: 12px;
+}
+
+.pi-terminal__row--top {
+  align-items: flex-start;
+}
+
+.pi-terminal__key {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--gold);
+  min-width: 110px;
+  flex-shrink: 0;
+}
+
+.pi-terminal__quoted {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.55;
+}
+
+.pi-terminal__tools {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pi-tool-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  background: rgba(184, 150, 62, 0.18);
+  color: var(--gold);
+  border: 1px solid rgba(184, 150, 62, 0.4);
+  border-radius: 3px;
+  padding: 2px 8px;
+}
+
+.pi-db-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.pi-db-table th {
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 10px;
+  padding: 0 16px 6px 0;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pi-db-table td {
+  padding: 5px 16px 5px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.pi-db-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Scenario B document section */
+
+.pi-b-doc-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pi-b-doc-section .pi-col__label {
+  margin-bottom: 8px;
+}
+
+/* Agent action log */
+
+.pi-log {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.pi-log__label {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 16px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.pi-log__entries {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-family: 'IBM Plex Mono', monospace;
+  line-height: 1.55;
+}
+
+.pi-log__entry {
+  padding: 4px 0;
+}
+
+.pi-log__entry--user {
+  color: var(--navy);
+}
+
+.pi-log__entry--agent {
+  color: var(--text-mid);
+  padding-left: 14px;
+  border-left: 2px solid var(--border-strong);
+}
+
+.pi-log__entry--divider {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-align: center;
+  padding: 4px 0;
+}
+
+.pi-log__entry--call {
+  color: var(--danger);
+}
+
+.pi-log__entry--return {
+  color: var(--success);
+}
+
+.pi-log__empty {
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ── Scenario A — preset cards ──────────────────────────────────── */
+
+.pi-presets {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pi-presets__label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.pi-preset-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  padding: 12px 14px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 3px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.pi-preset-card:hover {
+  border-color: var(--warn);
+  border-left-color: var(--warn);
+  background: var(--warn-bg);
+  transform: translateX(2px);
+}
+
+.pi-preset-card__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.pi-preset-card__desc {
+  font-size: 12px;
+  color: var(--text-mid);
+  line-height: 1.4;
+}
+
+.pi-preset-card__cta {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--warn);
+  margin-top: 2px;
+}
+
+/* ── Typing zone (injection planting animation) ──────────────────── */
+
+.pi-typing-zone {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  color: #bbb;
+  background: var(--white);
+  border: 1px dashed #fbbf24;
+  border-radius: 4px;
+  padding: 10px 12px;
+  min-height: 72px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.pi-typing-text {
+  color: #b0b0b0;
+}
+
+.pi-cursor {
+  display: inline-block;
+  color: var(--warn);
+  font-weight: 300;
+  animation: pi-blink 0.65s step-end infinite;
+  margin-left: 1px;
+}
+
+@keyframes pi-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.pi-planted-badge {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--warn);
+  background: var(--warn-bg);
+  border: 1px solid #fde68a;
+  border-radius: 3px;
+  padding: 4px 9px;
+}
+
+.pi-planted-badge::before {
+  content: '✓';
+}
+
+.pi-planted-badge--sent {
+  color: var(--danger);
+  background: var(--danger-bg);
+  border-color: #fca5a5;
+}
+
+/* ── Poisoned document card state ───────────────────────────────── */
+
+.pi-doc-card--poisoned {
+  border-color: #fbbf24;
+}
+
+.pi-doc-card__poison-badge {
+  margin-left: auto;
+  font-size: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.05em;
+  color: #d97706;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  border-radius: 3px;
+  padding: 2px 7px;
+}
+
+.pi-doc-card__poison-badge--active {
+  color: var(--warn);
+  background: var(--warn-bg);
+  border-color: #f97316;
+}
+
+/* ── Output primed state (about to be corrupted) ─────────────────── */
+
+.pi-output--primed {
+  border-top-color: #fbbf24;
+  opacity: 0.7;
+}
+
+/* ── Contextual hints below the output panel ─────────────────────── */
+
+.pi-output-hint {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.pi-output-hint--warning {
+  color: var(--warn);
+  background: var(--warn-bg);
+  border-color: #fde68a;
+}
+
+.pi-output-hint--insight {
+  color: var(--navy);
+  background: #fefce8;
+  border-color: #fde68a;
+}
+
+.pi-output-hint--insight strong {
+  font-weight: 600;
+}
+
+/* ── Scenario B — chat conversation layout ───────────────────────── */
+
+.pi-chat {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.pi-chat__header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 9px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pi-chat__header-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.pi-chat__progress {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.pi-chat__body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 120px;
+}
+
+.pi-chat__empty {
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+  text-align: center;
+  padding: 24px 0;
+}
+
+.pi-chat__step {
+  animation: pi-step-in 0.22s ease forwards;
+}
+
+@keyframes pi-step-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pi-chat__controls {
+  border-top: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── Chat message rows ───────────────────────────────────────────── */
+
+.pi-chat-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.pi-chat-row--user {
+  justify-content: flex-start;
+}
+
+.pi-chat-row--agent {
+  justify-content: flex-end;
+}
+
+.pi-chat-row--exposed .pi-chat-bubble--agent {
+  border-color: #f9b4b4;
+  background: var(--danger-bg);
+}
+
+.pi-chat-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.pi-chat-avatar--user {
+  background: var(--navy);
+  color: #fff;
+}
+
+.pi-chat-avatar--agent {
+  background: var(--gold-light);
+  color: var(--gold);
+  border: 1px solid var(--border);
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+}
+
+.pi-chat-bubble {
+  max-width: 76%;
+  border-radius: 8px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+}
+
+.pi-chat-bubble--user {
+  background: var(--navy);
+  border-color: var(--navy);
+  border-radius: 8px 8px 8px 2px;
+}
+
+.pi-chat-bubble--user .pi-chat-actor {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.pi-chat-bubble--user .pi-chat-text {
+  color: #fff;
+}
+
+.pi-chat-bubble--agent {
+  background: var(--white);
+  border-radius: 8px 8px 2px 8px;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.pi-chat-bubble--agent .pi-chat-actor {
+  color: var(--muted);
+}
+
+.pi-chat-bubble--agent .pi-chat-text {
+  color: var(--text-mid);
+}
+
+.pi-chat-actor {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pi-chat-text {
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.pi-chat-cover-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--danger);
+  background: var(--danger-bg);
+  border: 1px solid #fca5a5;
+  border-radius: 3px;
+  padding: 2px 6px;
+  animation: pi-step-in 0.3s ease;
+}
+
+/* ── Tool call / response rows ───────────────────────────────────── */
+
+.pi-chat-tool {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  color: var(--text-mid);
+  position: relative;
+}
+
+.pi-chat-tool--compromised {
+  background: #fff5f5;
+  border-color: #fca5a5;
+  border-left: 3px solid var(--danger);
+}
+
+.pi-chat-tool__hidden-badge {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--danger);
+  background: var(--danger-bg);
+  border: 1px solid #fca5a5;
+  border-radius: 3px;
+  padding: 2px 6px;
+}
+
+.pi-chat-tool__line {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pi-chat-tool__arrow {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.pi-chat-tool--compromised .pi-chat-tool__arrow {
+  color: var(--danger);
+}
+
+.pi-chat-tool__name {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.pi-chat-tool--compromised .pi-chat-tool__name {
+  color: var(--danger);
+}
+
+.pi-chat-tool__args {
+  color: var(--muted);
+  word-break: break-all;
+}
+
+.pi-chat-tool__note {
+  margin-top: 4px;
+  font-size: 10.5px;
+  color: var(--danger);
+  font-style: italic;
+  font-family: 'Inter', sans-serif;
+}
+
+.pi-chat-tool-resp {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 7px 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  color: var(--success);
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.pi-chat-tool-resp--compromised {
+  background: #fff5f5;
+  border-color: #fca5a5;
+  border-left: 3px solid var(--danger);
+  color: var(--danger);
+}
+
+.pi-chat-tool-resp__text {
+  word-break: break-word;
+}
+
+/* ── Event divider ───────────────────────────────────────────────── */
+
+.pi-chat-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.pi-chat-divider::before,
+.pi-chat-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.pi-chat-divider__icon {
+  font-size: 13px;
+}
+
+.pi-chat-divider__text {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* ── Injection reveal card ───────────────────────────────────────── */
+
+.pi-chat-injection {
+  border: 1px solid #fbbf24;
+  border-left: 4px solid var(--warn);
+  border-radius: 5px;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.pi-chat-injection__callout {
+  background: var(--warn-bg);
+  border-bottom: 1px solid #fde68a;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pi-chat-injection__icon {
+  font-size: 13px;
+}
+
+.pi-chat-injection__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--warn);
+}
+
+.pi-chat-injection__sub {
+  font-size: 10px;
+  color: #92400e;
+  opacity: 0.7;
+  margin-left: auto;
+  font-style: italic;
+}
+
+/* ── Embedded document inside the injection card ─────────────────── */
+
+.pi-inj-doc {
+  background: var(--white);
+}
+
+.pi-inj-doc__bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 7px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pi-inj-doc__body {
+  padding: 14px 16px;
+  font-size: 13px;
+  color: var(--text-mid);
+  line-height: 1.65;
+}
+
+.pi-inj-doc__body p {
+  margin: 0 0 9px;
+}
+
+.pi-inj-doc__body p:last-child {
+  margin-bottom: 0;
+}
+
+.pi-inj-doc__title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px !important;
+}
+
+/* ── Hidden text zone — white-on-white with highlight reveal ──────── */
+
+.pi-inj-doc__hidden-zone {
+  border-top: 1px dashed var(--border-strong);
+  padding: 10px 16px 14px;
+  background: var(--white);
+}
+
+.pi-inj-doc__hidden-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--warn);
+  margin-bottom: 7px;
+}
+
+/* White text on amber-highlight background — simulates Ctrl+A revealing hidden text */
+.pi-inj-doc__hidden-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #fff;
+  background: #fbbf24;
+  padding: 8px 11px;
+  border-radius: 3px;
+  word-break: break-word;
+  /* Text-shadow makes the white characters legible against the amber highlight */
+  text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  /* The white text on amber background visually reads like selected/highlighted white text */
+  user-select: all;
+}
+
+/* ── Final banner ────────────────────────────────────────────────── */
+
+.pi-chat-banner {
+  background: var(--danger-bg);
+  border: 1px solid #f9b4b4;
+  border-left: 4px solid var(--danger);
+  border-radius: 5px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--danger);
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.pi-chat-banner__icon {
+  font-size: 15px;
+  flex-shrink: 0;
+  margin-top: 1px;
 }
