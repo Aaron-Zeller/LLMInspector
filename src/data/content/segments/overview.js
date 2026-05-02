@@ -6,7 +6,7 @@ export const overviewSegments = {
     description:
       'A structured learning experience on what employees put into LLMs, what models give back, and where responsibility stays human.',
     helper:
-      'The flow moves from overview to pre assessment, into the teaching content, through the post assessment, and ends with a short feedback step.',
+      'The flow moves from the overview to the pre assessment, into the teaching content, through the post assessment, and ends with a short feedback step.',
     actionLabel: 'Begin assessment',
     nextPageId: 'pre-assessment',
   },

@@ -6,7 +6,7 @@ export const postAssessmentSegments = {
     eyebrow: 'Section 10 · Post Assessment',
     title: 'Post assessment',
     description:
-      'The post assessment is a direct copy of the pre assessment so later comparison remains clean and intentional.',
+      'The post assessment is a direct copy of the pre assessment, so later comparison remains clean and intentional.',
   },
   'post-intro': {
     type: 'moduleIntro',
