@@ -9,8 +9,8 @@ const DOCS = [
   {
     id: 'salary',
     name: 'Employee Salary Spreadsheet',
-    desc: '847 staff — names, compensation, performance bands',
-    icon: '💰',
+    desc: '847 staff: names, compensation, performance bands',
+    icon: '',
     risk: 'critical',
     tag: 'PII · Confidential',
   },
@@ -18,7 +18,7 @@ const DOCS = [
     id: 'forecast',
     name: 'Q3 Financial Forecast (Full)',
     desc: 'Internal projections, EBITDA targets, stretch goals',
-    icon: '📊',
+    icon: '',
     risk: 'critical',
     tag: 'Trade Secret · Internal Only',
   },
@@ -26,7 +26,7 @@ const DOCS = [
     id: 'summary',
     name: 'Draft Executive Summary',
     desc: 'Management notes with internal targets and operational priorities',
-    icon: '📄',
+    icon: '',
     risk: 'medium',
     tag: 'Internal · Not for Publication',
   },
@@ -34,7 +34,7 @@ const DOCS = [
     id: 'branding',
     name: 'Brand & Messaging Guidelines',
     desc: 'Approved tone of voice and communication standards',
-    icon: '🎨',
+    icon: '',
     risk: 'safe',
     tag: 'Public · Approved',
   },
@@ -42,7 +42,7 @@ const DOCS = [
     id: 'press',
     name: 'Q3 Approved Press Release',
     desc: 'Publicly cleared financial highlights for external channels',
-    icon: '📰',
+    icon: '',
     risk: 'safe',
     tag: 'Public · Cleared for External Use',
   },
@@ -143,7 +143,7 @@ function buildOutputSpans(docs, prompt) {
 
   const spans = [];
 
-  spans.push({ id: 'h1', text: 'Q3 Highlights — Continued Growth and Customer Momentum\n\n', safe: true });
+  spans.push({ id: 'h1', text: 'Q3 Highlights: Continued Growth and Customer Momentum\n\n', safe: true });
 
   if (docs.has('press')) {
     spans.push({
@@ -162,7 +162,7 @@ function buildOutputSpans(docs, prompt) {
   if (docs.has('salary') && prompt === 'raw') {
     spans.push({
       id: 'leak-salary',
-      text: ' Our 847-person team — averaging $94,200 in annual compensation — delivered exceptional results this quarter',
+      text: ' Our 847-person team, averaging $94,200 in annual compensation, delivered exceptional results this quarter',
       safe: false,
       type: 'pii',
       label: 'PII · Internal Salary Data',
@@ -178,7 +178,7 @@ function buildOutputSpans(docs, prompt) {
       type: 'trade-secret',
       label: 'Trade Secret · Unpublished Forecast',
     });
-    spans.push({ id: 'lf2', text: ' — positioning us well for sustained 2025 growth.', safe: true });
+    spans.push({ id: 'lf2', text: ', positioning us well for sustained 2025 growth.', safe: true });
   } else if (docs.has('forecast') && prompt === 'anonymized') {
     spans.push({
       id: 'fa1',
@@ -255,13 +255,13 @@ export function GovernanceLab({ segment, segmentId }) {
   const taskCompleted = scores.efficiency >= 50;
   const primaryLeakStep = getPrimaryLeakStep(selectedDocs, promptStyle, outputAction, scores.leakage);
   const selectedDocNames = DOCS.filter((d) => selectedDocs.has(d.id)).map((d) => d.name);
-  const promptLabel = PROMPT_STYLES.find((p) => p.id === promptStyle)?.label ?? '—';
+  const promptLabel = PROMPT_STYLES.find((p) => p.id === promptStyle)?.label ?? 'Not selected';
   const actionLabel =
     outputAction === 'publish'
       ? 'Published directly without editing'
       : outputAction === 'edit'
         ? 'Reviewed and edited before publishing'
-        : '—';
+        : 'Not selected';
 
   function toggleDoc(id) {
     setSelectedDocs((prev) => {
@@ -288,7 +288,7 @@ export function GovernanceLab({ segment, segmentId }) {
     if (scores.leakage < 20)
       return 'A small amount of internal information was included. The anonymized prompt helped reduce exposure, but the correct fix is not to upload internal documents in the first place.';
     if (scores.leakage < 50)
-      return 'Internal information — including potentially sensitive targets or operational data — was passed to the LLM and may have surfaced in the generated output.';
+      return 'Internal information, including potentially sensitive targets or operational data, was passed to the LLM and may have surfaced in the generated output.';
     return 'Critical data was exposed: salary records or unpublished financial projections reached the LLM and appeared in the generated blog post. Publishing this output would constitute a serious data leak.';
   }
 
@@ -327,7 +327,7 @@ export function GovernanceLab({ segment, segmentId }) {
       <Segment className="content-section gl-segment" segmentId={segmentId}>
         <div className="gl-manager-banner">
           <div className="gl-manager-banner__eyebrow">Supervision Mode</div>
-          <div className="gl-manager-banner__title">Manager View — Action Log</div>
+          <div className="gl-manager-banner__title">Manager View: Action Log</div>
           <div className="gl-manager-banner__desc">
             {primaryLeakStep !== null
               ? 'Review the decisions your employee made and identify which step introduced the highest data risk.'
@@ -515,7 +515,7 @@ export function GovernanceLab({ segment, segmentId }) {
         {/* Left: Workplace Desk */}
         <div className="gl-desk">
           <div className="gl-desk__title">
-            {step === 1 ? 'Available Documents — Choose What to Upload' : 'Uploaded Documents'}
+            {step === 1 ? 'Available Documents: Choose What to Upload' : 'Uploaded Documents'}
           </div>
           <div className="gl-doc-list">
             {DOCS.map((doc) => {
@@ -556,15 +556,15 @@ export function GovernanceLab({ segment, segmentId }) {
               <div className="gl-legend__title">Highlighted Text</div>
               <div className="gl-legend__item">
                 <span className="gl-legend__swatch gl-legend__swatch--pii" />
-                PII — Personal data remnant
+                PII: Personal data remnant
               </div>
               <div className="gl-legend__item">
                 <span className="gl-legend__swatch gl-legend__swatch--trade-secret" />
-                Trade secret — Unpublished financials
+                Trade secret: Unpublished financials
               </div>
               <div className="gl-legend__item">
                 <span className="gl-legend__swatch gl-legend__swatch--internal" />
-                Internal — Unpublished strategic target
+                Internal: Unpublished strategic target
               </div>
             </div>
           )}
@@ -581,7 +581,7 @@ export function GovernanceLab({ segment, segmentId }) {
             {step === 1 && (
               <p className="gl-chat__placeholder">
                 Select documents from the desk to upload. The LLM will use everything you choose as
-                context — choose carefully.
+                context. Choose carefully.
               </p>
             )}
 
@@ -675,7 +675,7 @@ export function GovernanceLab({ segment, segmentId }) {
             <div className="gl-chat__actions">
               <span className="gl-chat__hint">
                 {promptStyle
-                  ? 'Prompt selected — ready to generate.'
+                  ? 'Prompt selected. Ready to generate.'
                   : 'Select a prompt style above.'}
               </span>
               <button
@@ -722,6 +722,21 @@ export function GovernanceLab({ segment, segmentId }) {
           )}
         </div>
       </div>
+
+      {segment.debrief ? (
+        <div className="lab-debrief">
+          <p className="lab-debrief__eyebrow">{segment.debrief.eyebrow}</p>
+          <h3 className="lab-debrief__title">{segment.debrief.title}</h3>
+          <div className="lab-debrief__grid">
+            {segment.debrief.items.map((item) => (
+              <article className="lab-debrief__item" key={item.title}>
+                <h4 className="lab-debrief__item-title">{item.title}</h4>
+                <p className="lab-debrief__item-body">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      ) : null}
     </Segment>
   );
 }

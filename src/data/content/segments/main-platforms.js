@@ -6,36 +6,436 @@ export const mainPlatformSegments = {
     description:
       'This final main-part page compares major LLM platforms only after learners understand why platform differences matter in the first place.',
   },
+  'main-platform-outcomes': {
+    type: 'contentCards',
+    eyebrow: 'Your Outcomes',
+    title: 'What you should be able to decide before choosing a platform',
+    description:
+      'This section is not about ranking brands. It is about making platform choice a governance decision. By the end, you should be able to do three things more clearly.',
+    columns: 3,
+    cards: [
+      {
+        tone: 'platform',
+        eyebrow: 'Outcome 1',
+        title: 'Separate capability from governance fit',
+        body:
+          'Recognise that two platforms can feel similarly capable while creating very different data, admin, and oversight implications.',
+      },
+      {
+        tone: 'platform',
+        eyebrow: 'Outcome 2',
+        title: 'Match the tool to the sensitivity of the work',
+        body:
+          'Distinguish when a public tool is inappropriate, when an enterprise instance may be enough, and when a local or internal deployment is worth the operational cost.',
+      },
+      {
+        tone: 'platform',
+        eyebrow: 'Outcome 3',
+        title: 'Ask governance questions before adoption',
+        body:
+          'Evaluate storage, training use, admin controls, retention, and oversight before teams normalise a tool through convenience alone.',
+      },
+    ],
+  },
   'main-platform-intro': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'We have placed platform choice at the end of this journey intentionally. Now that you understand the mechanics of input risks (sensitive data disclosure, prompt injection) and output risks (hallucinations, excessive agency), you are fully equipped to evaluate AI tools through the lens of governance rather than getting distracted by flashy, unstable feature claims.',
-      'The goal here is not to rank products like ChatGPT, Claude, or Gemini against one another. Instead, the focus must be on asking the right questions about data sovereignty and administrative control.',
+    type: 'platformChoiceWalkthrough',
+    eyebrow: 'Worked Examples',
+    title: 'Walk through the platform decision the way it actually appears at work',
+    description:
+      'Each case starts with a legitimate business need. Then it shows what really changes across platform choices, what goes wrong if the decision is made casually, and what governance move you should require before the team scales usage.',
+    scenarios: [
+      {
+        id: 'public-cloud',
+        eyebrow: 'Case 1',
+        title: 'Fast adoption through a public tool',
+        meta: 'Low friction, high ambiguity',
+        role: 'Your Situation',
+        headline: 'A team wants to use a popular public AI tool immediately because it is fast, accessible, and already familiar.',
+        context:
+          'The business need is real: faster drafting, summarisation, or ideation. The problem is that convenience can make the platform decision happen before anyone has asked what happens to the data afterward.',
+        riskLabel: 'Public Cloud Risk',
+        managerPressure:
+          'Move quickly and avoid slowing the team with procurement or internal tooling delays.',
+        managerDecision:
+          'Decide whether immediate access is enough reason to let work start in a public environment without clear governance guarantees.',
+        decisionPrompt:
+          'What is the stronger first move when a public tool is the fastest option available?',
+        decisionOptions: [
+          {
+            id: 'allow-until-problem',
+            label: 'Allow it for now and revisit the governance questions only if a concrete issue appears later.',
+            feedback:
+              'That is too reactive. Once the tool becomes routine, unsafe data habits can spread faster than governance can catch up.',
+          },
+          {
+            id: 'decide-before-normalise',
+            label: 'Pause long enough to decide what data classes and use cases this public environment should or should not receive.',
+            feedback:
+              'This is the stronger move. The key governance question should be answered before convenience becomes policy by default.',
+            correct: true,
+          },
+        ],
+        needTitle: 'The team genuinely needs speed',
+        needBody:
+          'Public tools remove friction: no procurement delay, low onboarding effort, and familiar interfaces. That makes them attractive even for teams that have not yet defined what data they should never receive.',
+        needBullets: [
+          'The entry barrier is low',
+          'The feature set often feels immediately useful',
+          'The organisation may not yet have an internal alternative ready',
+        ],
+        tradeoffTitle: 'Convenience often comes with weak governance clarity',
+        tradeoffBody:
+          'The relevant issue is not whether the model is smart enough. It is whether the organisation understands retention, training use, data boundaries, and administrative control well enough for the work being done.',
+        tradeoffBullets: [
+          'Terms and defaults may be unclear to ordinary users',
+          'IT may have little visibility into who is using what',
+          'Consumer convenience can hide enterprise governance gaps',
+        ],
+        consequenceTitle: 'The tool becomes standard before the rules exist',
+        consequenceBody:
+          'If the team adopts the platform casually, input risk, prompt-injection exposure, and weak output discipline all start living inside a tool the organisation has not actually governed.',
+        consequenceBullets: [
+          'Sensitive work may drift into an unsuitable environment',
+          'Different teams may build inconsistent practices on the same tool',
+          'Governance becomes a clean-up task instead of an adoption decision',
+        ],
+        controlTitle: 'Decide platform scope before behaviour scales',
+        controlBody:
+          'If a public platform is allowed at all, the organisation should define what categories of work belong there and what categories do not before usage spreads by habit.',
+        controlBullets: [
+          'Set explicit data and use-case boundaries',
+          'Communicate what is out of scope, not only what is convenient',
+          'Treat access decisions as policy, not personal preference',
+        ],
+        takeaway:
+          'The fastest platform choice is often the one that most needs an explicit boundary first.',
+      },
+      {
+        id: 'enterprise-cloud',
+        eyebrow: 'Case 2',
+        title: 'Enterprise cloud instance',
+        meta: 'Better contracts, still real trade-offs',
+        role: 'Your Situation',
+        headline: 'The organisation considers an enterprise version of a mainstream platform because it offers admin controls and stronger contractual guarantees.',
+        context:
+          'This is often the most realistic middle ground: familiar capability with clearer governance. The mistake is assuming this solves every risk just because the contract looks stronger.',
+        riskLabel: 'Managed Cloud Trade-off',
+        managerPressure:
+          'Give teams a powerful approved tool without taking on the full cost of an internal deployment.',
+        managerDecision:
+          'Decide whether improved provider guarantees are enough for the work, or whether the organisation still needs tighter boundaries around use and oversight.',
+        decisionPrompt:
+          'What is the stronger governance stance when an enterprise cloud instance is available?',
+        decisionOptions: [
+          {
+            id: 'enterprise-solves-all',
+            label: 'Once the enterprise contract is in place, most platform risk is effectively solved.',
+            feedback:
+              'That is too broad. Enterprise controls help a lot, but they do not remove output risk, unsafe prompts, or the need for internal policy and review.',
+          },
+          {
+            id: 'enterprise-needs-governance',
+            label: 'Use the stronger contract and admin controls, but still define internal rules for data classes, approvals, and output use.',
+            feedback:
+              'This is the stronger move. Better provider guarantees improve the platform choice, but they do not replace internal governance.',
+            correct: true,
+          },
+        ],
+        needTitle: 'The organisation needs a scalable middle path',
+        needBody:
+          'Enterprise instances often preserve usability while adding admin features, retention controls, and stronger commitments around training use. That makes them attractive for broad organisational rollout.',
+        needBullets: [
+          'Teams can use a familiar interface and model quality',
+          'IT and security gain more visibility and control',
+          'The organisation avoids some of the infrastructure burden of local hosting',
+        ],
+        tradeoffTitle: 'The contract improves the platform, not the whole workflow',
+        tradeoffBody:
+          'The input side may be better governed, but the organisation still has to manage prompt injection, hallucinations, downstream approvals, and who may do what with the tool.',
+        tradeoffBullets: [
+          'A safer provider does not make weak team habits safe',
+          'Admin controls matter only if the organisation uses them deliberately',
+          'Output verification remains necessary no matter where the model runs',
+        ],
+        consequenceTitle: 'The platform becomes a false sense of safety',
+        consequenceBody:
+          'If the enterprise label is treated like a blanket answer, teams may relax the very governance disciplines that still matter most once the model is in use.',
+        consequenceBullets: [
+          'Users may over-trust output because the tool is “approved”',
+          'Sensitive use cases may still need narrower controls',
+          'Platform approval can be confused with workflow approval',
+        ],
+        controlTitle: 'Treat enterprise choice as the start of governance, not the end',
+        controlBody:
+          'Enterprise platforms are often a strong option, but they still need internal role design, retention choices, access policies, and output review expectations around them.',
+        controlBullets: [
+          'Use admin controls deliberately rather than symbolically',
+          'Map data classes to allowed use cases explicitly',
+          'Keep output and workflow controls as separate responsibilities',
+        ],
+        takeaway:
+          'An enterprise platform can improve the environment, but it does not remove the need for internal governance discipline.',
+      },
+      {
+        id: 'local-internal',
+        eyebrow: 'Case 3',
+        title: 'Local or internal deployment',
+        meta: 'Higher privacy, higher operational burden',
+        role: 'Your Situation',
+        headline: 'The organisation considers hosting a model internally to avoid sending sensitive information to a public cloud.',
+        context:
+          'This is often the most attractive option for privacy-sensitive work. The governance mistake is assuming “local” automatically means “safe enough” without examining capability, maintenance, and output risk.',
+        riskLabel: 'Operational Shift',
+        managerPressure:
+          'Protect sensitive information while still giving teams access to AI support.',
+        managerDecision:
+          'Decide whether the privacy gain justifies the operational complexity and whether the organisation is prepared to govern the new internal system properly.',
+        decisionPrompt:
+          'What is the stronger stance when a local or internal model seems safest on paper?',
+        decisionOptions: [
+          {
+            id: 'local-means-safe',
+            label: 'If the model runs locally, the main governance problem is basically solved.',
+            feedback:
+              'That is too simplistic. Local deployment changes the privacy picture, but it does not remove hallucinations, prompt injection, permission design, or maintenance responsibilities.',
+          },
+          {
+            id: 'local-needs-operating-model',
+            label: 'Treat internal deployment as a shift in responsibility: stronger privacy, but also stronger operational and governance obligations.',
+            feedback:
+              'This is the stronger move. Internal hosting can be appropriate, but only if the organisation is ready to own the platform, not just install it.',
+            correct: true,
+          },
+        ],
+        needTitle: 'The organisation wants tighter data control',
+        needBody:
+          'Internal deployment can reduce exposure to public-cloud handling and may fit work that involves highly sensitive data or stricter regulatory expectations.',
+        needBullets: [
+          'Sensitive information can remain inside controlled infrastructure',
+          'The organisation can shape the environment more directly',
+          'Some high-trust workflows may only be viable in this setting',
+        ],
+        tradeoffTitle: 'Privacy improves, but the burden moves inward',
+        tradeoffBody:
+          'The organisation now owns more of the system’s operational reality: maintenance, permissions, model quality limits, monitoring, and internal oversight choices.',
+        tradeoffBullets: [
+          'Internal hosting does not remove hallucinations or prompt injection',
+          'Security and maintenance become the organisation’s job',
+          'Capability, performance, and cost trade-offs may change what teams can rely on',
+        ],
+        consequenceTitle: 'The platform is safer on one axis and weaker on another',
+        consequenceBody:
+          'If the organisation adopts a local model without an operating model around it, teams may still face unsafe output, weak permissions, or neglected maintenance inside a more private environment.',
+        consequenceBullets: [
+          'Privacy gains can be offset by weak internal controls',
+          'Operational burden can quietly reduce reliability or oversight',
+          'A local system can still create the same output-side failures discussed earlier',
+        ],
+        controlTitle: 'Choose local deployment only with a real operating model',
+        controlBody:
+          'Internal hosting should come with clear ownership for permissions, monitoring, updates, model limitations, and acceptable use, not just a server to run it on.',
+        controlBullets: [
+          'Define who owns the platform operationally',
+          'Keep the same output-side controls as any other model',
+          'Do not confuse infrastructure location with complete governance',
+        ],
+        takeaway:
+          'Local deployment changes where the risk sits, not whether governance is still required.',
+      },
     ],
   },
   'main-platform-cloud': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'When evaluating AI platforms, organisations generally face three distinct paths, each carrying its own structural trade-offs:',
-      '1. **Public Consumer Cloud (High Data Risk):** Standard, free, or basic subscription versions of popular LLMs. The primary risk here is data sovereignty. Unless specifically stated otherwise, the data you input may be stored on external servers and used to train the provider\'s future models, putting intellectual property and client confidentiality at immediate risk.',
-      '2. **Enterprise Cloud Instances (Managed Risk):** Enterprise versions often offer the exact same underlying intelligence as the consumer version, but with strictly different legal and data-handling guarantees. They ensure your prompts and files are ring-fenced, explicitly forbidding the provider from using your data for model training.',
-      '3. **Local or Internal Deployments (Operational Shift):** Hosting models within your own controlled infrastructure offers the highest level of data privacy, as your information never touches a public cloud. However, "local" does not automatically mean "safe." These deployments carry heavy operational and maintenance burdens. Furthermore, a local model is still entirely vulnerable to hallucinations, bias, and prompt injection.',
+    type: 'contentCards',
+    eyebrow: 'Three Platform Paths',
+    title: 'The platform choice is usually one of three structural paths',
+    description:
+      'The point is not to memorise vendor names. It is to recognise which broad path you are taking and what governance trade-offs come with it.',
+    columns: 3,
+    cards: [
+      {
+        tone: 'platform',
+        eyebrow: 'Path 1',
+        title: 'Public consumer cloud',
+        body:
+          'Fast adoption and low friction, but often the weakest clarity around organisational control, training use, retention, and visibility.',
+      },
+      {
+        tone: 'platform',
+        eyebrow: 'Path 2',
+        title: 'Enterprise cloud instance',
+        body:
+          'Usually the most practical middle ground: stronger contracts, admin controls, and governance features, but still not a substitute for internal policy and output review.',
+      },
+      {
+        tone: 'platform',
+        eyebrow: 'Path 3',
+        title: 'Local or internal deployment',
+        body:
+          'Potentially the strongest data boundary, but only if the organisation is ready to own the operating burden, permissions, and continuing oversight.',
+      },
     ],
   },
   'main-platform-private': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'To navigate this landscape responsibly, organisations must move past comparing benchmarks and focus on establishing robust governance. Before adopting any AI tool, evaluate it against these core criteria:',
-      '• **Verify Data Usage Policies:** Ensure that contracts or terms of service explicitly prohibit the AI provider from using your inputs, uploads, and chat history to train their base models.',
-      '• **Assess Data Storage and Sovereignty:** Determine exactly where the data is being stored and processed, ensuring it complies with regional frameworks like GDPR or industry-specific regulations.',
-      '• **Demand Administrative Controls:** Prioritise platforms that allow IT and security teams to manage access, enforce strict data retention policies, and monitor usage logs across the organisation.',
-      '• **Maintain Output Oversight:** Remember that choosing a secure, enterprise-grade platform only solves the input side of the risk equation. You must still apply the rigorous output verification and human-in-the-loop workflows discussed in previous chapters.',
+    type: 'platformGovernanceStudio',
+    eyebrow: 'Manager Playbook',
+    title: 'Turn platform selection into a governance decision instead of a feature comparison',
+    description:
+      'The goal is not to pick the “best AI.” The goal is to choose the platform path whose contracts, controls, and operating model actually fit the work.',
+    scenarios: [
+      {
+        id: 'public-cloud',
+        eyebrow: 'Case 1',
+        title: 'Public tool request',
+        meta: 'Fast access with hard boundaries',
+        role: 'Safer Governance',
+        headline: 'If a public tool is allowed, define exactly what work is still out of scope.',
+        context:
+          'You may still decide that public tools are acceptable for low-sensitivity work. The safer move is to make that scope explicit before usage expands on its own.',
+        riskLabel: 'Public Cloud Risk',
+        managerGoal: 'Preserve speed for low-risk use cases without letting convenience become default policy.',
+        designMove: 'Use explicit scope boundaries instead of informal tolerance.',
+        unsafeTitle: 'Let teams self-define what “probably fine” means',
+        unsafeBody:
+          'Without a written boundary, individual users decide case by case what to upload, paste, or ask, which creates inconsistent governance across the organisation.',
+        unsafeWhy:
+          'This feels flexible in the short term, but it creates more risk drift than actual clarity.',
+        verifyTitle: 'Define a narrow approved scope first',
+        verifyBody:
+          'If the organisation allows public tools at all, it should be clear which data classes, tasks, and outputs are still excluded.',
+        standardLabel: 'Governance Check',
+        standardTitle: 'Make scope visible before usage spreads',
+        standardBody:
+          'A usable public-tool policy should tell people both what they may do and what they must not do with that environment.',
+        standardChecks: [
+          'Which data classes are explicitly out of scope?',
+          'Which tasks are acceptable only in approved enterprise or internal tools?',
+          'Who is responsible for communicating and updating the boundary?',
+        ],
+        ruleLabel: 'Team Rule',
+        ruleTitle: 'Public tools may be convenient, but their scope is narrow',
+        ruleBody:
+          'Keep low-risk drafting and ideation possible if you want, but do not let convenience become permission for more sensitive work.',
+        ruleBullets: [
+          'List prohibited data and task categories explicitly',
+          'Route higher-sensitivity work to better-governed environments',
+          'Review public-tool usage as a policy issue, not a personal habit',
+        ],
+        takeaway:
+          'If you allow a public tool, the most important control is the boundary around it.',
+      },
+      {
+        id: 'enterprise-cloud',
+        eyebrow: 'Case 2',
+        title: 'Enterprise rollout',
+        meta: 'Approved environment with internal rules',
+        role: 'Safer Governance',
+        headline: 'Use the stronger provider environment, but build internal controls around it instead of assuming approval is enough.',
+        context:
+          'Enterprise platforms often make broad adoption realistic. The safer move is to turn that adoption into a governed operating model rather than a procurement checkbox.',
+        riskLabel: 'Managed Cloud Trade-off',
+        managerGoal: 'Enable broad usage in a provider environment with stronger guardrails.',
+        designMove: 'Treat platform approval and workflow approval as separate governance steps.',
+        unsafeTitle: 'Assume the enterprise label solves the risk by itself',
+        unsafeBody:
+          'Teams may hear “approved platform” and conclude that any use within it is acceptable, even when the task, data, or downstream action still needs local rules.',
+        unsafeWhy:
+          'The procurement decision feels like the hard part, so internal governance can accidentally become vague afterward.',
+        verifyTitle: 'Wrap the approved platform in an internal operating model',
+        verifyBody:
+          'Use the stronger provider environment, but still decide access roles, retention settings, allowed use cases, and oversight expectations inside the organisation.',
+        standardLabel: 'Governance Check',
+        standardTitle: 'Ask what the organisation still has to decide',
+        standardBody:
+          'The provider can improve the environment, but the organisation still owns usage policy, admin setup, and the output-side workflow rules around the tool.',
+        standardChecks: [
+          'Who controls workspace access and retention settings?',
+          'Which use cases still need escalation or specialist approval?',
+          'How will teams be taught the difference between platform approval and content approval?',
+        ],
+        ruleLabel: 'Team Rule',
+        ruleTitle: 'An approved platform still needs approved ways of using it',
+        ruleBody:
+          'This keeps the enterprise environment valuable without letting the approval label blur the remaining governance decisions.',
+        ruleBullets: [
+          'Use admin controls intentionally',
+          'Document allowed and disallowed use cases by role',
+          'Keep output verification and approval rules separate from platform choice',
+        ],
+        takeaway:
+          'Enterprise choice improves the platform layer, but your organisation still has to govern the usage layer.',
+      },
+      {
+        id: 'local-internal',
+        eyebrow: 'Case 3',
+        title: 'Internal deployment decision',
+        meta: 'Privacy with operating responsibility',
+        role: 'Safer Governance',
+        headline: 'Choose internal deployment only when the organisation is ready to run it as a real internal platform.',
+        context:
+          'A local model may be the right answer for certain sensitive workflows. The safer move is to evaluate whether the organisation is ready for the operational ownership that comes with it.',
+        riskLabel: 'Operational Shift',
+        managerGoal: 'Protect highly sensitive work while still supporting useful AI tasks.',
+        designMove: 'Adopt internal hosting only with clear platform ownership and continuing governance.',
+        unsafeTitle: 'Treat local hosting as automatic safety',
+        unsafeBody:
+          'The organisation may focus on data location and overlook the fact that permissions, maintenance, model limitations, and output governance still need active ownership.',
+        unsafeWhy:
+          'Privacy gains feel concrete, which can overshadow the operational risks that move inward with the deployment.',
+        verifyTitle: 'Choose internal only with an operating model',
+        verifyBody:
+          'The right question is not only “can we host it?” but “who will govern, maintain, monitor, and constrain it once we do?”',
+        standardLabel: 'Governance Check',
+        standardTitle: 'Check readiness, not only preference',
+        standardBody:
+          'Internal deployment is strongest when the organisation is ready to own platform operations and still apply the same output-side discipline as anywhere else.',
+        standardChecks: [
+          'Who owns security, updates, and permissions?',
+          'How will usage be monitored and limited by role?',
+          'Are teams being told clearly that local does not mean infallible?',
+        ],
+        ruleLabel: 'Team Rule',
+        ruleTitle: 'Local hosting changes ownership, not the need for governance',
+        ruleBody:
+          'This keeps internal deployment from becoming a false comfort. The platform may be private, but it still needs policy, oversight, and operational stewardship.',
+        ruleBullets: [
+          'Assign explicit platform ownership',
+          'Retain the same output-review and approval discipline',
+          'Treat local deployment as a governed product, not just infrastructure',
+        ],
+        takeaway:
+          'If the organisation hosts the model, the organisation also inherits more of the governance burden around it.',
+      },
     ],
   },
   'main-conclusion': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'Ultimately, responsible LLM use is not about banning tools or fearing the technology. It is about intentionally governing your inputs, systematically verifying your outputs, and choosing platforms with a crystal-clear understanding of where the risk resides. By applying these principles, we can safely and confidently harness the transformative power of Generative AI.',
+    type: 'contentCards',
+    eyebrow: 'Closing Principles',
+    title: 'The right platform is the one whose governance matches the work',
+    description:
+      'Platform choice should now feel like the last governance decision in the chain, not the first shiny product comparison.',
+    columns: 3,
+    cards: [
+      {
+        tone: 'platform',
+        eyebrow: 'Principle 1',
+        title: 'Do not start with the brand',
+        body:
+          'Start with the sensitivity of the work, the data involved, and the administrative control the organisation actually needs.',
+      },
+      {
+        tone: 'platform',
+        eyebrow: 'Principle 2',
+        title: 'Platform safety is only one layer',
+        body:
+          'A better environment improves the input side, but output verification, review gates, and supervision still matter exactly as much as before.',
+      },
+      {
+        tone: 'platform',
+        eyebrow: 'Principle 3',
+        title: 'Choose the operating model, not just the model',
+        body:
+          'The real decision is not only which tool to use, but who controls it, how it is governed, and what boundaries remain around the work.',
+      },
     ],
   },
   'main-platform-footer': {
