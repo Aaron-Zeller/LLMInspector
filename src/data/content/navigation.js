@@ -1,3 +1,39 @@
+export const NAV_SECTIONS = [
+  {
+    id: 'overview',
+    label: 'Overview',
+    pageIds: ['overview'],
+  },
+  {
+    id: 'pre-assessment',
+    label: 'Pre Assessment',
+    pageIds: ['pre-assessment'],
+  },
+  {
+    id: 'main-part',
+    label: 'Risk Scenarios',
+    pageIds: [
+      'main-part',
+      'main-sensitive-disclosure',
+      'main-prompt-injection',
+      'main-misinformation',
+      'main-output-handling',
+      'main-excessive-agency',
+      'main-platform-choice',
+    ],
+  },
+  {
+    id: 'post-assessment',
+    label: 'Post Assessment',
+    pageIds: ['post-assessment'],
+  },
+  {
+    id: 'experience-feedback',
+    label: 'Feedback',
+    pageIds: ['experience-feedback'],
+  },
+];
+
 export const PAGE_SEQUENCE = [
   {
     id: 'overview',
@@ -20,9 +56,7 @@ export const PAGE_SEQUENCE = [
     segmentIds: [
       'main-sensitive-header',
       'main-sensitive-outcomes',
-      'main-sensitive-intro',
       'main-sensitive-legal',
-      'main-sensitive-transfer',
       'main-sensitive-lab',
       'main-sensitive-footer',
     ],
@@ -34,7 +68,6 @@ export const PAGE_SEQUENCE = [
       'main-prompt-header',
       'main-prompt-outcomes',
       'main-prompt-intro',
-      'main-prompt-transfer',
       'main-prompt-demo',
       'main-prompt-footer',
     ],
@@ -46,10 +79,7 @@ export const PAGE_SEQUENCE = [
       'main-misinformation-header',
       'main-misinformation-outcomes',
       'main-misinformation-hallucinations',
-      'main-misinformation-risks',
-      'main-misinformation-transfer',
       'main-misinformation-spot',
-      'main-misinformation-verify',
       'main-misinformation-footer',
     ],
   },
@@ -60,27 +90,24 @@ export const PAGE_SEQUENCE = [
       'main-output-header',
       'main-output-outcomes',
       'main-output-workflows',
-      'main-output-transfer',
       'main-output-approve-escalate',
-      'main-output-system-tuning',
       'main-output-footer',
     ],
   },
   {
     id: 'main-excessive-agency',
-    label: 'Oversight',
+    label: 'Human Oversight',
     segmentIds: [
       'main-agency-header',
       'main-agency-outcomes',
       'main-agency-intro',
-      'main-agency-transfer',
       'main-agency-lab',
       'main-agency-footer',
     ],
   },
   {
     id: 'main-platform-choice',
-    label: 'Platforms',
+    label: 'Platform Choice',
     segmentIds: [
       'main-platform-header',
       'main-platform-outcomes',
@@ -93,57 +120,16 @@ export const PAGE_SEQUENCE = [
   {
     id: 'post-assessment',
     label: 'Post Assessment',
-    segmentIds: ['post-header', 'post-intro', 'post-questions', 'post-footer'],
+    segmentIds: ['post-header', 'post-questions', 'post-footer'],
   },
   {
     id: 'experience-feedback',
     label: 'Feedback',
-    segmentIds: ['feedback-header', 'post-feedback', 'feedback-footer'],
+    segmentIds: ['feedback-header', 'feedback-questions', 'feedback-footer'],
   },
   {
     id: 'thank-you',
     label: 'Thank You',
-    segmentIds: ['thanks-header', 'thanks-intro', 'thanks-callout', 'thanks-footer'],
-  },
-];
-
-export const NAV_SECTIONS = [
-  {
-    id: 'overview',
-    label: 'Overview',
-    pageIds: ['overview'],
-  },
-  {
-    id: 'pre-assessment',
-    label: 'Pre Assessment',
-    pageIds: ['pre-assessment'],
-  },
-  {
-    id: 'main-part',
-    label: 'Main Part',
-    pageIds: [
-      'main-part',
-      'main-sensitive-disclosure',
-      'main-prompt-injection',
-      'main-misinformation',
-      'main-output-handling',
-      'main-excessive-agency',
-      'main-platform-choice',
-    ],
-  },
-  {
-    id: 'post-assessment',
-    label: 'Post Assessment',
-    pageIds: ['post-assessment'],
-  },
-  {
-    id: 'experience-feedback',
-    label: 'Feedback',
-    pageIds: ['experience-feedback'],
-  },
-  {
-    id: 'thank-you',
-    label: 'Thank You',
-    pageIds: ['thank-you'],
+    segmentIds: ['thank-you-header', 'thank-you-message'],
   },
 ];

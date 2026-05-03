@@ -2,96 +2,10 @@ import { useState } from 'react';
 import { cx } from '../../lib/cx.js';
 import { Segment } from '../dev/Segment.jsx';
 
-const LENSES = [
-  { id: 'trigger', label: '1. Trigger' },
-  { id: 'boundary', label: '2. Core Risk' },
-  { id: 'impact', label: '3. Business Consequence' },
-  { id: 'control', label: '4. Manager Handbook' },
-];
-
-function LensPanel({ scenario, lensId }) {
-  if (lensId === 'trigger') {
-    return (
-      <div className="sdw-panel-grid">
-        <article className="sdw-panel-card sdw-panel-card--input">
-          <h3 className="sdw-panel-card__title">{scenario.triggerTitle || 'What Entered The Workflow'}</h3>
-          <p className="sdw-panel-card__body">{scenario.triggerBody}</p>
-        </article>
-        <article className="sdw-panel-card">
-          <h3 className="sdw-panel-card__title">{scenario.triggerBulletsTitle || 'Why It Gets Approved In The Moment'}</h3>
-          <ul className="sdw-panel-list">
-            {scenario.triggerBullets.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </article>
-      </div>
-    );
-  }
-
-  if (lensId === 'boundary') {
-    return (
-      <div className="sdw-panel-grid">
-        <article className="sdw-panel-card sdw-panel-card--input">
-          <h3 className="sdw-panel-card__title">{scenario.boundaryTitle || 'Boundary Failure'}</h3>
-          <p className="sdw-panel-card__body">{scenario.boundaryBody}</p>
-        </article>
-        <article className="sdw-panel-card">
-          <h3 className="sdw-panel-card__title">{scenario.boundaryBulletsTitle || 'Questions Before You Approve'}</h3>
-          <ul className="sdw-panel-list">
-            {scenario.boundaryBullets.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </article>
-      </div>
-    );
-  }
-
-  if (lensId === 'impact') {
-    return (
-      <div className="sdw-panel-grid">
-        <article className="sdw-panel-card sdw-panel-card--input">
-          <h3 className="sdw-panel-card__title">{scenario.consequenceTitle || 'What Happens Next'}</h3>
-          <p className="sdw-panel-card__body">{scenario.consequenceBody}</p>
-        </article>
-        <article className="sdw-panel-card">
-          <h3 className="sdw-panel-card__title">{scenario.consequenceBulletsTitle || 'What This Costs You'}</h3>
-          <ul className="sdw-panel-list">
-            {scenario.consequenceBullets.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </article>
-      </div>
-    );
-  }
-
-  return (
-    <div className="sdw-panel-grid">
-      <article className="sdw-panel-card sdw-panel-card--input">
-        <h3 className="sdw-panel-card__title">{scenario.controlTitle || 'Your Design Move'}</h3>
-        <p className="sdw-panel-card__body">{scenario.controlBody}</p>
-      </article>
-      <article className="sdw-panel-card">
-        <h3 className="sdw-panel-card__title">{scenario.controlBulletsTitle || 'What The Team Should Hear'}</h3>
-        <ul className="sdw-panel-list">
-          {scenario.controlBullets.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </article>
-    </div>
-  );
-}
-
 export function PromptInjectionWalkthrough({ segment, segmentId }) {
-  const [activeScenarioId, setActiveScenarioId] = useState(segment.scenarios[0]?.id);
-  const [activeLens, setActiveLens] = useState(LENSES[0].id);
   const [decisionSelections, setDecisionSelections] = useState({});
 
-  const activeScenario =
-    segment.scenarios.find((scenario) => scenario.id === activeScenarioId) ?? segment.scenarios[0];
+  const activeScenario = segment.scenarios[0];
   const selectedDecision = decisionSelections[activeScenario.id];
   const selectedDecisionOption = activeScenario.decisionOptions?.find(
     (option) => option.id === selectedDecision,
@@ -105,29 +19,6 @@ export function PromptInjectionWalkthrough({ segment, segmentId }) {
       </div>
       <h2 className="section-title">{segment.title}</h2>
       <p className="section-desc">{segment.description}</p>
-
-      <div className="sdw-scenarios" role="tablist" aria-label="Prompt injection examples">
-        {segment.scenarios.map((scenario) => {
-          const isActive = scenario.id === activeScenario.id;
-          return (
-            <button
-              key={scenario.id}
-              className={cx('sdw-scenario', isActive && 'sdw-scenario--active')}
-              onClick={() => {
-                setActiveScenarioId(scenario.id);
-                setActiveLens(LENSES[0].id);
-              }}
-              role="tab"
-              aria-selected={isActive}
-              type="button"
-            >
-              <span className="sdw-scenario__eyebrow">{scenario.eyebrow}</span>
-              <strong className="sdw-scenario__title">{scenario.title}</strong>
-              <span className="sdw-scenario__meta">{scenario.meta}</span>
-            </button>
-          );
-        })}
-      </div>
 
       <div className="sdw-case">
         <div className="sdw-case__header">
@@ -178,23 +69,64 @@ export function PromptInjectionWalkthrough({ segment, segmentId }) {
 
         {selectedDecisionOption ? (
           <>
-            <div className="sdw-lenses" role="tablist" aria-label="Prompt injection explanation steps">
-              {LENSES.map((lens) => (
-                <button
-                  key={lens.id}
-                  className={cx('sdw-lens', activeLens === lens.id && 'sdw-lens--active')}
-                  onClick={() => setActiveLens(lens.id)}
-                  role="tab"
-                  aria-selected={activeLens === lens.id}
-                  type="button"
-                >
-                  {lens.label}
-                </button>
-              ))}
-            </div>
-
             <div className="sdw-panel">
-              <LensPanel scenario={activeScenario} lensId={activeLens} />
+              <article className="sdw-panel-card">
+                <div className="sdw-panel-full-content">
+                  <section className="sdw-panel-section">
+                    <h3 className="sdw-panel-card__title">{activeScenario.employeeActionTitle || 'The Hidden Input'}</h3>
+                    <p className="sdw-panel-card__body">{activeScenario.employeeAction}</p>
+                    
+                    <h3 className="sdw-panel-card__title mt-6">{activeScenario.whyFeelsNormalTitle || 'Why It Gets Approved In The Moment'}</h3>
+                    <ul className="sdw-panel-list">
+                      {activeScenario.whyFeelsNormal.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </section>
+
+                  <div className="sdw-panel-divider" />
+
+                  <section className="sdw-panel-section">
+                    <h3 className="sdw-panel-card__title">{activeScenario.legalQuestionTitle || 'The Core Failure'}</h3>
+                    <p className="sdw-panel-card__body">{activeScenario.legalQuestion}</p>
+                    
+                    <h3 className="sdw-panel-card__title mt-6">{activeScenario.legalChecksTitle || 'Questions Before You Approve'}</h3>
+                    <ul className="sdw-panel-list">
+                      {activeScenario.legalChecks.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </section>
+
+                  <div className="sdw-panel-divider" />
+
+                  <section className="sdw-panel-section">
+                    <h3 className="sdw-panel-card__title">{activeScenario.consequenceTitle || 'The Business Impact'}</h3>
+                    <p className="sdw-panel-card__body">{activeScenario.consequence}</p>
+                    
+                    <h3 className="sdw-panel-card__title mt-6">{activeScenario.consequenceBulletsTitle || 'What This Costs You'}</h3>
+                    <ul className="sdw-panel-list">
+                      {activeScenario.consequenceBullets.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </section>
+
+                  <div className="sdw-panel-divider" />
+
+                  <section className="sdw-panel-section">
+                    <h3 className="sdw-panel-card__title">{activeScenario.controlTitle || 'Enforce the boundary'}</h3>
+                    <p className="sdw-panel-card__body">{activeScenario.control}</p>
+                    
+                    <h3 className="sdw-panel-card__title mt-6">{activeScenario.controlBulletsTitle || 'What The Team Should Hear'}</h3>
+                    <ul className="sdw-panel-list">
+                      {activeScenario.controlBullets.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </section>
+                </div>
+              </article>
             </div>
 
             <div className="sdw-takeaway">

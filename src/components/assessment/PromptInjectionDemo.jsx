@@ -117,24 +117,6 @@ const FRAME = {
   ],
 };
 
-const SYNTHESIS = {
-  title: 'What this means for your approval decisions',
-  points: [
-    {
-      label: 'Attack surface',
-      body: 'The instruction entered through a document. The model then used real tools.',
-    },
-    {
-      label: 'The risk',
-      body: 'Prompt injection is a systems problem when the model can access data or take actions.',
-    },
-    {
-      label: 'Your control',
-      body: 'Keep tool permissions narrow. Move approvals outside the model.',
-    },
-  ],
-};
-
 // ── Component ────────────────────────────────────────────────────────
 export function PromptInjectionDemo({ segment, segmentId }) {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -145,10 +127,6 @@ export function PromptInjectionDemo({ segment, segmentId }) {
   const visibleSteps = STEPS.slice(0, step);
   const selectedDecision = FRAME.options.find((o) => o.id === selectedOption);
   const canRunLab = Boolean(selectedDecision);
-  const debriefItems = SYNTHESIS.points.map((point) => ({
-    title: point.label,
-    body: point.body,
-  }));
 
   function reset() {
     timers.current.forEach(clearTimeout);
@@ -443,8 +421,8 @@ export function PromptInjectionDemo({ segment, segmentId }) {
       </div>
 
       <AfterLabSection
-        eyebrow="After The Lab"
-        title={SYNTHESIS.title}
+        eyebrow={segment?.debrief?.eyebrow ?? 'After The Lab'}
+        title={segment?.debrief?.title ?? 'Review Findings'}
         summary={
           selectedDecision
             ? selectedDecision.correct
@@ -453,7 +431,7 @@ export function PromptInjectionDemo({ segment, segmentId }) {
             : 'Use the outcome to decide which boundary to formalise.'
         }
         summaryTone={selectedDecision?.correct ? 'success' : undefined}
-        items={debriefItems}
+        items={segment?.debrief?.items ?? []}
         isComplete={bannerShowing}
       />
     </Segment>
