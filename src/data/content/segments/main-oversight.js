@@ -1,17 +1,23 @@
 export const mainOversightSegments = {
   'main-agency-header': {
     type: 'pageHeader',
+    tone: 'output',
     eyebrow: 'Section 8 · Excessive Agency and Human Oversight',
     title: 'When the model should not act on its own',
     description:
-      'This final output-side page focuses on responsibility, approvals, and the limits of automation when the consequences are meaningful.',
+      'This section focuses on responsibility, approvals, and the point where assistance becomes unsafe autonomy.',
+    frame: {
+      label: 'Your task',
+      body: 'Keep meaningful authority outside the model, especially once the workflow can send, approve, or change something real.',
+    },
   },
   'main-agency-outcomes': {
     type: 'contentCards',
+    tone: 'output',
     eyebrow: 'Your Outcomes',
     title: 'What you should be able to decide before granting an AI system real agency',
     description:
-      'This section is about who keeps the steering wheel once the model can do more than generate text. By the end, you should be able to do three things more deliberately.',
+      'This section is about who keeps the steering wheel once the model can do more than generate text.',
     columns: 3,
     cards: [
       {
@@ -42,7 +48,7 @@ export const mainOversightSegments = {
     eyebrow: 'Worked Examples',
     title: 'Walk through how “helpful automation” becomes unsafe autonomy',
     description:
-      'Each case starts with a reasonable automation idea. Then it shows what power the system received, what boundary disappeared, what happens if the model acts alone, and what supervision rule you should already have required.',
+      'Each case shows what power the system received, where the boundary disappeared, and what supervision rule you should have required first.',
     scenarios: [
       {
         id: 'customer-replies',
@@ -246,6 +252,7 @@ export const mainOversightSegments = {
   },
   'main-agency-transfer': {
     type: 'transferCallout',
+    tone: 'output',
     eyebrow: 'Before You Continue',
     title: 'Carry these three oversight checks into the lab',
     description:
@@ -269,10 +276,18 @@ export const mainOversightSegments = {
   },
   'main-agency-lab': {
     type: 'agencyPermissionLab',
+    tone: 'output',
     eyebrow: 'Interactive Lab',
     title: 'Configure the agent before you deploy it',
     description:
       'Your team is deploying an AI agent across three workflows. For each capability, decide how much authority the agent should have before the first run. Then see what happens when those choices are in effect.',
+    frame: {
+      role: 'You are setting the permission boundary before an internal AI agent goes live across multiple workflows.',
+      watch:
+        'Pay attention to the moment assistance turns into authority: sending, approving, or changing something real without a person stopping it.',
+      emphasis:
+        'This lab matters because permission decisions look harmless in the setup screen. Their consequences only become visible once the agent acts at speed.',
+    },
     debrief: {
       eyebrow: 'After the Lab',
       title: 'What to carry into your next automation decision',

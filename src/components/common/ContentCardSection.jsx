@@ -1,8 +1,12 @@
+import { cx } from '../../lib/cx.js';
 import { Segment } from '../dev/Segment.jsx';
 
 export function ContentCardSection({ segment, segmentId }) {
   return (
-    <Segment className="content-section" segmentId={segmentId}>
+    <Segment
+      className={cx('content-section', segment.tone && `content-section--${segment.tone}`)}
+      segmentId={segmentId}
+    >
       {segment.eyebrow ? (
         <div className="section-eyebrow">
           <div className="eyebrow-line" />

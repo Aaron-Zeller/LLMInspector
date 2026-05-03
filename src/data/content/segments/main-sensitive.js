@@ -1,13 +1,19 @@
 export const mainSensitiveSegments = {
   'main-sensitive-header': {
     type: 'pageHeader',
+    tone: 'input',
     eyebrow: 'Section 4 · Sensitive Information Disclosure',
     title: 'What should never be pasted or uploaded casually',
     description:
       'This section will tell you about the most immediate input-side risk of interacting with an LLM: inputting sensitive content.',
+    frame: {
+      label: 'Your task',
+      body: 'Set the input boundary before a useful shortcut becomes your team’s default workflow.',
+    },
   },
   'main-sensitive-outcomes': {
     type: 'contentCards',
+    tone: 'input',
     eyebrow: 'Your Outcomes',
     title: 'What you should be able to do before deciding what to input into an LLM',
     description:
@@ -15,14 +21,14 @@ export const mainSensitiveSegments = {
     columns: 2,
     cards: [
       {
-        tone: 'privacy',
+        tone: 'input',
         eyebrow: 'Outcome 1',
         title: 'Decide which information can be input into an LLM',
         body:
           'Distinguish between raw sensitive data that should stay out and transformed or aggregated inputs that keep the work moving safely.',
       },
       {
-        tone: 'privacy',
+        tone: 'input',
         eyebrow: 'Outcome 2',
         title: 'Create company wide procedures for inputting data into LLM to retain both productivity and security',
         body:
@@ -32,6 +38,7 @@ export const mainSensitiveSegments = {
   },
   'main-sensitive-intro': {
     type: 'moduleIntro',
+    tone: 'input',
     paragraphs: [
       'For you as a manager, this risk rarely begins with malicious intent. It usually begins with a reasonable pressure: move faster, reduce friction, and still get good work out of the team.',
       'Sometimes this section asks you to imagine your own direct AI use. Sometimes it asks you to judge a workflow your team might use. In both cases, the point is the same: treat the data decision and the workflow decision as your responsibility.',
@@ -242,6 +249,7 @@ export const mainSensitiveSegments = {
   },
   'main-sensitive-transfer': {
     type: 'transferCallout',
+    tone: 'input',
     eyebrow: 'Before You Continue',
     title: 'Carry these three checks into the lab',
     description:
@@ -265,10 +273,18 @@ export const mainSensitiveSegments = {
   },
   'main-sensitive-lab': {
     type: 'governanceLab',
+    tone: 'input',
     eyebrow: 'Interactive Lab',
     title: 'The Governance Lab: Input and Output Assurance',
     description:
       'Act as the person designing the workflow. Choose which documents may be used, how the prompt should constrain the task, and whether the output is useful enough without exposing more than the work requires.',
+    frame: {
+      role: 'You are approving a team workflow for drafting public-facing content under time pressure.',
+      watch:
+        'Notice where convenience starts widening the input boundary: document choice, prompt design, and the final decision to publish or stop.',
+      emphasis:
+        'This lab matters because a data leak rarely begins with one dramatic mistake. It begins when an ordinary task quietly normalises the wrong workflow.',
+    },
     debrief: {
       eyebrow: 'After the Lab',
       title: 'What to carry into your next workflow decision',

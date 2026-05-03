@@ -1,3 +1,4 @@
+import { cx } from '../../lib/cx.js';
 import { Segment } from '../dev/Segment.jsx';
 
 const BOLD_PATTERN = /\*\*(.+?)\*\*/g;
@@ -50,7 +51,10 @@ function groupParagraphs(paragraphs) {
 export function ModuleIntro({ segment, segmentId }) {
   const groups = groupParagraphs(segment.paragraphs);
   return (
-    <Segment className="panel panel--intro" segmentId={segmentId}>
+    <Segment
+      className={cx('panel panel--intro', segment.tone && `panel--${segment.tone}`)}
+      segmentId={segmentId}
+    >
       {groups.map((group) => {
         if (group.kind === 'p') {
           return (

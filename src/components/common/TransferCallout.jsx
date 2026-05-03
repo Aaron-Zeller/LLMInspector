@@ -1,8 +1,12 @@
+import { cx } from '../../lib/cx.js';
 import { Segment } from '../dev/Segment.jsx';
 
 export function TransferCallout({ segment, segmentId }) {
   return (
-    <Segment className="transfer-callout" segmentId={segmentId}>
+    <Segment
+      className={cx('transfer-callout', segment.tone && `transfer-callout--${segment.tone}`)}
+      segmentId={segmentId}
+    >
       <div className="transfer-callout__intro">
         <p className="transfer-callout__eyebrow">{segment.eyebrow}</p>
         <h2 className="transfer-callout__title">{segment.title}</h2>
@@ -21,7 +25,12 @@ export function TransferCallout({ segment, segmentId }) {
         ))}
       </div>
 
-      {segment.prompt ? <p className="transfer-callout__prompt">{segment.prompt}</p> : null}
+      {segment.prompt ? (
+        <div className="transfer-callout__carry">
+          <p className="transfer-callout__carry-label">Carry Into The Lab</p>
+          <p className="transfer-callout__prompt">{segment.prompt}</p>
+        </div>
+      ) : null}
     </Segment>
   );
 }

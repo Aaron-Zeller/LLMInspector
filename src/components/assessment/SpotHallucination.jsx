@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { cx } from '../../lib/cx.js';
+import { AfterLabSection } from '../common/AfterLabSection.jsx';
+import { LabBrief } from '../common/LabBrief.jsx';
 import { Segment } from '../dev/Segment.jsx';
 
 const TYPE_META = {
@@ -38,26 +40,7 @@ export function SpotHallucination({ segment, segmentId }) {
       </div>
       <h2 className="section-title">{segment.title}</h2>
       <p className="section-desc">{segment.description}</p>
-      {segment.frame ? (
-        <div className="lab-brief">
-          <div className="lab-brief__grid">
-            <article className="lab-brief__item">
-              <p className="lab-brief__label">Your Role</p>
-              <p className="lab-brief__body">{segment.frame.role}</p>
-            </article>
-            <article className="lab-brief__item">
-              <p className="lab-brief__label">What To Watch</p>
-              <p className="lab-brief__body">{segment.frame.watch}</p>
-            </article>
-            {segment.frame.emphasis ? (
-              <article className="lab-brief__item lab-brief__item--full">
-                <p className="lab-brief__label">Why This Lab Matters</p>
-                <p className="lab-brief__body">{segment.frame.emphasis}</p>
-              </article>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
+      <LabBrief frame={segment.frame} tone={segment.tone} />
 
       <div className="transcript-card spot-hallucination">
         <div className="transcript-card__title">{segment.transcriptTitle}</div>
@@ -168,33 +151,30 @@ export function SpotHallucination({ segment, segmentId }) {
               );
             })}
           </div>
-          {segment.debrief ? (
-            <div className="lab-debrief">
-              <p className="lab-debrief__eyebrow">{segment.debrief.eyebrow}</p>
-              <h3 className="lab-debrief__title">{segment.debrief.title}</h3>
-              <div className="lab-debrief__grid">
-                {segment.debrief.items.map((item) => (
-                  <article className="lab-debrief__item" key={item.title}>
-                    <h4 className="lab-debrief__item-title">{item.title}</h4>
-                    <p className="lab-debrief__item-body">{item.body}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          ) : null}
-
-          <button
-            className="btn-secondary"
-            onClick={() => {
-              setSelected(new Set());
-              setSubmitted(false);
-            }}
-            type="button"
-          >
-            Run Lab Again
-          </button>
         </div>
       )}
+
+      {segment.debrief ? (
+        <AfterLabSection
+          eyebrow={segment.debrief.eyebrow}
+          title={segment.debrief.title}
+          items={segment.debrief.items}
+          isComplete={submitted}
+        />
+      ) : null}
+
+      {submitted ? (
+        <button
+          className="btn-secondary"
+          onClick={() => {
+            setSelected(new Set());
+            setSubmitted(false);
+          }}
+          type="button"
+        >
+          Run Lab Again
+        </button>
+      ) : null}
     </Segment>
   );
 }

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { cx } from '../../lib/cx.js';
+import { AfterLabSection } from '../common/AfterLabSection.jsx';
+import { LabBrief } from '../common/LabBrief.jsx';
 import { Segment } from '../dev/Segment.jsx';
 
 const CAPABILITIES = [
@@ -180,18 +182,12 @@ export function AgencyPermissionLab({ segment, segmentId }) {
         </div>
 
         {segment.debrief ? (
-          <div className="lab-debrief">
-            <p className="lab-debrief__eyebrow">{segment.debrief.eyebrow}</p>
-            <h3 className="lab-debrief__title">{segment.debrief.title}</h3>
-            <div className="lab-debrief__grid">
-              {segment.debrief.items.map((item) => (
-                <article className="lab-debrief__item" key={item.title}>
-                  <h4 className="lab-debrief__item-title">{item.title}</h4>
-                  <p className="lab-debrief__item-body">{item.body}</p>
-                </article>
-              ))}
-            </div>
-          </div>
+          <AfterLabSection
+            eyebrow={segment.debrief.eyebrow}
+            title={segment.debrief.title}
+            items={segment.debrief.items}
+            isComplete={phase === 'report'}
+          />
         ) : null}
       </Segment>
     );
@@ -299,6 +295,15 @@ export function AgencyPermissionLab({ segment, segmentId }) {
             </button>
           </div>
         )}
+
+        {segment.debrief ? (
+          <AfterLabSection
+            eyebrow={segment.debrief.eyebrow}
+            title={segment.debrief.title}
+            items={segment.debrief.items}
+            isComplete={false}
+          />
+        ) : null}
       </Segment>
     );
   }
@@ -312,6 +317,7 @@ export function AgencyPermissionLab({ segment, segmentId }) {
       </div>
       <h2 className="section-title">{segment.title}</h2>
       <p className="section-desc">{segment.description}</p>
+      <LabBrief frame={segment.frame} tone={segment.tone} />
 
       <div className="gl-task-banner">
         <div className="gl-task-banner__label">Your Task</div>
@@ -377,6 +383,15 @@ export function AgencyPermissionLab({ segment, segmentId }) {
           Deploy Configuration
         </button>
       </div>
+
+      {segment.debrief ? (
+        <AfterLabSection
+          eyebrow={segment.debrief.eyebrow}
+          title={segment.debrief.title}
+          items={segment.debrief.items}
+          isComplete={false}
+        />
+      ) : null}
     </Segment>
   );
 }

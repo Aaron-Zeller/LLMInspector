@@ -1,17 +1,23 @@
 export const mainMisinformationSegments = {
   'main-misinformation-header': {
     type: 'pageHeader',
+    tone: 'output',
     eyebrow: 'Section 6 · Misinformation and Hallucinations',
     title: 'When confident output is still wrong',
     description:
-      'This is the first output-side page. It focuses on false facts, unsupported claims, and plausible but unsafe code or recommendations.',
+      'This section focuses on false facts, unsupported claims, and polished output that looks ready before anyone checks it.',
+    frame: {
+      label: 'Your task',
+      body: 'Decide which claims may travel, which must be checked, and which should stop before they gain authority.',
+    },
   },
   'main-misinformation-outcomes': {
     type: 'contentCards',
+    tone: 'output',
     eyebrow: 'Your Outcomes',
     title: 'What you should be able to do before approving AI-generated claims',
     description:
-      'This section is about managerial review, not abstract model theory. By the end, you should be able to do three things with more confidence.',
+      'This section is about managerial review, not model theory. The aim is to make weak claims visible before they travel.',
     columns: 3,
     cards: [
       {
@@ -42,7 +48,7 @@ export const mainMisinformationSegments = {
     eyebrow: 'Worked Examples',
     title: 'See how weak claims become “professional” before anyone checks them',
     description:
-      'Each case starts with a useful-looking AI output. Then it shows what makes the claim feel trustworthy, what the model is actually doing, and what review standard you should have required before the claim moved any further.',
+      'Each case shows why the claim feels ready, what the model is actually doing, and what review move you should require before it travels.',
     scenarios: [
       {
         id: 'board-briefing',
@@ -277,6 +283,7 @@ export const mainMisinformationSegments = {
   },
   'main-misinformation-transfer': {
     type: 'transferCallout',
+    tone: 'output',
     eyebrow: 'Before You Continue',
     title: 'Carry these three checks into the labs',
     description:
@@ -301,6 +308,7 @@ export const mainMisinformationSegments = {
 
   'main-misinformation-spot': {
     type: 'spotHallucination',
+    tone: 'output',
     eyebrow: 'Interactive Lab',
     title: 'Stress-test the analysis before you trust it',
     description:
@@ -407,6 +415,7 @@ export const mainMisinformationSegments = {
   },
   'main-misinformation-verify': {
     type: 'sourceVerification',
+    tone: 'output',
     eyebrow: 'Interactive Lab',
     title: 'Choose the verification move before the claim gets used',
     description:
