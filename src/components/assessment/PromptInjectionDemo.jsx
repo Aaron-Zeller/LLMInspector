@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
+import { AfterLabSection } from '../common/AfterLabSection.jsx';
+import { LabBrief } from '../common/LabBrief.jsx';
 import { Segment } from '../dev/Segment.jsx';
 
 // ── Corrupted Document Walkthrough — conversation steps ──────────────
@@ -134,7 +136,7 @@ const SYNTHESIS = {
 };
 
 // ── Component ────────────────────────────────────────────────────────
-export function PromptInjectionDemo({ segmentId }) {
+export function PromptInjectionDemo({ segment, segmentId }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [step, setStep] = useState(0);
   const timers = useRef([]);
@@ -143,6 +145,10 @@ export function PromptInjectionDemo({ segmentId }) {
   const visibleSteps = STEPS.slice(0, step);
   const selectedDecision = FRAME.options.find((o) => o.id === selectedOption);
   const canRunLab = Boolean(selectedDecision);
+  const debriefItems = SYNTHESIS.points.map((point) => ({
+    title: point.label,
+    body: point.body,
+  }));
 
   function reset() {
     timers.current.forEach(clearTimeout);
@@ -281,30 +287,18 @@ export function PromptInjectionDemo({ segmentId }) {
       <div className="pi-header">
         <div className="pi-header__eyebrow">
           <div className="eyebrow-line" />
-          <div className="eyebrow-text">Interactive Lab</div>
+          <div className="eyebrow-text">{segment?.eyebrow ?? 'Interactive Lab'}</div>
         </div>
-        <h2 className="pi-header__title">Corrupted Document Walkthrough</h2>
+        <h2 className="pi-header__title">{segment?.title ?? 'Corrupted Document Walkthrough'}</h2>
         <p className="pi-header__desc">
-          This simulation shows how a hidden instruction in a document can compromise an AI agent with tool access. No real AI or data is involved.
+          {segment?.description ??
+            'This simulation shows how a hidden instruction in a document can compromise an AI agent with tool access. No real AI or data is involved.'}
         </p>
       </div>
 
-      <div className="pi-manager-frame">
-        <div className="pi-manager-frame__grid">
-          <article className="pi-manager-frame__item">
-            <p className="pi-manager-frame__label">Your Role</p>
-            <p className="pi-manager-frame__body">{FRAME.role}</p>
-          </article>
-          <article className="pi-manager-frame__item">
-            <p className="pi-manager-frame__label">What To Watch</p>
-            <p className="pi-manager-frame__body">{FRAME.watch}</p>
-          </article>
-          <article className="pi-manager-frame__item pi-manager-frame__item--full">
-            <p className="pi-manager-frame__label">Why This Scenario Matters</p>
-            <p className="pi-manager-frame__body">{FRAME.emphasis}</p>
-          </article>
-        </div>
+      <LabBrief frame={segment?.frame ?? FRAME} tone={segment?.tone} />
 
+      <div className="pi-manager-frame">
         <div className="pi-decision-check">
           <p className="pi-decision-check__label">Decision Check</p>
           <p className="pi-decision-check__prompt">{FRAME.decisionPrompt}</p>
@@ -448,25 +442,20 @@ export function PromptInjectionDemo({ segmentId }) {
         </details>
       </div>
 
-      <div className="pi-debrief">
-        <p className="pi-debrief__eyebrow">After The Lab</p>
-        <h3 className="pi-debrief__title">{SYNTHESIS.title}</h3>
-        <p className={`pi-debrief__summary${selectedDecision?.correct ? ' pi-debrief__summary--correct' : ''}`}>
-          {selectedDecision
+      <AfterLabSection
+        eyebrow="After The Lab"
+        title={SYNTHESIS.title}
+        summary={
+          selectedDecision
             ? selectedDecision.correct
               ? 'Good choice. Make it a formal control.'
               : 'The lab shows why that boundary was not enough. Tighten the workflow before approving it.'
-            : 'Use the outcome to decide which boundary to formalise.'}
-        </p>
-        <div className="pi-debrief__grid">
-          {SYNTHESIS.points.map((point) => (
-            <article className="pi-debrief__item" key={point.label}>
-              <p className="pi-debrief__label">{point.label}</p>
-              <p className="pi-debrief__body">{point.body}</p>
-            </article>
-          ))}
-        </div>
-      </div>
+            : 'Use the outcome to decide which boundary to formalise.'
+        }
+        summaryTone={selectedDecision?.correct ? 'success' : undefined}
+        items={debriefItems}
+        isComplete={bannerShowing}
+      />
     </Segment>
   );
 }

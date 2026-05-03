@@ -1,17 +1,23 @@
 export const mainPlatformSegments = {
   'main-platform-header': {
     type: 'pageHeader',
+    tone: 'platform',
     eyebrow: 'Section 9 · Platform Choice',
     title: 'Different tools create different governance choices',
     description:
-      'This final main-part page compares major LLM platforms only after learners understand why platform differences matter in the first place.',
+      'This final main-part section treats platform choice as a governance decision, not a brand comparison.',
+    frame: {
+      label: 'Your task',
+      body: 'Choose the environment whose controls and ownership model fit the work, not simply the tool that feels easiest to adopt.',
+    },
   },
   'main-platform-outcomes': {
     type: 'contentCards',
+    tone: 'platform',
     eyebrow: 'Your Outcomes',
     title: 'What you should be able to decide before choosing a platform',
     description:
-      'This section is not about ranking brands. It is about making platform choice a governance decision. By the end, you should be able to do three things more clearly.',
+      'The question is not which brand feels smartest. It is which environment fits the work, the data, and your oversight model.',
     columns: 3,
     cards: [
       {
@@ -42,7 +48,7 @@ export const mainPlatformSegments = {
     eyebrow: 'Worked Examples',
     title: 'Walk through the platform decision the way it actually appears at work',
     description:
-      'Each case starts with a legitimate business need. Then it shows what really changes across platform choices, what goes wrong if the decision is made casually, and what governance move you should require before the team scales usage.',
+      'Each case shows the business need, the trade-off, the failure mode, and the governance move you should require.',
     scenarios: [
       {
         id: 'public-cloud',
@@ -106,6 +112,35 @@ export const mainPlatformSegments = {
           'Set explicit data and use-case boundaries',
           'Communicate what is out of scope, not only what is convenient',
           'Treat access decisions as policy, not personal preference',
+        ],
+        managerGoal:
+          'Preserve speed for low-risk use cases without letting convenience become default policy.',
+        designMove: 'Use explicit scope boundaries instead of informal tolerance.',
+        unsafeTitle: 'Let teams self-define what “probably fine” means',
+        unsafeBody:
+          'Without a written boundary, individual users decide case by case what to upload, paste, or ask, which creates inconsistent governance across the organisation.',
+        unsafeWhy:
+          'This feels flexible in the short term, but it creates more risk drift than actual clarity.',
+        verifyTitle: 'Define a narrow approved scope first',
+        verifyBody:
+          'If the organisation allows public tools at all, it should be clear which data classes, tasks, and outputs are still excluded.',
+        standardLabel: 'Governance Check',
+        standardTitle: 'Make scope visible before usage spreads',
+        standardBody:
+          'A usable public-tool policy should tell people both what they may do and what they must not do with that environment.',
+        standardChecks: [
+          'Which data classes are explicitly out of scope?',
+          'Which tasks are acceptable only in approved enterprise or internal tools?',
+          'Who is responsible for communicating and updating the boundary?',
+        ],
+        ruleLabel: 'Team Rule',
+        ruleTitle: 'Public tools may be convenient, but their scope is narrow',
+        ruleBody:
+          'Keep low-risk drafting and ideation possible if you want, but do not let convenience become permission for more sensitive work.',
+        ruleBullets: [
+          'List prohibited data and task categories explicitly',
+          'Route higher-sensitivity work to better-governed environments',
+          'Review public-tool usage as a policy issue, not a personal habit',
         ],
         takeaway:
           'The fastest platform choice is often the one that most needs an explicit boundary first.',
@@ -173,6 +208,34 @@ export const mainPlatformSegments = {
           'Map data classes to allowed use cases explicitly',
           'Keep output and workflow controls as separate responsibilities',
         ],
+        managerGoal: 'Enable broad usage in a provider environment with stronger guardrails.',
+        designMove: 'Treat platform approval and workflow approval as separate governance steps.',
+        unsafeTitle: 'Assume the enterprise label solves the risk by itself',
+        unsafeBody:
+          'Teams may hear “approved platform” and conclude that any use within it is acceptable, even when the task, data, or downstream action still needs local rules.',
+        unsafeWhy:
+          'The procurement decision feels like the hard part, so internal governance can accidentally become vague afterward.',
+        verifyTitle: 'Wrap the approved platform in an internal operating model',
+        verifyBody:
+          'Use the stronger provider environment, but still decide access roles, retention settings, allowed use cases, and oversight expectations inside the organisation.',
+        standardLabel: 'Governance Check',
+        standardTitle: 'Ask what the organisation still has to decide',
+        standardBody:
+          'The provider can improve the environment, but the organisation still owns usage policy, admin setup, and the output-side workflow rules around the tool.',
+        standardChecks: [
+          'Who controls workspace access and retention settings?',
+          'Which use cases still need escalation or specialist approval?',
+          'How will teams be taught the difference between platform approval and content approval?',
+        ],
+        ruleLabel: 'Team Rule',
+        ruleTitle: 'An approved platform still needs approved ways of using it',
+        ruleBody:
+          'This keeps the enterprise environment valuable without letting the approval label blur the remaining governance decisions.',
+        ruleBullets: [
+          'Use admin controls intentionally',
+          'Document allowed and disallowed use cases by role',
+          'Keep output verification and approval rules separate from platform choice',
+        ],
         takeaway:
           'An enterprise platform can improve the environment, but it does not remove the need for internal governance discipline.',
       },
@@ -239,143 +302,9 @@ export const mainPlatformSegments = {
           'Keep the same output-side controls as any other model',
           'Do not confuse infrastructure location with complete governance',
         ],
-        takeaway:
-          'Local deployment changes where the risk sits, not whether governance is still required.',
-      },
-    ],
-  },
-  'main-platform-cloud': {
-    type: 'contentCards',
-    eyebrow: 'Three Platform Paths',
-    title: 'The platform choice is usually one of three structural paths',
-    description:
-      'The point is not to memorise vendor names. It is to recognise which broad path you are taking and what governance trade-offs come with it.',
-    columns: 3,
-    cards: [
-      {
-        tone: 'platform',
-        eyebrow: 'Path 1',
-        title: 'Public consumer cloud',
-        body:
-          'Fast adoption and low friction, but often the weakest clarity around organisational control, training use, retention, and visibility.',
-      },
-      {
-        tone: 'platform',
-        eyebrow: 'Path 2',
-        title: 'Enterprise cloud instance',
-        body:
-          'Usually the most practical middle ground: stronger contracts, admin controls, and governance features, but still not a substitute for internal policy and output review.',
-      },
-      {
-        tone: 'platform',
-        eyebrow: 'Path 3',
-        title: 'Local or internal deployment',
-        body:
-          'Potentially the strongest data boundary, but only if the organisation is ready to own the operating burden, permissions, and continuing oversight.',
-      },
-    ],
-  },
-  'main-platform-private': {
-    type: 'platformGovernanceStudio',
-    eyebrow: 'Manager Playbook',
-    title: 'Turn platform selection into a governance decision instead of a feature comparison',
-    description:
-      'The goal is not to pick the “best AI.” The goal is to choose the platform path whose contracts, controls, and operating model actually fit the work.',
-    scenarios: [
-      {
-        id: 'public-cloud',
-        eyebrow: 'Case 1',
-        title: 'Public tool request',
-        meta: 'Fast access with hard boundaries',
-        role: 'Safer Governance',
-        headline: 'If a public tool is allowed, define exactly what work is still out of scope.',
-        context:
-          'You may still decide that public tools are acceptable for low-sensitivity work. The safer move is to make that scope explicit before usage expands on its own.',
-        riskLabel: 'Public Cloud Risk',
-        managerGoal: 'Preserve speed for low-risk use cases without letting convenience become default policy.',
-        designMove: 'Use explicit scope boundaries instead of informal tolerance.',
-        unsafeTitle: 'Let teams self-define what “probably fine” means',
-        unsafeBody:
-          'Without a written boundary, individual users decide case by case what to upload, paste, or ask, which creates inconsistent governance across the organisation.',
-        unsafeWhy:
-          'This feels flexible in the short term, but it creates more risk drift than actual clarity.',
-        verifyTitle: 'Define a narrow approved scope first',
-        verifyBody:
-          'If the organisation allows public tools at all, it should be clear which data classes, tasks, and outputs are still excluded.',
-        standardLabel: 'Governance Check',
-        standardTitle: 'Make scope visible before usage spreads',
-        standardBody:
-          'A usable public-tool policy should tell people both what they may do and what they must not do with that environment.',
-        standardChecks: [
-          'Which data classes are explicitly out of scope?',
-          'Which tasks are acceptable only in approved enterprise or internal tools?',
-          'Who is responsible for communicating and updating the boundary?',
-        ],
-        ruleLabel: 'Team Rule',
-        ruleTitle: 'Public tools may be convenient, but their scope is narrow',
-        ruleBody:
-          'Keep low-risk drafting and ideation possible if you want, but do not let convenience become permission for more sensitive work.',
-        ruleBullets: [
-          'List prohibited data and task categories explicitly',
-          'Route higher-sensitivity work to better-governed environments',
-          'Review public-tool usage as a policy issue, not a personal habit',
-        ],
-        takeaway:
-          'If you allow a public tool, the most important control is the boundary around it.',
-      },
-      {
-        id: 'enterprise-cloud',
-        eyebrow: 'Case 2',
-        title: 'Enterprise rollout',
-        meta: 'Approved environment with internal rules',
-        role: 'Safer Governance',
-        headline: 'Use the stronger provider environment, but build internal controls around it instead of assuming approval is enough.',
-        context:
-          'Enterprise platforms often make broad adoption realistic. The safer move is to turn that adoption into a governed operating model rather than a procurement checkbox.',
-        riskLabel: 'Managed Cloud Trade-off',
-        managerGoal: 'Enable broad usage in a provider environment with stronger guardrails.',
-        designMove: 'Treat platform approval and workflow approval as separate governance steps.',
-        unsafeTitle: 'Assume the enterprise label solves the risk by itself',
-        unsafeBody:
-          'Teams may hear “approved platform” and conclude that any use within it is acceptable, even when the task, data, or downstream action still needs local rules.',
-        unsafeWhy:
-          'The procurement decision feels like the hard part, so internal governance can accidentally become vague afterward.',
-        verifyTitle: 'Wrap the approved platform in an internal operating model',
-        verifyBody:
-          'Use the stronger provider environment, but still decide access roles, retention settings, allowed use cases, and oversight expectations inside the organisation.',
-        standardLabel: 'Governance Check',
-        standardTitle: 'Ask what the organisation still has to decide',
-        standardBody:
-          'The provider can improve the environment, but the organisation still owns usage policy, admin setup, and the output-side workflow rules around the tool.',
-        standardChecks: [
-          'Who controls workspace access and retention settings?',
-          'Which use cases still need escalation or specialist approval?',
-          'How will teams be taught the difference between platform approval and content approval?',
-        ],
-        ruleLabel: 'Team Rule',
-        ruleTitle: 'An approved platform still needs approved ways of using it',
-        ruleBody:
-          'This keeps the enterprise environment valuable without letting the approval label blur the remaining governance decisions.',
-        ruleBullets: [
-          'Use admin controls intentionally',
-          'Document allowed and disallowed use cases by role',
-          'Keep output verification and approval rules separate from platform choice',
-        ],
-        takeaway:
-          'Enterprise choice improves the platform layer, but your organisation still has to govern the usage layer.',
-      },
-      {
-        id: 'local-internal',
-        eyebrow: 'Case 3',
-        title: 'Internal deployment decision',
-        meta: 'Privacy with operating responsibility',
-        role: 'Safer Governance',
-        headline: 'Choose internal deployment only when the organisation is ready to run it as a real internal platform.',
-        context:
-          'A local model may be the right answer for certain sensitive workflows. The safer move is to evaluate whether the organisation is ready for the operational ownership that comes with it.',
-        riskLabel: 'Operational Shift',
         managerGoal: 'Protect highly sensitive work while still supporting useful AI tasks.',
-        designMove: 'Adopt internal hosting only with clear platform ownership and continuing governance.',
+        designMove:
+          'Adopt internal hosting only with clear platform ownership and continuing governance.',
         unsafeTitle: 'Treat local hosting as automatic safety',
         unsafeBody:
           'The organisation may focus on data location and overlook the fact that permissions, maintenance, model limitations, and output governance still need active ownership.',
@@ -403,39 +332,52 @@ export const mainPlatformSegments = {
           'Treat local deployment as a governed product, not just infrastructure',
         ],
         takeaway:
-          'If the organisation hosts the model, the organisation also inherits more of the governance burden around it.',
+          'Local deployment changes where the risk sits, not whether governance is still required.',
       },
     ],
   },
-  'main-conclusion': {
+  'main-platform-cloud': {
     type: 'contentCards',
-    eyebrow: 'Closing Principles',
-    title: 'The right platform is the one whose governance matches the work',
+    eyebrow: 'Platform Paths',
+    title: 'Three platform paths and the governance logic behind each one',
     description:
-      'Platform choice should now feel like the last governance decision in the chain, not the first shiny product comparison.',
+      'Focus on the structural path you are choosing, what it enables, and what governance burden comes with it.',
     columns: 3,
     cards: [
       {
         tone: 'platform',
-        eyebrow: 'Principle 1',
-        title: 'Do not start with the brand',
+        eyebrow: 'Path 1',
+        title: 'Public consumer cloud',
         body:
-          'Start with the sensitivity of the work, the data involved, and the administrative control the organisation actually needs.',
+          'Fast adoption and low friction, but usually the weakest clarity around organisational control, retention, and visibility. Use only with narrow scope boundaries and explicit exclusions.',
       },
       {
         tone: 'platform',
-        eyebrow: 'Principle 2',
-        title: 'Platform safety is only one layer',
+        eyebrow: 'Path 2',
+        title: 'Enterprise cloud instance',
         body:
-          'A better environment improves the input side, but output verification, review gates, and supervision still matter exactly as much as before.',
+          'Usually the most practical middle ground: stronger contracts and admin controls, but still not a substitute for internal policy, role design, and output review.',
       },
       {
         tone: 'platform',
-        eyebrow: 'Principle 3',
-        title: 'Choose the operating model, not just the model',
+        eyebrow: 'Path 3',
+        title: 'Local or internal deployment',
         body:
-          'The real decision is not only which tool to use, but who controls it, how it is governed, and what boundaries remain around the work.',
+          'Potentially the strongest data boundary, but only if the organisation is ready to own the operating burden, permissions, maintenance, and continuing oversight.',
       },
+    ],
+  },
+  'main-platform-close': {
+    type: 'callout',
+    variant: 'platform',
+    icon: '◆',
+    title: 'Your final decision rule',
+    body:
+      'Choose the platform path whose controls, ownership, and review expectations fit the work. Better infrastructure never replaces your internal boundaries, approval rules, or review discipline.',
+    points: [
+      'Decide which work may stay in public tools and which must move elsewhere.',
+      'Separate platform approval from workflow approval and output approval.',
+      'Assign ownership for admin settings, retention, and review standards before rollout.',
     ],
   },
   'main-platform-footer': {

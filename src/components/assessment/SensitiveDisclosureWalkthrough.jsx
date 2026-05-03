@@ -99,7 +99,7 @@ export function SensitiveDisclosureWalkthrough({ segment, segmentId }) {
   );
 
   return (
-    <Segment className="content-section" segmentId={segmentId}>
+    <Segment className="content-section sdw-root sdw-root--input" segmentId={segmentId}>
       <div className="section-eyebrow">
         <div className="eyebrow-line" />
         <div className="eyebrow-text">{segment.eyebrow}</div>
@@ -192,29 +192,42 @@ export function SensitiveDisclosureWalkthrough({ segment, segmentId }) {
           </div>
         ) : null}
 
-        <div className="sdw-lenses" role="tablist" aria-label="Case explanation steps">
-          {LENSES.map((lens) => (
-            <button
-              key={lens.id}
-              className={cx('sdw-lens', activeLens === lens.id && 'sdw-lens--active')}
-              onClick={() => setActiveLens(lens.id)}
-              role="tab"
-              aria-selected={activeLens === lens.id}
-              type="button"
-            >
-              {lens.label}
-            </button>
-          ))}
-        </div>
+        {selectedDecisionOption ? (
+          <>
+            <div className="sdw-lenses" role="tablist" aria-label="Case explanation steps">
+              {LENSES.map((lens) => (
+                <button
+                  key={lens.id}
+                  className={cx('sdw-lens', activeLens === lens.id && 'sdw-lens--active')}
+                  onClick={() => setActiveLens(lens.id)}
+                  role="tab"
+                  aria-selected={activeLens === lens.id}
+                  type="button"
+                >
+                  {lens.label}
+                </button>
+              ))}
+            </div>
 
-        <div className="sdw-panel">
-          <LensPanel scenario={activeScenario} lensId={activeLens} />
-        </div>
+            <div className="sdw-panel">
+              <LensPanel scenario={activeScenario} lensId={activeLens} />
+            </div>
 
-        <div className="sdw-takeaway">
-          <p className="sdw-takeaway__label">Your Takeaway</p>
-          <p className="sdw-takeaway__body">{activeScenario.takeaway}</p>
-        </div>
+            <div className="sdw-takeaway">
+              <p className="sdw-takeaway__label">Your Takeaway</p>
+              <p className="sdw-takeaway__body">{activeScenario.takeaway}</p>
+            </div>
+          </>
+        ) : (
+          <div className="sdw-analysis-lock">
+            <div className="sdw-analysis-lock__card">
+              <p className="sdw-analysis-lock__label">Next Step</p>
+              <p className="sdw-analysis-lock__body">
+                Choose the boundary you would set first. Then the full case analysis opens.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </Segment>
   );

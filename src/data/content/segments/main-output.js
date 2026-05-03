@@ -1,17 +1,23 @@
 export const mainOutputSegments = {
   'main-output-header': {
     type: 'pageHeader',
+    tone: 'output',
     eyebrow: 'Section 7 · Improper Output Handling',
     title: 'The risk grows when unchecked output moves downstream',
     description:
-      'This page shifts from “the model was wrong” to “the system or user passed the wrong output forward without validation, sanitisation, or review.”',
+      'This section shifts from “the model was wrong” to “the wrong output moved forward because the gate was too weak.”',
+    frame: {
+      label: 'Your task',
+      body: 'Match every handoff to the consequence of being wrong before a draft becomes an action.',
+    },
   },
   'main-output-outcomes': {
     type: 'contentCards',
+    tone: 'output',
     eyebrow: 'Your Outcomes',
     title: 'What you should be able to do before AI output enters a real workflow',
     description:
-      'This section is about what happens after generation. By the end, you should be able to do three things more consistently.',
+      'This section is about what happens after generation: where to pause, who must review, and when escalation matters more than speed.',
     columns: 3,
     cards: [
       {
@@ -42,7 +48,7 @@ export const mainOutputSegments = {
     eyebrow: 'Worked Examples',
     title: 'See how small review skips become downstream failures',
     description:
-      'Each case begins with an AI output that looks useful enough to move forward. Then it shows what was handed off, what review step was skipped, what the downstream cost becomes, and what gate you should already have required.',
+      'Each case shows what moved forward, which gate disappeared, and what you should have required before the handoff.',
     scenarios: [
       {
         id: 'bulk-email',
@@ -246,6 +252,7 @@ export const mainOutputSegments = {
   },
   'main-output-transfer': {
     type: 'transferCallout',
+    tone: 'output',
     eyebrow: 'Before You Continue',
     title: 'Carry these three output-handling checks into the labs',
     description:
@@ -269,6 +276,7 @@ export const mainOutputSegments = {
   },
   'main-output-approve-escalate': {
     type: 'approveOrEscalate',
+    tone: 'output',
     eyebrow: 'Interactive Lab',
     title: 'Approve or Escalate?',
     description:
@@ -723,6 +731,7 @@ export const mainOutputSegments = {
   },
   'main-output-system-tuning': {
     type: 'systemTuning',
+    tone: 'output',
     eyebrow: 'Interactive Lab',
     title: 'Too Much Power',
     description:

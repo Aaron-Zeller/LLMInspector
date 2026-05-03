@@ -88,7 +88,7 @@ export const OVERVIEW_DOMAINS = [
     id: 'output-assurance',
     overviewLabel: 'Lens 2',
     overviewIcon: '⚠️',
-    accent: 'delegation',
+    accent: 'output',
     label: 'Output Assurance',
     overviewDescription:
       'How teams verify AI outputs, bound consequences, and decide who remains responsible when the model is wrong.',
@@ -97,7 +97,7 @@ export const OVERVIEW_DOMAINS = [
     id: 'platform-choice',
     overviewLabel: 'Lens 3',
     overviewIcon: '🧭',
-    accent: 'privacy',
+    accent: 'platform',
     label: 'Platform Choice',
     overviewDescription:
       'How ChatGPT, Claude, Gemini, and local or internal deployments should be compared before a team trusts them with work.',

@@ -3,9 +3,9 @@ import { cx } from '../../lib/cx.js';
 import { Segment } from '../dev/Segment.jsx';
 
 const LENSES = [
-  { id: 'signal', label: '1. What feels ready' },
-  { id: 'mechanism', label: '2. What the model is doing' },
-  { id: 'impact', label: '3. If it gets used' },
+  { id: 'signal', label: '1. Trigger' },
+  { id: 'mechanism', label: '2. Core Risk' },
+  { id: 'impact', label: '3. Business Consequence' },
   { id: 'control', label: '4. Manager Handbook' },
 ];
 
@@ -19,7 +19,7 @@ function LensPanel({ scenario, lensId }) {
           <p className="sdw-panel-card__body">{scenario.surfaceBody}</p>
         </article>
         <article className="sdw-panel-card">
-          <p className="sdw-panel-card__label">Why It Passes First Glance</p>
+          <p className="sdw-panel-card__label">Why It Gets Approved In The Moment</p>
           <ul className="sdw-panel-list">
             {scenario.surfaceBullets.map((item) => (
               <li key={item}>{item}</li>
@@ -39,7 +39,7 @@ function LensPanel({ scenario, lensId }) {
           <p className="sdw-panel-card__body">{scenario.mechanismBody}</p>
         </article>
         <article className="sdw-panel-card">
-          <p className="sdw-panel-card__label">What This Usually Produces</p>
+          <p className="sdw-panel-card__label">Questions Before You Approve</p>
           <ul className="sdw-panel-list">
             {scenario.mechanismBullets.map((item) => (
               <li key={item}>{item}</li>
@@ -54,7 +54,7 @@ function LensPanel({ scenario, lensId }) {
     return (
       <div className="sdw-panel-grid">
         <article className="sdw-panel-card sdw-panel-card--output">
-          <p className="sdw-panel-card__label">If The Claim Travels</p>
+          <p className="sdw-panel-card__label">What Happens Next</p>
           <h3 className="sdw-panel-card__title">{scenario.consequenceTitle}</h3>
           <p className="sdw-panel-card__body">{scenario.consequenceBody}</p>
         </article>
@@ -73,7 +73,7 @@ function LensPanel({ scenario, lensId }) {
   return (
     <div className="sdw-panel-grid">
       <article className="sdw-panel-card sdw-panel-card--output">
-        <p className="sdw-panel-card__label">Your Review Standard</p>
+        <p className="sdw-panel-card__label">Your Design Move</p>
         <h3 className="sdw-panel-card__title">{scenario.controlTitle}</h3>
         <p className="sdw-panel-card__body">{scenario.controlBody}</p>
       </article>
@@ -102,7 +102,7 @@ export function MisinformationWalkthrough({ segment, segmentId }) {
   );
 
   return (
-    <Segment className="content-section" segmentId={segmentId}>
+    <Segment className="content-section sdw-root sdw-root--output" segmentId={segmentId}>
       <div className="section-eyebrow">
         <div className="eyebrow-line" />
         <div className="eyebrow-text">{segment.eyebrow}</div>
@@ -149,7 +149,7 @@ export function MisinformationWalkthrough({ segment, segmentId }) {
             <p className="sdw-summary__body">{activeScenario.managerPressure}</p>
           </article>
           <article className="sdw-summary__item">
-            <p className="sdw-summary__label">Your Review Decision</p>
+            <p className="sdw-summary__label">Your Design Decision</p>
             <p className="sdw-summary__body">{activeScenario.managerDecision}</p>
           </article>
         </div>
@@ -193,29 +193,42 @@ export function MisinformationWalkthrough({ segment, segmentId }) {
           </div>
         ) : null}
 
-        <div className="sdw-lenses" role="tablist" aria-label="Misinformation explanation steps">
-          {LENSES.map((lens) => (
-            <button
-              key={lens.id}
-              className={cx('sdw-lens', activeLens === lens.id && 'sdw-lens--active')}
-              onClick={() => setActiveLens(lens.id)}
-              role="tab"
-              aria-selected={activeLens === lens.id}
-              type="button"
-            >
-              {lens.label}
-            </button>
-          ))}
-        </div>
+        {selectedDecisionOption ? (
+          <>
+            <div className="sdw-lenses" role="tablist" aria-label="Misinformation explanation steps">
+              {LENSES.map((lens) => (
+                <button
+                  key={lens.id}
+                  className={cx('sdw-lens', activeLens === lens.id && 'sdw-lens--active')}
+                  onClick={() => setActiveLens(lens.id)}
+                  role="tab"
+                  aria-selected={activeLens === lens.id}
+                  type="button"
+                >
+                  {lens.label}
+                </button>
+              ))}
+            </div>
 
-        <div className="sdw-panel">
-          <LensPanel scenario={activeScenario} lensId={activeLens} />
-        </div>
+            <div className="sdw-panel">
+              <LensPanel scenario={activeScenario} lensId={activeLens} />
+            </div>
 
-        <div className="sdw-takeaway">
-          <p className="sdw-takeaway__label">Your Takeaway</p>
-          <p className="sdw-takeaway__body">{activeScenario.takeaway}</p>
-        </div>
+            <div className="sdw-takeaway">
+              <p className="sdw-takeaway__label">Your Takeaway</p>
+              <p className="sdw-takeaway__body">{activeScenario.takeaway}</p>
+            </div>
+          </>
+        ) : (
+          <div className="sdw-analysis-lock">
+            <div className="sdw-analysis-lock__card">
+              <p className="sdw-analysis-lock__label">Next Step</p>
+              <p className="sdw-analysis-lock__body">
+                Choose the review move you would require first. Then the full case analysis opens.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </Segment>
   );

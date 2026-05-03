@@ -3,9 +3,9 @@ import { cx } from '../../lib/cx.js';
 import { Segment } from '../dev/Segment.jsx';
 
 const LENSES = [
-  { id: 'trigger', label: '1. What entered' },
-  { id: 'boundary', label: '2. What failed' },
-  { id: 'impact', label: '3. If it succeeds' },
+  { id: 'trigger', label: '1. Trigger' },
+  { id: 'boundary', label: '2. Core Risk' },
+  { id: 'impact', label: '3. Business Consequence' },
   { id: 'control', label: '4. Manager Handbook' },
 ];
 
@@ -19,7 +19,7 @@ function LensPanel({ scenario, lensId }) {
           <p className="sdw-panel-card__body">{scenario.triggerBody}</p>
         </article>
         <article className="sdw-panel-card">
-          <p className="sdw-panel-card__label">Why It Looks Harmless</p>
+          <p className="sdw-panel-card__label">Why It Gets Approved In The Moment</p>
           <ul className="sdw-panel-list">
             {scenario.triggerBullets.map((item) => (
               <li key={item}>{item}</li>
@@ -39,7 +39,7 @@ function LensPanel({ scenario, lensId }) {
           <p className="sdw-panel-card__body">{scenario.boundaryBody}</p>
         </article>
         <article className="sdw-panel-card">
-          <p className="sdw-panel-card__label">What The Model Is Confusing</p>
+          <p className="sdw-panel-card__label">Questions Before You Approve</p>
           <ul className="sdw-panel-list">
             {scenario.boundaryBullets.map((item) => (
               <li key={item}>{item}</li>
@@ -54,7 +54,7 @@ function LensPanel({ scenario, lensId }) {
     return (
       <div className="sdw-panel-grid">
         <article className="sdw-panel-card sdw-panel-card--input">
-          <p className="sdw-panel-card__label">If The Injection Works</p>
+          <p className="sdw-panel-card__label">What Happens Next</p>
           <h3 className="sdw-panel-card__title">{scenario.consequenceTitle}</h3>
           <p className="sdw-panel-card__body">{scenario.consequenceBody}</p>
         </article>
@@ -102,7 +102,7 @@ export function PromptInjectionWalkthrough({ segment, segmentId }) {
   );
 
   return (
-    <Segment className="content-section" segmentId={segmentId}>
+    <Segment className="content-section sdw-root sdw-root--input" segmentId={segmentId}>
       <div className="section-eyebrow">
         <div className="eyebrow-line" />
         <div className="eyebrow-text">{segment.eyebrow}</div>
@@ -149,7 +149,7 @@ export function PromptInjectionWalkthrough({ segment, segmentId }) {
             <p className="sdw-summary__body">{activeScenario.managerPressure}</p>
           </article>
           <article className="sdw-summary__item">
-            <p className="sdw-summary__label">Your Boundary Decision</p>
+            <p className="sdw-summary__label">Your Design Decision</p>
             <p className="sdw-summary__body">{activeScenario.managerDecision}</p>
           </article>
         </div>
@@ -191,29 +191,42 @@ export function PromptInjectionWalkthrough({ segment, segmentId }) {
           ) : null}
         </div>
 
-        <div className="sdw-lenses" role="tablist" aria-label="Prompt injection explanation steps">
-          {LENSES.map((lens) => (
-            <button
-              key={lens.id}
-              className={cx('sdw-lens', activeLens === lens.id && 'sdw-lens--active')}
-              onClick={() => setActiveLens(lens.id)}
-              role="tab"
-              aria-selected={activeLens === lens.id}
-              type="button"
-            >
-              {lens.label}
-            </button>
-          ))}
-        </div>
+        {selectedDecisionOption ? (
+          <>
+            <div className="sdw-lenses" role="tablist" aria-label="Prompt injection explanation steps">
+              {LENSES.map((lens) => (
+                <button
+                  key={lens.id}
+                  className={cx('sdw-lens', activeLens === lens.id && 'sdw-lens--active')}
+                  onClick={() => setActiveLens(lens.id)}
+                  role="tab"
+                  aria-selected={activeLens === lens.id}
+                  type="button"
+                >
+                  {lens.label}
+                </button>
+              ))}
+            </div>
 
-        <div className="sdw-panel">
-          <LensPanel scenario={activeScenario} lensId={activeLens} />
-        </div>
+            <div className="sdw-panel">
+              <LensPanel scenario={activeScenario} lensId={activeLens} />
+            </div>
 
-        <div className="sdw-takeaway">
-          <p className="sdw-takeaway__label">Your Takeaway</p>
-          <p className="sdw-takeaway__body">{activeScenario.takeaway}</p>
-        </div>
+            <div className="sdw-takeaway">
+              <p className="sdw-takeaway__label">Your Takeaway</p>
+              <p className="sdw-takeaway__body">{activeScenario.takeaway}</p>
+            </div>
+          </>
+        ) : (
+          <div className="sdw-analysis-lock">
+            <div className="sdw-analysis-lock__card">
+              <p className="sdw-analysis-lock__label">Next Step</p>
+              <p className="sdw-analysis-lock__body">
+                Choose the workflow boundary you would approve first. Then the full case analysis opens.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </Segment>
   );

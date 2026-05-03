@@ -1,28 +1,34 @@
 export const mainPromptSegments = {
   'main-prompt-header': {
     type: 'pageHeader',
+    tone: 'input',
     eyebrow: 'Section 5 · Prompt Injection',
     title: 'Why untrusted content can steer the model',
     description:
-      'After understanding unsafe data entry, the next step is seeing that inputs can also manipulate the model itself through hidden or indirect instructions.',
+      'This section shows how uploaded, retrieved, or embedded content can quietly steer a model unless you set a boundary first.',
+    frame: {
+      label: 'Your task',
+      body: 'Approve the workflow boundary, not only the happy path people hope the model will follow.',
+    },
   },
   'main-prompt-outcomes': {
     type: 'contentCards',
+    tone: 'input',
     eyebrow: 'Your Outcomes',
     title: 'What you should know before approving a workflow that reads outside content',
     description:
-      'By the end of this section, you should be able to do two things more confidently.',
+      'The goal is simple: decide what the model may read, what it may do with it, and where a human boundary must stay.',
     columns: 2,
     cards: [
       {
-        tone: 'critical',
+        tone: 'input',
         eyebrow: 'Outcome 1',
         title: 'Understand what prompt injection is and when it can occur',
         body:
           'Explain why documents, websites, or messages can change model behaviour instead of remaining neutral content to analyse.',
       },
       {
-        tone: 'critical',
+        tone: 'input',
         eyebrow: 'Outcome 2',
         title: 'Learn what mechanisms there are to defend against prompt injection',
         body:
@@ -35,7 +41,7 @@ export const mainPromptSegments = {
     eyebrow: 'Worked Examples',
     title: 'Walk through the workflow boundary the way it actually fails',
     description:
-      'Each case starts with a normal use case. Then it shows what entered the workflow, what boundary broke, what happens next, and what you should have required before approving the system.',
+      'Each case shows what entered the workflow, where the boundary failed, and what you should have required before routine use.',
     scenarios: [
       {
         id: 'uploaded-file',
@@ -239,6 +245,7 @@ export const mainPromptSegments = {
   },
   'main-prompt-transfer': {
     type: 'transferCallout',
+    tone: 'input',
     eyebrow: 'Before You Continue',
     title: 'Carry these three prompt-injection checks forward',
     description:
@@ -262,6 +269,18 @@ export const mainPromptSegments = {
   },
   'main-prompt-demo': {
     type: 'promptInjectionDemo',
+    tone: 'input',
+    eyebrow: 'Interactive Lab',
+    title: 'Corrupted Document Walkthrough',
+    description:
+      'Run the workflow as the approving manager and watch how a routine-looking document can steer a tool-using agent past the boundary you thought was in place.',
+    frame: {
+      role: 'You are reviewing an internal AI assistant that can read documents and use real HR tools.',
+      watch:
+        'The issue is no longer just a bad summary. A hidden instruction can trigger real actions if the model has tool access.',
+      emphasis:
+        'The document carries a hidden instruction. Because the model has tool access, it queries data and sends it out without asking.',
+    },
   },
   'main-prompt-footer': {
     type: 'navigationFooter',
