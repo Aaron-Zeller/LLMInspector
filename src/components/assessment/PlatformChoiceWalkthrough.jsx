@@ -14,12 +14,11 @@ function LensPanel({ scenario, lensId }) {
     return (
       <div className="sdw-panel-grid">
         <article className="sdw-panel-card sdw-panel-card--platform">
-          <p className="sdw-panel-card__label">Actual Need</p>
-          <h3 className="sdw-panel-card__title">{scenario.needTitle}</h3>
+          <h3 className="sdw-panel-card__title">{scenario.needTitle || 'Actual Need'}</h3>
           <p className="sdw-panel-card__body">{scenario.needBody}</p>
         </article>
         <article className="sdw-panel-card">
-          <p className="sdw-panel-card__label">Why It Gets Approved In The Moment</p>
+          <h3 className="sdw-panel-card__title">{scenario.needBulletsTitle || 'Why It Gets Approved In The Moment'}</h3>
           <ul className="sdw-panel-list">
             {scenario.needBullets.map((item) => (
               <li key={item}>{item}</li>
@@ -34,12 +33,11 @@ function LensPanel({ scenario, lensId }) {
     return (
       <div className="sdw-panel-grid">
         <article className="sdw-panel-card sdw-panel-card--platform">
-          <p className="sdw-panel-card__label">Platform Trade-off</p>
-          <h3 className="sdw-panel-card__title">{scenario.tradeoffTitle}</h3>
+          <h3 className="sdw-panel-card__title">{scenario.tradeoffTitle || 'Platform Trade-off'}</h3>
           <p className="sdw-panel-card__body">{scenario.tradeoffBody}</p>
         </article>
         <article className="sdw-panel-card">
-          <p className="sdw-panel-card__label">Questions Before You Approve</p>
+          <h3 className="sdw-panel-card__title">{scenario.tradeoffBulletsTitle || 'Questions Before You Approve'}</h3>
           <ul className="sdw-panel-list">
             {scenario.tradeoffBullets.map((item) => (
               <li key={item}>{item}</li>
@@ -54,12 +52,11 @@ function LensPanel({ scenario, lensId }) {
     return (
       <div className="sdw-panel-grid">
         <article className="sdw-panel-card sdw-panel-card--platform">
-          <p className="sdw-panel-card__label">What Happens Next</p>
-          <h3 className="sdw-panel-card__title">{scenario.consequenceTitle}</h3>
+          <h3 className="sdw-panel-card__title">{scenario.consequenceTitle || 'What Happens Next'}</h3>
           <p className="sdw-panel-card__body">{scenario.consequenceBody}</p>
         </article>
         <article className="sdw-panel-card">
-          <p className="sdw-panel-card__label">What This Costs You</p>
+          <h3 className="sdw-panel-card__title">{scenario.consequenceBulletsTitle || 'What This Costs You'}</h3>
           <ul className="sdw-panel-list">
             {scenario.consequenceBullets.map((item) => (
               <li key={item}>{item}</li>
@@ -73,12 +70,11 @@ function LensPanel({ scenario, lensId }) {
   return (
     <div className="sdw-panel-grid">
       <article className="sdw-panel-card sdw-panel-card--platform">
-        <p className="sdw-panel-card__label">Your Design Move</p>
-        <h3 className="sdw-panel-card__title">{scenario.controlTitle}</h3>
+        <h3 className="sdw-panel-card__title">{scenario.controlTitle || 'Your Design Move'}</h3>
         <p className="sdw-panel-card__body">{scenario.controlBody}</p>
       </article>
       <article className="sdw-panel-card">
-        <p className="sdw-panel-card__label">What The Team Should Hear</p>
+        <h3 className="sdw-panel-card__title">{scenario.ruleBulletsTitle || 'What The Team Should Hear'}</h3>
         <ul className="sdw-panel-list">
           {scenario.ruleBullets.map((item) => (
             <li key={item}>{item}</li>
@@ -142,17 +138,6 @@ export function PlatformChoiceWalkthrough({ segment, segmentId }) {
           <span className="sdw-case__risk sdw-case__risk--platform">{activeScenario.riskLabel}</span>
         </div>
         <p className="sdw-case__context">{activeScenario.context}</p>
-
-        <div className="sdw-summary">
-          <article className="sdw-summary__item">
-            <p className="sdw-summary__label">Your Operating Pressure</p>
-            <p className="sdw-summary__body">{activeScenario.managerPressure}</p>
-          </article>
-          <article className="sdw-summary__item">
-            <p className="sdw-summary__label">Your Design Decision</p>
-            <p className="sdw-summary__body">{activeScenario.managerDecision}</p>
-          </article>
-        </div>
 
         <div className="sdw-decision">
           <div className="sdw-decision__intro">

@@ -60,10 +60,6 @@ export const mainOutputSegments = {
         context:
           'The output is not malicious and the wording is mostly fine. The risk comes from pushing it into a high-volume channel before anyone checks whether the final message is actually ready.',
         riskLabel: 'Customer Impact',
-        managerPressure:
-          'Keep the send on time without turning every campaign into a slow approval process.',
-        managerDecision:
-          'Decide whether this is still a draft or whether it has already become a customer-facing action with downstream consequences.',
         decisionPrompt:
           'What is the safer stance when AI output is about to reach hundreds of customers at once?',
         decisionOptions: [
@@ -84,6 +80,7 @@ export const mainOutputSegments = {
         handoffTitle: 'A draft turns into an outbound action',
         handoffBody:
           'The AI output is no longer just text on a screen. It is about to become a real email in hundreds of inboxes, which means the workflow has crossed from drafting into execution.',
+        handoffBulletsTitle: 'Why It Gets Approved In The Moment',
         handoffBullets: [
           'The channel is external, not internal',
           'The action is hard to reverse once sent',
@@ -92,6 +89,7 @@ export const mainOutputSegments = {
         failureTitle: 'The workflow skipped the last mile check',
         failureBody:
           'The team trusted the draft because it looked routine. What was missing was not a deep investigation, but a small review gate that checks the actual final output before distribution.',
+        failureBulletsTitle: 'Questions Before You Approve',
         failureBullets: [
           'Template familiarity lowered attention',
           'The review step felt optional because the content was not strategic',
@@ -100,6 +98,7 @@ export const mainOutputSegments = {
         consequenceTitle: 'A trivial error becomes a visible incident',
         consequenceBody:
           'An unfilled variable, broken link, or wrong claim may be minor in isolation, but at scale it becomes a customer experience problem, a reputation problem, and often a rework problem.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'The message cannot be unsent',
           'Corrections often create more attention than the original campaign',
@@ -108,6 +107,7 @@ export const mainOutputSegments = {
         controlTitle: 'Require a pre-send gate for high-volume output',
         controlBody:
           'For mass outbound communication, the relevant control is not to distrust AI completely. It is to make sure publication still passes through a final human checkpoint.',
+        controlBulletsTitle: 'What The Team Should Hear',
         controlBullets: [
           'Review the actual final message before distribution',
           'Treat placeholders, regulated phrases, and audience-facing claims as mandatory checks',
@@ -126,10 +126,6 @@ export const mainOutputSegments = {
         context:
           'The output may be accurate. The real issue is whether the workflow lets confidence in the answer override the authority boundary that should still govern the action.',
         riskLabel: 'Authority Boundary',
-        managerPressure:
-          'Resolve the case quickly without creating unnecessary delay for the customer or operator.',
-        managerDecision:
-          'Decide whether correctness is enough to approve, or whether delegation limits still require a different path.',
         decisionPrompt:
           'What matters more when an AI recommendation crosses a policy or value threshold?',
         decisionOptions: [
@@ -150,6 +146,7 @@ export const mainOutputSegments = {
         handoffTitle: 'The output is now asking for a consequential action',
         handoffBody:
           'At this point the question is no longer only “is the AI right?” The question is whether the workflow should allow this operator or system to act at this level at all.',
+        handoffBulletsTitle: 'Why It Gets Approved In The Moment',
         handoffBullets: [
           'The value or impact exceeds routine handling',
           'The action creates an auditable decision trail',
@@ -158,6 +155,7 @@ export const mainOutputSegments = {
         failureTitle: 'Confidence replaced delegation',
         failureBody:
           'The workflow treated a plausible AI recommendation as if it were permission. That bypasses the human authority design that should still govern financial or high-impact actions.',
+        failureBulletsTitle: 'Questions Before You Approve',
         failureBullets: [
           'The operator may feel pressured to keep momentum',
           'The system wording can make the action sound pre-approved',
@@ -166,6 +164,7 @@ export const mainOutputSegments = {
         consequenceTitle: 'The exception becomes your accountability problem',
         consequenceBody:
           'Once the action is approved outside the proper authority path, the issue is no longer just model quality. It becomes a governance, audit, and accountability failure.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'The action may be logged as a control exception',
           'Review later does not erase the path failure',
@@ -174,6 +173,7 @@ export const mainOutputSegments = {
         controlTitle: 'Keep thresholds stronger than confidence',
         controlBody:
           'When outputs touch money, compliance, or exceptions, the workflow should preserve delegated authority even if the AI recommendation looks highly plausible.',
+        controlBulletsTitle: 'What The Team Should Hear',
         controlBullets: [
           'Make value ceilings and escalation paths explicit',
           'Do not let “AI already checked it” substitute for authority',
@@ -192,10 +192,6 @@ export const mainOutputSegments = {
         context:
           'The output may not look dramatic, but the system effect is. Once the action executes, rollback may be partial, delayed, or impossible.',
         riskLabel: 'Irreversible Action',
-        managerPressure:
-          'Increase throughput by letting the system act without waiting for a person each time.',
-        managerDecision:
-          'Decide which downstream actions can be automated safely and which ones need a human checkpoint outside the model.',
         decisionPrompt:
           'What is the stronger design stance once AI output can trigger a live system change?',
         decisionOptions: [
@@ -216,6 +212,7 @@ export const mainOutputSegments = {
         handoffTitle: 'The output becomes a system event',
         handoffBody:
           'The handoff is no longer between two people. It is between a generated output and a live system, which raises the cost of being wrong even when the text itself looked ordinary.',
+        handoffBulletsTitle: 'Why It Gets Approved In The Moment',
         handoffBullets: [
           'The effect may be invisible until later',
           'Rollback may be incomplete or operationally expensive',
@@ -224,6 +221,7 @@ export const mainOutputSegments = {
         failureTitle: 'The workflow removed the last human interruption',
         failureBody:
           'The system is no longer asking whether the action should happen. It is only asking whether the AI output exists. That is a control design problem, not merely a content problem.',
+        failureBulletsTitle: 'Questions Before You Approve',
         failureBullets: [
           'Monitoring happens after the action',
           'A later audit cannot undo the original exposure',
@@ -232,6 +230,7 @@ export const mainOutputSegments = {
         consequenceTitle: 'The cost arrives downstream and often late',
         consequenceBody:
           'A wrong write, wrong recipient, or wrong record update can trigger delayed consequences that surface long after the AI output looked harmless.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'Bad data can propagate into later reports or audits',
           'Customers or partners may experience the result before anyone reviews it',
@@ -240,6 +239,7 @@ export const mainOutputSegments = {
         controlTitle: 'Keep live actions behind live controls',
         controlBody:
           'As soon as output can cause an external system change, approval should focus on write permissions, execution gates, and reversibility rather than trusting the generated text.',
+        controlBulletsTitle: 'What The Team Should Hear',
         controlBullets: [
           'Require confirmation before externally visible or irreversible actions',
           'Constrain which systems the workflow may write to',

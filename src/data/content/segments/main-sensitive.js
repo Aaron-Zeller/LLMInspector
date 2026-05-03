@@ -3,140 +3,109 @@ export const mainSensitiveSegments = {
     type: 'pageHeader',
     tone: 'input',
     eyebrow: 'Section 4 · Sensitive Information Disclosure',
-    title: 'What should never be pasted or uploaded casually',
-    description:
-      'This section will tell you about the most immediate input-side risk of interacting with an LLM: inputting sensitive content.',
-    frame: {
-      label: 'Your task',
-      body: 'Set the input boundary before a useful shortcut becomes your team’s default workflow.',
-    },
+    title: 'The Input Risk: What never to paste or upload',
   },
   'main-sensitive-outcomes': {
     type: 'contentCards',
     tone: 'input',
-    eyebrow: 'Your Outcomes',
-    title: 'What you should be able to do before deciding what to input into an LLM',
-    description:
-      'By the end of this section, you should be able to do two things more confidently.',
+    description: 'This section explores the most immediate security risk of generative AI: employees inadvertently sharing internal, proprietary, or personal data with unvetted models in the pursuit of productivity. By the end of this section, you will be able to:',
     columns: 2,
     cards: [
       {
         tone: 'input',
-        eyebrow: 'Outcome 1',
-        title: 'Decide which information can be input into an LLM',
-        body:
-          'Distinguish between raw sensitive data that should stay out and transformed or aggregated inputs that keep the work moving safely.',
+        body: 'Distinguish between sensitive information and transformed data that can be safely processed by an LLM',
       },
       {
         tone: 'input',
-        eyebrow: 'Outcome 2',
-        title: 'Create company wide procedures for inputting data into LLM to retain both productivity and security',
-        body:
-          'Turn one good judgement call into a repeatable team rule that still allows the work to get done.',
+        body: 'Create company-wide workflows that maintain data security without bottlenecking productivity',
       },
-    ],
-  },
-  'main-sensitive-intro': {
-    type: 'moduleIntro',
-    tone: 'input',
-    paragraphs: [
-      'For you as a manager, this risk rarely begins with malicious intent. It usually begins with a reasonable pressure: move faster, reduce friction, and still get good work out of the team.',
-      'Sometimes this section asks you to imagine your own direct AI use. Sometimes it asks you to judge a workflow your team might use. In both cases, the point is the same: treat the data decision and the workflow decision as your responsibility.',
-      'Here, "sensitive information" includes both **personal data** and **confidential business information**. The common issue is not the exact category. It is whether the tool, the data, and the workflow actually belong together.',
-      'The key governance question is **not** "Was the AI helpful?" It is "What would a well-designed team workflow have allowed here?"',
     ],
   },
   'main-sensitive-legal': {
     type: 'sensitiveDisclosureWalkthrough',
-    eyebrow: 'Worked Examples',
-    title: 'Walk through the risk the way it actually appears at work',
+    title: 'Experience the risks firsthand',
     description:
-      'Each case starts with a normal workplace shortcut. Then it shows the legal question, the business consequence, and the safer workflow you should already have put in place.',
+      'Each case starts with a common workplace shortcut. We then examine the legal vulnerability, the business consequence, and the safer workflow you must implement to protect the organisation.',
     scenarios: [
       {
         id: 'customer-email',
         eyebrow: 'Case 1',
-        title: 'Customer email for summarisation',
-        meta: 'Client-facing communication',
+        title: 'summary of customer\'s email',
         role: 'Your Situation',
         headline: 'A support lead pastes a customer complaint into a public AI tool.',
         context:
-          'The employee wants a faster draft response and believes the message is "just one email." No approval step exists, and no one has clarified whether public AI tools are allowed for client communications.',
+          'The employee wants a faster draft response and believes the message is "just one email." No approval step exists, and no clear policy dictates whether public AI tools are authorised for client communications.',
         tone: 'privacy',
         riskLabel: 'Personal Data Risk',
-        employeeActionTitle: 'The shortcut',
+        employeeActionTitle: 'Shortcut',
         employeeAction:
           'The employee pastes the full message, including the customer\'s name, order details, and service history, into the model to generate a polished reply.',
+        whyFeelsNormalTitle: 'Why It Gets Approved In The Moment',
         whyFeelsNormal:
-          'It feels low-risk because the task is routine, the employee is trying to be efficient, and the data is already visible in the inbox. The mistake is assuming "already visible to me" means "safe to upload elsewhere."',
-        managerPressure:
-          'Respond quickly to the customer without slowing service operations down.',
-        managerDecision:
-          'Decide whether client-response drafting belongs in a public tool, an approved internal tool, or a no-AI workflow for this category of data.',
+          'It feels low-risk because the task is routine and the data is already visible in the inbox. The critical mistake is assuming "already visible to me" means "safe to upload to a third party."',
         decisionPrompt:
-          'Before opening the walkthrough, which immediate move would better protect the workflow?',
+          'Which immediate move would better protect the workflow?',
         decisionOptions: [
           {
             id: 'allow-routine',
             label: 'Treat this as routine and allow public-tool drafting for customer emails unless a leak is reported.',
             feedback:
-              'This waits too long. The real design decision has to happen before routine client data starts flowing into an unapproved environment.',
+              'This reactive approach waits too long. The governance decision must happen before routine client data flows into an unapproved environment.',
           },
           {
             id: 'set-boundary',
-            label: 'Pause and define whether replies require redaction, an approved internal tool, or no AI use for this data.',
+            label: 'Pause and define whether replies require redaction, an approved internal tool, or no AI use at all.',
             feedback:
-              'This is the stronger move. You are designing the boundary before the team normalises the shortcut.',
+              'Correct. This is the stronger move. You are designing a firm boundary before the team normalises a dangerous shortcut.',
             correct: true,
           },
         ],
         legalQuestionTitle: 'What changed legally?',
         legalQuestion:
-          'The organisation has just moved personal data into a new processing environment. The relevant question is whether this tool was approved, justified, and governed for that use.',
+          'The organisation has just moved personal data into a new processing environment. Under frameworks like GDPR, uploading data to an unapproved third-party AI tool often violates the principle of lawful processing.',
+        legalChecksTitle: 'Questions Before You Approve',
         legalChecks: [
-          'Is there a lawful basis for processing this customer data in this tool?',
-          'Was the provider approved for this category of information?',
-          'Could the organisation explain this data transfer to the customer or regulator?',
+          'Is there a lawful basis for processing this customer data in this specific tool?',
+          'Was the AI provider vetted and approved for this tier of information?',
+          'Could the organisation transparently explain this data transfer to a regulator?',
         ],
         consequenceTitle: 'What can go wrong next?',
         consequence:
-          'Even if no immediate leak is visible, the organisation has created exposure it may not be able to justify later. The issue is not just privacy; it is weak process control.',
+          'Even if no immediate leak is visible, the organisation has created exposure it cannot legally justify. The issue is weak process control and breach of client trust.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
-          'Client trust drops if the practice becomes visible',
-          'Complaint handling may now involve an unapproved third party',
-          'You still inherit accountability for a workflow you did not design carefully enough',
+          'Client trust is permanently damaged if the practice is discovered',
+          'Complaint handling now involves an unapproved third-party processor',
+          'Management inherits accountability for an unsecured workflow',
         ],
-        controlTitle: 'Teach the response pattern, not just the prohibition',
+        controlTitle: 'Teach safe transformation',
         control:
-          'AI may help with wording, but customer-identifiable information stays out unless the system is explicitly approved for it.',
+          'AI can assist with wording, but identifiable customer information must stay out unless the system is explicitly vetted for it.',
+        controlBulletsTitle: 'What The Team Should Hear',
         controlBullets: [
-          'Draft with summarised case details rather than raw correspondence',
-          'Escalate if the raw data seems necessary',
-          'Write the rule so it can be applied under time pressure',
+          'Extract key points or replace names with placeholders (e.g., "Customer A")',
+          'Draft with summarised details rather than raw correspondence',
+          'Escalate to the security team if raw data seems absolutely necessary',
         ],
         takeaway:
-          'If the model only needs help with tone and structure, it should not receive the customer record itself.',
+          'If the model only needs help with tone and structure, it should never receive the underlying customer record.',
       },
       {
         id: 'hr-sheet',
         eyebrow: 'Case 2',
         title: 'HR spreadsheet for analysis',
-        meta: 'Internal people data',
         role: 'Your Situation',
         headline: 'You upload a leave and salary sheet to "quickly spot patterns."',
         context:
-          'The task sounds analytical rather than risky, and you may assume internal data is safe as long as it never leaves the company intentionally. But the AI tool is external and the file contains directly identifiable employee data.',
+          'The task sounds analytical, and you assume internal data is safe as long as it isn\'t shared publicly. However, the AI tool is external, and the file contains directly identifiable employee data.',
         tone: 'critical',
         riskLabel: 'GDPR + Employment Data',
         employeeActionTitle: 'The shortcut',
         employeeAction:
-          'The full spreadsheet is uploaded so the model can identify trends, summarise exceptions, and suggest staffing actions.',
+          'The full spreadsheet is uploaded so the model can quickly identify trends, summarise exceptions, and suggest staffing actions.',
+        whyFeelsNormalTitle: 'Why It Gets Approved In The Moment',
         whyFeelsNormal:
-          'The pressure is managerial: save time, get a faster overview, and move on. The file feels operational, not sensitive, because it is already used in ordinary HR reporting.',
-        managerPressure:
-          'Get faster organisational oversight without creating another heavy reporting step.',
-        managerDecision:
-          'Decide whether the question is really about people-level records or about trends that could be prepared and analysed in a safer form.',
+          'The pressure is managerial: save time and get a fast overview. The file feels operational because it is already used in ordinary HR reporting.',
         decisionPrompt:
           'Before opening the walkthrough, which management move is safer here?',
         decisionOptions: [
@@ -144,106 +113,108 @@ export const mainSensitiveSegments = {
             id: 'upload-sheet',
             label: 'Use the whole sheet first because speed matters and the AI can sort out the patterns faster.',
             feedback:
-              'This confuses speed with necessity. The management question is about patterns, not about exposing the full employee record set.',
+              'This confuses speed with necessity. The management question is about trends, not about exposing the full, granular employee record set.',
           },
           {
             id: 'aggregate-first',
             label: 'Reframe the task around trends first, then decide whether an approved tool is needed for the reduced input.',
             feedback:
-              'This is the stronger move. It separates the management question from the raw record set before any AI use happens.',
+              'Correct. This is the stronger move. It separates the business goal from the raw data before any AI processing occurs.',
             correct: true,
           },
         ],
-        legalQuestionTitle: 'Why is this a harder case?',
+        legalQuestionTitle: 'Why is this a severe compliance issue?',
         legalQuestion:
-          'Employment data is usually more sensitive, more regulated, and more consequential than a generic business document. The organisation needs to be able to justify not only the processing, but also the governance around who made that decision.',
+          'Employment data is highly regulated. The organisation must justify not only the processing of this sensitive data but also the governance around who authorised an external AI to read it.',
+        legalChecksTitle: 'Questions Before You Approve',
         legalChecks: [
-          'Was this AI system approved for employee data?',
-          'Does the organisation know how long the provider retains the file?',
-          'Would employees reasonably expect their HR data to be processed this way?',
+          'Was this AI system strictly approved for handling employee HR data?',
+          'Does the organisation know how the provider retains or trains on this file?',
+          'Would employees reasonably expect their salary data to be processed this way?',
         ],
         consequenceTitle: 'What is the realistic business impact?',
         consequence:
-          'The damage is not only regulatory. Employees may interpret the act as careless handling of highly personal information, which weakens confidence in leadership and internal controls.',
+          'The damage extends beyond regulatory fines. Employees will view this as negligent handling of highly personal information, destroying internal confidence in leadership.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
-          'Employee trust is harder to restore than efficiency is to gain',
-          'HR workflows can become compliance liabilities',
-          'The organisation may struggle to defend the decision after the fact',
+          'Employee trust is much harder to restore than efficiency is to gain',
+          'Standard HR workflows suddenly become major compliance liabilities',
+          'The organisation cannot defend the decision under an audit',
         ],
-        controlTitle: 'Make aggregation the default, not the exception',
+        controlTitle: 'Make aggregation the default workflow',
         control:
-          'If the question is about trends, the AI receives trends. Raw employee data needs special justification.',
+          'If the core question is about trends, the AI should only receive trends. Raw employee data requires specialised internal tools.',
+        controlBulletsTitle: 'What The Team Should Hear',
         controlBullets: [
-          'Aggregate first, analyse second',
-          'Use approved internal tools when employee data is unavoidable',
-          'Do not let convenience redefine what counts as necessary input',
+          'Aggregate data first, analyse second',
+          'Use approved, enterprise-grade tools when employee data is unavoidable',
+          'Never let convenience redefine what counts as necessary input',
         ],
         takeaway:
-          'When the management question is about patterns, the model should receive patterns rather than the employee record set.',
+          'When the goal is discovering patterns, the model must receive anonymised patterns, not the raw employee dataset.',
       },
       {
         id: 'board-deck',
         eyebrow: 'Case 3',
         title: 'Board deck for polishing',
-        meta: 'Strategy and IP exposure',
         role: 'Your Situation',
         headline: 'A strategy lead uploads a draft board deck to improve clarity before a meeting.',
         context:
-          'The slide deck contains market assumptions, financial targets, and product direction. No personal data is involved, so the team incorrectly treats the risk as "not really privacy-related."',
+          'The slide deck contains market assumptions, financial targets, and product direction. Because no personal data is involved, the team incorrectly assumes there is zero risk.',
         tone: 'delegation',
-        riskLabel: 'Strategic Exposure',
+        riskLabel: 'Strategic Exposure & IP',
         employeeActionTitle: 'The shortcut',
         employeeAction:
-          'The entire presentation is uploaded so the model can improve the flow, tighten the language, and propose a better executive summary.',
+          'The entire presentation is uploaded so the model can improve the narrative flow, tighten the language, and draft an executive summary.',
+        whyFeelsNormalTitle: 'Why It Gets Approved In The Moment',
         whyFeelsNormal:
-          'This feels intellectually harmless because the goal is editing, not disclosure. But the model still receives the underlying strategic content, not just the writing task.',
-        managerPressure:
-          'Improve board-level communication quality quickly without delaying a high-stakes meeting.',
-        managerDecision:
-          'Decide whether editing support truly requires the full strategy deck or only a decontextualised excerpt and a clear writing brief.',
+          'This feels intellectually harmless because the goal is just editing, not disclosure. However, the model still receives the underlying strategic substance.',
         decisionPrompt:
           'Before opening the walkthrough, which design choice would you want to normalise?',
         decisionOptions: [
           {
             id: 'full-deck-editing',
-            label: 'Allow full-deck uploads for editing tasks because the intent is only language improvement, not disclosure.',
+            label: 'Allow full-deck uploads for editing tasks because the intent is only language improvement.',
             feedback:
-              'This underestimates the exposure. The model still receives the strategic substance even if the team only wants writing help.',
+              'This underestimates the exposure. The model still absorbs the strategic IP, regardless of the employee\'s intent.',
           },
           {
             id: 'excerpt-rule',
-            label: 'Allow excerpt-level or abstracted editing help first, and reserve full strategic material for approved environments only.',
+            label: 'Allow excerpt-level editing first, and reserve full strategic material for secure, approved environments only.',
             feedback:
-              'This is the stronger move. It keeps the business goal while defining a safer level of abstraction.',
+              'Correct. This is the stronger move. It achieves the business goal while maintaining a safe level of abstraction.',
             correct: true,
           },
         ],
-        legalQuestionTitle: 'Why is this still a governance issue?',
+        legalQuestionTitle: 'Why is this a governance and IP issue?',
         legalQuestion:
-          'Even without personal data, the organisation may be exposing trade secrets, confidential strategy, and board-level information to a tool that was never approved for that category of content.',
+          'Even without personal data, uploading unfiled patents or future strategy to an unvetted tool can invalidate trade secret protections and leak intellectual property.',
+        legalChecksTitle: 'Questions Before You Approve',
         legalChecks: [
           'Does the organisation classify this as confidential or trade-secret material?',
-          'Was this platform approved for board or strategy documents?',
-          'Could disclosure affect patents, negotiations, or competitive position?',
+          'Was this specific platform vetted for board-level or strategic documents?',
+          'Could this disclosure negatively impact patents, M&A negotiations, or market position?',
         ],
         consequenceTitle: 'What does the business actually lose?',
         consequence:
-          'The loss is often strategic rather than immediate. A team may not see the damage on the same day, but the exposure can weaken future negotiation, product timing, or intellectual-property protection.',
+          'The loss is strategic and delayed. A team won\'t see the damage today, but the exposure can theoretically surface in outputs for competitors or weaken future negotiation leverage.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
-          'Sensitive assumptions leave their intended context',
-          'Negotiation leverage can be weakened',
-          'Trade-secret boundaries become harder to defend later',
+          'Sensitive financial assumptions leave their intended secure context',
+          'Unfiled patents may lose their legal status as protected trade secrets',
+          'Fragments of your strategy could theoretically train the AI model',
         ],
-        controlTitle: 'Define the approved level of abstraction',
+        controlTitle: 'Enforce the abstraction rule',
         control:
-          'Set the rule at the approved level of abstraction: excerpt, summary, or full deck.',
+          'Set the rule at the approved level of abstraction: a decontextualised excerpt, a high-level summary, or using a secure internal tool for the full deck.',
+        controlBulletsTitle: 'What The Team Should Hear',
         controlBullets: [
-          'Permit tone and structure help on decontextualised excerpts',
-          'Require internal tools for full confidential materials',
-          'Make the abstraction level part of the approval rule',
+          'Permit tone and structure help only on abstracted, isolated excerpts',
+          'Require private enterprise instances for full confidential materials',
+          'Make the "Escalation Rule" clear: if it can\'t be abstracted, escalate to IT',
         ],
         takeaway:
-          'A writing problem does not justify exposing the whole strategy document if the same support can be given at a higher level of abstraction.',
+          'A simple writing problem does not justify exposing a comprehensive strategy document to a public model.',
       },
     ],
   },
@@ -252,22 +223,18 @@ export const mainSensitiveSegments = {
     tone: 'input',
     eyebrow: 'Before You Continue',
     title: 'Carry these three checks into the lab',
-    description:
-      'Use the lab to practice not just spotting risk, but designing the safer workflow you would want your team to follow.',
-    prompt:
-      'Start with the check your team would be most likely to skip under time pressure, and see how that choice changes the workflow.',
     checks: [
       {
-        title: 'Is the raw data truly necessary?',
-        body: 'If the work can be done with a summary, excerpt, or aggregate, the original data should stay out.',
+        title: 'Is the raw data necessary?',
+        body: 'If the work can be done using a summary or excerpt, the original sensitive data must stay out.',
       },
       {
-        title: 'Is this tool approved for this kind of information?',
-        body: 'Match the tool to the data category instead of deciding ad hoc in the moment.',
+        title: 'Is this the right tool for the job?',
+        body: 'Match the AI tier to the data classification (e.g., Public, Internal, Confidential)',
       },
       {
-        title: 'What rule should your team be able to repeat?',
-        body: 'Turn one good judgement call into a simple pattern people can follow under pressure.',
+        title: 'What is the standard?',
+        body: 'Define team rules. If a task cannot be completed safely, employees must escalate rather than improvise.',
       },
     ],
   },
@@ -277,29 +244,29 @@ export const mainSensitiveSegments = {
     eyebrow: 'Interactive Lab',
     title: 'The Governance Lab: Input and Output Assurance',
     description:
-      'Act as the person designing the workflow. Choose which documents may be used, how the prompt should constrain the task, and whether the output is useful enough without exposing more than the work requires.',
+      'Experience the full LLM task pipeline. Choose which documents to upload, how to phrase your prompt, and how to handle the output. Find the balance: too open leaks data, too restricted makes the task impossible.',
     frame: {
       role: 'You are approving a team workflow for drafting public-facing content under time pressure.',
       watch:
-        'Notice where convenience starts widening the input boundary: document choice, prompt design, and the final decision to publish or stop.',
+        'Notice where convenience starts widening the input boundary: document choice, prompt design, and the final decision to publish or pause.',
       emphasis:
-        'This lab matters because a data leak rarely begins with one dramatic mistake. It begins when an ordinary task quietly normalises the wrong workflow.',
+        'This lab matters because a corporate data leak rarely begins with one dramatic mistake. It begins when an ordinary task quietly normalises an unsecured workflow.',
     },
     debrief: {
       eyebrow: 'After the Lab',
       title: 'What to carry into your next workflow decision',
       items: [
         {
-          title: 'Ask whether the raw data is necessary',
-          body: 'If the work can be done with a summary, excerpt, or aggregate, the original record should not reach the model. The lab shows how often the task is narrower than the document.',
+          title: 'Enforce Minimisation & Abstraction',
+          body: 'If the work can be done with a summary or placeholder, the original record should never reach the model. The lab demonstrates that the actual task is usually much narrower than the document provided.',
         },
         {
-          title: 'Match the tool to the data category',
-          body: 'Not every AI tool is approved for every kind of content. The approval decision belongs before the workflow starts, not after something goes wrong.',
+          title: 'Match the Tool to the Data',
+          body: 'Not every AI tool is a vault. The decision to use a public tool versus a private enterprise instance belongs at the start of the workflow, not after a leak occurs.',
         },
         {
-          title: 'Turn one good call into a repeatable rule',
-          body: 'A single careful choice only protects one task. A team rule protects every version of that task under time pressure.',
+          title: 'Implement the Escalation Rule',
+          body: 'A single careful choice only protects one task. A clear team rule—"If we can\'t abstract it safely, we escalate to IT"—protects every version of that task under time pressure.',
         },
       ],
     },

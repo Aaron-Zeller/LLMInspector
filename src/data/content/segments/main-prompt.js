@@ -53,10 +53,6 @@ export const mainPromptSegments = {
         context:
           'The workflow seems harmless because the model is "only summarising." But the model reads all text in the file, including anything a human reviewer never notices.',
         riskLabel: 'Untrusted File Risk',
-        managerPressure:
-          'Keep document review fast without making every upload a manual bottleneck.',
-        managerDecision:
-          'Decide whether uploaded files should be treated as trusted content or as untrusted inputs that need a stronger boundary.',
         decisionPrompt:
           'Which boundary would you rather normalise before your team starts using this kind of workflow?',
         decisionOptions: [
@@ -77,6 +73,7 @@ export const mainPromptSegments = {
         triggerTitle: 'A normal document enters the workflow',
         triggerBody:
           'A PDF, spreadsheet, or note is uploaded so the model can summarise it. The team experiences this as convenience, not as opening a new instruction channel.',
+        triggerBulletsTitle: 'Why It Gets Approved In The Moment',
         triggerBullets: [
           'The file looks like ordinary content to the employee',
           'The task sounds passive because the model is "just reading"',
@@ -85,6 +82,7 @@ export const mainPromptSegments = {
         boundaryTitle: 'The workflow treats content like authority',
         boundaryBody:
           'The model does not reliably separate "text to analyse" from "text to obey" unless the workflow enforces that boundary itself.',
+        boundaryBulletsTitle: 'Questions Before You Approve',
         boundaryBullets: [
           'Hidden text can be read even if a human never noticed it',
           'The model may follow attacker language as if it were part of the prompt',
@@ -93,6 +91,7 @@ export const mainPromptSegments = {
         consequenceTitle: 'The summary becomes the carrier of the attack',
         consequenceBody:
           'The visible document stays ordinary, but the summary quietly repeats a false warning, instruction, or recommendation with professional confidence.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'Reviewers may trust the summary more than the original file',
           'The team may act on a conclusion the document never supported',
@@ -101,6 +100,7 @@ export const mainPromptSegments = {
         controlTitle: 'Require untrusted-input handling before approval',
         controlBody:
           'If a workflow reads uploaded files, approval should depend on how it handles hostile content, not only on how useful the summaries look in the happy path.',
+        controlBulletsTitle: 'What The Team Should Hear',
         controlBullets: [
           'Treat uploaded documents as untrusted by default',
           'Limit what the model can do with their contents',
@@ -119,10 +119,6 @@ export const mainPromptSegments = {
         context:
           'This often feels safer than direct uploading because the content comes through a tool. The boundary problem is still the same.',
         riskLabel: 'External Source Risk',
-        managerPressure:
-          'Let the team gather information faster without manually reading every page first.',
-        managerDecision:
-          'Decide whether "available on the web" is enough to treat the content as safe input for the model.',
         decisionPrompt:
           'Which approval stance is stronger when a workflow retrieves outside content automatically?',
         decisionOptions: [
@@ -143,6 +139,7 @@ export const mainPromptSegments = {
         triggerTitle: 'The workflow pulls in outside text automatically',
         triggerBody:
           'The model reads websites, linked pages, or retrieved snippets to help answer a question faster. External text enters the model context even when no employee explicitly pasted it.',
+        triggerBulletsTitle: 'Why It Gets Approved In The Moment',
         triggerBullets: [
           'The retrieval tool can import text from places no one has reviewed closely',
           'The workflow often hides how much raw content the model actually saw',
@@ -151,6 +148,7 @@ export const mainPromptSegments = {
         boundaryTitle: 'Availability gets mistaken for trust',
         boundaryBody:
           'The workflow confuses "content the model can access" with "content the model should treat as safe to follow or prioritise."',
+        boundaryBulletsTitle: 'Questions Before You Approve',
         boundaryBullets: [
           'The model may absorb attacker text from a website or embedded source',
           'Retrieval can amplify instructions the user never intended to authorise',
@@ -159,6 +157,7 @@ export const mainPromptSegments = {
         consequenceTitle: 'Bad external content shapes internal decisions',
         consequenceBody:
           'The model may produce a confident answer or recommendation based on manipulated content that looked like ordinary source material.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'A web-derived answer can quietly inherit an attacker\'s agenda',
           'The team may mistake retrieval for verification',
@@ -167,6 +166,7 @@ export const mainPromptSegments = {
         controlTitle: 'Separate retrieval from authority',
         controlBody:
           'Approval should depend on whether the workflow limits what retrieved content can do and what human checks remain before the output is used.',
+        controlBulletsTitle: 'What The Team Should Hear',
         controlBullets: [
           'Treat external retrieval as untrusted input by default',
           'Keep human review between retrieval and sensitive use',
@@ -185,10 +185,6 @@ export const mainPromptSegments = {
         context:
           'The workflow still begins with a document or message, but the consequences are much higher because the model can now do more than generate text.',
         riskLabel: 'Agent Control Risk',
-        managerPressure:
-          'Capture productivity gains from automation without adding a manual approval step to every routine task.',
-        managerDecision:
-          'Decide which actions the model may take on its own and which approvals must exist outside the model.',
         decisionPrompt:
           'Which approval boundary matters most once the model can use tools and access systems?',
         decisionOptions: [
@@ -209,6 +205,7 @@ export const mainPromptSegments = {
         triggerTitle: 'The same input weakness meets real agency',
         triggerBody:
           'A file, webpage, or message still carries the hidden instruction. The difference is that the model can now query systems, send messages, or trigger automations instead of stopping at a bad summary.',
+        triggerBulletsTitle: 'Why It Gets Approved In The Moment',
         triggerBullets: [
           'The attack still starts as text entering the model context',
           'Tool access turns a content problem into a systems problem',
@@ -217,6 +214,7 @@ export const mainPromptSegments = {
         boundaryTitle: 'The workflow trusts the model with authority it cannot safely hold',
         boundaryBody:
           'If the model can directly call tools, sensitive approvals cannot live only inside the model\'s prompt. They need enforcement outside the model as well.',
+        boundaryBulletsTitle: 'Questions Before You Approve',
         boundaryBullets: [
           'A hostile instruction can override behavioural guidance',
           'The agent may query systems or send data before a human notices',
@@ -225,6 +223,7 @@ export const mainPromptSegments = {
         consequenceTitle: 'The model can act before anyone reviews the output',
         consequenceBody:
           'A prompt injection can now trigger data access, outbound communication, or other downstream effects even if the employee only sees a normal-looking summary.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'Sensitive data can move without informed user approval',
           'A quiet tool action may do more damage than a bad answer',
@@ -233,6 +232,7 @@ export const mainPromptSegments = {
         controlTitle: 'Move sensitive control outside the model',
         controlBody:
           'Once the system can act, the approval decision should focus on permission design, confirmation steps, and tool constraints rather than relying on the model to police itself.',
+        controlBulletsTitle: 'What The Team Should Hear',
         controlBullets: [
           'Keep tool permissions narrow and role-specific',
           'Require confirmation outside the model for sensitive actions',

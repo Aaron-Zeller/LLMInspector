@@ -14,13 +14,11 @@ function LensPanel({ scenario, lensId }) {
     return (
       <div className="sdw-panel-grid">
         <article className="sdw-panel-card">
-          <p className="sdw-panel-card__label">Team Shortcut</p>
-          <h3 className="sdw-panel-card__title">{scenario.employeeActionTitle}</h3>
+          <h3 className="sdw-panel-card__title">{scenario.employeeActionTitle || 'Team Shortcut'}</h3>
           <p className="sdw-panel-card__body">{scenario.employeeAction}</p>
         </article>
         <article className="sdw-panel-card">
-          <p className="sdw-panel-card__label">Why It Gets Approved In The Moment</p>
-          <h3 className="sdw-panel-card__title">The productivity pressure</h3>
+          <h3 className="sdw-panel-card__title">{scenario.whyFeelsNormalTitle || 'The productivity pressure'}</h3>
           <p className="sdw-panel-card__body">{scenario.whyFeelsNormal}</p>
         </article>
       </div>
@@ -31,12 +29,11 @@ function LensPanel({ scenario, lensId }) {
     return (
       <div className="sdw-panel-grid">
         <article className="sdw-panel-card sdw-panel-card--input">
-          <p className="sdw-panel-card__label">Legal Question</p>
           <h3 className="sdw-panel-card__title">{scenario.legalQuestionTitle}</h3>
           <p className="sdw-panel-card__body">{scenario.legalQuestion}</p>
         </article>
         <article className="sdw-panel-card">
-          <p className="sdw-panel-card__label">Questions Before You Approve</p>
+          <h3 className="sdw-panel-card__title">{scenario.legalChecksTitle || 'Questions Before You Approve'}</h3>
           <ul className="sdw-panel-list">
             {scenario.legalChecks.map((item) => (
               <li key={item}>{item}</li>
@@ -51,12 +48,11 @@ function LensPanel({ scenario, lensId }) {
     return (
       <div className="sdw-panel-grid">
         <article className="sdw-panel-card sdw-panel-card--input">
-          <p className="sdw-panel-card__label">What Happens Next</p>
           <h3 className="sdw-panel-card__title">{scenario.consequenceTitle}</h3>
           <p className="sdw-panel-card__body">{scenario.consequence}</p>
         </article>
         <article className="sdw-panel-card">
-          <p className="sdw-panel-card__label">What This Costs You</p>
+          <h3 className="sdw-panel-card__title">{scenario.consequenceBulletsTitle || 'What This Costs You'}</h3>
           <ul className="sdw-panel-list">
             {scenario.consequenceBullets.map((item) => (
               <li key={item}>{item}</li>
@@ -70,12 +66,11 @@ function LensPanel({ scenario, lensId }) {
   return (
     <div className="sdw-panel-grid">
       <article className="sdw-panel-card sdw-panel-card--input">
-        <p className="sdw-panel-card__label">Your Design Move</p>
         <h3 className="sdw-panel-card__title">{scenario.controlTitle}</h3>
         <p className="sdw-panel-card__body">{scenario.control}</p>
       </article>
       <article className="sdw-panel-card">
-        <p className="sdw-panel-card__label">What The Team Should Hear</p>
+        <h3 className="sdw-panel-card__title">{scenario.controlBulletsTitle || 'What The Team Should Hear'}</h3>
         <ul className="sdw-panel-list">
           {scenario.controlBullets.map((item) => (
             <li key={item}>{item}</li>
@@ -141,17 +136,6 @@ export function SensitiveDisclosureWalkthrough({ segment, segmentId }) {
           </span>
         </div>
         <p className="sdw-case__context">{activeScenario.context}</p>
-
-        <div className="sdw-summary">
-          <article className="sdw-summary__item">
-            <p className="sdw-summary__label">Your Operating Pressure</p>
-            <p className="sdw-summary__body">{activeScenario.managerPressure}</p>
-          </article>
-          <article className="sdw-summary__item">
-            <p className="sdw-summary__label">Your Design Decision</p>
-            <p className="sdw-summary__body">{activeScenario.managerDecision}</p>
-          </article>
-        </div>
 
         {activeScenario.decisionOptions?.length ? (
           <div className="sdw-decision">

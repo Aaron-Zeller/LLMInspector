@@ -60,10 +60,6 @@ export const mainPlatformSegments = {
         context:
           'The business need is real: faster drafting, summarisation, or ideation. The problem is that convenience can make the platform decision happen before anyone has asked what happens to the data afterward.',
         riskLabel: 'Public Cloud Risk',
-        managerPressure:
-          'Move quickly and avoid slowing the team with procurement or internal tooling delays.',
-        managerDecision:
-          'Decide whether immediate access is enough reason to let work start in a public environment without clear governance guarantees.',
         decisionPrompt:
           'What is the stronger first move when a public tool is the fastest option available?',
         decisionOptions: [
@@ -84,6 +80,7 @@ export const mainPlatformSegments = {
         needTitle: 'The team genuinely needs speed',
         needBody:
           'Public tools remove friction: no procurement delay, low onboarding effort, and familiar interfaces. That makes them attractive even for teams that have not yet defined what data they should never receive.',
+        needBulletsTitle: 'Why It Gets Approved In The Moment',
         needBullets: [
           'The entry barrier is low',
           'The feature set often feels immediately useful',
@@ -92,6 +89,7 @@ export const mainPlatformSegments = {
         tradeoffTitle: 'Convenience often comes with weak governance clarity',
         tradeoffBody:
           'The relevant issue is not whether the model is smart enough. It is whether the organisation understands retention, training use, data boundaries, and administrative control well enough for the work being done.',
+        tradeoffBulletsTitle: 'Questions Before You Approve',
         tradeoffBullets: [
           'Terms and defaults may be unclear to ordinary users',
           'IT may have little visibility into who is using what',
@@ -100,6 +98,7 @@ export const mainPlatformSegments = {
         consequenceTitle: 'The tool becomes standard before the rules exist',
         consequenceBody:
           'If the team adopts the platform casually, input risk, prompt-injection exposure, and weak output discipline all start living inside a tool the organisation has not actually governed.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'Sensitive work may drift into an unsuitable environment',
           'Different teams may build inconsistent practices on the same tool',
@@ -137,6 +136,7 @@ export const mainPlatformSegments = {
         ruleTitle: 'Public tools may be convenient, but their scope is narrow',
         ruleBody:
           'Keep low-risk drafting and ideation possible if you want, but do not let convenience become permission for more sensitive work.',
+        ruleBulletsTitle: 'What The Team Should Hear',
         ruleBullets: [
           'List prohibited data and task categories explicitly',
           'Route higher-sensitivity work to better-governed environments',
@@ -155,10 +155,6 @@ export const mainPlatformSegments = {
         context:
           'This is often the most realistic middle ground: familiar capability with clearer governance. The mistake is assuming this solves every risk just because the contract looks stronger.',
         riskLabel: 'Managed Cloud Trade-off',
-        managerPressure:
-          'Give teams a powerful approved tool without taking on the full cost of an internal deployment.',
-        managerDecision:
-          'Decide whether improved provider guarantees are enough for the work, or whether the organisation still needs tighter boundaries around use and oversight.',
         decisionPrompt:
           'What is the stronger governance stance when an enterprise cloud instance is available?',
         decisionOptions: [
@@ -179,6 +175,7 @@ export const mainPlatformSegments = {
         needTitle: 'The organisation needs a scalable middle path',
         needBody:
           'Enterprise instances often preserve usability while adding admin features, retention controls, and stronger commitments around training use. That makes them attractive for broad organisational rollout.',
+        needBulletsTitle: 'Why It Gets Approved In The Moment',
         needBullets: [
           'Teams can use a familiar interface and model quality',
           'IT and security gain more visibility and control',
@@ -187,6 +184,7 @@ export const mainPlatformSegments = {
         tradeoffTitle: 'The contract improves the platform, not the whole workflow',
         tradeoffBody:
           'The input side may be better governed, but the organisation still has to manage prompt injection, hallucinations, downstream approvals, and who may do what with the tool.',
+        tradeoffBulletsTitle: 'Questions Before You Approve',
         tradeoffBullets: [
           'A safer provider does not make weak team habits safe',
           'Admin controls matter only if the organisation uses them deliberately',
@@ -195,6 +193,7 @@ export const mainPlatformSegments = {
         consequenceTitle: 'The platform becomes a false sense of safety',
         consequenceBody:
           'If the enterprise label is treated like a blanket answer, teams may relax the very governance disciplines that still matter most once the model is in use.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'Users may over-trust output because the tool is “approved”',
           'Sensitive use cases may still need narrower controls',
@@ -231,6 +230,7 @@ export const mainPlatformSegments = {
         ruleTitle: 'An approved platform still needs approved ways of using it',
         ruleBody:
           'This keeps the enterprise environment valuable without letting the approval label blur the remaining governance decisions.',
+        ruleBulletsTitle: 'What The Team Should Hear',
         ruleBullets: [
           'Use admin controls intentionally',
           'Document allowed and disallowed use cases by role',
@@ -249,10 +249,6 @@ export const mainPlatformSegments = {
         context:
           'This is often the most attractive option for privacy-sensitive work. The governance mistake is assuming “local” automatically means “safe enough” without examining capability, maintenance, and output risk.',
         riskLabel: 'Operational Shift',
-        managerPressure:
-          'Protect sensitive information while still giving teams access to AI support.',
-        managerDecision:
-          'Decide whether the privacy gain justifies the operational complexity and whether the organisation is prepared to govern the new internal system properly.',
         decisionPrompt:
           'What is the stronger stance when a local or internal model seems safest on paper?',
         decisionOptions: [
@@ -273,6 +269,7 @@ export const mainPlatformSegments = {
         needTitle: 'The organisation wants tighter data control',
         needBody:
           'Internal deployment can reduce exposure to public-cloud handling and may fit work that involves highly sensitive data or stricter regulatory expectations.',
+        needBulletsTitle: 'Why It Gets Approved In The Moment',
         needBullets: [
           'Sensitive information can remain inside controlled infrastructure',
           'The organisation can shape the environment more directly',
@@ -281,6 +278,7 @@ export const mainPlatformSegments = {
         tradeoffTitle: 'Privacy improves, but the burden moves inward',
         tradeoffBody:
           'The organisation now owns more of the system’s operational reality: maintenance, permissions, model quality limits, monitoring, and internal oversight choices.',
+        tradeoffBulletsTitle: 'Questions Before You Approve',
         tradeoffBullets: [
           'Internal hosting does not remove hallucinations or prompt injection',
           'Security and maintenance become the organisation’s job',
@@ -289,6 +287,7 @@ export const mainPlatformSegments = {
         consequenceTitle: 'The platform is safer on one axis and weaker on another',
         consequenceBody:
           'If the organisation adopts a local model without an operating model around it, teams may still face unsafe output, weak permissions, or neglected maintenance inside a more private environment.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'Privacy gains can be offset by weak internal controls',
           'Operational burden can quietly reduce reliability or oversight',
@@ -326,6 +325,7 @@ export const mainPlatformSegments = {
         ruleTitle: 'Local hosting changes ownership, not the need for governance',
         ruleBody:
           'This keeps internal deployment from becoming a false comfort. The platform may be private, but it still needs policy, oversight, and operational stewardship.',
+        ruleBulletsTitle: 'What The Team Should Hear',
         ruleBullets: [
           'Assign explicit platform ownership',
           'Retain the same output-review and approval discipline',

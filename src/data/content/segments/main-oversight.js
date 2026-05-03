@@ -60,10 +60,6 @@ export const mainOversightSegments = {
         context:
           'The benefit is obvious: faster response times and less queue pressure. The real question is whether a customer-facing system should ever cross the line from drafting to sending on its own.',
         riskLabel: 'Outbound Authority',
-        managerPressure:
-          'Reduce support backlog without slowing the team down with unnecessary reviews.',
-        managerDecision:
-          'Decide whether AI should stop at drafting, or whether it should be trusted to send customer communications autonomously.',
         decisionPrompt:
           'Which boundary is stronger when AI is involved in customer messaging?',
         decisionOptions: [
@@ -84,6 +80,7 @@ export const mainOversightSegments = {
         handoffTitle: 'The system is not only writing anymore',
         handoffBody:
           'Once the workflow can send the message itself, it has crossed from assistance into agency. The risk is no longer only output quality, but autonomous execution.',
+        handoffBulletsTitle: 'Why It Gets Approved In The Moment',
         handoffBullets: [
           'The action becomes externally visible immediately',
           'A bad send may create legal, reputational, or service consequences',
@@ -92,6 +89,7 @@ export const mainOversightSegments = {
         failureTitle: 'The last human interruption disappeared',
         failureBody:
           'The workflow assumes the model should handle the final action because it handled the draft well enough. That removes the point where responsibility should still reattach to a person.',
+        failureBulletsTitle: 'Questions Before You Approve',
         failureBullets: [
           'Helpful drafting becomes permission to act',
           'The team confuses speed with acceptable autonomy',
@@ -100,6 +98,7 @@ export const mainOversightSegments = {
         consequenceTitle: 'The model starts making promises in your name',
         consequenceBody:
           'A mistaken refund promise, wrong tone, or unsupported commitment is no longer an internal draft issue. It becomes a direct relationship and accountability problem with the customer.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'The organisation inherits the message whether it was reviewed or not',
           'A correction later does not undo the first impression',
@@ -108,6 +107,7 @@ export const mainOversightSegments = {
         controlTitle: 'Keep final customer actions behind a human gate',
         controlBody:
           'Customer communication can be accelerated by AI, but the system should still stop before the send, not after the incident.',
+        controlBulletsTitle: 'What The Team Should Hear',
         controlBullets: [
           'Let AI draft, summarise, and suggest',
           'Require a human click or sign-off before outbound customer messages',
@@ -126,10 +126,6 @@ export const mainOversightSegments = {
         context:
           'The system may look efficient because it removes waiting time. The governance question is whether financial actions should ever be allowed to move without a role-based approval step.',
         riskLabel: 'Transactional Authority',
-        managerPressure:
-          'Reduce turnaround time on operational approvals without creating a backlog.',
-        managerDecision:
-          'Decide whether the agent may execute within broad policy rules, or whether financial actions still need explicit approval boundaries outside the model.',
         decisionPrompt:
           'What is the stronger design stance once the system can move money or approve value-bearing actions?',
         decisionOptions: [
@@ -150,6 +146,7 @@ export const mainOversightSegments = {
         handoffTitle: 'The system receives authority with financial consequence',
         handoffBody:
           'At this point the model is not merely recommending. It is positioned to change balances, approve exceptions, or trigger payments in a way that creates auditable consequences.',
+        handoffBulletsTitle: 'Why It Gets Approved In The Moment',
         handoffBullets: [
           'A wrong action can become an immediate control breach',
           'The value threshold matters even when the model sounds confident',
@@ -158,6 +155,7 @@ export const mainOversightSegments = {
         failureTitle: 'Policy wording replaced formal approval',
         failureBody:
           'The workflow relies on the model to interpret and enforce the rule itself. That is precisely when accountability starts to drift away from clearly defined human roles.',
+        failureBulletsTitle: 'Questions Before You Approve',
         failureBullets: [
           'A correct recommendation can still be executed through the wrong path',
           'The model’s confidence can overshadow delegation limits',
@@ -166,6 +164,7 @@ export const mainOversightSegments = {
         consequenceTitle: 'A process exception becomes an accountability event',
         consequenceBody:
           'Even when the underlying action was reasonable, the organisation now has to answer why the system was allowed to act at that level without a human in the loop.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'Audit and compliance exposure increases immediately',
           'Threshold controls lose meaning if they are easy to bypass',
@@ -174,6 +173,7 @@ export const mainOversightSegments = {
         controlTitle: 'Keep value-bearing actions behind enforceable gates',
         controlBody:
           'The right supervision move is to preserve authority boundaries outside the model, not hope the model interprets them correctly every time.',
+        controlBulletsTitle: 'What The Team Should Hear',
         controlBullets: [
           'Use hard thresholds and explicit approval roles',
           'Do not let financial execution rest only on model reasoning',
@@ -192,10 +192,6 @@ export const mainOversightSegments = {
         context:
           'This can look like the highest-value use case because it removes friction from repetitive operations. It is also where machine-speed mistakes become hardest to contain.',
         riskLabel: 'Machine-Speed Agency',
-        managerPressure:
-          'Improve operational responsiveness and reduce manual intervention in routine changes.',
-        managerDecision:
-          'Decide whether the system may execute live changes directly, or whether certain actions must always stop for human approval.',
         decisionPrompt:
           'What is the stronger stance when AI can make live system changes?',
         decisionOptions: [
@@ -216,6 +212,7 @@ export const mainOversightSegments = {
         handoffTitle: 'The system can change reality at machine speed',
         handoffBody:
           'The model is no longer just advising a person. It can alter records, configurations, or infrastructure directly, which means weak oversight scales faster than a human can react.',
+        handoffBulletsTitle: 'Why It Gets Approved In The Moment',
         handoffBullets: [
           'The effect can propagate before a person sees the alert',
           'One wrong action can trigger multiple downstream effects',
@@ -224,6 +221,7 @@ export const mainOversightSegments = {
         failureTitle: 'Supervision was moved too late in the chain',
         failureBody:
           'The workflow kept observability but removed the meaningful pause before impact. That turns oversight into incident analysis instead of incident prevention.',
+        failureBulletsTitle: 'Questions Before You Approve',
         failureBullets: [
           'The system acts before the human judgement arrives',
           'Alerting is treated as if it were equivalent to approval',
@@ -232,6 +230,7 @@ export const mainOversightSegments = {
         consequenceTitle: 'A local mistake becomes a systems incident',
         consequenceBody:
           'At machine speed, a bad operational action can delete, reconfigure, or propagate far beyond the original task before anyone understands what happened.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'Small logic errors can become large operational failures',
           'Containment is harder once multiple systems have moved',
@@ -240,6 +239,7 @@ export const mainOversightSegments = {
         controlTitle: 'Keep high-impact operations behind an explicit pause',
         controlBody:
           'For live operational changes, the model may help prepare or recommend the action, but a human checkpoint should remain before execution when the impact is meaningful.',
+        controlBulletsTitle: 'What The Team Should Hear',
         controlBullets: [
           'Limit execute or write permissions tightly',
           'Require approval before high-impact live changes',

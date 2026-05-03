@@ -60,10 +60,6 @@ export const mainMisinformationSegments = {
         context:
           'The document is clear, concise, and well formatted. Under time pressure, the easiest mistake is to treat that polish as evidence rather than presentation.',
         riskLabel: 'Board Briefing Risk',
-        managerPressure:
-          'Move a strategic update forward quickly without turning every draft into a research project.',
-        managerDecision:
-          'Decide whether the note is ready for leadership use, needs source-checking, or should be rewritten before anyone relies on it.',
         decisionPrompt:
           'What is the safer first move when a clean briefing note contains exact figures and named sources?',
         decisionOptions: [
@@ -84,6 +80,7 @@ export const mainMisinformationSegments = {
         surfaceTitle: 'The note looks board-ready',
         surfaceBody:
           'It names an institute, gives precise percentages, and ends with a strong recommendation. The structure signals competence even before the content has been checked.',
+        surfaceBulletsTitle: 'Why It Gets Approved In The Moment',
         surfaceBullets: [
           'Specific figures feel more credible than approximate language',
           'Named sources reduce scepticism even when no one has opened them',
@@ -92,6 +89,7 @@ export const mainMisinformationSegments = {
         mechanismTitle: 'The model is optimising for plausibility, not verification',
         mechanismBody:
           'LLMs generate the next likely words in a convincing pattern. When the prompt asks for trends and projections, the model may invent the kind of report, statistic, or citation that usually appears in that genre.',
+        mechanismBulletsTitle: 'Questions Before You Approve',
         mechanismBullets: [
           'The model may fabricate a source because a source is expected',
           'It may produce precise numbers without underlying evidence',
@@ -100,6 +98,7 @@ export const mainMisinformationSegments = {
         consequenceTitle: 'The document gains authority before it earns it',
         consequenceBody:
           'If the note reaches leadership, the problem is no longer only factual accuracy. You now risk decisions, follow-up discussions, or board trust being built on unsupported material.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'A follow-up question can expose the weakness in front of senior stakeholders',
           'The whole document becomes less credible once one source collapses',
@@ -108,6 +107,7 @@ export const mainMisinformationSegments = {
         controlTitle: 'Require evidence before precision travels',
         controlBody:
           'For board-facing material, percentages, named reports, forecasts, and expert attributions should not move forward without a verification step.',
+        controlBulletsTitle: 'What The Team Should Hear',
         controlBullets: [
           'Pause circulation until the cited source can be found',
           'Replace unsupported figures with verified ones or remove them',
@@ -126,10 +126,6 @@ export const mainMisinformationSegments = {
         context:
           'The note is useful because it sounds specific and immediately actionable. That is also what makes it risky: weak code advice often arrives wrapped in confident technical language.',
         riskLabel: 'Repository Risk',
-        managerPressure:
-          'Help the team move faster without blocking useful technical drafting support.',
-        managerDecision:
-          'Decide which parts of the recommendation need testing or expert review before they reach the repository or deployment plan.',
         decisionPrompt:
           'What is the stronger managerial response to a confident AI-generated implementation note?',
         decisionOptions: [
@@ -150,6 +146,7 @@ export const mainMisinformationSegments = {
         surfaceTitle: 'The technical detail feels reassuring',
         surfaceBody:
           'Named libraries, confident explanations, and step-by-step code advice create the impression that the answer already reflects real implementation knowledge.',
+        surfaceBulletsTitle: 'Why It Gets Approved In The Moment',
         surfaceBullets: [
           'Concrete package names feel more trustworthy than generic advice',
           'Step-by-step instructions lower resistance to reuse',
@@ -158,6 +155,7 @@ export const mainMisinformationSegments = {
         mechanismTitle: 'The model can simulate expertise without grounding',
         mechanismBody:
           'When asked for code or implementation guidance, the model predicts what a plausible engineering answer should look like. It does not guarantee the library exists, the pattern is secure, or the recommendation matches your stack.',
+        mechanismBulletsTitle: 'Questions Before You Approve',
         mechanismBullets: [
           'Non-existent packages can appear fully believable',
           'Unsafe patterns can be presented as best practice',
@@ -166,6 +164,7 @@ export const mainMisinformationSegments = {
         consequenceTitle: 'Weak advice becomes operational debt',
         consequenceBody:
           'Once the note influences implementation, the cost is no longer only technical cleanup. You risk shipping broken logic, unsafe patterns, or time-consuming rework that could have been prevented by a review gate.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'Bad code can enter a repository looking professionally justified',
           'Security issues may be introduced under the banner of speed',
@@ -174,6 +173,7 @@ export const mainMisinformationSegments = {
         controlTitle: 'Separate drafting help from implementation approval',
         controlBody:
           'AI can support technical drafting, but repository, dependency, and security decisions still need explicit validation by the team or owner who is accountable for the result.',
+        controlBulletsTitle: 'What The Team Should Hear',
         controlBullets: [
           'Require test and dependency validation before adoption',
           'Treat AI-generated code notes as suggestions, not implementation decisions',
@@ -192,10 +192,6 @@ export const mainMisinformationSegments = {
         context:
           'The text sounds measured and responsible, so it is tempting to treat it as a useful shortcut. The risk is that a fabricated or misquoted citation can quietly redefine policy expectations.',
         riskLabel: 'Policy Risk',
-        managerPressure:
-          'Provide timely direction without escalating every policy question into a slow legal review cycle.',
-        managerDecision:
-          'Decide when a policy or compliance statement needs source validation before it becomes internal guidance.',
         decisionPrompt:
           'What is the safer move when an AI-generated memo includes a polished legal or policy citation?',
         decisionOptions: [
@@ -216,6 +212,7 @@ export const mainMisinformationSegments = {
         surfaceTitle: 'The memo sounds measured and compliant',
         surfaceBody:
           'A calm tone, exact article references, and policy-style wording make the answer feel lower-risk than it really is.',
+        surfaceBulletsTitle: 'Why It Gets Approved In The Moment',
         surfaceBullets: [
           'Formal tone can mask weak sourcing',
           'Citation formatting signals authority even when the reference is wrong',
@@ -224,6 +221,7 @@ export const mainMisinformationSegments = {
         mechanismTitle: 'The model is mimicking the form of policy writing',
         mechanismBody:
           'The answer may reproduce the style of a compliance memo without grounding the statement in an actual policy, law, or internal standard.',
+        mechanismBulletsTitle: 'Questions Before You Approve',
         mechanismBullets: [
           'The citation may be invented or misapplied',
           'The summary may flatten important conditions or exceptions',
@@ -232,6 +230,7 @@ export const mainMisinformationSegments = {
         consequenceTitle: 'The organisation starts following a rule that may not exist',
         consequenceBody:
           'If the memo is used as guidance, teams can align around a false requirement or a false permission. That creates governance confusion even before any external problem appears.',
+        consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'Teams may act on a rule that has no real source basis',
           'Later corrections reduce confidence in internal guidance',
@@ -240,6 +239,7 @@ export const mainMisinformationSegments = {
         controlTitle: 'Require source-opening for policy claims',
         controlBody:
           'If a statement sounds like policy, law, or compliance instruction, the underlying source should be opened, read, and attributable before the claim is distributed.',
+        controlBulletsTitle: 'What The Team Should Hear',
         controlBullets: [
           'Open the cited source before the memo becomes guidance',
           'Remove legal-looking claims that cannot be traced quickly',
