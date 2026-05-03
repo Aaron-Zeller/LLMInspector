@@ -244,169 +244,6 @@ export const mainOutputSegments = {
       },
     ],
   },
-  'main-output-consequences': {
-    type: 'contentCards',
-    eyebrow: 'Risk Clusters',
-    title: 'What goes wrong when unchecked output keeps moving',
-    description:
-      'The failure is not only that the model produced something weak. The failure is that the workflow gave the weak output reach, authority, or execution power.',
-    columns: 3,
-    cards: [
-      {
-        tone: 'output',
-        eyebrow: 'Cluster 1',
-        title: 'Systemic error propagation',
-        body:
-          'Once output enters reports, mailings, or automation chains, one weak claim can be copied, broadcast, or re-used across many contexts before anyone notices the original mistake.',
-      },
-      {
-        tone: 'output',
-        eyebrow: 'Cluster 2',
-        title: 'Liability and compliance exposure',
-        body:
-          'A fabricated fact in a filing, a sensitive field in a client email, or an out-of-policy approval can create a governance problem even when the model “mostly got it right.”',
-      },
-      {
-        tone: 'output',
-        eyebrow: 'Cluster 3',
-        title: 'Irreversible operational damage',
-        body:
-          'The risk rises sharply when output can send, write, approve, or trigger. At that point the key issue is not content generation alone, but what the system let the output do.',
-      },
-    ],
-  },
-  'main-output-controls': {
-    type: 'outputControlStudio',
-    eyebrow: 'Manager Playbook',
-    title: 'Replace ad hoc caution with review gates your team can actually follow',
-    description:
-      'The goal is not to slow everything down. The goal is to decide explicitly what can move on trust, what must be reviewed, and what must be escalated before the system acts.',
-    scenarios: [
-      {
-        id: 'internal-summary',
-        eyebrow: 'Case 1',
-        title: 'Routine internal summary',
-        meta: 'Low-sensitivity internal use',
-        role: 'Safer Workflow',
-        headline: 'Keep the efficiency gain, but define clearly when direct approval is actually appropriate.',
-        context:
-          'Some AI outputs really can move with minimal friction. The control problem is making that choice deliberate rather than letting every category drift toward either blind trust or blanket caution.',
-        riskLabel: 'Low-Risk Output',
-        managerGoal: 'Allow low-risk internal automation to stay fast.',
-        designMove: 'Reserve heavier review for outputs whose audience, consequence, or authority demand it.',
-        unsafeTitle: 'Review everything or trust everything',
-        unsafeBody:
-          'A weak workflow treats all AI outputs the same way, either by over-reviewing harmless internal drafts or by under-reviewing high-consequence outputs.',
-        unsafeWhy:
-          'Without explicit categories, the team falls back on habit instead of calibrated judgement.',
-        verifyTitle: 'Define what low-risk direct approval actually means',
-        verifyBody:
-          'Routine internal summaries can move faster when they are sourced from controlled systems, contain no sensitive fields, and do not create external or structural consequences.',
-        standardLabel: 'Workflow Check',
-        standardTitle: 'Approve directly only when the consequence stays low',
-        standardBody:
-          'The question is not whether the output is internal. It is whether the channel, source, and consequence justify minimal review.',
-        standardChecks: [
-          'Is the source controlled and internally trusted?',
-          'Is the audience internal only?',
-          'Would an error be easy to catch and low-cost to correct?',
-        ],
-        ruleLabel: 'Team Rule',
-        ruleTitle: 'Keep low-risk automation narrow and explicit',
-        ruleBody:
-          'Define which output classes may move quickly so the team does not generalise that trust to higher-consequence situations.',
-        ruleBullets: [
-          'List routine output categories that can be approved directly',
-          'Keep the boundary visible for anything customer-facing, sensitive, or structural',
-          'Teach the team that “internal” is not the same as “always safe”',
-        ],
-        takeaway:
-          'The safest fast workflow is the one whose low-risk cases are defined in advance.',
-      },
-      {
-        id: 'external-message',
-        eyebrow: 'Case 2',
-        title: 'External communication or regulated content',
-        meta: 'Review gate before release',
-        role: 'Safer Workflow',
-        headline: 'Keep drafting support, but stop the output from becoming communication before it passes review.',
-        context:
-          'The productivity gain stays real because AI still drafts the content. The change is that the final handoff into the outside world now passes through a non-optional gate.',
-        riskLabel: 'Release Gate',
-        managerGoal: 'Keep teams fast without letting weak output reach customers or regulators unchecked.',
-        designMove: 'Separate drafting from release and require review at the point of publication.',
-        unsafeTitle: 'Treat the draft as nearly ready because the wording looks polished',
-        unsafeBody:
-          'The workflow assumes that good phrasing and a familiar format are close enough to final approval, even when the message is customer-facing or regulated.',
-        unsafeWhy:
-          'Teams often underestimate the last-mile risk because the draft already looks professional.',
-        verifyTitle: 'Hold the gate where the output becomes real',
-        verifyBody:
-          'The control belongs at the moment of release: before send, before publication, before filing, or before client delivery.',
-        standardLabel: 'Workflow Check',
-        standardTitle: 'Review at the point of external impact',
-        standardBody:
-          'Customer-facing or regulated outputs deserve a final check that looks at the actual message, the fields, the claims, and the effect of sending it now.',
-        standardChecks: [
-          'Does the output contain sensitive fields, regulated language, or precise claims?',
-          'Will it be externally visible or hard to reverse once released?',
-          'Has someone reviewed the actual final version rather than the idea of the draft?',
-        ],
-        ruleLabel: 'Team Rule',
-        ruleTitle: 'Draft quickly, release deliberately',
-        ruleBody:
-          'Use AI to accelerate preparation, but do not let preparation and publication collapse into the same step.',
-        ruleBullets: [
-          'Keep a final review gate before any external release',
-          'Use checklists for recurring communication categories',
-          'Make release authority explicit instead of implied',
-        ],
-        takeaway:
-          'If the output is about to leave the organisation, the last check should happen at the last mile.',
-      },
-      {
-        id: 'automated-action',
-        eyebrow: 'Case 3',
-        title: 'Automated action or system write',
-        meta: 'Execution control',
-        role: 'Safer Workflow',
-        headline: 'Keep automation benefits, but put execution behind controls that do not depend on the model policing itself.',
-        context:
-          'The system can still assist at speed. The safer move is to decide which actions remain bounded, reversible, or approval-based before the output can trigger them.',
-        riskLabel: 'Execution Control',
-        managerGoal: 'Gain efficiency from automation without quietly handing over unsafe authority.',
-        designMove: 'Tie automation level and system access to explicit human checkpoints.',
-        unsafeTitle: 'Let the output execute because it is logged and seems low-friction',
-        unsafeBody:
-          'The workflow treats logging, dashboards, or later audits as if they were enough control for actions that can already affect live systems.',
-        unsafeWhy:
-          'This feels efficient because it removes interruptions, but it often moves the control too late to prevent damage.',
-        verifyTitle: 'Design the checkpoint before the action',
-        verifyBody:
-          'For writes, sends, approvals, or other irreversible steps, the relevant control is not better wording. It is permission design, confirmation logic, and bounded autonomy.',
-        standardLabel: 'Workflow Check',
-        standardTitle: 'Match the gate to the execution risk',
-        standardBody:
-          'High-impact actions should be limited by value thresholds, role boundaries, reversibility, and explicit human intervention where needed.',
-        standardChecks: [
-          'What exactly can this output cause the system to do?',
-          'Is the action reversible if it is wrong?',
-          'Does the checkpoint happen before execution, not only after?',
-        ],
-        ruleLabel: 'Team Rule',
-        ruleTitle: 'Automation is a design choice, not a default reward for useful output',
-        ruleBody:
-          'Do not let strong-looking output silently accumulate stronger execution powers. Expand autonomy only when the safeguards expand with it.',
-        ruleBullets: [
-          'Keep high-impact actions behind thresholds and approvals',
-          'Constrain write access and outbound actions tightly',
-          'Review automation settings as governance decisions, not convenience settings',
-        ],
-        takeaway:
-          'When output can trigger action, your real control lives in the workflow, not in the confidence of the draft.',
-      },
-    ],
-  },
   'main-output-transfer': {
     type: 'transferCallout',
     eyebrow: 'Before You Continue',
@@ -468,7 +305,7 @@ export const mainOutputSegments = {
         urgency: 'Routine · End of day deadline',
         context:
           'Your AI assistant has prepared the weekly internal performance summary for leadership. It aggregates sales figures from the internal BI dashboard. There is no client data, no recommendations, and no sensitive personal information.',
-        aiOutputTitle: 'AI Draft — Internal Briefing',
+        aiOutputTitle: 'AI Draft: Internal Briefing',
         aiOutput:
           'Week 42 Performance Summary\n\nRevenue: €1.24M (↑ 3.1% vs. prior week)\nTop region: DACH (+8.2%)\nOpen pipeline: 47 deals, total value €3.8M\nNotable: Enterprise segment exceeded target for third consecutive week.\n\nFull breakdown attached.',
         options: [
@@ -485,7 +322,7 @@ export const mainOutputSegments = {
               body:
                 'This is exactly what AI-assisted automation is designed for: routine, internal, low-sensitivity information distribution. The data came from a controlled internal source and contains no personal data or external-facing content. Approving immediately is the right move.',
               lesson:
-                'Not every AI output needs a review gate. Applying uniform caution to routine internal tasks creates friction without protecting anything. The skill is recognising when oversight adds value — and when it just adds delay.',
+                'Not every AI output needs a review gate. Applying uniform caution to routine internal tasks creates friction without protecting anything. The skill is recognising when oversight adds value, and when it just adds delay.',
             },
           },
           {
@@ -497,7 +334,7 @@ export const mainOutputSegments = {
             consequence: {
               tone: 'warn',
               verdict: 'Overcautious',
-              title: 'No issues found — but time was spent',
+              title: 'No issues found, but time was spent',
               body:
                 'You reviewed the summary, confirmed all figures matched the BI dashboard, and sent it 22 minutes later than the deadline. No issues were found. The report was accurate.',
               lesson:
@@ -530,7 +367,7 @@ export const mainOutputSegments = {
           'A customer contacted support after experiencing a 4-hour service outage. Your AI case system has assessed the complaint and recommends a €75 courtesy credit. Policy permits AI-assisted credits up to €200 without approval. The AI has correctly identified the outage in the system log.',
         aiOutputTitle: 'AI Case Decision',
         aiOutput:
-          'Complaint Assessment: VALID\nService disruption confirmed: 4h 12m on Oct 14\nRecommended resolution: Courtesy credit — €75.00\nPolicy check: Within automated approval ceiling (€200 max)\nStatus: Awaiting operator confirmation.',
+          'Complaint Assessment: VALID\nService disruption confirmed: 4h 12m on Oct 14\nRecommended resolution: Courtesy credit: €75.00\nPolicy check: Within automated approval ceiling (€200 max)\nStatus: Awaiting operator confirmation.',
         options: [
           {
             id: 'approve',
@@ -545,7 +382,7 @@ export const mainOutputSegments = {
               body:
                 'The AI correctly identified a valid complaint and proposed a resolution within the approved ceiling. You confirmed it promptly. The customer received the credit within the hour and the case closed cleanly.',
               lesson:
-                'Threshold controls and policy ceilings exist precisely so that routine, validated decisions can proceed without bottlenecks. Trusting the process here is the correct behaviour — the human role was to confirm, not re-investigate.',
+                'Threshold controls and policy ceilings exist precisely so that routine, validated decisions can proceed without bottlenecks. Trusting the process here is the correct behaviour. The human role was to confirm, not re-investigate.',
             },
           },
           {
@@ -588,9 +425,9 @@ export const mainOutputSegments = {
         urgency: 'Campaign launches in 2 hours',
         context:
           'Your AI content system has drafted a re-engagement email campaign for 450 lapsed customers. You are the campaign manager. The email is scheduled to send automatically in 2 hours unless you intervene.',
-        aiOutputTitle: 'AI Draft — Re-engagement Email',
+        aiOutputTitle: 'AI Draft: Re-engagement Email',
         aiOutput:
-          'Subject: We miss you, [CUSTOMER NAME]\n\nHi [CUSTOMER NAME],\n\nIt\'s been a while since we\'ve seen you, and we\'d love to welcome you back.\n\nAs a valued customer, we\'re offering you an exclusive 20% discount on your next order — valid until October 31.\n\nClick below to claim your offer.\n\nWarm regards,\nThe Team',
+          'Subject: We miss you, [CUSTOMER NAME]\n\nHi [CUSTOMER NAME],\n\nIt\'s been a while since we\'ve seen you, and we\'d love to welcome you back.\n\nAs a valued customer, we\'re offering you an exclusive 20% discount on your next order, valid until October 31.\n\nClick below to claim your offer.\n\nWarm regards,\nThe Team',
         options: [
           {
             id: 'approve',
@@ -605,7 +442,7 @@ export const mainOutputSegments = {
               body:
                 "The email went out with '[CUSTOMER NAME]' unreplaced in both the subject line and body. 450 customers received it. Within 2 hours, 23 complaints arrived and 11 customers unsubscribed. The campaign had to be recalled and a correction sent.",
               lesson:
-                "AI output errors are not always semantic — sometimes they are literal, like an unfilled template variable. A single human review of the final output before a bulk send is a minimal safeguard with outsized value. The AI did not fail at content; it failed at a step the pipeline should have enforced.",
+                "AI output errors are not always semantic. Sometimes they are literal, like an unfilled template variable. A single human review of the final output before a bulk send is a minimal safeguard with outsized value. The AI did not fail at content; it failed at a step the pipeline should have enforced.",
             },
           },
           {
@@ -621,7 +458,7 @@ export const mainOutputSegments = {
               body:
                 'Reading the first few lines of the draft revealed the unfilled placeholder immediately. You corrected the template variable, re-ran the personalisation step, and the campaign launched on time with clean output.',
               lesson:
-                "Bulk outbound communications are a high-consequence category: an error reaches hundreds of customers simultaneously and cannot be unsent. A review step before any mass send — even when the content looks routine — is proportionate and necessary.",
+                "Bulk outbound communications are a high-consequence category: an error reaches hundreds of customers simultaneously and cannot be unsent. A review step before any mass send, even when the content looks routine, is proportionate and necessary.",
             },
           },
           {
@@ -632,12 +469,12 @@ export const mainOutputSegments = {
             riskDelta: 8,
             consequence: {
               tone: 'warn',
-              verdict: 'Error caught — but slowly',
+              verdict: 'Error caught, but slowly',
               title: 'Campaign delayed by 3 hours',
               body:
                 'The marketing lead eventually identified the placeholder error, but the review took 3 hours and the campaign missed its optimal send window. The error was caught before it reached customers.',
               lesson:
-                'Escalating to a manager for a content review task adds overhead that was not necessary here — the issue was findable with a direct read. Marketing content errors are within the campaign manager\'s authority to catch and fix. The right call was a direct review, not a handoff.',
+                'Escalating to a manager for a content review task adds overhead that was not necessary here. The issue was findable with a direct read. Marketing content errors are within the campaign manager\'s authority to catch and fix. The right call was a direct review, not a handoff.',
             },
           },
         ],
@@ -648,7 +485,7 @@ export const mainOutputSegments = {
         urgency: 'Routine · Maintenance window in 48 hours',
         context:
           'Your AI operations assistant has drafted a maintenance window notification for internal staff. The outage is a planned 3-hour infrastructure update confirmed by the ops team. The notification is internal-only, contains no sensitive data, and follows the standard format.',
-        aiOutputTitle: 'AI Draft — Internal Maintenance Notice',
+        aiOutputTitle: 'AI Draft: Internal Maintenance Notice',
         aiOutput:
           'PLANNED MAINTENANCE NOTICE\n\nDate: Saturday, October 26 | 02:00–05:00 CET\nImpacted systems: Customer portal, internal CRM\nAction required: Save all work before 01:45 CET\n\nFor urgent issues during the window, contact ops-on-call@company.com\n\nThis notice has been generated and verified against the confirmed maintenance schedule.',
         options: [
@@ -677,7 +514,7 @@ export const mainOutputSegments = {
             consequence: {
               tone: 'warn',
               verdict: 'Correct but cautious',
-              title: 'No changes needed — 15 minutes spent',
+              title: 'No changes needed: 15 minutes spent',
               body:
                 'You cross-referenced the maintenance window against the ops calendar. Everything matched. The notification went out unchanged.',
               lesson:
@@ -693,7 +530,7 @@ export const mainOutputSegments = {
             consequence: {
               tone: 'warn',
               verdict: 'Unnecessary escalation',
-              title: 'Ops lead approved without changes — 40 minutes added',
+              title: 'Ops lead approved without changes: 40 minutes added',
               body:
                 'The ops lead confirmed the maintenance window matched the schedule and approved the notification unchanged. The delay reduced the lead time staff had to prepare.',
               lesson:
@@ -708,7 +545,7 @@ export const mainOutputSegments = {
         urgency: 'Time-sensitive · 30 min to meeting',
         context:
           'An AI assistant has drafted an email to a wealth management client summarising their Q3 portfolio performance. You are the relationship manager and must send it before the client meeting. The draft is ready to go.',
-        aiOutputTitle: 'AI Draft — Client Email',
+        aiOutputTitle: 'AI Draft: Client Email',
         aiOutput:
           'Dear Mr. Hartmann,\n\nYour portfolio (Account #CH-20044-88) recorded a value of €127,450 at Q3 close, representing an 8.3% decline.\n\nBased on current volatility projections, we recommend reducing your equity exposure from 65% to 45% effective next week.\n\nBest regards,\nWealth Management Team',
         options: [
@@ -723,9 +560,9 @@ export const mainOutputSegments = {
               verdict: 'Compliance failure',
               title: 'Sensitive data sent without review',
               body:
-                "The email included the client's full account number and exact portfolio value — both classified as sensitive personal data under GDPR and the firm's data processing agreement. Once sent, this cannot be recalled. The client's data left a controlled channel without compliance review.",
+                "The email included the client's full account number and exact portfolio value, both classified as sensitive personal data under GDPR and the firm's data processing agreement. Once sent, this cannot be recalled. The client's data left a controlled channel without compliance review.",
               lesson:
-                'AI drafts for external communications must always be checked for sensitive data fields before sending. Account numbers and precise financial figures require specific handling under most data processing agreements. The time pressure was real — but it does not remove the obligation.',
+                'AI drafts for external communications must always be checked for sensitive data fields before sending. Account numbers and precise financial figures require specific handling under most data processing agreements. The time pressure was real, but it does not remove the obligation.',
             },
           },
           {
@@ -739,7 +576,7 @@ export const mainOutputSegments = {
               verdict: 'Risk identified and removed',
               title: 'Email corrected and sent on time',
               body:
-                'You caught the raw account number and replaced it with the approved masked format. You also removed the specific percentage recommendation — a field that triggers investment advice regulations — and substituted a general reference. The email went out 12 minutes later and passed compliance review.',
+                'You caught the raw account number and replaced it with the approved masked format. You also removed the specific percentage recommendation, a field that triggers investment advice regulations, and substituted a general reference. The email went out 12 minutes later and passed compliance review.',
               lesson:
                 'A structured review checklist for AI-drafted client communications (sensitive data fields, regulated language, investment recommendation triggers) takes less than two minutes and prevents reportable data incidents. This was the right call.',
             },
@@ -757,7 +594,7 @@ export const mainOutputSegments = {
               body:
                 'The compliance team reformatted the email using an approved template that avoids raw account references and specific portfolio values. The client received a policy-compliant communication. The meeting proceeded without incident.',
               lesson:
-                "Client-facing communications involving account data and financial recommendations benefit from compliance review. Escalating when you are unsure is a legitimate and responsible choice — the cost here was a few minutes, not a reportable data incident.",
+                "Client-facing communications involving account data and financial recommendations benefit from compliance review. Escalating when you are unsure is a legitimate and responsible choice. The cost here was a few minutes, not a reportable data incident.",
             },
           },
         ],
@@ -770,7 +607,7 @@ export const mainOutputSegments = {
           'Your AI customer service system has reviewed a refund request and determined the customer qualifies. Policy permits AI-assisted approvals up to €500 without manager sign-off. This refund is €2,400.',
         aiOutputTitle: 'AI Recommendation',
         aiOutput:
-          'Refund Decision: APPROVED\nAmount: €2,400.00\nReason: Customer complaint validated. Service failure confirmed.\nStatus: Queued for processing — awaiting operator confirmation.',
+          'Refund Decision: APPROVED\nAmount: €2,400.00\nReason: Customer complaint validated. Service failure confirmed.\nStatus: Queued for processing, awaiting operator confirmation.',
         options: [
           {
             id: 'approve',
@@ -797,9 +634,9 @@ export const mainOutputSegments = {
             consequence: {
               tone: 'warn',
               verdict: 'Delegation limit exceeded',
-              title: 'Approved — but outside your authority',
+              title: 'Approved, but outside your authority',
               body:
-                "You confirmed the service failure was genuine and approved the refund under your own authority. The AI's assessment was correct — but the approval still exceeded your delegation limit. Accountability sits with you personally, and the exception was logged.",
+                "You confirmed the service failure was genuine and approved the refund under your own authority. The AI's assessment was correct, but the approval still exceeded your delegation limit. Accountability sits with you personally, and the exception was logged.",
               lesson:
                 "Verifying that the AI was right does not change the approval authority rules. When an amount exceeds the AI approval ceiling, escalation is the required path regardless of confidence in the outcome. The investigation was useful; the approval was not yours to make.",
             },
@@ -817,7 +654,7 @@ export const mainOutputSegments = {
               body:
                 "The manager reviewed the case, confirmed the refund was legitimate, and approved it with a documented exception. The customer received the refund within 2 hours. The process remained auditable and compliant.",
               lesson:
-                "Escalation is not a delay — it is a control. The customer's wait extended by 2 hours, but the organisation's financial controls stayed intact and the exception was properly documented. The AI did its job; so did you.",
+                "Escalation is not a delay. It is a control. The customer's wait extended by 2 hours, but the organisation's financial controls stayed intact and the exception was properly documented. The AI did its job; so did you.",
             },
           },
         ],
@@ -830,7 +667,7 @@ export const mainOutputSegments = {
           'Your AI risk system has flagged an outbound wire transfer as unusual but did not block it. The system is configured to flag and continue unless a human intervenes. You are the only operator online.',
         aiOutputTitle: 'Risk System Alert',
         aiOutput:
-          'TRANSACTION FLAGGED — AUTO-PROCEEDING\nAmount: €15,000 | Destination: New account (created 6 days ago)\nPattern: Unusual for account history | Confidence: 61% anomalous\nStatus: Proceeding in 12 minutes unless manually blocked.',
+          'TRANSACTION FLAGGED: AUTO-PROCEEDING\nAmount: €15,000 | Destination: New account (created 6 days ago)\nPattern: Unusual for account history | Confidence: 61% anomalous\nStatus: Proceeding in 12 minutes unless manually blocked.',
         options: [
           {
             id: 'approve',
@@ -843,9 +680,9 @@ export const mainOutputSegments = {
               verdict: 'Oversight failure',
               title: 'Fraudulent transfer completed',
               body:
-                "The €15,000 transfer completed. Three days later it was confirmed as a fraudulent instruction — the account was created by a social engineering attacker. The AI flagged it correctly at 61% confidence. No human intervened.",
+                "The €15,000 transfer completed. Three days later it was confirmed as a fraudulent instruction. The account was created by a social engineering attacker. The AI flagged it correctly at 61% confidence. No human intervened.",
               lesson:
-                "A 61% anomaly flag on a large transfer to a 6-day-old account is not a green light. It is a request for human judgement. 'Auto-proceeding' means the system defaulted because no oversight was present — not that it determined the transaction was safe.",
+                "A 61% anomaly flag on a large transfer to a 6-day-old account is not a green light. It is a request for human judgement. 'Auto-proceeding' means the system defaulted because no oversight was present, not that it determined the transaction was safe.",
             },
           },
           {
@@ -856,8 +693,8 @@ export const mainOutputSegments = {
             riskDelta: 10,
             consequence: {
               tone: 'warn',
-              verdict: 'Good outcome — slower path',
-              title: 'Transfer paused — investigation opened',
+              verdict: 'Good outcome, slower path',
+              title: 'Transfer paused: investigation opened',
               body:
                 'You placed a manual hold and reviewed the account. A 6-day-old destination with no prior activity raised concerns. You escalated to the fraud team who confirmed the issue within 40 minutes and blocked the transfer permanently.',
               lesson:
@@ -877,7 +714,7 @@ export const mainOutputSegments = {
               body:
                 "You blocked the transfer immediately and alerted the fraud team. They confirmed the account as fraudulent within 20 minutes and opened a case. The customer was protected and the attacker's method was logged for pattern analysis.",
               lesson:
-                'When a risk system flags a large transfer to a brand-new account, the correct response is immediate escalation to the specialist team — not individual investigation. Your role in this moment is to stop the clock, not solve the case.',
+                'When a risk system flags a large transfer to a brand-new account, the correct response is immediate escalation to the specialist team, not individual investigation. Your role in this moment is to stop the clock, not solve the case.',
             },
           },
         ],
@@ -889,7 +726,7 @@ export const mainOutputSegments = {
     eyebrow: 'Interactive Lab',
     title: 'Too Much Power',
     description:
-      'Adjust two controls — Automation Level and External Access — and watch how efficiency, risk, oversight, and failure probability shift in real time. Then simulate a working day and see what the workflow actually does under that configuration.',
+      'Adjust two controls (Automation Level and External Access) and watch how efficiency, risk, oversight, and failure probability shift in real time. Then simulate a working day and see what the workflow actually does under that configuration.',
     frame: {
       role: 'You are configuring how much autonomy and system reach an AI workflow should get before it goes live.',
       watch:

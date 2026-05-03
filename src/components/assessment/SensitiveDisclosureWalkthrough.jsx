@@ -6,7 +6,7 @@ const LENSES = [
   { id: 'trigger', label: '1. Trigger' },
   { id: 'legal', label: '2. Legal Exposure' },
   { id: 'business', label: '3. Business Consequence' },
-  { id: 'control', label: '4. Your Control' },
+  { id: 'control', label: '4. Manager Handbook' },
 ];
 
 function LensPanel({ scenario, lensId }) {

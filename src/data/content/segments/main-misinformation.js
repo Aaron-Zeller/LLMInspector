@@ -244,169 +244,6 @@ export const mainMisinformationSegments = {
       },
     ],
   },
-  'main-misinformation-engineering': {
-    type: 'contentCards',
-    eyebrow: 'Why It Gets Missed',
-    title: 'Why weak claims slip through busy workflows',
-    description:
-      'The problem is not only that the model can be wrong. It is that the wrong answer often arrives in the exact form your workflow is ready to trust.',
-    columns: 3,
-    cards: [
-      {
-        tone: 'output',
-        eyebrow: 'Mechanism 1',
-        title: 'Plausibility beats truth',
-        body:
-          'LLMs are built to produce likely next words, not verified truth. If a report, statistic, code pattern, or citation sounds like it belongs, the model may generate it even when no real basis exists.',
-      },
-      {
-        tone: 'output',
-        eyebrow: 'Mechanism 2',
-        title: 'Confidence lowers resistance',
-        body:
-          'A cleanly structured answer feels easier to approve than a messy one. Under time pressure, teams often reward confidence and clarity before they reward verification.',
-      },
-      {
-        tone: 'output',
-        eyebrow: 'Mechanism 3',
-        title: 'The source gap appears too late',
-        body:
-          'Many claims look fine until someone asks, “Where does this come from?” By then the statement may already be in a slide, a memo, or a repository.',
-      },
-    ],
-  },
-  'main-misinformation-verification': {
-    type: 'verificationWorkflowStudio',
-    eyebrow: 'Manager Playbook',
-    title: 'Turn “check it” into a review rule your team can actually follow',
-    description:
-      'The goal is not to ban AI output. The goal is to match each type of claim to the review step it needs before the claim gets reused as evidence, guidance, or implementation.',
-    scenarios: [
-      {
-        id: 'market-claim',
-        eyebrow: 'Case 1',
-        title: 'Market statistics in a briefing',
-        meta: 'External facts and forecasts',
-        role: 'Safer Workflow',
-        headline: 'Keep the draft, but stop unsupported market claims from moving on authority alone.',
-        context:
-          'The business goal is still speed. The change is that exact figures and named reports no longer travel unless the team can trace them to a real source.',
-        riskLabel: 'Board Briefing Risk',
-        managerGoal: 'Keep briefing preparation fast enough for leadership work.',
-        designMove: 'Require source validation before exact claims enter a professional document.',
-        unsafeTitle: 'Approve the statement because it sounds researched',
-        unsafeBody:
-          'The note uses a named report, exact percentages, and a market projection, so the team treats it as evidence rather than a draft claim that still needs checking.',
-        unsafeWhy:
-          'The answer looks complete, which creates pressure to keep momentum instead of interrupting the workflow for verification.',
-        verifyTitle: 'Trace the source before the number travels',
-        verifyBody:
-          'For market statistics, named reports, and projections, the first useful move is source validation. If the source cannot be found quickly, the claim should not proceed unchanged.',
-        standardLabel: 'Review Standard',
-        standardTitle: 'Require an external source for external claims',
-        standardBody:
-          'Country-level forecasts, market-share numbers, and industry statistics need a traceable external basis before they appear in leadership materials.',
-        standardChecks: [
-          'Can the cited report actually be located?',
-          'Does the number appear in a credible source with usable methodology?',
-          'If the source fails, what verified replacement should be used instead?',
-        ],
-        ruleLabel: 'Team Rule',
-        ruleTitle: 'No precise market claim without a source path',
-        ruleBody:
-          'Teach the team that exact external facts are provisional until someone can trace them to a real source and decide they are fit for use.',
-        ruleBullets: [
-          'Pause the claim if the source cannot be opened quickly',
-          'Replace unsupported precision with verified language or remove it',
-          'Make source validation part of briefing preparation, not an optional extra',
-        ],
-        takeaway:
-          'When the claim is external and exact, the workflow should demand an external source before approval.',
-      },
-      {
-        id: 'code-claim',
-        eyebrow: 'Case 2',
-        title: 'Code recommendation in a repository workflow',
-        meta: 'Implementation and security decisions',
-        role: 'Safer Workflow',
-        headline: 'Keep technical drafting support, but separate it from implementation approval.',
-        context:
-          'The team can still use AI to brainstorm approaches. The critical change is that packages, code patterns, and implementation claims do not count as ready until they survive technical review.',
-        riskLabel: 'Repository Risk',
-        managerGoal: 'Keep development velocity without importing fragile or unsafe guidance.',
-        designMove: 'Require test, dependency, and owner review before AI-generated code advice is adopted.',
-        unsafeTitle: 'Treat specific code advice as implementation-ready',
-        unsafeBody:
-          'The model names packages, suggests a pattern, and explains why it works, so the team shortcuts the validation step that would normally sit between suggestion and adoption.',
-        unsafeWhy:
-          'Specific technical language feels efficient because it seems to save engineering time immediately.',
-        verifyTitle: 'Route technical claims through technical validation',
-        verifyBody:
-          'Technical output should move into testing, dependency review, and owner approval rather than directly into implementation. The more concrete the recommendation, the stronger the validation should be.',
-        standardLabel: 'Review Standard',
-        standardTitle: 'Match the claim to a technical control',
-        standardBody:
-          'Libraries, security advice, deployment steps, and architecture claims each need a check that belongs to your engineering workflow, not a generic confidence judgement.',
-        standardChecks: [
-          'Does the package or dependency actually exist and fit the stack?',
-          'Has the pattern been reviewed for security and maintainability?',
-          'Who is accountable for approving the recommendation before it lands?',
-        ],
-        ruleLabel: 'Team Rule',
-        ruleTitle: 'Draft fast, approve slowly enough to be safe',
-        ruleBody:
-          'AI can accelerate drafting and exploration, but repository decisions still require a human owner and the normal technical checks.',
-        ruleBullets: [
-          'Treat AI code output as a proposal, not an implementation decision',
-          'Require owner review before code patterns are adopted',
-          'Keep validation inside the engineering workflow rather than trusting the model',
-        ],
-        takeaway:
-          'Technical specificity should trigger technical validation, not automatic reuse.',
-      },
-      {
-        id: 'policy-claim',
-        eyebrow: 'Case 3',
-        title: 'Policy or compliance statement in a memo',
-        meta: 'Internal guidance and governance',
-        role: 'Safer Workflow',
-        headline: 'Keep drafting support, but do not let AI settle policy questions by tone alone.',
-        context:
-          'The team still needs help turning complex guidance into clear prose. The safer move is to keep AI at the wording layer unless the underlying source has already been verified.',
-        riskLabel: 'Policy Risk',
-        managerGoal: 'Keep internal guidance timely without spreading false policy certainty.',
-        designMove: 'Require source-opening or escalation before policy claims become guidance.',
-        unsafeTitle: 'Treat the memo as guidance because it sounds careful',
-        unsafeBody:
-          'The answer uses policy language and citation formatting, so the team lets it stand as if the underlying rule had already been confirmed.',
-        unsafeWhy:
-          'A calm, compliance-style answer feels low-risk, which can discourage the extra step of opening the real source.',
-        verifyTitle: 'Validate the source before you validate the wording',
-        verifyBody:
-          'If the statement sounds like policy, law, or formal guidance, the underlying source has to be checked before the language is circulated as instruction.',
-        standardLabel: 'Review Standard',
-        standardTitle: 'Open the authority behind the answer',
-        standardBody:
-          'Policy claims should be traced to a real document, internal standard, or approved authority. If that is not possible quickly, the claim should be removed or escalated.',
-        standardChecks: [
-          'Can the cited rule or policy document be opened and read?',
-          'Does the summary preserve the real conditions and limits?',
-          'Does this question need escalation rather than AI summarisation?',
-        ],
-        ruleLabel: 'Team Rule',
-        ruleTitle: 'Do not let AI become the policy authority',
-        ruleBody:
-          'Use AI to rewrite confirmed guidance clearly, not to invent or settle the guidance itself.',
-        ruleBullets: [
-          'Verify the source before distributing policy claims',
-          'Escalate ambiguous compliance questions instead of improvising them',
-          'Keep AI at the wording layer unless the authority has already been checked',
-        ],
-        takeaway:
-          'For policy questions, the source must be authoritative before the wording becomes useful.',
-      },
-    ],
-  },
   'main-misinformation-risks': {
     type: 'contentCards',
     eyebrow: 'Review Principles',
@@ -505,7 +342,7 @@ export const mainMisinformationSegments = {
         safe: false,
         type: 'invented-citation',
         explanation:
-          'No such institute or report can be verified. This is a fabricated citation — a named, specific-sounding source that does not exist. Models frequently invent plausible-sounding organisations to add credibility to their output.',
+          'No such institute or report can be verified. This is a fabricated citation: a named, specific-sounding source that does not exist. Models frequently invent plausible-sounding organisations to add credibility to their output.',
       },
       { id: 'sp3', text: ', Swiss SMEs have increased AI tool adoption by ', safe: true },
       {
@@ -514,7 +351,7 @@ export const mainMisinformationSegments = {
         safe: false,
         type: 'fabricated-stat',
         explanation:
-          'This statistic is unsourced and unverifiable. Specific percentage figures are one of the most common hallucination types — they look precise and authoritative, but are generated without any underlying data.',
+          'This statistic is unsourced and unverifiable. Specific percentage figures are one of the most common hallucination types. They look precise and authoritative, but are generated without any underlying data.',
       },
       { id: 'sp5', text: '. The report, authored by ', safe: true },
       {
@@ -613,7 +450,7 @@ export const mainMisinformationSegments = {
               label: 'Dead End',
               tone: 'warn',
               message:
-                'No results for the "World Innovation Institute Q2 2024" report. Multiple searches return no relevant results. The report cannot be located — the source appears to be fabricated.',
+                'No results for the "World Innovation Institute Q2 2024" report. Multiple searches return no relevant results. The report cannot be located. The source appears to be fabricated.',
             },
           },
           {
@@ -625,7 +462,7 @@ export const mainMisinformationSegments = {
               label: 'Contradiction Found',
               tone: 'danger',
               message:
-                'Your own internal SME survey data from the same period shows a 12% adoption increase — significantly lower than the AI figure. The claim cannot be reconciled with your own data and the original source cannot be located.',
+                'Your own internal SME survey data from the same period shows a 12% adoption increase, significantly lower than the AI figure. The claim cannot be reconciled with your own data and the original source cannot be located.',
             },
           },
           {
@@ -643,7 +480,7 @@ export const mainMisinformationSegments = {
         ],
         bestOptionId: 'google',
         explanation:
-          'Searching for the source first costs seconds and immediately exposes the fabrication. A failed search is itself useful information — it tells you the claim is unverifiable before it enters any professional document.',
+          'Searching for the source first costs seconds and immediately exposes the fabrication. A failed search is itself useful information. It tells you the claim is unverifiable before it enters any professional document.',
       },
       {
         id: 'cv2',
@@ -682,7 +519,7 @@ export const mainMisinformationSegments = {
               label: 'Risk Accepted',
               tone: 'danger',
               message:
-                'A board member with vendor relationships questions the figure mid-presentation. No source can be provided and the slide is withdrawn from the deck — in front of the full board.',
+                'A board member with vendor relationships questions the figure mid-presentation. No source can be provided and the slide is withdrawn from the deck, in front of the full board.',
             },
           },
         ],
@@ -703,7 +540,7 @@ export const mainMisinformationSegments = {
               label: 'Contradiction Found',
               tone: 'warn',
               message:
-                'A credible market research firm publishes a Swiss digital economy forecast, but their 2026 projection for AI-related services is CHF 3.1 billion — significantly lower than the AI figure. The discrepancy must be flagged before use.',
+                'A credible market research firm publishes a Swiss digital economy forecast, but their 2026 projection for AI-related services is CHF 3.1 billion, significantly lower than the AI figure. The discrepancy must be flagged before use.',
             },
           },
           {
@@ -715,7 +552,7 @@ export const mainMisinformationSegments = {
               label: 'Not Applicable',
               tone: 'warn',
               message:
-                'Internal data does not cover macro market projections. This approach does not help here — an external market research source is the right check for country-level forecasts.',
+                'Internal data does not cover macro market projections. This approach does not help here. An external market research source is the right check for country-level forecasts.',
             },
           },
           {
@@ -733,7 +570,7 @@ export const mainMisinformationSegments = {
         ],
         bestOptionId: 'google',
         explanation:
-          'For macro market projections, a credible external source is the right check. Even finding a different number is valuable — it shows the AI figure is inflated or unsupported and gives you something real to use instead.',
+          'For macro market projections, a credible external source is the right check. Even finding a different number is valuable. It shows the AI figure is inflated or unsupported and gives you something real to use instead.',
       },
     ],
   },

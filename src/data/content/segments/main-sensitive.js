@@ -4,15 +4,30 @@ export const mainSensitiveSegments = {
     eyebrow: 'Section 4 · Sensitive Information Disclosure',
     title: 'What should never be pasted or uploaded casually',
     description:
-      'This page introduces the most immediate input-side risk: employees sharing internal or personal data with an LLM before deciding whether the tool and the data are appropriate.',
+      'This section will tell you about the most immediate input-side risk of interacting with an LLM: inputting sensitive content.',
   },
   'main-sensitive-outcomes': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'By the end of this section, you should be able to do three things confidently:',
-      '1. Decide when an AI task can be done with transformed or aggregated input instead of raw data.',
-      '2. Distinguish a productivity shortcut from a governance decision that needs an approved tool or escalation path.',
-      '3. Turn one-off judgement into a repeatable team rule that still allows the work to get done.',
+    type: 'contentCards',
+    eyebrow: 'Your Outcomes',
+    title: 'What you should be able to do before deciding what to input into an LLM',
+    description:
+      'By the end of this section, you should be able to do two things more confidently.',
+    columns: 2,
+    cards: [
+      {
+        tone: 'privacy',
+        eyebrow: 'Outcome 1',
+        title: 'Decide which information can be input into an LLM',
+        body:
+          'Distinguish between raw sensitive data that should stay out and transformed or aggregated inputs that keep the work moving safely.',
+      },
+      {
+        tone: 'privacy',
+        eyebrow: 'Outcome 2',
+        title: 'Create company wide procedures for inputting data into LLM to retain both productivity and security',
+        body:
+          'Turn one good judgement call into a repeatable team rule that still allows the work to get done.',
+      },
     ],
   },
   'main-sensitive-intro': {
@@ -20,7 +35,7 @@ export const mainSensitiveSegments = {
     paragraphs: [
       'For you as a manager, this risk rarely begins with malicious intent. It usually begins with a reasonable pressure: move faster, reduce friction, and still get good work out of the team.',
       'Sometimes this section asks you to imagine your own direct AI use. Sometimes it asks you to judge a workflow your team might use. In both cases, the point is the same: treat the data decision and the workflow decision as your responsibility.',
-      'Here, “sensitive information” includes both **personal data** and **confidential business information**. The common issue is not the exact category. It is whether the tool, the data, and the workflow actually belong together.',
+      'Here, "sensitive information" includes both **personal data** and **confidential business information**. The common issue is not the exact category. It is whether the tool, the data, and the workflow actually belong together.',
       'The key governance question is **not** "Was the AI helpful?" It is "What would a well-designed team workflow have allowed here?"',
     ],
   },
@@ -29,7 +44,7 @@ export const mainSensitiveSegments = {
     eyebrow: 'Worked Examples',
     title: 'Walk through the risk the way it actually appears at work',
     description:
-      'Each case starts with a normal workplace shortcut. Then it shows the legal question, the business consequence, and the control you should already have put in place before the shortcut ever happened.',
+      'Each case starts with a normal workplace shortcut. Then it shows the legal question, the business consequence, and the safer workflow you should already have put in place.',
     scenarios: [
       {
         id: 'customer-email',
@@ -39,14 +54,14 @@ export const mainSensitiveSegments = {
         role: 'Your Situation',
         headline: 'A support lead pastes a customer complaint into a public AI tool.',
         context:
-          'The employee wants a faster draft response and believes the message is “just one email.” No approval step exists, and no one has clarified whether public AI tools are allowed for client communications.',
+          'The employee wants a faster draft response and believes the message is "just one email." No approval step exists, and no one has clarified whether public AI tools are allowed for client communications.',
         tone: 'privacy',
         riskLabel: 'Personal Data Risk',
         employeeActionTitle: 'The shortcut',
         employeeAction:
-          'The employee pastes the full message, including the customer’s name, order details, and service history, into the model to generate a polished reply.',
+          'The employee pastes the full message, including the customer\'s name, order details, and service history, into the model to generate a polished reply.',
         whyFeelsNormal:
-          'It feels low-risk because the task is routine, the employee is trying to be efficient, and the data is already visible in the inbox. The mistake is assuming “already visible to me” means “safe to upload elsewhere.”',
+          'It feels low-risk because the task is routine, the employee is trying to be efficient, and the data is already visible in the inbox. The mistake is assuming "already visible to me" means "safe to upload elsewhere."',
         managerPressure:
           'Respond quickly to the customer without slowing service operations down.',
         managerDecision:
@@ -84,13 +99,13 @@ export const mainSensitiveSegments = {
           'Complaint handling may now involve an unapproved third party',
           'You still inherit accountability for a workflow you did not design carefully enough',
         ],
-        controlTitle: 'What should management have set up?',
+        controlTitle: 'Teach the response pattern, not just the prohibition',
         control:
-          'You should define whether client correspondence may be used with AI at all, under what conditions, and in which tools. Employees should not be improvising that decision during live service work.',
+          'AI may help with wording, but customer-identifiable information stays out unless the system is explicitly approved for it.',
         controlBullets: [
-          'Allow only approved tools for client-facing tasks',
-          'Require redaction or paraphrasing before use',
-          'Make “do not paste raw client messages into public tools” an explicit rule',
+          'Draft with summarised case details rather than raw correspondence',
+          'Escalate if the raw data seems necessary',
+          'Write the rule so it can be applied under time pressure',
         ],
         takeaway:
           'If the model only needs help with tone and structure, it should not receive the customer record itself.',
@@ -101,7 +116,7 @@ export const mainSensitiveSegments = {
         title: 'HR spreadsheet for analysis',
         meta: 'Internal people data',
         role: 'Your Situation',
-        headline: 'You upload a leave and salary sheet to “quickly spot patterns.”',
+        headline: 'You upload a leave and salary sheet to "quickly spot patterns."',
         context:
           'The task sounds analytical rather than risky, and you may assume internal data is safe as long as it never leaves the company intentionally. But the AI tool is external and the file contains directly identifiable employee data.',
         tone: 'critical',
@@ -148,13 +163,13 @@ export const mainSensitiveSegments = {
           'HR workflows can become compliance liabilities',
           'The organisation may struggle to defend the decision after the fact',
         ],
-        controlTitle: 'What should management have set up?',
+        controlTitle: 'Make aggregation the default, not the exception',
         control:
-          'For employee data, the control should be stricter by default. If AI support is needed, it should happen in an approved environment with minimised or transformed data, not by uploading the raw sheet.',
+          'If the question is about trends, the AI receives trends. Raw employee data needs special justification.',
         controlBullets: [
-          'Default to transformed or aggregated HR inputs',
-          'Use approved internal AI instances only',
-          'Escalate unclear HR use cases instead of improvising them',
+          'Aggregate first, analyse second',
+          'Use approved internal tools when employee data is unavoidable',
+          'Do not let convenience redefine what counts as necessary input',
         ],
         takeaway:
           'When the management question is about patterns, the model should receive patterns rather than the employee record set.',
@@ -167,7 +182,7 @@ export const mainSensitiveSegments = {
         role: 'Your Situation',
         headline: 'A strategy lead uploads a draft board deck to improve clarity before a meeting.',
         context:
-          'The slide deck contains market assumptions, financial targets, and product direction. No personal data is involved, so the team incorrectly treats the risk as “not really privacy-related.”',
+          'The slide deck contains market assumptions, financial targets, and product direction. No personal data is involved, so the team incorrectly treats the risk as "not really privacy-related."',
         tone: 'delegation',
         riskLabel: 'Strategic Exposure',
         employeeActionTitle: 'The shortcut',
@@ -212,151 +227,16 @@ export const mainSensitiveSegments = {
           'Negotiation leverage can be weakened',
           'Trade-secret boundaries become harder to defend later',
         ],
-        controlTitle: 'What should management have set up?',
+        controlTitle: 'Define the approved level of abstraction',
         control:
-          'You should teach that “no personal data” does not mean “no risk.” Strategy material needs its own rule set, with clear approval boundaries for what may and may not be processed by external AI tools.',
+          'Set the rule at the approved level of abstraction: excerpt, summary, or full deck.',
         controlBullets: [
-          'Define a separate rule for strategic and board material',
-          'Prefer excerpts over full-document uploads',
-          'Treat confidential strategy as governed input, not generic writing material',
-        ],
-        takeaway:
-          'A writing problem does not justify exposing the whole strategy document if the same support can be given at a higher level of abstraction.',
-      },
-    ],
-  },
-  'main-sensitive-guidance': {
-    type: 'safeTransformationStudio',
-    eyebrow: 'Manager Playbook',
-    title: 'Replace the shortcut with a rule the team can actually use',
-    description:
-      'Keep the business goal, change the input, and make the safer move easy to repeat under time pressure.',
-    scenarios: [
-      {
-        id: 'customer-email',
-        eyebrow: 'Case 1',
-        title: 'Customer email response',
-        meta: 'Redact and paraphrase before use',
-        role: 'Safer Alternative',
-        headline: 'Keep the task, but transform the input before it reaches the model.',
-        context:
-          'The employee still needs help drafting a reply. The educational goal is not to ban the task, but to teach the safer version of it.',
-        tone: 'privacy',
-        riskLabel: 'Use Redacted Input',
-        managerGoal: 'Keep rapid drafting support available for client service work.',
-        designMove: 'Transform the customer message before it reaches the model.',
-        unsafeTitle: 'Raw client message in a public tool',
-        unsafeBody:
-          'Uploading the full complaint moves personal data, order context, and service history into a tool that may not be approved for that information.',
-        unsafeWhy:
-          'The employee is trying to save time and assumes the AI only “helps write,” but the tool still receives the full underlying data.',
-        transformedTitle: 'Abstract the case, not the customer',
-        transformedBody:
-          'Remove names, order numbers, and account details. Keep only the issue type, tone, and response goal.',
-        transformedPrompt:
-          'Draft a calm reply to a customer who is frustrated about a delayed delivery and unclear refund communication. Do not mention names, order numbers, or account details. Keep the tone empathetic and concise.',
-        processTitle: 'Use the least exposed workflow that still solves the task',
-        processBody:
-          'If AI is used, only transformed content should reach it. If this becomes routine, move the workflow into an approved internal tool.',
-        processChecks: [
-          'Can the task be completed with paraphrased input only?',
-          'Is there an approved internal tool for client-response drafting?',
-          'Does the workflow separate drafting help from client-identifiable data?',
-        ],
-        ruleTitle: 'Teach the response pattern, not just the prohibition',
-        ruleBody:
-          'State a repeatable rule: AI may help with wording, but customer-identifiable information stays out unless the system is explicitly approved for it.',
-        ruleBullets: [
-          'Draft with summarised case details rather than raw correspondence',
-          'Escalate if the raw data seems necessary',
-          'Write the rule so it can be applied under time pressure',
-        ],
-        takeaway:
-          'Your takeaway: if the model only needs the issue pattern, the workflow should never send the customer record.',
-      },
-      {
-        id: 'hr-sheet',
-        eyebrow: 'Case 2',
-        title: 'HR trend analysis',
-        meta: 'Aggregate rather than upload the sheet',
-        role: 'Safer Alternative',
-        headline: 'Keep the analytical goal, but remove the identifiable record.',
-        context:
-          'You still want help spotting patterns. The better design move is to preserve the analytical question while changing the form of the data.',
-        tone: 'critical',
-        riskLabel: 'Use Aggregated Data',
-        managerGoal: 'Keep analytical support for staffing and workload decisions.',
-        designMove: 'Separate the internal preparation step from the AI reasoning step.',
-        unsafeTitle: 'Full leave and salary file uploaded for analysis',
-        unsafeBody:
-          'The model gets names, roles, salaries, and absences when the real task is pattern recognition rather than individual record handling.',
-        unsafeWhy:
-          'You want speed and may assume the most efficient input is the whole spreadsheet, even though the actual question is much narrower.',
-        transformedTitle: 'Convert the file into an aggregated management summary',
-        transformedBody:
-          'Turn the sheet into an aggregate summary first. Give the model trends, not names, salaries, and absence records.',
-        transformedPrompt:
-          'Review the following aggregate HR summary and suggest three possible management follow-up actions. Do not infer anything about individuals. Focus on workload, staffing, and communication measures.',
-        processTitle: 'Move from person-level data to decision-level data',
-        processBody:
-          'Separate the internal preparation step from the AI step. The model receives the management summary, not the employee file.',
-        processChecks: [
-          'Can the analysis be done on counts, trends, or grouped data instead of names?',
-          'Is there a clear internal preparation step before any AI use?',
-          'Would the prompt still work if every person-level detail were removed?',
-        ],
-        ruleTitle: 'Make aggregation the default, not the exception',
-        ruleBody:
-          'Make one rule clear: if the question is about trends, the AI receives trends. Raw employee data needs special justification.',
-        ruleBullets: [
-          'Aggregate first, analyse second',
-          'Use approved internal tools when employee data is unavoidable',
-          'Do not let convenience redefine what counts as necessary input',
-        ],
-        takeaway:
-          'Your takeaway: if the decision is about trends, design the workflow around trends instead of person-level data.',
-      },
-      {
-        id: 'board-deck',
-        eyebrow: 'Case 3',
-        title: 'Board deck polishing',
-        meta: 'Extract the writing task from the strategy deck',
-        role: 'Safer Alternative',
-        headline: 'Ask the model for help with structure or tone without handing over the whole strategy.',
-        context:
-          'The team wants editing help, not strategic disclosure. That means the safe replacement is to isolate the writing problem from the confidential content.',
-        tone: 'delegation',
-        riskLabel: 'Use Excerpts, Not The Deck',
-        managerGoal: 'Keep editing support available before high-stakes board communication.',
-        designMove: 'Give the tool the writing task, not the strategic substance behind it.',
-        unsafeTitle: 'Whole board presentation uploaded for “polish”',
-        unsafeBody:
-          'A tool that was never approved for strategic content now receives targets, assumptions, and board-level direction just because the team wanted clearer prose.',
-        unsafeWhy:
-          'Editing feels operational rather than risky, so teams forget that the model still consumes the entire substance of the document, not just the writing challenge.',
-        transformedTitle: 'Provide only the writing pattern that needs improvement',
-        transformedBody:
-          'Share only a short excerpt or the writing goal itself. Do not upload the full strategy deck for editing help.',
-        transformedPrompt:
-          'Rewrite the following generic executive-summary paragraph to be sharper, shorter, and more board-ready. Preserve a formal tone. Do not introduce new claims, figures, or strategic recommendations.',
-        processTitle: 'Separate editing support from strategic disclosure',
-        processBody:
-          'Allow AI help with tone and structure without allowing full strategy uploads. The workflow should enforce that distinction.',
-        processChecks: [
-          'Can the team use a generic excerpt instead of the full deck?',
-          'Is a confidential internal AI environment available for higher-sensitivity materials?',
-          'Has the team separated “editing help” from “strategy exposure”?',
-        ],
-        ruleTitle: 'Define the approved level of abstraction',
-        ruleBody:
-          'Do not ban AI for board work entirely. Set the rule at the approved level of abstraction: excerpt, summary, or full deck.',
-        ruleBullets: [
           'Permit tone and structure help on decontextualised excerpts',
           'Require internal tools for full confidential materials',
           'Make the abstraction level part of the approval rule',
         ],
         takeaway:
-          'Your takeaway: if the team wants language help, design the process so language help is all the model gets.',
+          'A writing problem does not justify exposing the whole strategy document if the same support can be given at a higher level of abstraction.',
       },
     ],
   },
@@ -386,7 +266,7 @@ export const mainSensitiveSegments = {
   'main-sensitive-lab': {
     type: 'governanceLab',
     eyebrow: 'Interactive Lab',
-    title: 'The Governance Lab: Input & Output Assurance',
+    title: 'The Governance Lab: Input and Output Assurance',
     description:
       'Act as the person designing the workflow. Choose which documents may be used, how the prompt should constrain the task, and whether the output is useful enough without exposing more than the work requires.',
   },
