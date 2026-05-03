@@ -269,6 +269,24 @@ export const mainSensitiveSegments = {
     title: 'The Governance Lab: Input and Output Assurance',
     description:
       'Act as the person designing the workflow. Choose which documents may be used, how the prompt should constrain the task, and whether the output is useful enough without exposing more than the work requires.',
+    debrief: {
+      eyebrow: 'After the Lab',
+      title: 'What to carry into your next workflow decision',
+      items: [
+        {
+          title: 'Ask whether the raw data is necessary',
+          body: 'If the work can be done with a summary, excerpt, or aggregate, the original record should not reach the model. The lab shows how often the task is narrower than the document.',
+        },
+        {
+          title: 'Match the tool to the data category',
+          body: 'Not every AI tool is approved for every kind of content. The approval decision belongs before the workflow starts, not after something goes wrong.',
+        },
+        {
+          title: 'Turn one good call into a repeatable rule',
+          body: 'A single careful choice only protects one task. A team rule protects every version of that task under time pressure.',
+        },
+      ],
+    },
   },
   'main-sensitive-footer': {
     type: 'navigationFooter',

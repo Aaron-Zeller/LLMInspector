@@ -289,6 +289,24 @@ export const mainOversightSegments = {
       'manager decisions about approval thresholds and least privilege',
       'feedback on when a workflow has crossed from assistance into unsafe autonomy',
     ],
+    debrief: {
+      eyebrow: 'After the Lab',
+      title: 'What to carry into your next automation decision',
+      items: [
+        {
+          title: 'Drafting and acting are not the same boundary',
+          body: 'A model that helps prepare a message is very different from one that sends it. The moment the system can do something real, the approval logic has to live outside the model.',
+        },
+        {
+          title: 'Authority cannot rest only in the prompt',
+          body: 'If a hostile instruction can override a behavioural rule, the rule is not a control. Meaningful limits need enforcement outside the model: permission design, thresholds, and explicit approval steps.',
+        },
+        {
+          title: 'Design for the failure, not just the demo',
+          body: 'Every automation looks reasonable in the best case. The governance question is what happens when something goes wrong at speed, and whether a human can still stop it.',
+        },
+      ],
+    },
   },
   'main-agency-footer': {
     type: 'navigationFooter',

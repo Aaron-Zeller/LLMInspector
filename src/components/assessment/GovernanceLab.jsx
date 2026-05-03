@@ -722,6 +722,21 @@ export function GovernanceLab({ segment, segmentId }) {
           )}
         </div>
       </div>
+
+      {segment.debrief ? (
+        <div className="lab-debrief">
+          <p className="lab-debrief__eyebrow">{segment.debrief.eyebrow}</p>
+          <h3 className="lab-debrief__title">{segment.debrief.title}</h3>
+          <div className="lab-debrief__grid">
+            {segment.debrief.items.map((item) => (
+              <article className="lab-debrief__item" key={item.title}>
+                <h4 className="lab-debrief__item-title">{item.title}</h4>
+                <p className="lab-debrief__item-body">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      ) : null}
     </Segment>
   );
 }
