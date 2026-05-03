@@ -6,7 +6,7 @@ const LENSES = [
   { id: 'handoff', label: '1. What the system may do' },
   { id: 'failure', label: '2. What boundary is missing' },
   { id: 'impact', label: '3. If it acts alone' },
-  { id: 'control', label: '4. What you should require' },
+  { id: 'control', label: '4. Manager Handbook' },
 ];
 
 function LensPanel({ scenario, lensId }) {

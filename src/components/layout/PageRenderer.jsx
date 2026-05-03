@@ -23,6 +23,7 @@ import { OutputHandlingWalkthrough } from '../assessment/OutputHandlingWalkthrou
 import { OutputControlStudio } from '../assessment/OutputControlStudio.jsx';
 import { AgencyWalkthrough } from '../assessment/AgencyWalkthrough.jsx';
 import { AgencyControlStudio } from '../assessment/AgencyControlStudio.jsx';
+import { AgencyPermissionLab } from '../assessment/AgencyPermissionLab.jsx';
 import { PlatformChoiceWalkthrough } from '../assessment/PlatformChoiceWalkthrough.jsx';
 import { PlatformGovernanceStudio } from '../assessment/PlatformGovernanceStudio.jsx';
 import { SegmentCallout } from '../common/SegmentCallout.jsx';
@@ -67,6 +68,7 @@ const segmentRenderers = {
   outputControlStudio: OutputControlStudio,
   agencyWalkthrough: AgencyWalkthrough,
   agencyControlStudio: AgencyControlStudio,
+  agencyPermissionLab: AgencyPermissionLab,
   platformChoiceWalkthrough: PlatformChoiceWalkthrough,
   platformGovernanceStudio: PlatformGovernanceStudio,
   resultsSummary: ResultsSummary,

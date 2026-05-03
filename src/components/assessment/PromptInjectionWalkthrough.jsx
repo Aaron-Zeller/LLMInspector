@@ -6,7 +6,7 @@ const LENSES = [
   { id: 'trigger', label: '1. What entered' },
   { id: 'boundary', label: '2. What failed' },
   { id: 'impact', label: '3. If it succeeds' },
-  { id: 'control', label: '4. What you should require' },
+  { id: 'control', label: '4. Manager Handbook' },
 ];
 
 function LensPanel({ scenario, lensId }) {

@@ -6,7 +6,7 @@ const LENSES = [
   { id: 'handoff', label: '1. What moved' },
   { id: 'failure', label: '2. What was skipped' },
   { id: 'impact', label: '3. If it continues' },
-  { id: 'control', label: '4. What you should require' },
+  { id: 'control', label: '4. Manager Handbook' },
 ];
 
 function LensPanel({ scenario, lensId }) {

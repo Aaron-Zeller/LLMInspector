@@ -6,7 +6,7 @@ const LENSES = [
   { id: 'signal', label: '1. What feels ready' },
   { id: 'mechanism', label: '2. What the model is doing' },
   { id: 'impact', label: '3. If it gets used' },
-  { id: 'control', label: '4. What you should require' },
+  { id: 'control', label: '4. Manager Handbook' },
 ];
 
 function LensPanel({ scenario, lensId }) {

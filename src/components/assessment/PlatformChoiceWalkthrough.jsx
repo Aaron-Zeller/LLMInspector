@@ -6,7 +6,7 @@ const LENSES = [
   { id: 'need', label: '1. What the team needs' },
   { id: 'tradeoff', label: '2. What changes by platform' },
   { id: 'failure', label: '3. If you choose badly' },
-  { id: 'control', label: '4. What you should require' },
+  { id: 'control', label: '4. Manager Handbook' },
 ];
 
 function LensPanel({ scenario, lensId }) {

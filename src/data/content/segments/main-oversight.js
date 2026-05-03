@@ -251,7 +251,7 @@ export const mainOversightSegments = {
     description:
       'Use these checks whenever an AI workflow can do more than recommend, summarise, or draft.',
     prompt:
-      'As you move into the lab placeholder, keep asking where the final authority still sits and what action the system should never take on its own.',
+      'As you move into the lab, keep asking where the final authority still sits and what action the system should never take on its own.',
     checks: [
       {
         title: 'Has assistance quietly become authority?',
@@ -268,42 +268,26 @@ export const mainOversightSegments = {
     ],
   },
   'main-agency-lab': {
-    type: 'interactiveLabPlaceholder',
+    type: 'agencyPermissionLab',
     eyebrow: 'Interactive Lab',
-    title: 'Interactive Lab',
+    title: 'Configure the agent before you deploy it',
     description:
-      'This section is being prepared as the next hands-on supervision exercise. The teaching flow is already in place so the lab can plug into the same manager-facing sequence as the earlier sections.',
-    frame: {
-      role: 'You will be deciding how much authority an AI workflow should receive before it is allowed to act.',
-      watch:
-        'The key question will not be whether the model is useful, but where approval, execution, and accountability should still stay human.',
-      emphasis:
-        'This lab will focus on the moment automation becomes agency and on the specific pause points that should remain outside the model.',
-    },
-    placeholderEyebrow: 'Coming Next',
-    placeholderTitle: 'Interactive supervision lab placeholder',
-    placeholderBody:
-      'The future lab will let you inspect agent-like workflows, choose where human approval must remain, and see how different permission designs change the risk of autonomous actions.',
-    placeholderBullets: [
-      'scenarios where the system can draft, approve, or execute',
-      'manager decisions about approval thresholds and least privilege',
-      'feedback on when a workflow has crossed from assistance into unsafe autonomy',
-    ],
+      'Your team is deploying an AI agent across three workflows. For each capability, decide how much authority the agent should have before the first run. Then see what happens when those choices are in effect.',
     debrief: {
       eyebrow: 'After the Lab',
       title: 'What to carry into your next automation decision',
       items: [
         {
-          title: 'Drafting and acting are not the same boundary',
+          title: 'Drafting and sending are not the same boundary',
           body: 'A model that helps prepare a message is very different from one that sends it. The moment the system can do something real, the approval logic has to live outside the model.',
         },
         {
           title: 'Authority cannot rest only in the prompt',
-          body: 'If a hostile instruction can override a behavioural rule, the rule is not a control. Meaningful limits need enforcement outside the model: permission design, thresholds, and explicit approval steps.',
+          body: 'If a policy rule lives inside the model, the model is also the one deciding whether the rule was met. Meaningful limits need enforcement outside the model: permission design, thresholds, and explicit approval steps.',
         },
         {
           title: 'Design for the failure, not just the demo',
-          body: 'Every automation looks reasonable in the best case. The governance question is what happens when something goes wrong at speed, and whether a human can still stop it.',
+          body: 'Every automation looks reasonable in the best case. The governance question is what happens when something goes wrong at speed, and whether a human can still stop it in time.',
         },
       ],
     },
