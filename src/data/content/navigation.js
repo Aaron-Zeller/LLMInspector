@@ -79,6 +79,7 @@ export const PAGE_SEQUENCE = [
       'main-misinformation-header',
       'main-misinformation-outcomes',
       'main-misinformation-hallucinations',
+      'main-misinformation-verify',
       'main-misinformation-spot',
       'main-misinformation-footer',
     ],

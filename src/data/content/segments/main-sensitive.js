@@ -29,7 +29,6 @@ export const mainSensitiveSegments = {
     scenarios: [
       {
         id: 'board-deck',
-        eyebrow: 'Case 1',
         title: 'Board deck for polishing',
         role: 'Your Situation',
         headline: 'A strategy lead uploads a draft board deck to improve clarity before a meeting.',
@@ -37,12 +36,6 @@ export const mainSensitiveSegments = {
           'The deck contains financial targets and product direction. Without personal data present, the team falsely assumes the risk is zero.',
         tone: 'delegation',
         riskLabel: 'Strategic Exposure & IP',
-        employeeActionTitle: 'The shortcut',
-        employeeAction:
-          'They upload the full presentation to have the model tighten the language and draft an executive summary.',
-        whyFeelsNormalTitle: 'Why It Gets Approved In The Moment',
-        whyFeelsNormal:
-          'It feels harmless because the intent is editing, not disclosure. Yet, the AI still absorbs the strategic IP.',
         decisionPrompt:
           'Which team rule should you normalise?',
         decisionOptions: [
@@ -60,32 +53,51 @@ export const mainSensitiveSegments = {
             correct: true,
           },
         ],
-        legalQuestionTitle: 'Why is this a governance and IP issue?',
-        legalQuestion:
-          'Uploading confidential strategy to unvetted tools can leak intellectual property and invalidate trade secret protections.',
-        legalChecksTitle: 'Questions Before You Approve',
-        legalChecks: [
-          'Is this classified as confidential or trade-secret material?',
-          'Is this AI platform explicitly vetted for strategic documents?',
-          'Could disclosure harm patents, M&A negotiations, or market position?',
-        ],
-        consequenceTitle: 'What does the business actually lose?',
-        consequence:
-          'The damage is strategic and delayed. Exposure can weaken future leverage or surface later in competitor outputs.',
-        consequenceBulletsTitle: 'What This Costs You',
-        consequenceBullets: [
-          'Financial assumptions leave their secure context',
-          'Unfiled patents may lose trade secret status',
-          'Strategy fragments could train public AI models',
-        ],
-        controlTitle: 'Enforce the abstraction rule',
-        control:
-          'Require the lowest necessary level of detail: use decontextualised excerpts, or mandate secure enterprise tools for full files.',
-        controlBulletsTitle: 'What The Team Should Hear',
-        controlBullets: [
-          'Use AI only on abstracted, isolated text excerpts',
-          'Mandate enterprise-grade instances for confidential files',
-          'If data cannot be abstracted safely, escalate to IT',
+        analysis: [
+          {
+            title: 'The shortcut',
+            body: 'They upload the full presentation to have the model tighten the language and draft an executive summary.',
+          },
+          {
+            title: 'Why It Gets Approved In The Moment',
+            body: 'It feels harmless because the intent is editing, not disclosure. Yet, the AI still absorbs the strategic IP.',
+          },
+          {
+            title: 'Why is this a governance and IP issue?',
+            body: 'Uploading confidential strategy to unvetted tools can leak intellectual property and invalidate trade secret protections.',
+          },
+          {
+            title: 'Questions Before You Approve',
+            body: [
+              'Is this classified as confidential or trade-secret material?',
+              'Is this AI platform explicitly vetted for strategic documents?',
+              'Could disclosure harm patents, M&A negotiations, or market position?',
+            ],
+          },
+          {
+            title: 'What does the business actually lose?',
+            body: 'The damage is strategic and delayed. Exposure can weaken future leverage or surface later in competitor outputs.',
+          },
+          {
+            title: 'What This Costs You',
+            body: [
+              'Financial assumptions leave their secure context',
+              'Unfiled patents may lose trade secret status',
+              'Strategy fragments could train public AI models',
+            ],
+          },
+          {
+            title: 'Enforce the abstraction rule',
+            body: 'Require the lowest necessary level of detail: use decontextualised excerpts, or mandate secure enterprise tools for full files.',
+          },
+          {
+            title: 'What The Team Should Hear',
+            body: [
+              'Use AI only on abstracted, isolated text excerpts',
+              'Mandate enterprise-grade instances for confidential files',
+              'If data cannot be abstracted safely, escalate to IT',
+            ],
+          },
         ],
       },
     ],
@@ -127,7 +139,6 @@ export const mainSensitiveSegments = {
     type: 'navigationFooter',
     previousPageId: 'main-part',
     nextPageId: 'main-prompt-injection',
-    caption: 'Section 4 of 12',
     nextLabel: 'Go to Prompt Injection →',
   },
 };

@@ -10,7 +10,6 @@ export const feedbackSegments = {
     type: 'navigationFooter',
     previousPageId: 'post-assessment',
     action: 'submitPostFlow',
-    caption: 'Section 11 of 12',
     nextLabel: 'Submit Assessment and Feedback',
   },
 };

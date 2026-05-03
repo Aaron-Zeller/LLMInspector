@@ -30,7 +30,6 @@ export const mainPromptSegments = {
     scenarios: [
       {
         id: 'external-source',
-        eyebrow: 'Case 1',
         title: 'Browsing or retrieval workflow',
         role: 'Your Situation',
         headline: 'A team asks the model to browse, retrieve, or summarise content from external websites.',
@@ -54,44 +53,56 @@ export const mainPromptSegments = {
             correct: true,
           },
         ],
-        employeeActionTitle: 'The Hidden Input',
-        employeeAction:
-          'External text enters the model context automatically, bypassing any human review.',
-        whyFeelsNormalTitle: 'Why It Gets Approved In The Moment',
-        whyFeelsNormal: [
-          'Speed is prioritized over input trust',
-          'The raw source content is hidden from the user',
-          'The team assumes "public" means "safe"',
+        analysis: [
+          {
+            title: 'The Hidden Input',
+            body: 'External text enters the model context automatically, bypassing any human review.',
+          },
+          {
+            title: 'Why It Gets Approved In The Moment',
+            body: [
+              'Speed is prioritized over input trust',
+              'The raw source content is hidden from the user',
+              'The team assumes "public" means "safe"',
+            ],
+          },
+          {
+            title: 'The Core Failure',
+            body: 'The system confuses "accessible data" with "safe instructions to follow."',
+          },
+          {
+            title: 'Questions Before You Approve',
+            body: [
+              'Does the workflow filter hostile content?',
+              'Could the model absorb hidden attacker text?',
+              'Are we amplifying unauthorized instructions?',
+            ],
+          },
+          {
+            title: 'The Business Impact',
+            body: 'The model produces confident but manipulated recommendations based on corrupted source material.',
+          },
+          {
+            title: 'What This Costs You',
+            body: [
+              'Internal answers inherit an attacker\'s hidden agenda',
+              'Teams mistake automated retrieval for factual verification',
+              'Decisions are made based on manipulated data',
+            ],
+          },
+          {
+            title: 'Enforce the boundary',
+            body: 'Limit what retrieved content can influence and require human checks before taking action.',
+          },
+          {
+            title: 'What The Team Should Hear',
+            body: [
+              'Treat all external retrieval as untrusted input',
+              'Maintain a human-in-the-loop for sensitive uses',
+              'Never grant outside text automatic authority',
+            ],
+          },
         ],
-        legalQuestionTitle: 'The Core Failure',
-        legalQuestion:
-          'The system confuses "accessible data" with "safe instructions to follow."',
-        legalChecksTitle: 'Questions Before You Approve',
-        legalChecks: [
-          'Does the workflow filter hostile content?',
-          'Could the model absorb hidden attacker text?',
-          'Are we amplifying unauthorized instructions?',
-        ],
-        consequenceTitle: 'The Business Impact',
-        consequence:
-          'The model produces confident but manipulated recommendations based on corrupted source material.',
-        consequenceBulletsTitle: 'What This Costs You',
-        consequenceBullets: [
-          'Internal answers inherit an attacker\'s hidden agenda',
-          'Teams mistake automated retrieval for factual verification',
-          'Decisions are made based on manipulated data',
-        ],
-        controlTitle: 'Enforce the boundary',
-        control:
-          'Limit what retrieved content can influence and require human checks before taking action.',
-        controlBulletsTitle: 'What The Team Should Hear',
-        controlBullets: [
-          'Treat all external retrieval as untrusted input',
-          'Maintain a human-in-the-loop for sensitive uses',
-          'Never grant outside text automatic authority',
-        ],
-        takeaway:
-          'If your workflow reads the outside world, the outside world is now part of your threat surface.',
       },
     ],
   },
@@ -132,7 +143,6 @@ export const mainPromptSegments = {
     type: 'navigationFooter',
     previousPageId: 'main-sensitive-disclosure',
     nextPageId: 'main-misinformation',
-    caption: 'Section 5 of 12',
     nextLabel: 'Go to Misinformation →',
   },
 };

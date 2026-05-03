@@ -4,20 +4,11 @@ export const mainOversightSegments = {
     tone: 'output',
     eyebrow: 'Section 8 · Excessive Agency and Human Oversight',
     title: 'When the model should not act on its own',
-    description:
-      'This section focuses on responsibility, approvals, and the point where assistance becomes unsafe autonomy.',
-    frame: {
-      label: 'Your task',
-      body: 'Keep meaningful authority outside the model, especially once the workflow can send, approve, or change something real.',
-    },
   },
   'main-agency-outcomes': {
     type: 'contentCards',
     tone: 'output',
-    eyebrow: 'Your Outcomes',
-    title: 'What you should be able to decide before granting an AI system real agency',
-    description:
-      'This section is about who keeps the steering wheel once the model can do more than generate text.',
+    description: 'This section is about who keeps the steering wheel once the model can do more than generate text.',
     columns: 2,
     cards: [
       {
@@ -32,16 +23,12 @@ export const mainOversightSegments = {
   },
   'main-agency-intro': {
     type: 'agencyWalkthrough',
-    eyebrow: 'Worked Examples',
     title: 'Walk through how “helpful automation” becomes unsafe autonomy',
     description:
       'Each case shows what power the system received, where the boundary disappeared, and what supervision rule you should have required first.',
     scenarios: [
       {
         id: 'customer-replies',
-        eyebrow: 'Case 1',
-        title: 'Customer reply automation',
-        meta: 'Client-facing communication',
         role: 'Your Situation',
         headline: 'A support workflow can draft and send customer replies without waiting for an agent.',
         context:
@@ -64,44 +51,56 @@ export const mainOversightSegments = {
             correct: true,
           },
         ],
-        employeeActionTitle: 'The system is not only writing anymore',
-        employeeAction:
-          'Once the workflow can send the message itself, it has crossed from assistance into agency. The risk is no longer only output quality, but autonomous execution.',
-        whyFeelsNormalTitle: 'Why It Gets Approved In The Moment',
-        whyFeelsNormal: [
-          'The action becomes externally visible immediately',
-          'A bad send may create legal, reputational, or service consequences',
-          'The workflow no longer pauses naturally for human judgement',
+        analysis: [
+          {
+            title: 'The system is not only writing anymore',
+            body: 'Once the workflow can send the message itself, it has crossed from assistance into agency. The risk is no longer only output quality, but autonomous execution.',
+          },
+          {
+            title: 'Why It Gets Approved In The Moment',
+            body: [
+              'The action becomes externally visible immediately',
+              'A bad send may create legal, reputational, or service consequences',
+              'The workflow no longer pauses naturally for human judgement',
+            ],
+          },
+          {
+            title: 'The last human interruption disappeared',
+            body: 'The workflow assumes the model should handle the final action because it handled the draft well enough. That removes the point where responsibility should still reattach to a person.',
+          },
+          {
+            title: 'Questions Before You Approve',
+            body: [
+              'Helpful drafting becomes permission to act',
+              'The team confuses speed with acceptable autonomy',
+              'A quiet default can become a strong organisational norm',
+            ],
+          },
+          {
+            title: 'The model starts making promises in your name',
+            body: 'A mistaken refund promise, wrong tone, or unsupported commitment is no longer an internal draft issue. It becomes a direct relationship and accountability problem with the customer.',
+          },
+          {
+            title: 'What This Costs You',
+            body: [
+              'The organisation inherits the message whether it was reviewed or not',
+              'A correction later does not undo the first impression',
+              'Responsibility remains human even when the send was automated',
+            ],
+          },
+          {
+            title: 'Keep final customer actions behind a human gate',
+            body: 'Customer communication can be accelerated by AI, but the system should still stop before the send, not after the incident.',
+          },
+          {
+            title: 'What The Team Should Hear',
+            body: [
+              'Let AI draft, summarise, and suggest',
+              'Require a human click or sign-off before outbound customer messages',
+              'Review autonomy category by category rather than all at once',
+            ],
+          },
         ],
-        legalQuestionTitle: 'The last human interruption disappeared',
-        legalQuestion:
-          'The workflow assumes the model should handle the final action because it handled the draft well enough. That removes the point where responsibility should still reattach to a person.',
-        legalChecksTitle: 'Questions Before You Approve',
-        legalChecks: [
-          'Helpful drafting becomes permission to act',
-          'The team confuses speed with acceptable autonomy',
-          'A quiet default can become a strong organisational norm',
-        ],
-        consequenceTitle: 'The model starts making promises in your name',
-        consequence:
-          'A mistaken refund promise, wrong tone, or unsupported commitment is no longer an internal draft issue. It becomes a direct relationship and accountability problem with the customer.',
-        consequenceBulletsTitle: 'What This Costs You',
-        consequenceBullets: [
-          'The organisation inherits the message whether it was reviewed or not',
-          'A correction later does not undo the first impression',
-          'Responsibility remains human even when the send was automated',
-        ],
-        controlTitle: 'Keep final customer actions behind a human gate',
-        control:
-          'Customer communication can be accelerated by AI, but the system should still stop before the send, not after the incident.',
-        controlBulletsTitle: 'What The Team Should Hear',
-        controlBullets: [
-          'Let AI draft, summarise, and suggest',
-          'Require a human click or sign-off before outbound customer messages',
-          'Review autonomy category by category rather than all at once',
-        ],
-        takeaway:
-          'If the message goes out in your organisation’s name, the final send should still belong to a person.',
       },
     ],
   },
@@ -142,7 +141,6 @@ export const mainOversightSegments = {
     type: 'navigationFooter',
     previousPageId: 'main-output-handling',
     nextPageId: 'main-platform-choice',
-    caption: 'Section 8 of 12',
     nextLabel: 'Go to Platform Choice →',
   },
 };

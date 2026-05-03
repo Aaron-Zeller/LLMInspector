@@ -25,6 +25,5 @@ export const preAssessmentSegments = {
     previousPageId: 'overview',
     action: 'submitPreAssessment',
     nextPageId: 'main-part',
-    caption: 'Section 2 of 12',
   },
 };

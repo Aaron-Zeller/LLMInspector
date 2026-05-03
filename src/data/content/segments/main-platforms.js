@@ -4,40 +4,26 @@ export const mainPlatformSegments = {
     tone: 'platform',
     eyebrow: 'Section 9 · Platform Choice',
     title: 'Different tools create different governance choices',
-    description:
-      'This final main-part section treats platform choice as a governance decision, not a brand comparison.',
-    frame: {
-      label: 'Your task',
-      body: 'Choose the environment whose controls and ownership model fit the work, not simply the tool that feels easiest to adopt.',
-    },
   },
   'main-platform-outcomes': {
     type: 'contentCards',
     tone: 'platform',
-    eyebrow: 'Your Outcomes',
-    title: 'What you should be able to decide before choosing a platform',
     description:
       'The question is not which brand feels smartest. It is which environment fits the work, the data, and your oversight model.',
     columns: 3,
     cards: [
       {
         tone: 'platform',
-        eyebrow: 'Outcome 1',
-        title: 'Separate capability from governance fit',
         body:
           'Recognise that two platforms can feel similarly capable while creating very different data, admin, and oversight implications.',
       },
       {
         tone: 'platform',
-        eyebrow: 'Outcome 2',
-        title: 'Match the tool to the sensitivity of the work',
         body:
           'Distinguish when a public tool is inappropriate, when an enterprise instance may be enough, and when a local or internal deployment is worth the operational cost.',
       },
       {
         tone: 'platform',
-        eyebrow: 'Outcome 3',
-        title: 'Ask governance questions before adoption',
         body:
           'Evaluate storage, training use, admin controls, retention, and oversight before teams normalise a tool through convenience alone.',
       },
@@ -45,7 +31,6 @@ export const mainPlatformSegments = {
   },
   'main-platform-intro': {
     type: 'platformChoiceWalkthrough',
-    eyebrow: 'Worked Examples',
     title: 'Walk through the platform decision the way it actually appears at work',
     description:
       'Each case shows the business need, the trade-off, the failure mode, and the governance move you should require.',
@@ -54,7 +39,6 @@ export const mainPlatformSegments = {
         id: 'public-cloud',
         eyebrow: 'Case 1',
         title: 'Fast adoption through a public tool',
-        meta: 'Low friction, high ambiguity',
         role: 'Your Situation',
         headline: 'A team wants to use a popular public AI tool immediately because it is fast, accessible, and already familiar.',
         context:
@@ -149,7 +133,6 @@ export const mainPlatformSegments = {
         id: 'enterprise-cloud',
         eyebrow: 'Case 2',
         title: 'Enterprise cloud instance',
-        meta: 'Better contracts, still real trade-offs',
         role: 'Your Situation',
         headline: 'The organisation considers an enterprise version of a mainstream platform because it offers admin controls and stronger contractual guarantees.',
         context:
@@ -243,7 +226,6 @@ export const mainPlatformSegments = {
         id: 'local-internal',
         eyebrow: 'Case 3',
         title: 'Local or internal deployment',
-        meta: 'Higher privacy, higher operational burden',
         role: 'Your Situation',
         headline: 'The organisation considers hosting a model internally to avoid sending sensitive information to a public cloud.',
         context:
@@ -384,7 +366,6 @@ export const mainPlatformSegments = {
     type: 'navigationFooter',
     previousPageId: 'main-excessive-agency',
     nextPageId: 'post-assessment',
-    caption: 'Section 9 of 12',
     nextLabel: 'Go to Post Assessment →',
   },
 };

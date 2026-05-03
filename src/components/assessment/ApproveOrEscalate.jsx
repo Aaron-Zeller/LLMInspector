@@ -179,55 +179,54 @@ export function ApproveOrEscalate({ segment, segmentId }) {
 
       {/* Final summary */}
       {allDone && (
-        <>
-          <div className="aoe-summary">
-            <div className={`aoe-summary__score aoe-summary__score--${band.tone}`}>
-              <strong className="aoe-summary__num">{riskLevel}%</strong>
-              <span className="aoe-summary__label">Final Risk Level — {band.label}</span>
-            </div>
-
-            <div className="aoe-summary__rows">
-              {scenarios.map((scenario) => {
-                const opt = scenario.options.find((o) => o.id === choices[scenario.id]);
-                return (
-                  <div
-                    key={scenario.id}
-                    className={`aoe-summary__row aoe-summary__row--${opt?.consequence.tone ?? 'warn'}`}
-                  >
-                    <span className="aoe-summary__row-title">{scenario.title}</span>
-                    <span
-                      className={`aoe-summary__row-verdict aoe-summary__row-verdict--${opt?.consequence.tone}`}
-                    >
-                      {opt?.consequence.verdict}
-                    </span>
-                    <span className="aoe-summary__row-delta">+{opt?.riskDelta ?? 0}%</span>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className={`aoe-summary__message aoe-summary__message--${band.tone}`}>
-              {riskLevel <= 25
-                ? 'Strong oversight applied throughout. Every decision kept accountability with a human where it mattered most.'
-                : riskLevel <= 55
-                  ? 'Some oversight gaps present. Review the scenarios where risk was added — each one represents a real-world failure pattern that escalation would have prevented.'
-                  : 'Significant oversight failures accumulated. Each approval without adequate review or escalation represents a decision pattern that compounds over time in live systems.'}
-            </div>
-
-            <button className="btn-secondary" onClick={reset} type="button">
-              Try Again
-            </button>
+        <div className="aoe-summary">
+          <div className={`aoe-summary__score aoe-summary__score--${band.tone}`}>
+            <strong className="aoe-summary__num">{riskLevel}%</strong>
+            <span className="aoe-summary__label">Final Risk Level — {band.label}</span>
           </div>
-          {segment.debrief ? (
-            <AfterLabSection
-              eyebrow={segment.debrief.eyebrow}
-              title={segment.debrief.title}
-              items={segment.debrief.items}
-              isComplete={allDone}
-            />
-          ) : null}
-        </>
+
+          <div className="aoe-summary__rows">
+            {scenarios.map((scenario) => {
+              const opt = scenario.options.find((o) => o.id === choices[scenario.id]);
+              return (
+                <div
+                  key={scenario.id}
+                  className={`aoe-summary__row aoe-summary__row--${opt?.consequence.tone ?? 'warn'}`}
+                >
+                  <span className="aoe-summary__row-title">{scenario.title}</span>
+                  <span
+                    className={`aoe-summary__row-verdict aoe-summary__row-verdict--${opt?.consequence.tone}`}
+                  >
+                    {opt?.consequence.verdict}
+                  </span>
+                  <span className="aoe-summary__row-delta">+{opt?.riskDelta ?? 0}%</span>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className={`aoe-summary__message aoe-summary__message--${band.tone}`}>
+            {riskLevel <= 25
+              ? 'Strong oversight applied throughout. Every decision kept accountability with a human where it mattered most.'
+              : riskLevel <= 55
+                ? 'Some oversight gaps present. Review the scenarios where risk was added — each one represents a real-world failure pattern that escalation would have prevented.'
+                : 'Significant oversight failures accumulated. Each approval without adequate review or escalation represents a decision pattern that compounds over time in live systems.'}
+          </div>
+
+          <button className="btn-secondary" onClick={reset} type="button">
+            Try Again
+          </button>
+        </div>
       )}
+
+      {segment.debrief ? (
+        <AfterLabSection
+          eyebrow={segment.debrief.eyebrow}
+          title={segment.debrief.title}
+          items={segment.debrief.items}
+          isComplete={allDone}
+        />
+      ) : null}
     </Segment>
   );
 }

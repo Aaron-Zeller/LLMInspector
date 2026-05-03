@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { cx } from '../../lib/cx.js';
 import { Segment } from '../dev/Segment.jsx';
 
@@ -72,66 +72,29 @@ export function PromptInjectionWalkthrough({ segment, segmentId }) {
             <div className="sdw-panel">
               <article className="sdw-panel-card">
                 <div className="sdw-panel-full-content">
-                  <section className="sdw-panel-section">
-                    <h3 className="sdw-panel-card__title">{activeScenario.employeeActionTitle || 'The Hidden Input'}</h3>
-                    <p className="sdw-panel-card__body">{activeScenario.employeeAction}</p>
-                    
-                    <h3 className="sdw-panel-card__title mt-6">{activeScenario.whyFeelsNormalTitle || 'Why It Gets Approved In The Moment'}</h3>
-                    <ul className="sdw-panel-list">
-                      {activeScenario.whyFeelsNormal.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </section>
-
-                  <div className="sdw-panel-divider" />
-
-                  <section className="sdw-panel-section">
-                    <h3 className="sdw-panel-card__title">{activeScenario.legalQuestionTitle || 'The Core Failure'}</h3>
-                    <p className="sdw-panel-card__body">{activeScenario.legalQuestion}</p>
-                    
-                    <h3 className="sdw-panel-card__title mt-6">{activeScenario.legalChecksTitle || 'Questions Before You Approve'}</h3>
-                    <ul className="sdw-panel-list">
-                      {activeScenario.legalChecks.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </section>
-
-                  <div className="sdw-panel-divider" />
-
-                  <section className="sdw-panel-section">
-                    <h3 className="sdw-panel-card__title">{activeScenario.consequenceTitle || 'The Business Impact'}</h3>
-                    <p className="sdw-panel-card__body">{activeScenario.consequence}</p>
-                    
-                    <h3 className="sdw-panel-card__title mt-6">{activeScenario.consequenceBulletsTitle || 'What This Costs You'}</h3>
-                    <ul className="sdw-panel-list">
-                      {activeScenario.consequenceBullets.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </section>
-
-                  <div className="sdw-panel-divider" />
-
-                  <section className="sdw-panel-section">
-                    <h3 className="sdw-panel-card__title">{activeScenario.controlTitle || 'Enforce the boundary'}</h3>
-                    <p className="sdw-panel-card__body">{activeScenario.control}</p>
-                    
-                    <h3 className="sdw-panel-card__title mt-6">{activeScenario.controlBulletsTitle || 'What The Team Should Hear'}</h3>
-                    <ul className="sdw-panel-list">
-                      {activeScenario.controlBullets.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </section>
+                  {activeScenario.analysis.map((block, index) => (
+                    <Fragment key={block.title ?? index}>
+                      {index > 0 ? <div className="sdw-panel-divider" /> : null}
+                      <section className="sdw-panel-section">
+                        {block.title ? (
+                          <h3 className={cx('sdw-panel-card__title', index > 0 && 'mt-6')}>
+                            {block.title}
+                          </h3>
+                        ) : null}
+                        {Array.isArray(block.body) ? (
+                          <ul className="sdw-panel-list">
+                            {block.body.map((item) => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="sdw-panel-card__body">{block.body}</p>
+                        )}
+                      </section>
+                    </Fragment>
+                  ))}
                 </div>
               </article>
-            </div>
-
-            <div className="sdw-takeaway">
-              <p className="sdw-takeaway__label">Your Takeaway</p>
-              <p className="sdw-takeaway__body">{activeScenario.takeaway}</p>
             </div>
           </>
         ) : (

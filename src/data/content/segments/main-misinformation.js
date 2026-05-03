@@ -4,20 +4,11 @@ export const mainMisinformationSegments = {
     tone: 'output',
     eyebrow: 'Section 6 · Misinformation and Hallucinations',
     title: 'When confident output is still wrong',
-    description:
-      'This section focuses on false facts, unsupported claims, and polished output that looks ready before anyone checks it.',
-    frame: {
-      label: 'Your task',
-      body: 'Decide which claims may travel, which must be checked, and which should stop before they gain authority.',
-    },
   },
   'main-misinformation-outcomes': {
     type: 'contentCards',
     tone: 'output',
-    eyebrow: 'Your Outcomes',
-    title: 'What you should be able to do before approving AI-generated claims',
-    description:
-      'This section is about managerial review, not model theory. The aim is to make weak claims visible before they travel.',
+    description: 'This section is about managerial review, not model theory. The aim is to make weak claims visible before they travel.',
     columns: 2,
     cards: [
       {
@@ -32,16 +23,12 @@ export const mainMisinformationSegments = {
   },
   'main-misinformation-hallucinations': {
     type: 'misinformationWalkthrough',
-    eyebrow: 'Worked Examples',
-    title: 'See how weak claims become “professional” before anyone checks them',
+    title: 'Experience the risks firsthand',
     description:
       'This example shows why the claim feels ready, what the model is actually doing, and what review move you should require before it travels.',
     scenarios: [
       {
         id: 'policy-citation',
-        eyebrow: 'Case 1',
-        title: 'Policy or legal citation',
-        meta: 'Governance and credibility risk',
         role: 'Your Situation',
         headline: 'A management memo includes a clean summary of legal or policy requirements with a confident citation that no one has opened yet.',
         context:
@@ -64,44 +51,200 @@ export const mainMisinformationSegments = {
             correct: true,
           },
         ],
-        employeeActionTitle: 'The surface claim',
-        employeeAction:
-          'A calm tone, exact article references, and policy-style wording make the answer feel lower-risk than it really is.',
-        whyFeelsNormalTitle: 'Why It Gets Approved In The Moment',
-        whyFeelsNormal: [
-          'Formal tone can mask weak sourcing',
-          'Citation formatting signals authority even when the reference is wrong',
-          'Managers may trust guidance that sounds careful more than they test it',
+        analysis: [
+          {
+            title: 'The surface claim',
+            body: 'A calm tone, exact article references, and policy-style wording make the answer feel lower-risk than it really is.',
+          },
+          {
+            title: 'Why It Gets Approved In The Moment',
+            body: [
+              'Formal tone can mask weak sourcing',
+              'Citation formatting signals authority even when the reference is wrong',
+              'Managers may trust guidance that sounds careful more than they test it',
+            ],
+          },
+          {
+            title: 'The model mechanism',
+            body: 'The answer may reproduce the style of a compliance memo without grounding the statement in an actual policy, law, or internal standard.',
+          },
+          {
+            title: 'Questions Before You Approve',
+            body: [
+              'The citation may be invented or misapplied',
+              'The summary may flatten important conditions or exceptions',
+              'Internal guidance can drift if the source is never opened',
+            ],
+          },
+          {
+            title: 'The organisation starts following a rule that may not exist',
+            body: 'If the memo is used as guidance, teams can align around a false requirement or a false permission. That creates governance confusion even before any external problem appears.',
+          },
+          {
+            title: 'What This Costs You',
+            body: [
+              'Teams may act on a rule that has no real source basis',
+              'Later corrections reduce confidence in internal guidance',
+              'Escalations become harder once bad guidance has spread',
+            ],
+          },
+          {
+            title: 'Require source-opening for policy claims',
+            body: 'If a statement sounds like policy, law, or compliance instruction, the underlying source should be opened, read, and attributable before the claim is distributed.',
+          },
+          {
+            title: 'What The Team Should Hear',
+            body: [
+              'Open the cited source before the memo becomes guidance',
+              'Remove legal-looking claims that cannot be traced quickly',
+              'Escalate ambiguous policy questions rather than letting AI settle them',
+            ],
+          },
         ],
-        legalQuestionTitle: 'The model mechanism',
-        legalQuestion:
-          'The answer may reproduce the style of a compliance memo without grounding the statement in an actual policy, law, or internal standard.',
-        legalChecksTitle: 'Questions Before You Approve',
-        legalChecks: [
-          'The citation may be invented or misapplied',
-          'The summary may flatten important conditions or exceptions',
-          'Internal guidance can drift if the source is never opened',
+      },
+    ],
+  },
+     'main-misinformation-verify': {
+    type: 'sourceVerification',
+    eyebrow: 'Verification Simulation',
+    title: 'Source Verification Simulation',
+    description:
+      'The claims below come from the analysis above. For each one, decide how you would verify it before using it in a professional document. Select one approach per claim, then submit to see what happens.',
+    claims: [
+      {
+        id: 'cv1',
+        text: '"Swiss SMEs have increased AI tool adoption by 34% year-over-year" (World Innovation Institute, Q2 2024)',
+        options: [
+          {
+            id: 'google',
+            label: 'Search online',
+            icon: '🔍',
+            outcome: {
+              result: 'dead-link',
+              label: 'Dead End',
+              tone: 'warn',
+              message:
+                'No results for the "World Innovation Institute Q2 2024" report. Multiple searches return no relevant results. The report cannot be located — the source appears to be fabricated.',
+            },
+          },
+          {
+            id: 'internal',
+            label: 'Check internal data',
+            icon: '📂',
+            outcome: {
+              result: 'contradiction',
+              label: 'Contradiction Found',
+              tone: 'danger',
+              message:
+                'Your own internal SME survey data from the same period shows a 12% adoption increase — significantly lower than the AI figure. The claim cannot be reconciled with your own data and the original source cannot be located.',
+            },
+          },
+          {
+            id: 'ignore',
+            label: 'Use it as-is',
+            icon: '→',
+            outcome: {
+              result: 'risk',
+              label: 'Risk Accepted',
+              tone: 'danger',
+              message:
+                'The unverified statistic enters the board briefing. When a board member asks for the original report in a follow-up, it cannot be provided. The credibility of the whole analysis is now in question.',
+            },
+          },
         ],
-        consequenceTitle: 'The organisation starts following a rule that may not exist',
-        consequence:
-          'If the memo is used as guidance, teams can align around a false requirement or a false permission. That creates governance confusion even before any external problem appears.',
-        consequenceBulletsTitle: 'What This Costs You',
-        consequenceBullets: [
-          'Teams may act on a rule that has no real source basis',
-          'Later corrections reduce confidence in internal guidance',
-          'Escalations become harder once bad guidance has spread',
+        bestOptionId: 'google',
+        explanation:
+          'Searching for the source first costs seconds and immediately exposes the fabrication. A failed search is itself useful information — it tells you the claim is unverifiable before it enters any professional document.',
+      },
+      {
+        id: 'cv2',
+        text: '"ChatGPT holds approximately 78% of the enterprise LLM market in Switzerland"',
+        options: [
+          {
+            id: 'google',
+            label: 'Search online',
+            icon: '🔍',
+            outcome: {
+              result: 'partial',
+              label: 'Partial Result',
+              tone: 'warn',
+              message:
+                'Global AI tool usage data exists, but Switzerland-specific enterprise market share figures at this precision are not published by any credible source. The 78% figure remains unverifiable even after an extensive search.',
+            },
+          },
+          {
+            id: 'internal',
+            label: 'Check internal data',
+            icon: '📂',
+            outcome: {
+              result: 'validated',
+              label: 'Best Approach Here',
+              tone: 'success',
+              message:
+                'Your IT procurement records show the organisation actively uses three different LLM platforms. The claim of near-total single-vendor dominance does not match operational reality, and no external source supports the figure either.',
+            },
+          },
+          {
+            id: 'ignore',
+            label: 'Use it as-is',
+            icon: '→',
+            outcome: {
+              result: 'risk',
+              label: 'Risk Accepted',
+              tone: 'danger',
+              message:
+                'A board member with vendor relationships questions the figure mid-presentation. No source can be provided and the slide is withdrawn from the deck — in front of the full board.',
+            },
+          },
         ],
-        controlTitle: 'Require source-opening for policy claims',
-        control:
-          'If a statement sounds like policy, law, or compliance instruction, the underlying source should be opened, read, and attributable before the claim is distributed.',
-        controlBulletsTitle: 'What The Team Should Hear',
-        controlBullets: [
-          'Open the cited source before the memo becomes guidance',
-          'Remove legal-looking claims that cannot be traced quickly',
-          'Escalate ambiguous policy questions rather than letting AI settle them',
+        bestOptionId: 'internal',
+        explanation:
+          'Internal procurement data is a concrete secondary check that does not depend on finding a public source. Combining it with an online search (which shows no credible source) gives a reliable, multi-angle picture.',
+      },
+      {
+        id: 'cv3',
+        text: '"The Swiss AI market is projected to reach CHF 8.2 billion by 2026"',
+        options: [
+          {
+            id: 'google',
+            label: 'Search online',
+            icon: '🔍',
+            outcome: {
+              result: 'contradiction',
+              label: 'Contradiction Found',
+              tone: 'warn',
+              message:
+                'A credible market research firm publishes a Swiss digital economy forecast, but their 2026 projection for AI-related services is CHF 3.1 billion — significantly lower than the AI figure. The discrepancy must be flagged before use.',
+            },
+          },
+          {
+            id: 'internal',
+            label: 'Check internal data',
+            icon: '📂',
+            outcome: {
+              result: 'not-applicable',
+              label: 'Not Applicable',
+              tone: 'warn',
+              message:
+                'Internal data does not cover macro market projections. This approach does not help here — an external market research source is the right check for country-level forecasts.',
+            },
+          },
+          {
+            id: 'ignore',
+            label: 'Use it as-is',
+            icon: '→',
+            outcome: {
+              result: 'risk',
+              label: 'Risk Accepted',
+              tone: 'danger',
+              message:
+                'The figure enters board materials unchecked. A finance director later locates a credible source showing a significantly lower number. The report is revised after distribution and the discrepancy requires explanation.',
+            },
+          },
         ],
-        takeaway:
-          'A policy-sounding answer is still unfit for guidance until someone has checked the actual source.',
+        bestOptionId: 'google',
+        explanation:
+          'For macro market projections, a credible external source is the right check. Even finding a different number is valuable — it shows the AI figure is inflated or unsupported and gives you something real to use instead.',
       },
     ],
   },
@@ -118,24 +261,6 @@ export const mainMisinformationSegments = {
         'Look for claims that feel authoritative but do not yet have the evidence or source quality required for professional use.',
       emphasis:
         'This first lab is about diagnosis. Your goal is not to prove every sentence false. Your goal is to stop unsupported precision from slipping into a document that others may treat as evidence.',
-    },
-    debrief: {
-      eyebrow: 'After the Lab',
-      title: 'What to carry forward',
-      items: [
-        {
-          title: 'What in this answer is factual, and what is only persuasive?',
-          body: 'Polished language and strong conclusions should not be treated as evidence on their own.',
-        },
-        {
-          title: 'Which claims need a source before they travel any further?',
-          body: 'Statistics, named reports, legal citations, and market projections should trigger verification automatically.',
-        },
-        {
-          title: 'What is the consequence if this claim is wrong?',
-          body: 'The higher the operational or reputational impact, the stronger the review should be.',
-        },
-      ],
     },
     transcriptTitle: 'AI Assistant',
     context:
@@ -211,12 +336,29 @@ export const mainMisinformationSegments = {
       },
       { id: 'sp15', text: ' for forward-thinking organisations.', safe: true },
     ],
+    debrief: {
+      eyebrow: 'After the Lab',
+      title: 'What to carry forward',
+      items: [
+        {
+          title: 'What in this answer is factual, and what is only persuasive?',
+          body: 'Polished language and strong conclusions should not be treated as evidence on their own.',
+        },
+        {
+          title: 'Which claims need a source before they travel any further?',
+          body: 'Statistics, named reports, legal citations, and market projections should trigger verification automatically.',
+        },
+        {
+          title: 'What is the consequence if this claim is wrong?',
+          body: 'The higher the operational or reputational impact, the stronger the review should be.',
+        },
+      ],
+    },
   },
   'main-misinformation-footer': {
     type: 'navigationFooter',
     previousPageId: 'main-prompt-injection',
     nextPageId: 'main-output-handling',
-    caption: 'Section 6 of 12',
     nextLabel: 'Go to Improper Output Handling →',
   },
 };
