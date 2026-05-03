@@ -120,7 +120,7 @@ export const mainOversightSegments = {
     },
     debrief: {
       eyebrow: 'After the Lab',
-      title: 'What to carry forward',
+      title: 'Self-check questions:',
       items: [
         {
           title: 'Has assistance quietly become authority?',

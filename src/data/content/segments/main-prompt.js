@@ -3,13 +3,13 @@ export const mainPromptSegments = {
     type: 'pageHeader',
     tone: 'input',
     eyebrow: 'Section 5 · Prompt Injection',
-    title: 'Why untrusted content can steer the model',
+    title: 'Why and how untrusted content can steer the model',
   },
   'main-prompt-outcomes': {
     type: 'contentCards',
     tone: 'input',
     description:
-      'After understanding unsafe data entry, the next step is seeing that inputs can also manipulate the model itself through hidden or indirect instructions. By the end of this section, you will be able to:',
+      'Now we will see that inputs can also manipulate the model itself through hidden or indirect instructions. By the end of this section, you will be able to:',
     columns: 2,
     cards: [
       {
@@ -29,12 +29,10 @@ export const mainPromptSegments = {
       'This example shows how retrieved content can quietly steer a model unless you set a strict boundary first.',
     scenarios: [
       {
-        id: 'external-source',
-        title: 'Browsing or retrieval workflow',
         role: 'Your Situation',
         headline: 'A team asks the model to browse, retrieve, or summarise content from external websites.',
         context:
-          'Automated retrieval feels safe because the user isn\'t manually pasting text. However, it imports unvetted external text directly into the model’s instruction stream.',
+          'Automated retrieval feels safe because the user isn\'t manually pasting text. However, it imports unchecked external text directly into the model’s instruction stream.',
         riskLabel: 'External Source Risk',
         decisionPrompt:
           'Which approval stance is stronger when a workflow retrieves outside content?',
@@ -59,31 +57,7 @@ export const mainPromptSegments = {
             body: 'External text enters the model context automatically, bypassing any human review.',
           },
           {
-            title: 'Why It Gets Approved In The Moment',
-            body: [
-              'Speed is prioritized over input trust',
-              'The raw source content is hidden from the user',
-              'The team assumes "public" means "safe"',
-            ],
-          },
-          {
-            title: 'The Core Failure',
-            body: 'The system confuses "accessible data" with "safe instructions to follow."',
-          },
-          {
-            title: 'Questions Before You Approve',
-            body: [
-              'Does the workflow filter hostile content?',
-              'Could the model absorb hidden attacker text?',
-              'Are we amplifying unauthorized instructions?',
-            ],
-          },
-          {
-            title: 'The Business Impact',
-            body: 'The model produces confident but manipulated recommendations based on corrupted source material.',
-          },
-          {
-            title: 'What This Costs You',
+            title: 'Possible consequences:',
             body: [
               'Internal answers inherit an attacker\'s hidden agenda',
               'Teams mistake automated retrieval for factual verification',
@@ -91,15 +65,11 @@ export const mainPromptSegments = {
             ],
           },
           {
-            title: 'Enforce the boundary',
-            body: 'Limit what retrieved content can influence and require human checks before taking action.',
-          },
-          {
-            title: 'What The Team Should Hear',
+            title: 'How to proceed?',
             body: [
               'Treat all external retrieval as untrusted input',
+              'Limit what retrieved content can influence and require human checks before taking action.',
               'Maintain a human-in-the-loop for sensitive uses',
-              'Never grant outside text automatic authority',
             ],
           },
         ],
@@ -122,7 +92,7 @@ export const mainPromptSegments = {
     },
     debrief: {
       eyebrow: 'After the Lab',
-      title: 'What to carry forward',
+      title: 'Self-check questions:',
       items: [
         {
           title: 'Is the content trusted, or merely available?',

@@ -338,7 +338,7 @@ export const mainMisinformationSegments = {
     ],
     debrief: {
       eyebrow: 'After the Lab',
-      title: 'What to carry forward',
+      title: 'Self-check questions:',
       items: [
         {
           title: 'What in this answer is factual, and what is only persuasive?',

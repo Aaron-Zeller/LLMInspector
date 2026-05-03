@@ -3,7 +3,7 @@ export const mainSensitiveSegments = {
     type: 'pageHeader',
     tone: 'input',
     eyebrow: 'Section 4 · Sensitive Information Disclosure',
-    title: 'The Input Risk: What never to paste or upload',
+    title: 'The Input Risk: What never to paste or upload to an LLM',
   },
   'main-sensitive-outcomes': {
     type: 'contentCards',
@@ -25,77 +25,50 @@ export const mainSensitiveSegments = {
     type: 'sensitiveDisclosureWalkthrough',
     title: 'Experience the risks firsthand',
     description:
-      'See how a common shortcut creates strategic exposure, and learn the rules needed to protect the organisation.',
+      'See how a common shortcut creates strategic exposure, and learn the rules to prevent it.',
     scenarios: [
       {
-        id: 'board-deck',
-        title: 'Board deck for polishing',
         role: 'Your Situation',
-        headline: 'A strategy lead uploads a draft board deck to improve clarity before a meeting.',
+        headline: 'A strategy lead uploads a confidential presentation to an AI to fix typos and improve the writing.',
         context:
-          'The deck contains financial targets and product direction. Without personal data present, the team falsely assumes the risk is zero.',
+          'The presentation contains financial targets and future product plans. Because there are no customer names or passwords in it, the team falsely assumes uploading it is safe.',
         tone: 'delegation',
         riskLabel: 'Strategic Exposure & IP',
         decisionPrompt:
-          'Which team rule should you normalise?',
+          'How should you proceed?',
         decisionOptions: [
           {
             id: 'full-deck-editing',
-            label: 'Allow full-deck uploads if the intent is only language improvement.',
+            label: 'Allow uploading the full document, as long as the employee only asks for writing help.',
             feedback:
-              'Incorrect. This underestimates exposure. The model still absorbs the strategic IP, regardless of intent.',
+              'Incorrect. The AI model still reads and absorbs your company\'s secret strategy, even if you only asked it to fix grammar.',
           },
           {
             id: 'excerpt-rule',
-            label: 'Require excerpt-level editing, reserving full documents for approved, secure tools.',
+            label: 'Only allow pasting the specific sentences that need editing. Never upload the full document.',
             feedback:
-              'Correct. This achieves the business goal while safely maintaining abstraction.',
+              'Correct. This gets the writing help you need without handing over the entire company strategy.',
             correct: true,
           },
         ],
         analysis: [
           {
             title: 'The shortcut',
-            body: 'They upload the full presentation to have the model tighten the language and draft an executive summary.',
+            body: 'Uploading the presentation feels harmless because the employee just wants an editor, not to leak data. But the AI still reads the secret strategy.',
           },
           {
-            title: 'Why It Gets Approved In The Moment',
-            body: 'It feels harmless because the intent is editing, not disclosure. Yet, the AI still absorbs the strategic IP.',
-          },
-          {
-            title: 'Why is this a governance and IP issue?',
-            body: 'Uploading confidential strategy to unvetted tools can leak intellectual property and invalidate trade secret protections.',
-          },
-          {
-            title: 'Questions Before You Approve',
+            title: 'Possible consequences:',
             body: [
-              'Is this classified as confidential or trade-secret material?',
-              'Is this AI platform explicitly vetted for strategic documents?',
-              'Could disclosure harm patents, M&A negotiations, or market position?',
+              'Unfiled patents may lose their legal protection',
+              'Secret strategy details could leak into public AI models and be used for training',
             ],
           },
           {
-            title: 'What does the business actually lose?',
-            body: 'The damage is strategic and delayed. Exposure can weaken future leverage or surface later in competitor outputs.',
-          },
-          {
-            title: 'What This Costs You',
+            title: 'Correct way to proceed:',
             body: [
-              'Financial assumptions leave their secure context',
-              'Unfiled patents may lose trade secret status',
-              'Strategy fragments could train public AI models',
-            ],
-          },
-          {
-            title: 'Enforce the abstraction rule',
-            body: 'Require the lowest necessary level of detail: use decontextualised excerpts, or mandate secure enterprise tools for full files.',
-          },
-          {
-            title: 'What The Team Should Hear',
-            body: [
-              'Use AI only on abstracted, isolated text excerpts',
-              'Mandate enterprise-grade instances for confidential files',
-              'If data cannot be abstracted safely, escalate to IT',
+              'Only paste short snippets of text, never entire documents',
+              'If you must upload a whole confidential file, use an approved internal AI',
+              'If you aren\'t sure if it\'s safe to paste, stop and ask IT',
             ],
           },
         ],
@@ -122,7 +95,7 @@ export const mainSensitiveSegments = {
       items: [
         {
           title: 'Is the raw data necessary?',
-          body: 'If the work can be done using a summary or excerpt, the original sensitive data must stay out.',
+          body: 'If the work can be done using a summary or snippets, the original sensitive data must stay out.',
         },
         {
           title: 'Is this the right tool for the job?',

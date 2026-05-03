@@ -542,7 +542,7 @@ export const mainOutputSegments = {
     ],
     debrief: {
       eyebrow: 'After the Lab',
-      title: 'What to carry forward',
+      title: 'Self-check questions:',
       items: [
         {
           title: 'What changes once this output moves forward?',
