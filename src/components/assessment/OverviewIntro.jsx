@@ -10,6 +10,7 @@ export function OverviewIntro({ segment, segmentId }) {
         <p className="hero-eyebrow">{segment.eyebrow}</p>
         <h1 className="overview-intro__title">{segment.title}</h1>
         <p className="hero-desc">{segment.description}</p>
+        {segment.helper ? <p className="hero-helper">{segment.helper}</p> : null}
         <button
           className="btn-primary"
           onClick={() => goToPage(segment.nextPageId)}

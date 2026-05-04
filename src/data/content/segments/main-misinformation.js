@@ -4,11 +4,16 @@ export const mainMisinformationSegments = {
     tone: 'output',
     eyebrow: 'Section 6 · Misinformation and Hallucinations',
     title: 'When confident output is still wrong',
+    frame: {
+      label: 'Your role in this section',
+      body: 'You are reviewing AI-generated claims before they influence reports, guidance, or decisions that others may treat as evidence.',
+    },
   },
   'main-misinformation-outcomes': {
     type: 'contentCards',
     tone: 'output',
-    description: 'This section is about managerial review, not model theory. The aim is to make weak claims visible before they travel.',
+    description:
+      'This section is about review standards, not model theory. The goal is to catch weak claims before they gain authority.',
     columns: 2,
     cards: [
       {
@@ -25,14 +30,14 @@ export const mainMisinformationSegments = {
     type: 'misinformationWalkthrough',
     title: 'Experience the risks firsthand',
     description:
-      'This example shows why the claim feels ready, what the model is actually doing, and what review move you should require before it travels.',
+      'This example shows why the claim feels ready, what the model is actually doing, and what review move should be required before it travels.',
     scenarios: [
       {
         id: 'policy-citation',
         role: 'Your Situation',
         headline: 'A management memo includes a clean summary of legal or policy requirements with a confident citation that no one has opened yet.',
         context:
-          'The text sounds measured and responsible, so it is tempting to treat it as a useful shortcut. The risk is that a fabricated or misquoted citation can quietly redefine policy expectations.',
+          'The text sounds measured and responsible, so it is tempting to treat it as a useful shortcut. The risk is that a fabricated or misquoted citation quietly reshapes policy expectations.',
         riskLabel: 'Policy Risk',
         decisionPrompt:
           'What is the safer move when an AI-generated memo includes a polished legal or policy citation?',
@@ -96,10 +101,10 @@ export const mainMisinformationSegments = {
     eyebrow: 'Verification Simulation',
     title: 'Source Verification Simulation',
     description:
-      'The claims below come from the analysis above. For each one, choose the strongest managerial move before it enters a professional document.',
+      'The claims below come from the analysis above. For each one, decide whether it should be externally verified, internally narrowed, or removed before it enters a professional document.',
     brief: {
       eyebrow: 'Verification Lens',
-      prompt: 'Do not ask only “Can I verify this?” Ask what should happen to the claim right now.',
+      prompt: 'Do not ask only, “Can I verify this?” Ask what should happen to the claim right now.',
       points: [
         'Match the check to the type of claim: internal evidence for internal facts, external evidence for external market claims.',
         'If the source cannot be found or the number cannot be supported, remove or replace the claim instead of preserving it.',
@@ -110,10 +115,12 @@ export const mainMisinformationSegments = {
       {
         id: 'cv1',
         text: '"Swiss SMEs have increased AI tool adoption by 34% year-over-year" (World Innovation Institute, Q2 2024)',
+        moveLabel: 'Decide whether this claim should be verified, narrowed, or removed.',
         options: [
           {
             id: 'google',
-            title: 'Check whether the named source exists. If it cannot be found, remove the statistic.',
+            title: 'Check source existence',
+            detail: 'If the report cannot be found, remove the statistic.',
             icon: '🔍',
             outcome: {
               result: 'dead-link',
@@ -125,7 +132,8 @@ export const mainMisinformationSegments = {
           },
           {
             id: 'internal',
-            title: 'Cross-check it against internal survey data and try to keep the claim if the direction seems plausible.',
+            title: 'Cross-check internally',
+            detail: 'Use internal survey data only to test whether the direction seems plausible.',
             icon: '📂',
             outcome: {
               result: 'contradiction',
@@ -137,7 +145,8 @@ export const mainMisinformationSegments = {
           },
           {
             id: 'ignore',
-            title: 'Leave the figure in the briefing unless someone later asks where it came from.',
+            title: 'Leave it in',
+            detail: 'Keep the claim unless someone later asks for the source.',
             icon: '→',
             outcome: {
               result: 'risk',
@@ -155,34 +164,38 @@ export const mainMisinformationSegments = {
       {
         id: 'cv2',
         text: '"ChatGPT holds approximately 78% of the enterprise LLM market in Switzerland"',
+        moveLabel: 'Decide whether this market claim should be externally verified, internally reframed, or dropped.',
         options: [
           {
             id: 'google',
-            title: 'Look for a credible Swiss enterprise market-share source and keep the figure if you find one.',
+            title: 'Check external evidence',
+            detail: 'If no credible Swiss market-share source exists, remove or replace the figure.',
             icon: '🔍',
             outcome: {
-              result: 'partial',
-              label: 'Reasonable But Not Strongest',
-              tone: 'warn',
+              result: 'strongest',
+              label: 'Strongest Move Here',
+              tone: 'success',
               message:
-                'This is a sensible check, but it still leaves the team hunting for a very precise figure that probably should not survive unless strong evidence exists. No credible Swiss enterprise market-share source supports the 78% claim.',
+                'No credible Swiss enterprise market-share source supports the 78% claim. That means the number should not stay in the document unless it can be replaced with something defensible.',
             },
           },
           {
             id: 'internal',
-            title: 'Replace or remove the exact figure unless internal procurement or usage data supports a narrower claim.',
+            title: 'Narrow it internally',
+            detail: 'Use internal usage data to replace the claim with a narrower internal observation.',
             icon: '📂',
             outcome: {
-              result: 'validated',
-              label: 'Strongest Move Here',
-              tone: 'success',
+              result: 'useful-next-step',
+              label: 'Useful Next Step',
+              tone: 'warn',
               message:
-                'Your IT procurement records show the organisation actively uses three different LLM platforms. The precise 78% figure cannot be defended, so the stronger move is to replace it with a narrower, supportable internal observation or remove it entirely.',
+                'Your IT procurement records show that the organisation actively uses several LLM platforms. That helps you replace the original claim, but it is still a second step after establishing that no credible external source supports the 78% figure.',
             },
           },
           {
             id: 'ignore',
-            title: 'Keep the 78% figure as directional context, even if no one can source it cleanly.',
+            title: 'Keep it as context',
+            detail: 'Leave the 78% figure in place even without a clean source.',
             icon: '→',
             outcome: {
               result: 'risk',
@@ -193,17 +206,19 @@ export const mainMisinformationSegments = {
             },
           },
         ],
-        bestOptionId: 'internal',
+        bestOptionId: 'google',
         explanation:
-          'When a precise external market-share figure cannot be supported, do not preserve it just because it sounds useful. Replace it with a narrower claim you can support internally, or remove it from the briefing.',
+          'For an external market-share claim, the first question is whether a credible external source exists at all. If it does not, remove the figure or replace it with a narrower internal observation you can actually support.',
       },
       {
         id: 'cv3',
         text: '"The Swiss AI market is projected to reach CHF 8.2 billion by 2026"',
+        moveLabel: 'Decide whether this forecast should be externally checked, internally reworked, or removed.',
         options: [
           {
             id: 'google',
-            title: 'Check a credible external forecast and replace or remove the number if it does not match.',
+            title: 'Check the forecast',
+            detail: 'Use a credible external forecast and replace or remove the number if it does not match.',
             icon: '🔍',
             outcome: {
               result: 'contradiction',
@@ -215,7 +230,8 @@ export const mainMisinformationSegments = {
           },
           {
             id: 'internal',
-            title: 'Use internal business data to support the national market forecast.',
+            title: 'Use internal data',
+            detail: 'Try to support the national forecast with internal business information.',
             icon: '📂',
             outcome: {
               result: 'not-applicable',
@@ -227,7 +243,8 @@ export const mainMisinformationSegments = {
           },
           {
             id: 'ignore',
-            title: 'Keep the projection and add a source later if someone asks for one.',
+            title: 'Keep it for now',
+            detail: 'Leave the projection in place and add a source later if needed.',
             icon: '→',
             outcome: {
               result: 'risk',
@@ -249,7 +266,7 @@ export const mainMisinformationSegments = {
       items: [
         {
           title: 'What type of source should this claim depend on?',
-          body: 'Choose internal evidence for internal facts, and independent external evidence for market, policy, or regulatory claims.',
+          body: 'Use internal evidence for internal facts, and independent external evidence for market, policy, or regulatory claims.',
         },
         {
           title: 'Should this claim be verified, replaced, or removed?',
@@ -275,7 +292,7 @@ export const mainMisinformationSegments = {
       watch:
         'Look for claims that feel authoritative but do not yet have the evidence or source quality required for professional use.',
       emphasis:
-        'This first lab is about diagnosis. Your goal is not to prove every sentence false. Your goal is to stop unsupported precision from slipping into a document that others may treat as evidence.',
+        'This first lab is about diagnosis. Your goal is not to prove every sentence false. Your goal is to stop unsupported precision from slipping into a document that others may mistake for evidence.',
     },
     transcriptTitle: 'AI Assistant',
     context:

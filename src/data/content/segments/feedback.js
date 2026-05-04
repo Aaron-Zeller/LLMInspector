@@ -4,7 +4,7 @@ export const feedbackSegments = {
     eyebrow: 'Section 11 · Experience Feedback',
     title: 'Overall qualitative feedback',
     description:
-      'After the post assessment, learners can complete the Likert-scale feedback as a separate final step.',
+      'After the post assessment, you can complete a short final feedback step.',
   },
   'feedback-footer': {
     type: 'navigationFooter',

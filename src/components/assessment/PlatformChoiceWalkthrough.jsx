@@ -1,94 +1,38 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { cx } from '../../lib/cx.js';
+import { KeyPointList } from '../common/KeyPointList.jsx';
+import { useAssessmentStore } from '../../store/useAssessmentStore.js';
 import { Segment } from '../dev/Segment.jsx';
 
-const LENSES = [
-  { id: 'need', label: '1. Trigger' },
-  { id: 'tradeoff', label: '2. Core Risk' },
-  { id: 'failure', label: '3. Business Consequence' },
-  { id: 'control', label: '4. Manager Handbook' },
-];
-
-function LensPanel({ scenario, lensId }) {
-  if (lensId === 'need') {
-    return (
-      <div className="sdw-panel-grid">
-        <article className="sdw-panel-card sdw-panel-card--platform">
-          <h3 className="sdw-panel-card__title">{scenario.needTitle || 'Actual Need'}</h3>
-          <p className="sdw-panel-card__body">{scenario.needBody}</p>
-        </article>
-        <article className="sdw-panel-card">
-          <h3 className="sdw-panel-card__title">{scenario.needBulletsTitle || 'Why It Gets Approved In The Moment'}</h3>
-          <ul className="sdw-panel-list">
-            {scenario.needBullets.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </article>
-      </div>
-    );
-  }
-
-  if (lensId === 'tradeoff') {
-    return (
-      <div className="sdw-panel-grid">
-        <article className="sdw-panel-card sdw-panel-card--platform">
-          <h3 className="sdw-panel-card__title">{scenario.tradeoffTitle || 'Platform Trade-off'}</h3>
-          <p className="sdw-panel-card__body">{scenario.tradeoffBody}</p>
-        </article>
-        <article className="sdw-panel-card">
-          <h3 className="sdw-panel-card__title">{scenario.tradeoffBulletsTitle || 'Questions Before You Approve'}</h3>
-          <ul className="sdw-panel-list">
-            {scenario.tradeoffBullets.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </article>
-      </div>
-    );
-  }
-
-  if (lensId === 'failure') {
-    return (
-      <div className="sdw-panel-grid">
-        <article className="sdw-panel-card sdw-panel-card--platform">
-          <h3 className="sdw-panel-card__title">{scenario.consequenceTitle || 'What Happens Next'}</h3>
-          <p className="sdw-panel-card__body">{scenario.consequenceBody}</p>
-        </article>
-        <article className="sdw-panel-card">
-          <h3 className="sdw-panel-card__title">{scenario.consequenceBulletsTitle || 'What This Costs You'}</h3>
-          <ul className="sdw-panel-list">
-            {scenario.consequenceBullets.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </article>
-      </div>
-    );
-  }
-
-  return (
-    <div className="sdw-panel-grid">
-      <article className="sdw-panel-card sdw-panel-card--platform">
-        <h3 className="sdw-panel-card__title">{scenario.controlTitle || 'Your Design Move'}</h3>
-        <p className="sdw-panel-card__body">{scenario.controlBody}</p>
-      </article>
-      <article className="sdw-panel-card">
-        <h3 className="sdw-panel-card__title">{scenario.ruleBulletsTitle || 'What The Team Should Hear'}</h3>
-        <ul className="sdw-panel-list">
-          {scenario.ruleBullets.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </article>
-    </div>
-  );
+function buildAnalysis(scenario) {
+  return [
+    {
+      title: 'Summary',
+      body: scenario.summary ?? `${scenario.needBody} ${scenario.tradeoffBody}`,
+    },
+    {
+      title: 'Possible Consequences:',
+      body: scenario.consequenceBullets,
+    },
+    {
+      title: 'Questions Before You Approve:',
+      body: scenario.tradeoffBullets,
+    },
+    {
+      title: 'Guidelines:',
+      body: scenario.controlBullets ?? scenario.standardChecks,
+    },
+    {
+      title: 'What The Team Should Hear:',
+      body: scenario.ruleBullets,
+    },
+  ];
 }
 
 export function PlatformChoiceWalkthrough({ segment, segmentId }) {
   const [activeScenarioId, setActiveScenarioId] = useState(segment.scenarios[0]?.id);
-  const [activeLens, setActiveLens] = useState(LENSES[0].id);
   const [decisionSelections, setDecisionSelections] = useState({});
+  const recordDecisionCheck = useAssessmentStore((state) => state.recordDecisionCheck);
 
   const activeScenario =
     segment.scenarios.find((scenario) => scenario.id === activeScenarioId) ?? segment.scenarios[0];
@@ -115,7 +59,6 @@ export function PlatformChoiceWalkthrough({ segment, segmentId }) {
               className={cx('sdw-scenario', isActive && 'sdw-scenario--active')}
               onClick={() => {
                 setActiveScenarioId(scenario.id);
-                setActiveLens(LENSES[0].id);
               }}
               role="tab"
               aria-selected={isActive}
@@ -155,12 +98,13 @@ export function PlatformChoiceWalkthrough({ segment, segmentId }) {
                     isSelected && option.correct && 'sdw-decision__option--correct',
                     isSelected && !option.correct && 'sdw-decision__option--incorrect',
                   )}
-                  onClick={() =>
+                  onClick={() => {
                     setDecisionSelections((current) => ({
                       ...current,
                       [activeScenario.id]: option.id,
-                    }))
-                  }
+                    }));
+                    recordDecisionCheck(segmentId, activeScenario.id, option.id, option.correct);
+                  }}
                   type="button"
                 >
                   {option.label}
@@ -186,23 +130,28 @@ export function PlatformChoiceWalkthrough({ segment, segmentId }) {
 
         {selectedDecisionOption ? (
           <>
-            <div className="sdw-lenses" role="tablist" aria-label="Platform explanation steps">
-              {LENSES.map((lens) => (
-                <button
-                  key={lens.id}
-                  className={cx('sdw-lens', activeLens === lens.id && 'sdw-lens--active')}
-                  onClick={() => setActiveLens(lens.id)}
-                  role="tab"
-                  aria-selected={activeLens === lens.id}
-                  type="button"
-                >
-                  {lens.label}
-                </button>
-              ))}
-            </div>
-
             <div className="sdw-panel">
-              <LensPanel scenario={activeScenario} lensId={activeLens} />
+              <article className="sdw-panel-card">
+                <div className="sdw-panel-full-content">
+                  {buildAnalysis(activeScenario).map((block, index) => (
+                    <Fragment key={block.title ?? index}>
+                      {index > 0 ? <div className="sdw-panel-divider" /> : null}
+                      <section className="sdw-panel-section">
+                        {block.title ? (
+                          <h3 className={cx('sdw-panel-card__title', index > 0 && 'mt-6')}>
+                            {block.title}
+                          </h3>
+                        ) : null}
+                        {Array.isArray(block.body) ? (
+                          <KeyPointList items={block.body} />
+                        ) : (
+                          <p className="sdw-panel-card__body">{block.body}</p>
+                        )}
+                      </section>
+                    </Fragment>
+                  ))}
+                </div>
+              </article>
             </div>
 
             <div className="sdw-takeaway">

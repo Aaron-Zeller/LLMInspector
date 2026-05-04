@@ -8,7 +8,8 @@ export const mainOversightSegments = {
   'main-agency-outcomes': {
     type: 'contentCards',
     tone: 'output',
-    description: 'This section is about who keeps the steering wheel once the model can do more than generate text.',
+    description:
+      'This section asks who stays in control once the model can do more than generate text.',
     columns: 2,
     cards: [
       {
@@ -25,14 +26,14 @@ export const mainOversightSegments = {
     type: 'agencyWalkthrough',
     title: 'Walk through how “helpful automation” becomes unsafe autonomy',
     description:
-      'Each case shows what power the system received, where the boundary disappeared, and what supervision rule you should have required first.',
+      'Each case shows what power the system received, where the boundary disappeared, and what supervision rule should have existed first.',
     scenarios: [
       {
         id: 'customer-replies',
         role: 'Your Situation',
         headline: 'A support workflow can draft and send customer replies without waiting for an agent.',
         context:
-          'The benefit is obvious: faster response times and less queue pressure. The real question is whether a customer-facing system should ever cross the line from drafting to sending on its own.',
+          'The benefit is obvious: faster response times and less queue pressure. The real question is whether a customer-facing system should ever move from drafting to sending on its own.',
         riskLabel: 'Outbound Authority',
         decisionPrompt:
           'Which boundary is stronger when AI is involved in customer messaging?',
@@ -95,13 +96,13 @@ export const mainOversightSegments = {
     eyebrow: 'Interactive Lab',
     title: 'Configure the agent before you deploy it',
     description:
-      'Your team is deploying an AI agent across three workflows. For each capability, decide how much authority the agent should have before the first run. Then see what happens when those choices are in effect.',
+      'Your team is deploying an AI agent across three workflows. For each capability, decide how much authority the agent should receive before the first run, then see what those choices produce in practice.',
     frame: {
       role: 'You are setting the permission boundary before an internal AI agent goes live across multiple workflows.',
       watch:
         'Pay attention to the moment assistance turns into authority: sending, approving, or changing something real without a person stopping it.',
       emphasis:
-        'This lab matters because permission decisions look harmless in the setup screen. Their consequences only become visible once the agent acts at speed.',
+        'This lab matters because permission decisions often look harmless in the setup screen. Their consequences only become visible once the agent starts acting at speed.',
     },
     debrief: {
       eyebrow: 'After the Lab',

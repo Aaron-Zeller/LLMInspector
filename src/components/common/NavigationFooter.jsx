@@ -18,6 +18,7 @@ export function NavigationFooter({ segment, segmentId }) {
     !segment.nextRequiresCompletion?.length ||
     segment.nextRequiresCompletion.every((id) => completedLabs[id]);
   const hasNext = Boolean(segment.nextPageId || segment.nextMode || segment.action) && completionGatePassed;
+  const hasLockedNext = Boolean(segment.nextPageId || segment.nextMode || segment.action) && !completionGatePassed;
   const feedbackComplete = Object.values(feedbackResponses).every((value) => Number.isInteger(value));
   const shouldDisableSubmit =
     segment.action === 'submitPostFlow' &&
@@ -61,6 +62,8 @@ export function NavigationFooter({ segment, segmentId }) {
         >
           {segment.nextLabel ?? 'Continue →'}
         </button>
+      ) : hasLockedNext ? (
+        <p className="footer-nav__gate">Complete this lab once to unlock the next section.</p>
       ) : (
         <div />
       )}

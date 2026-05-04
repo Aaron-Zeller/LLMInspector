@@ -4,38 +4,42 @@ export const mainOutputSegments = {
     tone: 'output',
     eyebrow: 'Section 7 · Excessive Agency and Human Oversight',
     title: 'Keep powerful AI workflows inside real human boundaries',
+    frame: {
+      label: 'Your role in this section',
+      body: 'You are deciding what happens after AI generates something useful, and where a human gate must remain before the workflow can act.',
+    },
   },
   'main-output-outcomes': {
     type: 'contentCards',
     tone: 'output',
     description:
-      'This merged section is about two linked questions: what happens after generation, and when a helpful system has quietly gained too much authority.',
+      'This section brings together two linked questions: what happens after generation, and when a helpful system has quietly gained too much authority.',
     columns: 2,
     cards: [
       {
         tone: 'output',
         body:
-          'Match the review gate to the consequence of being wrong, especially when output influences customers, approvals, or operational systems. Distinguish a useful automation from an unsafe autonomy jump that removes the human gate from a high-impact action.',
+          'Part 1: match the review gate to the consequence of being wrong, especially when output influences customers, approvals, or operational systems.',
       },
       {
         tone: 'output',
         body:
-          'Keep permissions, escalation paths, and accountability attached to a real person or role even when the workflow moves at machine speed.',
+          'Part 2: distinguish useful automation from unsafe autonomy, and keep permissions, escalation paths, and accountability attached to a real person or role.',
       },
     ],
   },
   'main-output-workflows': {
     type: 'outputHandlingWalkthrough',
-    title: 'See how small review skips become downstream failures',
+    title: 'Part 1 · See how small review skips become downstream failures',
     description:
-      'Each case shows what moved forward, which gate disappeared, and what you should have required before the handoff.',
+      'Each case shows what moved forward, which gate disappeared, and what should have been required before the handoff.',
     scenarios: [
       {
         id: 'bulk-email',
         role: 'Your Situation',
         headline: 'A campaign draft looks routine, so the team is tempted to let it send on schedule.',
         context:
-          'The output is not malicious and the wording is mostly fine. The risk comes from pushing it into a high-volume channel before anyone checks whether the final message is actually ready.',
+          'The output is not malicious and the wording is mostly fine. The risk comes from sending it into a high-volume channel before anyone checks whether the final message is actually ready.',
         riskLabel: 'Customer Impact',
         decisionPrompt:
           'What is the safer stance when AI output is about to reach hundreds of customers at once?',
@@ -92,6 +96,15 @@ export const mainOutputSegments = {
       },
     ],
   },
+  'main-output-bridge': {
+    type: 'moduleIntro',
+    tone: 'output',
+    paragraphs: [
+      '**Part 2 · Excessive agency** begins where output review ends.',
+      'The question is no longer whether the answer looks plausible. It is whether the system has been given authority to send, approve, or change something real without a person stopping it first.',
+      'Keep the same managerial lens, but shift the checkpoint: you are now judging permissions and authority, not only output quality.',
+    ],
+  },
   'main-output-approve-escalate': {
     type: 'approveOrEscalate',
     tone: 'output',
@@ -99,13 +112,13 @@ export const mainOutputSegments = {
     eyebrow: 'Interactive Lab',
     title: 'Approve or Escalate?',
     description:
-      'Seven workplace scenarios. An AI output is already in front of you. Choose how it should move next: approve, review, or escalate. A cumulative risk meter shows what those choices add up to over time.',
+      'Five workplace scenarios. An AI output is already in front of you. Decide what should happen next: approve, review, or escalate. A cumulative risk meter shows what those choices add up to over time.',
     frame: {
       role: 'You are the person deciding what happens after the AI has already produced a usable-looking output.',
       watch:
-        'Do not ask only whether the draft looks reasonable. Ask what kind of consequence follows if you let it move now.',
+        'Do not ask only whether the draft looks reasonable. Ask what follows if you let it move now.',
       emphasis:
-        'This lab is about downstream judgement. The failure pattern is not only a wrong answer. It is a workflow that let the wrong answer keep travelling.',
+        'This lab is about downstream judgement. The failure pattern is not only a wrong answer. It is a workflow that lets the wrong answer keep travelling.',
     },
     scenarios: [
       {
@@ -169,66 +182,6 @@ export const mainOutputSegments = {
         ],
       },
       {
-        id: 'aoe-s2',
-        title: 'Customer Courtesy Credit',
-        urgency: 'Customer waiting · 1 day unresolved',
-        context:
-          'A customer contacted support after experiencing a 4-hour service outage. Your AI case system has assessed the complaint and recommends a €75 courtesy credit. Policy permits AI-assisted credits up to €200 without approval. The AI has correctly identified the outage in the system log.',
-        aiOutputTitle: 'AI Case Decision',
-        aiOutput:
-          'Complaint Assessment: VALID\nService disruption confirmed: 4h 12m on Oct 14\nRecommended resolution: Courtesy credit: €75.00\nPolicy check: Within automated approval ceiling (€200 max)\nStatus: Awaiting operator confirmation.',
-        options: [
-          {
-            id: 'approve',
-            icon: '✅',
-            label: 'Approve',
-            sublabel: 'Confirm the credit',
-            riskDelta: 0,
-            consequence: {
-              tone: 'success',
-              verdict: 'Correct call',
-              title: 'Policy used as intended',
-              body:
-                'The AI correctly identified a valid complaint and proposed a resolution within the approved ceiling. You confirmed it promptly. The customer received the credit within the hour and the case closed cleanly.',
-              lesson:
-                'Threshold controls and policy ceilings exist precisely so that routine, validated decisions can proceed without bottlenecks. Trusting the process here is the correct behaviour. The human role was to confirm, not re-investigate.',
-            },
-          },
-          {
-            id: 'review',
-            icon: '🔍',
-            label: 'Review the Case',
-            sublabel: 'Verify the outage log',
-            riskDelta: 0,
-            consequence: {
-              tone: 'success',
-              verdict: 'Cautious but fine',
-              title: 'Verified and approved',
-              body:
-                'You checked the system log directly, confirmed the 4-hour outage, and approved the credit. This added 8 minutes and confirmed what the AI had already found correctly.',
-              lesson:
-                'Reviewing a within-policy recommendation you are unsure about is a reasonable choice. Just be aware of the cost: if every within-ceiling decision gets individually reviewed, the automation ceiling loses its purpose.',
-            },
-          },
-          {
-            id: 'escalate',
-            icon: '⛔',
-            label: 'Escalate',
-            sublabel: 'Send to manager for sign-off',
-            riskDelta: 5,
-            consequence: {
-              tone: 'warn',
-              verdict: 'Unnecessary overhead',
-              title: 'Manager approved without changes',
-              body:
-                'Your manager reviewed the case and approved the €75 credit. The process added 3 hours to the resolution time. No issues were identified. The manager noted that within-ceiling decisions do not require escalation.',
-              lesson:
-                'Escalating decisions that fall within the approved automation ceiling signals either a lack of trust in the policy or uncertainty about your own authority. Both can be addressed by clarifying what the policy boundary actually means.',
-            },
-          },
-        ],
-      },
-      {
         id: 'aoe-s3',
         title: 'Marketing Email with Placeholder Error',
         urgency: 'Campaign launches in 2 hours',
@@ -284,66 +237,6 @@ export const mainOutputSegments = {
                 'The marketing lead eventually identified the placeholder error, but the review took 3 hours and the campaign missed its optimal send window. The error was caught before it reached customers.',
               lesson:
                 'Escalating to a manager for a content review task adds overhead that was not necessary here. The issue was findable with a direct read. Marketing content errors are within the campaign manager\'s authority to catch and fix. The right call was a direct review, not a handoff.',
-            },
-          },
-        ],
-      },
-      {
-        id: 'aoe-s4',
-        title: 'Scheduled Maintenance Notification',
-        urgency: 'Routine · Maintenance window in 48 hours',
-        context:
-          'Your AI operations assistant has drafted a maintenance window notification for internal staff. The outage is a planned 3-hour infrastructure update confirmed by the ops team. The notification is internal-only, contains no sensitive data, and follows the standard format.',
-        aiOutputTitle: 'AI Draft: Internal Maintenance Notice',
-        aiOutput:
-          'PLANNED MAINTENANCE NOTICE\n\nDate: Saturday, October 26 | 02:00–05:00 CET\nImpacted systems: Customer portal, internal CRM\nAction required: Save all work before 01:45 CET\n\nFor urgent issues during the window, contact ops-on-call@company.com\n\nThis notice has been generated and verified against the confirmed maintenance schedule.',
-        options: [
-          {
-            id: 'approve',
-            icon: '✅',
-            label: 'Approve',
-            sublabel: 'Send to all staff',
-            riskDelta: 0,
-            consequence: {
-              tone: 'success',
-              verdict: 'Correct call',
-              title: 'Routine communication handled efficiently',
-              body:
-                'The notification was accurate, internally sourced, and non-sensitive. Staff received advance notice with clear instructions. No issues arose.',
-              lesson:
-                'Standardised internal operational communications are an ideal use case for AI-assisted automation. When the content is verified against a system of record and the audience is internal, routine approval is appropriate.',
-            },
-          },
-          {
-            id: 'review',
-            icon: '🔍',
-            label: 'Review the Draft',
-            sublabel: 'Cross-check the schedule',
-            riskDelta: 3,
-            consequence: {
-              tone: 'warn',
-              verdict: 'Correct but cautious',
-              title: 'No changes needed: 15 minutes spent',
-              body:
-                'You cross-referenced the maintenance window against the ops calendar. Everything matched. The notification went out unchanged.',
-              lesson:
-                "Cross-checking a maintenance notice against a source you trust is a reasonable instinct, but for routine operational communications the overhead may not be justified. If you find yourself reviewing this type of output every time, consider whether the review adds real value or just adds friction.",
-            },
-          },
-          {
-            id: 'escalate',
-            icon: '⛔',
-            label: 'Escalate',
-            sublabel: 'Get ops lead sign-off',
-            riskDelta: 5,
-            consequence: {
-              tone: 'warn',
-              verdict: 'Unnecessary escalation',
-              title: 'Ops lead approved without changes: 40 minutes added',
-              body:
-                'The ops lead confirmed the maintenance window matched the schedule and approved the notification unchanged. The delay reduced the lead time staff had to prepare.',
-              lesson:
-                'Operational notifications generated from a verified source and addressed to internal staff do not require management escalation. Routing routine approvals through a senior resource increases process latency without improving outcomes.',
             },
           },
         ],
@@ -553,6 +446,7 @@ export const mainOutputSegments = {
     previousPageId: 'main-misinformation',
     nextRequiresCompletion: ['main-output-approve-escalate'],
     nextPageId: 'main-platform-choice',
+    caption: 'The lab is intentionally short and high-stakes: five decisions, one accumulated risk pattern.',
     nextLabel: 'Go to Platform Choice →',
   },
 };

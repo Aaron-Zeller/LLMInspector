@@ -5,22 +5,22 @@ export function LockedLabNotice({ segment, segmentId, requirementCount, missingC
   const needsMultiple = requirementCount > 1;
 
   let body =
-    'Complete the decision check above correctly to unlock this lab.';
+    'Use the decision check above to set the boundary first. Once it is answered in the stronger direction, this lab opens.';
 
   if (needsMultiple) {
     body =
-      'Complete each decision check above correctly to unlock this lab.';
+      'Work through the decision checks above first. This lab opens once each one is answered in the stronger direction.';
   }
 
   if (hasIncorrect && needsMultiple) {
     body =
-      'One or more decision checks above are still answered in the weaker direction. Revisit them and choose the stronger management move to unlock this lab.';
+      'One or more decision checks above still point in the weaker direction. Revisit them and choose the stronger management move before continuing.';
   } else if (hasIncorrect) {
     body =
-      'The current decision check above is still answered in the weaker direction. Revisit it and choose the stronger management move to unlock this lab.';
+      'The current decision check above still points in the weaker direction. Revisit it and choose the stronger management move before continuing.';
   } else if (missingCount > 0 && needsMultiple) {
     body =
-      'Work through the decision checks above first. This lab unlocks once each one is answered correctly.';
+      'Work through the decision checks above first. This lab opens once each one is answered in the stronger direction.';
   }
 
   return (
@@ -38,6 +38,9 @@ export function LockedLabNotice({ segment, segmentId, requirementCount, missingC
       <div className="lab-lock__card">
         <p className="lab-lock__label">Lab Locked</p>
         <p className="lab-lock__body">{body}</p>
+        <p className="lab-lock__subtle">
+          You can still review the case analysis above before you come back into the simulation.
+        </p>
       </div>
     </Segment>
   );

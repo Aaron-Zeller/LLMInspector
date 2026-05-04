@@ -4,9 +4,9 @@ export const overviewSegments = {
     eyebrow: 'ETH Zurich · AI Literacy Initiative',
     title: 'How AI-literate is your organisation?',
     description:
-      'A structured learning experience on what employees put into LLMs, what models give back, and where responsibility stays human.',
+      'A structured learning experience on what employees put into LLMs, what models return, and where responsibility remains human.',
     helper:
-      'The flow moves from the overview to the pre assessment, into the teaching content, through the post assessment, and ends with a short feedback step.',
+      'You begin with a short baseline assessment, work through five manager-focused scenario sections with guided examples and labs, and finish with a mirrored post assessment plus a short feedback step.',
     actionLabel: 'Begin assessment',
     nextPageId: 'pre-assessment',
   },
@@ -14,14 +14,6 @@ export const overviewSegments = {
     type: 'domainGrid',
     title: 'How the website is organised',
     description:
-      'The main teaching section first separates input and output risk, then walks through the major problems one by one before ending with platform choice.',
-  },
-  'overview-callout': {
-    type: 'callout',
-    variant: 'info',
-    icon: 'ℹ',
-    title: 'Confidential assessment',
-    body:
-      'Throughout the experience, “privacy” is treated as input risk and “security” as output risk. On the site, those are framed more clearly as Input Governance and Output Assurance.',
+      'The core scenario sequence first separates input and output risk, then works through the major issues one by one before closing with platform choice.',
   },
 };

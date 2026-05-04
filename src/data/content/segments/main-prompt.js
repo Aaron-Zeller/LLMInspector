@@ -4,17 +4,21 @@ export const mainPromptSegments = {
     tone: 'input',
     eyebrow: 'Section 5 · Prompt Injection',
     title: 'Why and how untrusted content can steer the model',
+    frame: {
+      label: 'Your role in this section',
+      body: 'You are deciding what authority external content should have inside a workflow, and where the model must be constrained before it can act further.',
+    },
   },
   'main-prompt-outcomes': {
     type: 'contentCards',
     tone: 'input',
     description:
-      'Now we will see that inputs can also manipulate the model itself through hidden or indirect instructions. By the end of this section, you will be able to:',
+      'This section shows that inputs do not only carry data. They can also carry instructions that influence the model in ways the user never intended. By the end of this section, you will be able to:',
     columns: 2,
     cards: [
       {
         tone: 'input',
-        body: 'Explain how documents, websites, or messages can change model behaviour in a malicious way',
+        body: 'Explain how documents, websites, or messages can change model behaviour in malicious ways.',
       },
       {
         tone: 'input',
@@ -26,13 +30,13 @@ export const mainPromptSegments = {
     type: 'promptInjectionWalkthrough',
     title: 'Experience the risks firsthand',
     description:
-      'This example shows how retrieved content can quietly steer a model unless you set a strict boundary first.',
+      'This example shows how retrieved content can quietly steer a model unless the workflow sets a clear boundary first.',
     scenarios: [
       {
         role: 'Your Situation',
         headline: 'A team asks the model to browse, retrieve, or summarise content from external websites.',
         context:
-          'Automated retrieval feels safe because the user isn\'t manually pasting text. In practice, it still imports unchecked external text directly into the model’s instruction stream.',
+          'Automated retrieval feels safe because no one is manually pasting text. In practice, it still brings unchecked external content directly into the model’s instruction stream.',
         riskLabel: 'External Source Risk',
         decisionPrompt:
           'Which approval stance is stronger when a workflow retrieves outside content?',
@@ -54,7 +58,7 @@ export const mainPromptSegments = {
         analysis: [
           {
             title: 'Summary',
-            body: 'Retrieved external content enters the model context automatically, so untrusted text can start steering the answer before anyone notices.',
+            body: 'Retrieved content enters the model context automatically, so untrusted text can begin steering the answer before anyone notices.',
           },
           {
             title: 'Possible Consequences:',
@@ -96,13 +100,13 @@ export const mainPromptSegments = {
     eyebrow: 'Interactive Lab',
     title: 'Corrupted Document Walkthrough',
     description:
-      'Run the workflow as the approving manager and watch how a routine-looking document can steer a tool-using agent past the boundary you thought was in place.',
+      'Run the workflow as the approving manager and see how a routine-looking document can push a tool-using agent past the boundary you thought was in place.',
     frame: {
       role: 'You are reviewing an internal AI assistant that can read documents and use real HR tools.',
       watch:
-        'The issue is no longer just a bad summary. A hidden instruction can trigger real actions if the model has tool access.',
+        'The issue is no longer just a bad summary. With tool access, a hidden instruction can trigger real actions.',
       emphasis:
-        'The document carries a hidden instruction. Because the model has tool access, it queries data and sends it out without asking.',
+        'The document carries a hidden instruction. Because the model has tool access, it queries data and sends it externally without asking.',
     },
     debrief: {
       eyebrow: 'After the Lab',

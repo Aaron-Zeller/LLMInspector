@@ -1,21 +1,23 @@
 export const mainPartSegments = {
   'main-header': {
     type: 'pageHeader',
-    eyebrow: 'Section 3 · Main Part',
-    title: 'Introduction',
+    eyebrow: 'Section 3 · Core Scenarios',
+    title: 'How the core scenarios work',
+    description:
+      'The next five sections move from input risk to output risk and platform choice. In each one, you first decide what rule a manager should set, then test that judgement in practice.',
   },
   'main-intro': {
     type: 'moduleIntro',
     paragraphs: [
-      'Modern LLM models are build upon decades, if not centuries, of scientific work, so it is a near impossible task for a single person to fully grasp all inner workings of such models. On the bright side, it is a pretty common situation in our modern complex world. A pilot operating an airplane doesn’t need to hold a PhD in aerodynamics, mechanical engineering and many other disciplines to responsibly operate the vehicle. Same holds for doctors using MRI machines, and so on. ',
-      'During this course we will treat the LLM itself as a a ”black box” and develop an intuition regarding what and how to feed to this magical item as input and how to evaluate the results it produces. ',
+      'You do not need to understand every internal mechanism of a large language model in order to manage its use well. What matters here is not model theory, but practical judgement: what your teams may give the system, what they may trust from it, and where human responsibility must stay visible.',
+      'Each scenario in this course is built around a management decision. You first identify the boundary, review gate, or platform rule that should exist. Then you apply that judgement in a short interactive exercise that shows what happens if the rule is weak, missing, or well designed.',
     ],
   },
   'main-footer': {
     type: 'navigationFooter',
     previousPageId: 'pre-assessment',
     nextPageId: 'main-sensitive-disclosure',
-    caption: 'Section 3 of 12',
+    caption: 'This page frames the five core scenario sections that follow.',
     nextLabel: 'Go to Sensitive Information Disclosure →',
   },
 };

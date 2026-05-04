@@ -4,28 +4,27 @@ export const mainPlatformSegments = {
     tone: 'platform',
     eyebrow: 'Section 8 · Platform Choice',
     title: 'Different tools create different governance choices',
+    frame: {
+      label: 'Your role in this section',
+      body: 'You are deciding which environment fits the work, and what governance obligations come with that choice before usage becomes routine.',
+    },
   },
   'main-platform-outcomes': {
     type: 'contentCards',
     tone: 'platform',
     description:
-      'The question is not which brand feels smartest. It is which environment fits the work, the data, and your oversight model.',
-    columns: 3,
+      'The real question is not which brand feels smartest. It is which environment fits the work, the data, and your oversight model.',
+    columns: 2,
     cards: [
       {
         tone: 'platform',
         body:
-          'Recognise that two platforms can feel similarly capable while creating very different data, admin, and oversight implications.',
+          'Recognise that two platforms can feel similarly capable while creating very different implications for data, administration, and oversight.',
       },
       {
         tone: 'platform',
         body:
-          'Distinguish when a public tool is inappropriate, when an enterprise instance may be enough, and when a local or internal deployment is worth the operational cost.',
-      },
-      {
-        tone: 'platform',
-        body:
-          'Evaluate storage, training use, admin controls, retention, and oversight before teams normalise a tool through convenience alone.',
+          'Distinguish when a public tool is inappropriate, when an enterprise instance may be enough, and when local deployment is worth the operational burden.',
       },
     ],
   },
@@ -33,7 +32,7 @@ export const mainPlatformSegments = {
     type: 'platformChoiceWalkthrough',
     title: 'Walk through the platform decision the way it actually appears at work',
     description:
-      'Each case shows the business need, the trade-off, the failure mode, and the governance move you should require.',
+      'Each case shows the business need, the trade-off, the failure mode, and the governance move that should be required.',
     scenarios: [
       {
         id: 'public-cloud',
@@ -42,7 +41,9 @@ export const mainPlatformSegments = {
         role: 'Your Situation',
         headline: 'A team wants to use a popular public AI tool immediately because it is fast, accessible, and already familiar.',
         context:
-          'The business need is real: faster drafting, summarisation, or ideation. The problem is that convenience can make the platform decision happen before anyone has asked what happens to the data afterward.',
+          'The business need is real: faster drafting, summarisation, or ideation. The problem is that convenience can make the platform decision happen before anyone asks what happens to the data afterward.',
+        summary:
+          'The team genuinely needs speed, but convenience can turn an unexamined platform choice into de facto policy before any boundary has been set.',
         riskLabel: 'Public Cloud Risk',
         decisionPrompt:
           'What is the stronger first move when a public tool is the fastest option available?',
@@ -63,7 +64,7 @@ export const mainPlatformSegments = {
         ],
         needTitle: 'The team genuinely needs speed',
         needBody:
-          'Public tools remove friction: no procurement delay, low onboarding effort, and familiar interfaces. That makes them attractive even for teams that have not yet defined what data they should never receive.',
+          'Public tools remove friction: no procurement delay, low onboarding effort, and familiar interfaces. That makes them attractive even when teams have not yet defined what data those tools should never receive.',
         needBulletsTitle: 'Why It Gets Approved In The Moment',
         needBullets: [
           'The entry barrier is low',
@@ -81,7 +82,7 @@ export const mainPlatformSegments = {
         ],
         consequenceTitle: 'The tool becomes standard before the rules exist',
         consequenceBody:
-          'If the team adopts the platform casually, input risk, prompt-injection exposure, and weak output discipline all start living inside a tool the organisation has not actually governed.',
+          'If the team adopts the platform casually, input risk, prompt-injection exposure, and weak output discipline all end up living inside a tool the organisation has not actually governed.',
         consequenceBulletsTitle: 'What This Costs You',
         consequenceBullets: [
           'Sensitive work may drift into an unsuitable environment',
@@ -136,7 +137,9 @@ export const mainPlatformSegments = {
         role: 'Your Situation',
         headline: 'The organisation considers an enterprise version of a mainstream platform because it offers admin controls and stronger contractual guarantees.',
         context:
-          'This is often the most realistic middle ground: familiar capability with clearer governance. The mistake is assuming this solves every risk just because the contract looks stronger.',
+          'This is often the most realistic middle ground: familiar capability with clearer governance. The mistake is assuming it solves every risk just because the contract is stronger.',
+        summary:
+          'An enterprise platform can improve the environment substantially, but it still needs internal rules for data, access, and output use if the approval is going to mean anything in practice.',
         riskLabel: 'Managed Cloud Trade-off',
         decisionPrompt:
           'What is the stronger governance stance when an enterprise cloud instance is available?',
@@ -230,6 +233,8 @@ export const mainPlatformSegments = {
         headline: 'The organisation considers hosting a model internally to avoid sending sensitive information to a public cloud.',
         context:
           'This is often the most attractive option for privacy-sensitive work. The governance mistake is assuming “local” automatically means “safe enough” without examining capability, maintenance, and output risk.',
+        summary:
+          'Internal hosting can improve the privacy boundary, but it also moves responsibility inward. The governance question is no longer just where the model runs, but who owns it once it does.',
         riskLabel: 'Operational Shift',
         decisionPrompt:
           'What is the stronger stance when a local or internal model seems safest on paper?',
@@ -318,48 +323,19 @@ export const mainPlatformSegments = {
       },
     ],
   },
-  'main-platform-cloud': {
-    type: 'contentCards',
-    eyebrow: 'Platform Paths',
-    title: 'Three platform paths and the governance logic behind each one',
-    description:
-      'Focus on the structural path you are choosing, what it enables, and what governance burden comes with it.',
-    columns: 3,
-    cards: [
-      {
-        tone: 'platform',
-        eyebrow: 'Path 1',
-        title: 'Public consumer cloud',
-        body:
-          'Fast adoption and low friction, but usually the weakest clarity around organisational control, retention, and visibility. Use only with narrow scope boundaries and explicit exclusions.',
-      },
-      {
-        tone: 'platform',
-        eyebrow: 'Path 2',
-        title: 'Enterprise cloud instance',
-        body:
-          'Usually the most practical middle ground: stronger contracts and admin controls, but still not a substitute for internal policy, role design, and output review.',
-      },
-      {
-        tone: 'platform',
-        eyebrow: 'Path 3',
-        title: 'Local or internal deployment',
-        body:
-          'Potentially the strongest data boundary, but only if the organisation is ready to own the operating burden, permissions, maintenance, and continuing oversight.',
-      },
-    ],
-  },
   'main-platform-close': {
     type: 'callout',
     variant: 'platform',
     icon: '◆',
-    title: 'Your final decision rule',
+    title: 'Default decision order',
     body:
-      'Choose the platform path whose controls, ownership, and review expectations fit the work. Better infrastructure never replaces your internal boundaries, approval rules, or review discipline.',
+      'When you are choosing between the three paths, do not start with brand familiarity. Start with data sensitivity, the governance burden, and the amount of authority the workflow will eventually carry.',
     points: [
-      'Decide which work may stay in public tools and which must move elsewhere.',
+      'Start with the narrowest acceptable public-tool scope, not with broad convenience.',
+      'Move to an enterprise instance when teams need wider use, admin control, and clearer contractual boundaries.',
+      'Choose local or internal deployment only when the privacy boundary matters enough to justify real platform ownership, maintenance, and continuing oversight.',
       'Separate platform approval from workflow approval and output approval.',
-      'Assign ownership for admin settings, retention, and review standards before rollout.',
+      'If no one can name the owner of retention, permissions, and review standards, the platform is not ready for routine use.',
     ],
   },
   'main-platform-footer': {

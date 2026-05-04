@@ -6,13 +6,13 @@ export const preAssessmentSegments = {
     eyebrow: 'Section 1 · Pre Assessment',
     title: 'Pre assessment',
     description:
-      'This is the current assessment in its existing form. For now it stays intact and serves as the baseline before the main teaching content.',
+      'This assessment captures the starting point before the main learning content begins.',
   },
   'pre-intro': {
     type: 'moduleIntro',
     paragraphs: [
-      'The pre assessment is intentionally unchanged for now. It captures the learner’s starting point before they move through the revised content structure.',
-      'The post assessment will mirror this section exactly so later comparisons stay straightforward.',
+      'The pre assessment is intentionally kept stable so it can serve as a clean baseline.',
+      'The post assessment mirrors this section exactly, making the before-and-after comparison easier to interpret.',
     ],
   },
   'pre-questions': {

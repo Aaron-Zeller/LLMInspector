@@ -1,16 +1,14 @@
 import { NAV_SECTIONS } from '../../data/assessmentContent.js';
-import { useAssessmentStore } from '../../store/useAssessmentStore.js';
 import { Segment } from '../dev/Segment.jsx';
 
 export function SectionProgress({ pageId }) {
-  const currentPageId = useAssessmentStore((state) => state.currentPageId);
   const activeSection = NAV_SECTIONS.find((section) => section.pageIds.includes(pageId));
 
   if (!activeSection || activeSection.pageIds.length <= 1) {
     return null;
   }
 
-  const currentIndex = Math.max(activeSection.pageIds.indexOf(currentPageId), 0);
+  const currentIndex = Math.max(activeSection.pageIds.indexOf(pageId), 0);
   const totalPages = activeSection.pageIds.length;
   const progress = ((currentIndex + 1) / totalPages) * 100;
 

@@ -62,7 +62,7 @@ export function SourceVerification({ segment, segmentId }) {
             >
               <p className="sv-claim__label">Claim {index + 1}</p>
               <p className="sv-claim__text">{claim.text}</p>
-              <p className="sv-claim__move-label">Choose the strongest move before this claim travels further.</p>
+              <p className="sv-claim__move-label">{claim.moveLabel ?? 'Choose the strongest move before this claim travels further.'}</p>
 
               <div className="sv-claim__options">
                 {claim.options.map((option) => {

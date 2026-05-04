@@ -11,9 +11,8 @@ export const NAV_SECTIONS = [
   },
   {
     id: 'main-part',
-    label: 'Risk Scenarios',
+    label: 'Core Scenarios',
     pageIds: [
-      'main-part',
       'main-sensitive-disclosure',
       'main-prompt-injection',
       'main-misinformation',
@@ -90,6 +89,7 @@ export const PAGE_SEQUENCE = [
       'main-output-header',
       'main-output-outcomes',
       'main-output-workflows',
+      'main-output-bridge',
       'main-agency-intro',
       'main-output-approve-escalate',
       'main-output-footer',
@@ -110,7 +110,7 @@ export const PAGE_SEQUENCE = [
   {
     id: 'post-assessment',
     label: 'Post Assessment',
-    segmentIds: ['post-header', 'post-questions', 'post-footer'],
+    segmentIds: ['post-header', 'post-intro', 'post-questions', 'post-footer'],
   },
   {
     id: 'experience-feedback',

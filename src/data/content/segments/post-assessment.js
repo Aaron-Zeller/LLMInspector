@@ -6,12 +6,12 @@ export const postAssessmentSegments = {
     eyebrow: 'Section 10 · Post Assessment',
     title: 'Post assessment',
     description:
-      'The post assessment is a direct copy of the pre assessment, so later comparison remains clean and intentional.',
+      'The post assessment mirrors the pre assessment so the comparison remains clean and interpretable.',
   },
   'post-intro': {
     type: 'moduleIntro',
     paragraphs: [
-      'This section mirrors the pre assessment as requested. The point is not a new structure here, but a stable before-and-after comparison.',
+      'This section uses the same structure as the pre assessment. The goal is not variety here, but a stable before-and-after comparison.',
     ],
   },
   'post-questions': {
@@ -24,7 +24,7 @@ export const postAssessmentSegments = {
     eyebrow: 'Experience Feedback',
     title: 'Feedback on the overall experience',
     description:
-      'Please rate the experience before submitting. These responses are stored anonymously alongside the pre and post assessment outcomes.',
+      'Please rate the experience before submitting. These responses are stored anonymously alongside the pre and post assessment results.',
   },
   'post-footer': {
     type: 'navigationFooter',
