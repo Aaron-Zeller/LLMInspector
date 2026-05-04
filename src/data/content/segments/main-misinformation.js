@@ -38,66 +38,51 @@ export const mainMisinformationSegments = {
           'What is the safer move when an AI-generated memo includes a polished legal or policy citation?',
         decisionOptions: [
           {
-            id: 'use-internal',
-            label: 'Use the memo internally first and verify the citation only if someone challenges it later.',
-            feedback:
-              'This gives the claim authority before you know whether it is real. Internal circulation can still change decisions, expectations, and team behaviour.',
-          },
-          {
             id: 'check-source',
             label: 'Open the underlying source or remove the citation before the memo becomes guidance.',
             feedback:
               'This is the stronger move. Policy statements should not rest on citations that nobody has actually checked.',
             correct: true,
           },
+          {
+            id: 'use-internal',
+            label: 'Use the memo internally first and verify the citation only if someone challenges it later.',
+            feedback:
+              'This gives the claim authority before you know whether it is real. Internal circulation can still change decisions, expectations, and team behaviour.',
+          },
         ],
         analysis: [
           {
-            title: 'The surface claim',
-            body: 'A calm tone, exact article references, and policy-style wording make the answer feel lower-risk than it really is.',
+            title: 'Summary',
+            body: 'A calm tone, exact article references, and policy-style wording can make a weak claim feel far more reliable than it actually is.',
           },
           {
-            title: 'Why It Gets Approved In The Moment',
+            title: 'Possible Consequences:',
             body: [
-              'Formal tone can mask weak sourcing',
-              'Citation formatting signals authority even when the reference is wrong',
-              'Managers may trust guidance that sounds careful more than they test it',
+              'Teams can align around a rule that does not exist or does not apply to the situation.',
+              'Later corrections weaken trust in internal guidance and review standards.',
+              'Escalation and cleanup get harder once the weak guidance has already spread.',
             ],
           },
           {
-            title: 'The model mechanism',
-            body: 'The answer may reproduce the style of a compliance memo without grounding the statement in an actual policy, law, or internal standard.',
-          },
-          {
-            title: 'Questions Before You Approve',
+            title: 'Questions Before You Approve:',
             body: [
-              'The citation may be invented or misapplied',
-              'The summary may flatten important conditions or exceptions',
-              'Internal guidance can drift if the source is never opened',
+              'Has anyone opened the underlying source, or are we trusting the citation format alone?',
+              'Could the summary be flattening exceptions, conditions, or context that matter to the decision?',
             ],
           },
           {
-            title: 'The organisation starts following a rule that may not exist',
-            body: 'If the memo is used as guidance, teams can align around a false requirement or a false permission. That creates governance confusion even before any external problem appears.',
-          },
-          {
-            title: 'What This Costs You',
+            title: 'Guidelines:',
             body: [
-              'Teams may act on a rule that has no real source basis',
-              'Later corrections reduce confidence in internal guidance',
-              'Escalations become harder once bad guidance has spread',
+              'If a statement sounds like policy, law, or compliance instruction, the underlying source should be opened and checked before distribution.',
+              'Remove legal-looking claims that cannot be traced quickly to a real source.',
             ],
           },
           {
-            title: 'Require source-opening for policy claims',
-            body: 'If a statement sounds like policy, law, or compliance instruction, the underlying source should be opened, read, and attributable before the claim is distributed.',
-          },
-          {
-            title: 'What The Team Should Hear',
+            title: 'What The Team Should Hear:',
             body: [
-              'Open the cited source before the memo becomes guidance',
-              'Remove legal-looking claims that cannot be traced quickly',
-              'Escalate ambiguous policy questions rather than letting AI settle them',
+              'Open the cited source before the memo becomes guidance.',
+              'Escalate ambiguous policy questions rather than letting AI settle them by default.',
             ],
           },
         ],

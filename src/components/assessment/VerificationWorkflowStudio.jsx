@@ -43,7 +43,6 @@ export function VerificationWorkflowStudio({ segment, segmentId }) {
             <p className="sdw-case__label">{activeScenario.role}</p>
             <h3 className="sdw-case__title">{activeScenario.headline}</h3>
           </div>
-          <span className="sdw-case__risk sdw-case__risk--output">{activeScenario.riskLabel}</span>
         </div>
         <p className="sdw-case__context">{activeScenario.context}</p>
 

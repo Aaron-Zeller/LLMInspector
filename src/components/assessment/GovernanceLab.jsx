@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { cx } from '../../lib/cx.js';
 import { AfterLabSection } from '../common/AfterLabSection.jsx';
-import { LabBrief } from '../common/LabBrief.jsx';
 import { Segment } from '../dev/Segment.jsx';
 
 const TASK_DESCRIPTION =
@@ -488,7 +487,6 @@ export function GovernanceLab({ segment, segmentId }) {
       </div>
       <h2 className="section-title">{segment.title}</h2>
       <p className="section-desc">{segment.description}</p>
-      <LabBrief frame={segment.frame} tone={segment.tone} />
 
       <div className="gl-task-banner">
         <div className="gl-task-banner__label">Your Task</div>

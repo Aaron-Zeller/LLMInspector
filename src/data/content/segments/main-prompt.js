@@ -53,23 +53,36 @@ export const mainPromptSegments = {
         ],
         analysis: [
           {
-            title: 'The Hidden Input',
-            body: 'External text enters the model context automatically, bypassing any human review.',
+            title: 'Summary',
+            body: 'Retrieved external content enters the model context automatically, so untrusted text can start steering the answer before anyone notices.',
           },
           {
-            title: 'Possible consequences:',
+            title: 'Possible Consequences:',
             body: [
-              'Internal answers inherit an attacker\'s hidden agenda',
-              'Teams mistake automated retrieval for factual verification',
-              'Decisions are made based on manipulated data',
+              'Internal summaries can quietly inherit an attacker’s hidden agenda.',
+              'Teams may mistake automated retrieval for factual verification.',
+              'Managers may act on manipulated material that looked like ordinary source text.',
             ],
           },
           {
-            title: 'How to proceed?',
+            title: 'Questions Before You Approve:',
             body: [
-              'Treat all external retrieval as untrusted input',
-              'Limit what retrieved content can influence and require human checks before taking action.',
-              'Maintain a human-in-the-loop for sensitive uses',
+              'What is the workflow assuming about public content that has not actually been checked?',
+              'Could this retrieved text influence a sensitive action, recommendation, or downstream tool step?',
+            ],
+          },
+          {
+            title: 'Guidelines:',
+            body: [
+              'Treat all retrieved content as untrusted input, even when it is public.',
+              'Constrain what external text can influence before the model’s answer moves further.',
+            ],
+          },
+          {
+            title: 'What The Team Should Hear:',
+            body: [
+              'Public content is still untrusted content.',
+              'Keep a human in the loop whenever the output could trigger a sensitive action.',
             ],
           },
         ],

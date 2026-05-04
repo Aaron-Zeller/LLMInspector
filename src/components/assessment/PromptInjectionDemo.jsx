@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { AfterLabSection } from '../common/AfterLabSection.jsx';
-import { LabBrief } from '../common/LabBrief.jsx';
 import { Segment } from '../dev/Segment.jsx';
 
 // ── Corrupted Document Walkthrough — conversation steps ──────────────
@@ -273,8 +272,6 @@ export function PromptInjectionDemo({ segment, segmentId }) {
             'This simulation shows how a hidden instruction in a document can compromise an AI agent with tool access. No real AI or data is involved.'}
         </p>
       </div>
-
-      <LabBrief frame={segment?.frame ?? FRAME} tone={segment?.tone} />
 
       <div className="pi-manager-frame">
         <div className="pi-decision-check">

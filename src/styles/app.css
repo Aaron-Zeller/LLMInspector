@@ -532,7 +532,6 @@ button:disabled {
   font-size: 15px;
   line-height: 1.76;
   margin: 0 0 26px;
-  max-width: 640px;
 }
 
 .panel {
@@ -1208,10 +1207,7 @@ button:disabled {
 }
 
 .sdw-case__header {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: flex-start;
+  display: block;
   margin-bottom: 12px;
 }
 
@@ -1229,33 +1225,6 @@ button:disabled {
   font-size: 22px;
   line-height: 1.3;
   color: var(--navy);
-  max-width: 760px;
-}
-
-.sdw-case__risk {
-  flex-shrink: 0;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  border: 1px solid var(--border);
-}
-
-.sdw-case__risk--input {
-  color: #0072b2;
-  background: #eff6ff;
-}
-
-.sdw-case__risk--output {
-  color: var(--output-accent);
-  background: var(--output-accent-light);
-}
-
-.sdw-case__risk--platform {
-  color: var(--platform);
-  background: var(--platform-light);
 }
 
 .sdw-case__context {
@@ -1263,7 +1232,6 @@ button:disabled {
   color: var(--text-mid);
   font-size: 14px;
   line-height: 1.75;
-  max-width: 760px;
 }
 
 .sdw-summary {
@@ -1324,7 +1292,6 @@ button:disabled {
   font-size: 15px;
   line-height: 1.65;
   font-weight: 600;
-  max-width: 760px;
 }
 
 .sdw-decision__options {
@@ -1485,6 +1452,54 @@ button:disabled {
 
 .sdw-panel-list li + li {
   margin-top: 6px;
+}
+
+.sdw-key-points {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sdw-key-point {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr);
+  align-items: start;
+  column-gap: 10px;
+}
+
+.sdw-key-point__marker {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-top: 0.42em;
+  justify-self: center;
+  align-self: start;
+  background: rgba(15, 23, 42, 0.34);
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.05);
+}
+
+.sdw-key-point__body {
+  margin: 0;
+  color: var(--text-mid);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.sdw-root--input .sdw-key-point__marker {
+  background: rgba(0, 114, 178, 0.72);
+  box-shadow: 0 0 0 3px rgba(0, 114, 178, 0.12);
+}
+
+.sdw-root--output .sdw-key-point__marker {
+  background: rgba(213, 94, 0, 0.72);
+  box-shadow: 0 0 0 3px rgba(213, 94, 0, 0.12);
+}
+
+.sdw-root--platform .sdw-key-point__marker {
+  background: rgba(204, 121, 167, 0.78);
+  box-shadow: 0 0 0 3px rgba(204, 121, 167, 0.12);
 }
 
 .sdw-takeaway {
@@ -3038,14 +3053,6 @@ button:disabled {
 
   .scenario-card__header {
     padding: 18px 20px;
-  }
-
-  .sdw-case__header {
-    flex-direction: column;
-  }
-
-  .sdw-case__risk {
-    align-self: flex-start;
   }
 
   .sdw-lenses {
@@ -5267,6 +5274,19 @@ button:disabled {
   flex: 1;
 }
 
+.gl-manager-actions .btn-primary,
+.gl-chat__actions .btn-primary,
+.gl-review-btns .btn-primary {
+  background: var(--gold);
+  box-shadow: 0 4px 20px rgba(184, 150, 62, 0.4);
+}
+
+.gl-manager-actions .btn-primary:hover,
+.gl-chat__actions .btn-primary:hover,
+.gl-review-btns .btn-primary:hover {
+  background: #a07e32;
+}
+
 .gl-btn--risky {
   border-color: var(--danger);
   color: var(--danger);
@@ -6123,12 +6143,13 @@ details[open] .pi-context-details__toggle::before {
 }
 
 .pi-btn--b {
-  background: var(--danger);
+  background: var(--gold);
   color: #fff;
+  box-shadow: 0 4px 20px rgba(184, 150, 62, 0.32);
 }
 
 .pi-btn--b:hover {
-  background: #7f1d1d;
+  background: #a07e32;
 }
 
 .pi-btn--reset {

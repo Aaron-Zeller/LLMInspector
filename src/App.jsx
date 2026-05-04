@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { PAGE_SEQUENCE } from './data/assessmentContent.js';
 import { AppFrame } from './components/layout/AppFrame.jsx';
 import { PageRenderer } from './components/layout/PageRenderer.jsx';
@@ -13,6 +13,16 @@ export default function App() {
     () => PAGE_SEQUENCE.find((page) => page.id === currentPageId) ?? PAGE_SEQUENCE[0],
     [currentPageId],
   );
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    });
+  }, [currentPageId]);
 
   return (
     <AppFrame>

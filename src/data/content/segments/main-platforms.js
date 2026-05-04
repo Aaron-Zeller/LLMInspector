@@ -2,7 +2,7 @@ export const mainPlatformSegments = {
   'main-platform-header': {
     type: 'pageHeader',
     tone: 'platform',
-    eyebrow: 'Section 9 · Platform Choice',
+    eyebrow: 'Section 8 · Platform Choice',
     title: 'Different tools create different governance choices',
   },
   'main-platform-outcomes': {
@@ -142,17 +142,17 @@ export const mainPlatformSegments = {
           'What is the stronger governance stance when an enterprise cloud instance is available?',
         decisionOptions: [
           {
-            id: 'enterprise-solves-all',
-            label: 'Once the enterprise contract is in place, most platform risk is effectively solved.',
-            feedback:
-              'That is too broad. Enterprise controls help a lot, but they do not remove output risk, unsafe prompts, or the need for internal policy and review.',
-          },
-          {
             id: 'enterprise-needs-governance',
             label: 'Use the stronger contract and admin controls, but still define internal rules for data classes, approvals, and output use.',
             feedback:
               'This is the stronger move. Better provider guarantees improve the platform choice, but they do not replace internal governance.',
             correct: true,
+          },
+          {
+            id: 'enterprise-solves-all',
+            label: 'Once the enterprise contract is in place, most platform risk is effectively solved.',
+            feedback:
+              'That is too broad. Enterprise controls help a lot, but they do not remove output risk, unsafe prompts, or the need for internal policy and review.',
           },
         ],
         needTitle: 'The organisation needs a scalable middle path',
@@ -364,7 +364,7 @@ export const mainPlatformSegments = {
   },
   'main-platform-footer': {
     type: 'navigationFooter',
-    previousPageId: 'main-excessive-agency',
+    previousPageId: 'main-output-handling',
     nextPageId: 'post-assessment',
     nextLabel: 'Go to Post Assessment →',
   },

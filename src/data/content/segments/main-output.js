@@ -2,22 +2,25 @@ export const mainOutputSegments = {
   'main-output-header': {
     type: 'pageHeader',
     tone: 'output',
-    eyebrow: 'Section 7 · Improper Output Handling',
-    title: 'The risk grows when unchecked output moves downstream',
+    eyebrow: 'Section 7 · Excessive Agency and Human Oversight',
+    title: 'Keep powerful AI workflows inside real human boundaries',
   },
   'main-output-outcomes': {
     type: 'contentCards',
     tone: 'output',
-    description: 'This section is about what happens after generation: where to pause, who must review, and when escalation matters more than speed.',
+    description:
+      'This merged section is about two linked questions: what happens after generation, and when a helpful system has quietly gained too much authority.',
     columns: 2,
     cards: [
       {
         tone: 'output',
-        body: 'Match the review gate to the consequence of being wrong, especially when output influences customers or systems.',
+        body:
+          'Match the review gate to the consequence of being wrong, especially when output influences customers, approvals, or operational systems. Distinguish a useful automation from an unsafe autonomy jump that removes the human gate from a high-impact action.',
       },
       {
         tone: 'output',
-        body: 'Enforce threshold controls and human-in-the-loop checkpoints that keep accountability from being delegated to the model.',
+        body:
+          'Keep permissions, escalation paths, and accountability attached to a real person or role even when the workflow moves at machine speed.',
       },
     ],
   },
@@ -53,51 +56,36 @@ export const mainOutputSegments = {
         ],
         analysis: [
           {
-            title: 'A draft turns into an outbound action',
-            body: 'The AI output is no longer just text on a screen. It is about to become a real email in hundreds of inboxes, which means the workflow has crossed from drafting into execution.',
+            title: 'Summary',
+            body: 'The AI output is no longer just a draft on a screen. It is about to become a real action at scale, which means the workflow has already crossed from generation into execution.',
           },
           {
-            title: 'Why It Gets Approved In The Moment',
+            title: 'Possible Consequences:',
             body: [
-              'The channel is external, not internal',
-              'The action is hard to reverse once sent',
-              'One unnoticed placeholder or false claim multiplies instantly',
+              'A minor drafting error can turn into a visible customer incident once it reaches hundreds of inboxes.',
+              'Corrections often attract more attention than the original campaign itself.',
+              'Teams usually spend more time repairing the error than preventing it would have taken.',
             ],
           },
           {
-            title: 'The workflow skipped the last mile check',
-            body: 'The team trusted the draft because it looked routine. What was missing was not a deep investigation, but a small review gate that checks the actual final output before distribution.',
-          },
-          {
-            title: 'Questions Before You Approve',
+            title: 'Questions Before You Approve:',
             body: [
-              'Template familiarity lowered attention',
-              'The review step felt optional because the content was not strategic',
-              'The workflow treated generation and publication as nearly the same thing',
+              'Is this still just drafting, or is it about to become a public action?',
+              'What is the consequence if one placeholder, wrong link, or bad claim escapes at scale?',
             ],
           },
           {
-            title: 'A trivial error becomes a visible incident',
-            body: 'An unfilled variable, broken link, or wrong claim may be minor in isolation, but at scale it becomes a customer experience problem, a reputation problem, and often a rework problem.',
-          },
-          {
-            title: 'What This Costs You',
+            title: 'Guidelines:',
             body: [
-              'The message cannot be unsent',
-              'Corrections often create more attention than the original campaign',
-              'Teams spend more time repairing the error than preventing it would have taken',
+              'Keep a lightweight but mandatory final review gate before high-volume outbound communication is sent.',
+              'Treat placeholders, regulated phrases, and public-facing claims as mandatory checks before distribution.',
             ],
           },
           {
-            title: 'Require a pre-send gate for high-volume output',
-            body: 'For mass outbound communication, the relevant control is not to distrust AI completely. It is to make sure publication still passes through a final human checkpoint.',
-          },
-          {
-            title: 'What The Team Should Hear',
+            title: 'What The Team Should Hear:',
             body: [
-              'Review the actual final message before distribution',
-              'Treat placeholders, regulated phrases, and audience-facing claims as mandatory checks',
-              'Keep the approval gate lightweight but non-optional',
+              'Review the actual final message before distribution, not just the template.',
+              'Keep the approval gate lightweight, but never optional for high-volume sends.',
             ],
           },
         ],
@@ -562,7 +550,7 @@ export const mainOutputSegments = {
   'main-output-footer': {
     type: 'navigationFooter',
     previousPageId: 'main-misinformation',
-    nextPageId: 'main-excessive-agency',
-    nextLabel: 'Go to Human Oversight →',
+    nextPageId: 'main-platform-choice',
+    nextLabel: 'Go to Platform Choice →',
   },
 };

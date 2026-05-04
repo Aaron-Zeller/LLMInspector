@@ -1,7 +1,6 @@
 import { useEffect, useRef, useMemo, useState } from 'react';
 import { cx } from '../../lib/cx.js';
 import { AfterLabSection } from '../common/AfterLabSection.jsx';
-import { LabBrief } from '../common/LabBrief.jsx';
 import { Segment } from '../dev/Segment.jsx';
 
 const SLIDER_MARKS = {
@@ -268,7 +267,6 @@ export function SystemTuning({ segment, segmentId }) {
       </div>
       <h2 className="section-title">{segment.title}</h2>
       <p className="section-desc">{segment.description}</p>
-      <LabBrief frame={segment.frame} tone={segment.tone} />
 
       {/* Goal tracker */}
       <div className="st-goal">

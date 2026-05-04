@@ -18,7 +18,6 @@ export const NAV_SECTIONS = [
       'main-prompt-injection',
       'main-misinformation',
       'main-output-handling',
-      'main-excessive-agency',
       'main-platform-choice',
     ],
   },
@@ -86,24 +85,14 @@ export const PAGE_SEQUENCE = [
   },
   {
     id: 'main-output-handling',
-    label: 'Output Handling',
+    label: 'Excessive Agency and Human Oversight',
     segmentIds: [
       'main-output-header',
       'main-output-outcomes',
       'main-output-workflows',
+      'main-agency-intro',
       'main-output-approve-escalate',
       'main-output-footer',
-    ],
-  },
-  {
-    id: 'main-excessive-agency',
-    label: 'Human Oversight',
-    segmentIds: [
-      'main-agency-header',
-      'main-agency-outcomes',
-      'main-agency-intro',
-      'main-agency-lab',
-      'main-agency-footer',
     ],
   },
   {

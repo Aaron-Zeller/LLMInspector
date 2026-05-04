@@ -1,5 +1,6 @@
 import { Fragment, useState } from 'react';
 import { cx } from '../../lib/cx.js';
+import { KeyPointList } from '../common/KeyPointList.jsx';
 import { Segment } from '../dev/Segment.jsx';
 
 export function AgencyWalkthrough({ segment, segmentId }) {
@@ -28,7 +29,6 @@ export function AgencyWalkthrough({ segment, segmentId }) {
             <p className="sdw-case__label">{activeScenario.role}</p>
             <h3 className="sdw-case__title">{activeScenario.headline}</h3>
           </div>
-          <span className="sdw-case__risk sdw-case__risk--output">{activeScenario.riskLabel}</span>
         </div>
         <p className="sdw-case__context">{activeScenario.context}</p>
 
@@ -84,11 +84,7 @@ export function AgencyWalkthrough({ segment, segmentId }) {
                           </h3>
                         ) : null}
                         {Array.isArray(block.body) ? (
-                          <ul className="sdw-panel-list">
-                            {block.body.map((item) => (
-                              <li key={item}>{item}</li>
-                            ))}
-                          </ul>
+                          <KeyPointList items={block.body} />
                         ) : (
                           <p className="sdw-panel-card__body">{block.body}</p>
                         )}

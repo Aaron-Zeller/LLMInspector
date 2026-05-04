@@ -38,37 +38,50 @@ export const mainSensitiveSegments = {
           'How should you proceed?',
         decisionOptions: [
           {
-            id: 'full-deck-editing',
-            label: 'Allow uploading the full document, as long as the employee only asks for writing help.',
-            feedback:
-              'Incorrect. The AI model still reads and absorbs your company\'s secret strategy, even if you only asked it to fix grammar.',
-          },
-          {
             id: 'excerpt-rule',
             label: 'Only allow pasting the specific sentences that need editing. Never upload the full document.',
             feedback:
               'Correct. This gets the writing help you need without handing over the entire company strategy.',
             correct: true,
           },
+          {
+            id: 'full-deck-editing',
+            label: 'Allow uploading the full document, as long as the employee only asks for writing help.',
+            feedback:
+              'Incorrect. The AI model still reads and absorbs your company\'s secret strategy, even if you only asked it to fix grammar.',
+          },
         ],
         analysis: [
           {
-            title: 'The shortcut',
-            body: 'Uploading the presentation feels harmless because the employee just wants an editor, not to leak data. But the AI still reads the secret strategy.',
+            title: 'Summary',
+            body: 'The shortcut feels harmless because the employee only wants writing help, but uploading the full deck still exposes the company strategy to the model.',
           },
           {
-            title: 'Possible consequences:',
+            title: 'Possible Consequences:',
             body: [
-              'Unfiled patents may lose their legal protection',
-              'Secret strategy details could leak into public AI models and be used for training',
+              'Unfiled patents and future product plans can leave the approved environment.',
+              'Once strategic material is shared externally, legal protection and timing advantages may already be weakened.',
             ],
           },
           {
-            title: 'Correct way to proceed:',
+            title: 'Questions Before You Approve:',
             body: [
-              'Only paste short snippets of text, never entire documents',
-              'If you must upload a whole confidential file, use an approved internal AI',
-              'If you aren\'t sure if it\'s safe to paste, stop and ask IT',
+              'Does the task really require the full document, or only a short excerpt?',
+              'Would an approved internal tool be more appropriate if the whole file is needed?',
+            ],
+          },
+          {
+            title: 'Guidelines:',
+            body: [
+              'Keep the input as small as possible and share only the exact sentence or paragraph that needs editing.',
+              'If the complete file is necessary, move the task into an approved internal AI environment.',
+            ],
+          },
+          {
+            title: 'What The Team Should Hear:',
+            body: [
+              'Do not upload full confidential decks just to get writing help.',
+              'If the boundary is unclear, pause and ask IT instead of improvising.',
             ],
           },
         ],
