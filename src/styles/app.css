@@ -7053,7 +7053,6 @@ details[open] .pi-explainer__toggle::before {
   margin-top: 1px;
 }
 
-<<<<<<< HEAD
 /* ── Agency Permission Lab ──────────────────────────────────────────── */
 
 .apl-capabilities {
@@ -7134,8 +7133,7 @@ details[open] .pi-explainer__toggle::before {
   line-height: 1.45;
 }
 
-.apl-opt--safe-on {
-=======
+/* .apl-opt--safe-on { */
 /* ── Ordering Task ───────────────────────────────────────────────────── */
 
 .ordering-task__prompt {
@@ -7779,18 +7777,14 @@ details[open] .pi-explainer__toggle::before {
 
 /* submitted reveal states */
 .workflow-step--correctly-flagged {
->>>>>>> sara/assessment
   border-color: var(--success);
   background: var(--success-bg);
 }
 
-<<<<<<< HEAD
 .apl-opt--safe-on .apl-opt__label {
   color: var(--success);
 }
 
-.apl-opt--auto-on {
-=======
 .workflow-step--correctly-flagged .workflow-step__num {
   background: var(--success-bg);
   border-color: var(--success);
@@ -7798,16 +7792,13 @@ details[open] .pi-explainer__toggle::before {
 }
 
 .workflow-step--missed {
->>>>>>> sara/assessment
   border-color: var(--danger);
   background: var(--danger-bg);
 }
 
-<<<<<<< HEAD
 .apl-opt--auto-on .apl-opt__label {
   color: var(--danger);
 }
-=======
 .workflow-step--missed .workflow-step__num {
   background: var(--danger-bg);
   border-color: var(--danger);
@@ -7928,4 +7919,3 @@ details[open] .pi-explainer__toggle::before {
     display: none;
   }
 }
->>>>>>> sara/assessment
