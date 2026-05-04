@@ -4,15 +4,15 @@ export const preAssessmentSegments = {
   'pre-header': {
     type: 'pageHeader',
     eyebrow: 'Section 1 · Pre Assessment',
-    title: 'Pre assessment',
+    title: 'Pre Assessment',
     description:
-      'This assessment captures the starting point before the main learning content begins.',
+      'Before the teaching content begins, this assessment captures your starting knowledge and confidence. It takes roughly 8–10 minutes.',
   },
   'pre-intro': {
     type: 'moduleIntro',
     paragraphs: [
-      'The pre assessment is intentionally kept stable so it can serve as a clean baseline.',
-      'The post assessment mirrors this section exactly, making the before-and-after comparison easier to interpret.',
+      'This is a diagnostic, not a test. Your answers are stored anonymously and compared with your post-assessment responses to measure what changed.',
+      'Work through each part at your own pace. Answers are saved as you go — you can navigate between parts without losing progress.',
     ],
   },
   'pre-questions': {
@@ -25,5 +25,7 @@ export const preAssessmentSegments = {
     previousPageId: 'overview',
     action: 'submitPreAssessment',
     nextPageId: 'main-part',
+    nextLabel: 'Submit & Begin Teaching Content →',
+    caption: 'Your pre-assessment answers are submitted anonymously when you continue.',
   },
 };

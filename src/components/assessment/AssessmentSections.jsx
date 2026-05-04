@@ -2,17 +2,23 @@ import { ASSESSMENT_ITEMS } from '../../data/assessmentContent.js';
 import { cx } from '../../lib/cx.js';
 import { useAssessmentStore } from '../../store/useAssessmentStore.js';
 import { Segment } from '../dev/Segment.jsx';
+import { OrderingTask } from './OrderingTask.jsx';
 import { QuestionCard } from './QuestionCard.jsx';
+import { SanitisePromptTask } from './SanitisePromptTask.jsx';
 import { ScenarioCard } from './ScenarioCard.jsx';
+import { SelfEfficacyItem } from './SelfEfficacyItem.jsx';
+import { WorkflowRiskTask } from './WorkflowRiskTask.jsx';
 
 function renderAssessmentItem(itemId) {
   const item = ASSESSMENT_ITEMS[itemId];
+  if (!item) return null;
 
-  if (!item) {
-    return null;
-  }
-
-  return item.type === 'scenario' ? <ScenarioCard key={itemId} itemId={itemId} /> : <QuestionCard key={itemId} itemId={itemId} />;
+  if (item.type === 'scenario') return <ScenarioCard key={itemId} itemId={itemId} />;
+  if (item.type === 'ordering') return <OrderingTask key={itemId} itemId={itemId} />;
+  if (item.type === 'selfEfficacy') return <SelfEfficacyItem key={itemId} itemId={itemId} />;
+  if (item.type === 'sanitisePrompt') return <SanitisePromptTask key={itemId} itemId={itemId} />;
+  if (item.type === 'workflowRisk') return <WorkflowRiskTask key={itemId} itemId={itemId} />;
+  return <QuestionCard key={itemId} itemId={itemId} />;
 }
 
 function countAnswered(itemIds, answers) {
@@ -58,20 +64,22 @@ export function AssessmentSections({ segment, segmentId }) {
               Part {activeIndex + 1} of {sections.length}
             </h2>
             <p className="assessment-subprogress__description">
-              The assessment is split into four parts so learners can move through it in smaller units without losing their place.
+              The assessment is split into parts so you can move through it in smaller units without losing your place.
             </p>
           </div>
           <p className="assessment-subprogress__summary">
             {totalAnswered} of {totalItems} items answered
           </p>
         </div>
-        <div
-          aria-hidden="true"
-          className="assessment-subprogress__track"
-        >
+        <div aria-hidden="true" className="assessment-subprogress__track">
           <span className="assessment-subprogress__fill" style={{ width: `${overallProgress}%` }} />
         </div>
-        <div className="assessment-subprogress__steps" role="tablist" aria-label={`${stageLabel} sections`}>
+        <div
+          className="assessment-subprogress__steps"
+          role="tablist"
+          aria-label={`${stageLabel} sections`}
+          style={{ gridTemplateColumns: `repeat(${sections.length}, minmax(0, 1fr))` }}
+        >
           {sections.map((section, index) => {
             const answeredCount = countAnswered(section.itemIds, answers);
             const isActive = index === activeIndex;
