@@ -28,6 +28,8 @@ function createEmptyFeedbackResponses() {
 export const useAssessmentStore = create((set, get) => ({
   sessionId: getOrCreateAnonymousSessionId(),
   currentPageId: firstPageId,
+  decisionCheckStatus: {},
+  completedLabs: {},
   answers: {},
   assessmentSectionIndex: {
     pre: 0,
@@ -59,6 +61,26 @@ export const useAssessmentStore = create((set, get) => ({
         },
       };
     });
+  },
+  recordDecisionCheck(segmentId, scenarioId, optionId, correct) {
+    set((state) => ({
+      decisionCheckStatus: {
+        ...state.decisionCheckStatus,
+        [segmentId]: {
+          scenarioId,
+          optionId,
+          correct: Boolean(correct),
+        },
+      },
+    }));
+  },
+  markLabCompleted(segmentId) {
+    set((state) => ({
+      completedLabs: {
+        ...state.completedLabs,
+        [segmentId]: true,
+      },
+    }));
   },
   setAssessmentSectionIndex(stage, index) {
     set((state) => ({
@@ -162,6 +184,8 @@ export const useAssessmentStore = create((set, get) => ({
     set({
       sessionId: getOrCreateAnonymousSessionId(),
       currentPageId: firstPageId,
+      decisionCheckStatus: {},
+      completedLabs: {},
       answers: {},
       assessmentSectionIndex: {
         pre: 0,

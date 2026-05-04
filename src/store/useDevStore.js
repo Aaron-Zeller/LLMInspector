@@ -18,11 +18,18 @@ export const useDevStore = create(
   persist(
     (set) => ({
       showSegmentIds: defaultShowSegmentIds,
+      simulateCompletedFlow: false,
       toggleSegmentIds() {
         set((state) => ({ showSegmentIds: !state.showSegmentIds }));
       },
+      toggleSimulateCompletedFlow() {
+        set((state) => ({ simulateCompletedFlow: !state.simulateCompletedFlow }));
+      },
       setSegmentIdsVisible(value) {
         set({ showSegmentIds: value });
+      },
+      setSimulateCompletedFlow(value) {
+        set({ simulateCompletedFlow: value });
       },
     }),
     {

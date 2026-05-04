@@ -32,7 +32,7 @@ export const mainPromptSegments = {
         role: 'Your Situation',
         headline: 'A team asks the model to browse, retrieve, or summarise content from external websites.',
         context:
-          'Automated retrieval feels safe because the user isn\'t manually pasting text. However, it imports unchecked external text directly into the model’s instruction stream.',
+          'Automated retrieval feels safe because the user isn\'t manually pasting text. In practice, it still imports unchecked external text directly into the model’s instruction stream.',
         riskLabel: 'External Source Risk',
         decisionPrompt:
           'Which approval stance is stronger when a workflow retrieves outside content?',
@@ -92,6 +92,7 @@ export const mainPromptSegments = {
   'main-prompt-demo': {
     type: 'promptInjectionDemo',
     tone: 'input',
+    unlockRequirements: ['main-prompt-intro'],
     eyebrow: 'Interactive Lab',
     title: 'Corrupted Document Walkthrough',
     description:
@@ -125,6 +126,7 @@ export const mainPromptSegments = {
   'main-prompt-footer': {
     type: 'navigationFooter',
     previousPageId: 'main-sensitive-disclosure',
+    nextRequiresCompletion: ['main-prompt-demo'],
     nextPageId: 'main-misinformation',
     nextLabel: 'Go to Misinformation →',
   },

@@ -89,12 +89,23 @@ export const mainMisinformationSegments = {
       },
     ],
   },
-     'main-misinformation-verify': {
+  'main-misinformation-verify': {
     type: 'sourceVerification',
+    tone: 'output',
+    unlockRequirements: ['main-misinformation-hallucinations'],
     eyebrow: 'Verification Simulation',
     title: 'Source Verification Simulation',
     description:
-      'The claims below come from the analysis above. For each one, decide how you would verify it before using it in a professional document. Select one approach per claim, then submit to see what happens.',
+      'The claims below come from the analysis above. For each one, choose the strongest managerial move before it enters a professional document.',
+    brief: {
+      eyebrow: 'Verification Lens',
+      prompt: 'Do not ask only “Can I verify this?” Ask what should happen to the claim right now.',
+      points: [
+        'Match the check to the type of claim: internal evidence for internal facts, external evidence for external market claims.',
+        'If the source cannot be found or the number cannot be supported, remove or replace the claim instead of preserving it.',
+        'The higher the consequence of being wrong, the less unsupported precision should be allowed to travel.',
+      ],
+    },
     claims: [
       {
         id: 'cv1',
@@ -102,31 +113,31 @@ export const mainMisinformationSegments = {
         options: [
           {
             id: 'google',
-            label: 'Search online',
+            title: 'Check whether the named source exists. If it cannot be found, remove the statistic.',
             icon: '🔍',
             outcome: {
               result: 'dead-link',
-              label: 'Dead End',
-              tone: 'warn',
+              label: 'Strongest Move Here',
+              tone: 'success',
               message:
-                'No results for the "World Innovation Institute Q2 2024" report. Multiple searches return no relevant results. The report cannot be located — the source appears to be fabricated.',
+                'No results for the "World Innovation Institute Q2 2024" report. Multiple searches return no relevant results. The named source cannot be located, so the statistic should not stay in the document.',
             },
           },
           {
             id: 'internal',
-            label: 'Check internal data',
+            title: 'Cross-check it against internal survey data and try to keep the claim if the direction seems plausible.',
             icon: '📂',
             outcome: {
               result: 'contradiction',
-              label: 'Contradiction Found',
-              tone: 'danger',
+              label: 'Useful But Weaker',
+              tone: 'warn',
               message:
-                'Your own internal SME survey data from the same period shows a 12% adoption increase — significantly lower than the AI figure. The claim cannot be reconciled with your own data and the original source cannot be located.',
+                'Internal data does expose a contradiction, but it is still the wrong first move for a named external source. The fabrication problem remains: the cited report itself cannot be located.',
             },
           },
           {
             id: 'ignore',
-            label: 'Use it as-is',
+            title: 'Leave the figure in the briefing unless someone later asks where it came from.',
             icon: '→',
             outcome: {
               result: 'risk',
@@ -139,7 +150,7 @@ export const mainMisinformationSegments = {
         ],
         bestOptionId: 'google',
         explanation:
-          'Searching for the source first costs seconds and immediately exposes the fabrication. A failed search is itself useful information — it tells you the claim is unverifiable before it enters any professional document.',
+          'When a claim names a report and a precise figure, first verify that the source exists at all. If the source cannot be located quickly, the claim should be removed rather than defended with other evidence.',
       },
       {
         id: 'cv2',
@@ -147,31 +158,31 @@ export const mainMisinformationSegments = {
         options: [
           {
             id: 'google',
-            label: 'Search online',
+            title: 'Look for a credible Swiss enterprise market-share source and keep the figure if you find one.',
             icon: '🔍',
             outcome: {
               result: 'partial',
-              label: 'Partial Result',
+              label: 'Reasonable But Not Strongest',
               tone: 'warn',
               message:
-                'Global AI tool usage data exists, but Switzerland-specific enterprise market share figures at this precision are not published by any credible source. The 78% figure remains unverifiable even after an extensive search.',
+                'This is a sensible check, but it still leaves the team hunting for a very precise figure that probably should not survive unless strong evidence exists. No credible Swiss enterprise market-share source supports the 78% claim.',
             },
           },
           {
             id: 'internal',
-            label: 'Check internal data',
+            title: 'Replace or remove the exact figure unless internal procurement or usage data supports a narrower claim.',
             icon: '📂',
             outcome: {
               result: 'validated',
-              label: 'Best Approach Here',
+              label: 'Strongest Move Here',
               tone: 'success',
               message:
-                'Your IT procurement records show the organisation actively uses three different LLM platforms. The claim of near-total single-vendor dominance does not match operational reality, and no external source supports the figure either.',
+                'Your IT procurement records show the organisation actively uses three different LLM platforms. The precise 78% figure cannot be defended, so the stronger move is to replace it with a narrower, supportable internal observation or remove it entirely.',
             },
           },
           {
             id: 'ignore',
-            label: 'Use it as-is',
+            title: 'Keep the 78% figure as directional context, even if no one can source it cleanly.',
             icon: '→',
             outcome: {
               result: 'risk',
@@ -184,7 +195,7 @@ export const mainMisinformationSegments = {
         ],
         bestOptionId: 'internal',
         explanation:
-          'Internal procurement data is a concrete secondary check that does not depend on finding a public source. Combining it with an online search (which shows no credible source) gives a reliable, multi-angle picture.',
+          'When a precise external market-share figure cannot be supported, do not preserve it just because it sounds useful. Replace it with a narrower claim you can support internally, or remove it from the briefing.',
       },
       {
         id: 'cv3',
@@ -192,31 +203,31 @@ export const mainMisinformationSegments = {
         options: [
           {
             id: 'google',
-            label: 'Search online',
+            title: 'Check a credible external forecast and replace or remove the number if it does not match.',
             icon: '🔍',
             outcome: {
               result: 'contradiction',
-              label: 'Contradiction Found',
-              tone: 'warn',
+              label: 'Strongest Move Here',
+              tone: 'success',
               message:
-                'A credible market research firm publishes a Swiss digital economy forecast, but their 2026 projection for AI-related services is CHF 3.1 billion — significantly lower than the AI figure. The discrepancy must be flagged before use.',
+                'A credible market research firm publishes a Swiss digital economy forecast, but their 2026 projection for AI-related services is CHF 3.1 billion — significantly lower than the AI figure. The 8.2 billion number should be replaced or removed before use.',
             },
           },
           {
             id: 'internal',
-            label: 'Check internal data',
+            title: 'Use internal business data to support the national market forecast.',
             icon: '📂',
             outcome: {
               result: 'not-applicable',
-              label: 'Not Applicable',
+              label: 'Wrong Source Type',
               tone: 'warn',
               message:
-                'Internal data does not cover macro market projections. This approach does not help here — an external market research source is the right check for country-level forecasts.',
+                'Internal data may help with your own pipeline or revenue, but it does not validate a country-level market forecast. This claim needs an external forecast source, not an internal substitute.',
             },
           },
           {
             id: 'ignore',
-            label: 'Use it as-is',
+            title: 'Keep the projection and add a source later if someone asks for one.',
             icon: '→',
             outcome: {
               result: 'risk',
@@ -229,13 +240,32 @@ export const mainMisinformationSegments = {
         ],
         bestOptionId: 'google',
         explanation:
-          'For macro market projections, a credible external source is the right check. Even finding a different number is valuable — it shows the AI figure is inflated or unsupported and gives you something real to use instead.',
+          'Macro market projections require credible external forecasting sources. If the external number does not support the AI claim, replace or remove the claim instead of letting unsupported precision stay in the deck.',
       },
     ],
+    debrief: {
+      eyebrow: 'After the Lab',
+      title: 'Self-check questions:',
+      items: [
+        {
+          title: 'What type of source should this claim depend on?',
+          body: 'Choose internal evidence for internal facts, and independent external evidence for market, policy, or regulatory claims.',
+        },
+        {
+          title: 'Should this claim be verified, replaced, or removed?',
+          body: 'If the source cannot be located or the number cannot be supported, the default should not be to keep the claim.',
+        },
+        {
+          title: 'How costly would this claim be if it stayed wrong?',
+          body: 'The stronger the consequence, the less unsupported precision should be allowed to travel.',
+        },
+      ],
+    },
   },
   'main-misinformation-spot': {
     type: 'spotHallucination',
     tone: 'output',
+    unlockRequirements: ['main-misinformation-hallucinations'],
     eyebrow: 'Interactive Lab',
     title: 'Stress-test the analysis before you trust it',
     description:
@@ -343,6 +373,7 @@ export const mainMisinformationSegments = {
   'main-misinformation-footer': {
     type: 'navigationFooter',
     previousPageId: 'main-prompt-injection',
+    nextRequiresCompletion: ['main-misinformation-verify', 'main-misinformation-spot'],
     nextPageId: 'main-output-handling',
     nextLabel: 'Go to Improper Output Handling →',
   },

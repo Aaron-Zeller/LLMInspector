@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { AfterLabSection } from '../common/AfterLabSection.jsx';
+import { useAssessmentStore } from '../../store/useAssessmentStore.js';
 import { Segment } from '../dev/Segment.jsx';
 
 // ── Corrupted Document Walkthrough — conversation steps ──────────────
@@ -121,6 +122,7 @@ export function PromptInjectionDemo({ segment, segmentId }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [step, setStep] = useState(0);
   const timers = useRef([]);
+  const markLabCompleted = useAssessmentStore((state) => state.markLabCompleted);
 
   const bannerShowing = step >= STEPS.length;
   const visibleSteps = STEPS.slice(0, step);
@@ -135,6 +137,12 @@ export function PromptInjectionDemo({ segment, segmentId }) {
   }
 
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
+
+  useEffect(() => {
+    if (bannerShowing) {
+      markLabCompleted(segmentId);
+    }
+  }, [bannerShowing, markLabCompleted, segmentId]);
 
   // ── Render helpers ───────────────────────────────────────────────
   function renderStep(s) {
@@ -274,16 +282,32 @@ export function PromptInjectionDemo({ segment, segmentId }) {
       </div>
 
       <div className="pi-manager-frame">
-        <div className="pi-decision-check">
-          <p className="pi-decision-check__label">Decision Check</p>
-          <p className="pi-decision-check__prompt">{FRAME.decisionPrompt}</p>
-          <div className="pi-decision-check__options">
+        <div className="pi-decision-check sdw-decision">
+          <div className="sdw-decision__intro">
+            <p className="pi-decision-check__label sdw-decision__label">Decision Check</p>
+            <p className="pi-decision-check__prompt sdw-decision__prompt">{FRAME.decisionPrompt}</p>
+          </div>
+          <div className="pi-decision-check__options sdw-decision__options">
             {FRAME.options.map((option) => {
               const isSelected = selectedOption === option.id;
+              const isAnswered = Boolean(selectedDecision);
+              const optionClassName = [
+                'pi-decision-check__option',
+                'sdw-decision__option',
+                isSelected ? 'pi-decision-check__option--selected sdw-decision__option--selected' : '',
+                isAnswered && isSelected && option.correct
+                  ? 'pi-decision-check__option--correct sdw-decision__option--correct'
+                  : '',
+                isAnswered && isSelected && !option.correct
+                  ? 'pi-decision-check__option--incorrect sdw-decision__option--incorrect'
+                  : '',
+              ]
+                .filter(Boolean)
+                .join(' ');
               return (
                 <button
                   key={option.id}
-                  className={`pi-decision-check__option${isSelected ? ' pi-decision-check__option--selected' : ''}`}
+                  className={optionClassName}
                   type="button"
                   onClick={() => setSelectedOption(option.id)}
                 >
@@ -294,9 +318,18 @@ export function PromptInjectionDemo({ segment, segmentId }) {
           </div>
           {selectedDecision ? (
             <p
-              className={`pi-decision-check__feedback${selectedDecision.correct ? ' pi-decision-check__feedback--correct' : ''}`}
+              className={`pi-decision-check__feedback sdw-decision__feedback${
+                selectedDecision.correct
+                  ? ' pi-decision-check__feedback--correct sdw-decision__feedback--correct'
+                  : ' pi-decision-check__feedback--incorrect sdw-decision__feedback--incorrect'
+              }`}
             >
               {selectedDecision.feedback}
+            </p>
+          ) : null}
+          {selectedDecision && !selectedDecision.correct ? (
+            <p className="pi-decision-check__retry sdw-decision__retry">
+              Not yet. Choose the stronger boundary before you continue.
             </p>
           ) : null}
           {!selectedDecision ? (

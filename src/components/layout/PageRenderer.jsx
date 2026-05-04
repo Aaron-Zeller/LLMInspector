@@ -31,9 +31,12 @@ import { NavigationFooter } from '../common/NavigationFooter.jsx';
 import { PageHeader } from '../common/PageHeader.jsx';
 import { SectionProgress } from '../common/SectionProgress.jsx';
 import { ContentCardSection } from '../common/ContentCardSection.jsx';
+import { LockedLabNotice } from '../common/LockedLabNotice.jsx';
 import { LikertFeedbackSection } from '../common/LikertFeedbackSection.jsx';
 import { TransferCallout } from '../common/TransferCallout.jsx';
 import { InteractiveLabPlaceholder } from '../common/InteractiveLabPlaceholder.jsx';
+import { useAssessmentStore } from '../../store/useAssessmentStore.js';
+import { useDevStore } from '../../store/useDevStore.js';
 import { DomainBreakdown } from '../results/DomainBreakdown.jsx';
 import { RecommendationList } from '../results/RecommendationList.jsx';
 import { ResultsActions } from '../results/ResultsActions.jsx';
@@ -80,9 +83,30 @@ const segmentRenderers = {
 
 function SegmentRenderer({ segmentId }) {
   const segment = SEGMENTS[segmentId];
+  const decisionCheckStatus = useAssessmentStore((state) => state.decisionCheckStatus);
+  const simulateCompletedFlow = useDevStore((state) => state.simulateCompletedFlow);
 
   if (!segment) {
     return null;
+  }
+
+  if (segment.unlockRequirements?.length && !simulateCompletedFlow) {
+    const statuses = segment.unlockRequirements.map((requirementId) => decisionCheckStatus[requirementId]);
+    const missingCount = statuses.filter((status) => !status).length;
+    const incorrectCount = statuses.filter((status) => status && !status.correct).length;
+    const unlocked = statuses.length > 0 && statuses.every((status) => status?.correct);
+
+    if (!unlocked) {
+      return (
+        <LockedLabNotice
+          segment={segment}
+          segmentId={segmentId}
+          requirementCount={segment.unlockRequirements.length}
+          missingCount={missingCount}
+          incorrectCount={incorrectCount}
+        />
+      );
+    }
   }
 
   if (segment.type === 'questionList') {

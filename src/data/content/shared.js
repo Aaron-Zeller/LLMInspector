@@ -68,16 +68,9 @@ export const DOMAIN_DEFINITIONS = {
   },
 };
 
-export const OVERVIEW_STATS = [
-  { label: 'Estimated time', value: '25 min' },
-  { label: 'Core lenses', value: '3' },
-  { label: 'Major sections', value: '12' },
-];
-
 export const OVERVIEW_DOMAINS = [
   {
     id: 'input-governance',
-    overviewLabel: 'Lens 1',
     overviewIcon: '🛡️',
     accent: 'critical',
     label: 'Input Governance',
@@ -86,7 +79,6 @@ export const OVERVIEW_DOMAINS = [
   },
   {
     id: 'output-assurance',
-    overviewLabel: 'Lens 2',
     overviewIcon: '⚠️',
     accent: 'output',
     label: 'Output Assurance',
@@ -95,7 +87,6 @@ export const OVERVIEW_DOMAINS = [
   },
   {
     id: 'platform-choice',
-    overviewLabel: 'Lens 3',
     overviewIcon: '🧭',
     accent: 'platform',
     label: 'Platform Choice',

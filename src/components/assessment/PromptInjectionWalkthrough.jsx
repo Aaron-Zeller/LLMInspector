@@ -1,10 +1,12 @@
 import { Fragment, useState } from 'react';
 import { cx } from '../../lib/cx.js';
 import { KeyPointList } from '../common/KeyPointList.jsx';
+import { useAssessmentStore } from '../../store/useAssessmentStore.js';
 import { Segment } from '../dev/Segment.jsx';
 
 export function PromptInjectionWalkthrough({ segment, segmentId }) {
   const [decisionSelections, setDecisionSelections] = useState({});
+  const recordDecisionCheck = useAssessmentStore((state) => state.recordDecisionCheck);
 
   const activeScenario = segment.scenarios[0];
   const selectedDecision = decisionSelections[activeScenario.id];
@@ -41,13 +43,19 @@ export function PromptInjectionWalkthrough({ segment, segmentId }) {
               return (
                 <button
                   key={option.id}
-                  className={cx('sdw-decision__option', isSelected && 'sdw-decision__option--selected')}
-                  onClick={() =>
+                  className={cx(
+                    'sdw-decision__option',
+                    isSelected && 'sdw-decision__option--selected',
+                    isSelected && option.correct && 'sdw-decision__option--correct',
+                    isSelected && !option.correct && 'sdw-decision__option--incorrect',
+                  )}
+                  onClick={() => {
                     setDecisionSelections((current) => ({
                       ...current,
                       [activeScenario.id]: option.id,
-                    }))
-                  }
+                    }));
+                    recordDecisionCheck(segmentId, activeScenario.id, option.id, option.correct);
+                  }}
                   type="button"
                 >
                   {option.label}
@@ -60,10 +68,14 @@ export function PromptInjectionWalkthrough({ segment, segmentId }) {
               className={cx(
                 'sdw-decision__feedback',
                 selectedDecisionOption.correct && 'sdw-decision__feedback--correct',
+                !selectedDecisionOption.correct && 'sdw-decision__feedback--incorrect',
               )}
             >
               {selectedDecisionOption.feedback}
             </p>
+          ) : null}
+          {selectedDecisionOption && !selectedDecisionOption.correct ? (
+            <p className="sdw-decision__retry">Not yet. Revisit the case and choose the stronger answer.</p>
           ) : null}
         </div>
 

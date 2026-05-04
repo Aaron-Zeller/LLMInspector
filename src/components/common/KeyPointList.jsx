@@ -6,8 +6,12 @@ export function KeyPointList({ items }) {
           className="sdw-key-point"
           key={typeof item === 'string' ? item : `${item.body}-${index}`}
         >
-          <span className="sdw-key-point__marker" aria-hidden="true" />
-          <p className="sdw-key-point__body">{typeof item === 'string' ? item : item.body}</p>
+          <span className="sdw-key-point__marker" aria-hidden="true">
+            ◆
+          </span>
+          <div className="sdw-key-point__body">
+            {typeof item === 'string' ? item : item.body}
+          </div>
         </li>
       ))}
     </ul>

@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cx } from '../../lib/cx.js';
 import { AfterLabSection } from '../common/AfterLabSection.jsx';
+import { useAssessmentStore } from '../../store/useAssessmentStore.js';
 import { Segment } from '../dev/Segment.jsx';
 
 const TYPE_META = {
@@ -13,6 +14,13 @@ const TYPE_META = {
 export function SpotHallucination({ segment, segmentId }) {
   const [selected, setSelected] = useState(new Set());
   const [submitted, setSubmitted] = useState(false);
+  const markLabCompleted = useAssessmentStore((state) => state.markLabCompleted);
+
+  useEffect(() => {
+    if (submitted) {
+      markLabCompleted(segmentId);
+    }
+  }, [submitted, markLabCompleted, segmentId]);
 
   const hallucinations = segment.spans.filter((s) => !s.safe);
   const hallucinationIds = new Set(hallucinations.map((s) => s.id));

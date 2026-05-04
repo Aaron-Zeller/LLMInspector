@@ -1,5 +1,6 @@
 import { Segment } from '../dev/Segment.jsx';
 import { useAssessmentStore } from '../../store/useAssessmentStore.js';
+import { useDevStore } from '../../store/useDevStore.js';
 
 export function NavigationFooter({ segment, segmentId }) {
   const goToPage = useAssessmentStore((state) => state.goToPage);
@@ -8,9 +9,15 @@ export function NavigationFooter({ segment, segmentId }) {
   const submitPostAssessmentAndFeedback = useAssessmentStore(
     (state) => state.submitPostAssessmentAndFeedback,
   );
+  const completedLabs = useAssessmentStore((state) => state.completedLabs);
+  const simulateCompletedFlow = useDevStore((state) => state.simulateCompletedFlow);
   const feedbackResponses = useAssessmentStore((state) => state.feedbackResponses);
   const postAssessmentState = useAssessmentStore((state) => state.postAssessmentState);
-  const hasNext = Boolean(segment.nextPageId || segment.nextMode || segment.action);
+  const completionGatePassed =
+    simulateCompletedFlow ||
+    !segment.nextRequiresCompletion?.length ||
+    segment.nextRequiresCompletion.every((id) => completedLabs[id]);
+  const hasNext = Boolean(segment.nextPageId || segment.nextMode || segment.action) && completionGatePassed;
   const feedbackComplete = Object.values(feedbackResponses).every((value) => Number.isInteger(value));
   const shouldDisableSubmit =
     segment.action === 'submitPostFlow' &&

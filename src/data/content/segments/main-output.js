@@ -95,6 +95,7 @@ export const mainOutputSegments = {
   'main-output-approve-escalate': {
     type: 'approveOrEscalate',
     tone: 'output',
+    unlockRequirements: ['main-output-workflows', 'main-agency-intro'],
     eyebrow: 'Interactive Lab',
     title: 'Approve or Escalate?',
     description:
@@ -550,6 +551,7 @@ export const mainOutputSegments = {
   'main-output-footer': {
     type: 'navigationFooter',
     previousPageId: 'main-misinformation',
+    nextRequiresCompletion: ['main-output-approve-escalate'],
     nextPageId: 'main-platform-choice',
     nextLabel: 'Go to Platform Choice →',
   },

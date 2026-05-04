@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cx } from '../../lib/cx.js';
 import { AfterLabSection } from '../common/AfterLabSection.jsx';
+import { useAssessmentStore } from '../../store/useAssessmentStore.js';
 import { Segment } from '../dev/Segment.jsx';
 
 const TASK_DESCRIPTION =
@@ -247,6 +248,7 @@ export function GovernanceLab({ segment, segmentId }) {
   const [phase, setPhase] = useState('employee');
   const [managerHighlight, setManagerHighlight] = useState(null);
   const [managerSubmitted, setManagerSubmitted] = useState(false);
+  const markLabCompleted = useAssessmentStore((state) => state.markLabCompleted);
 
   const scores = computeScores(selectedDocs, promptStyle, outputAction);
   const leakTone = scoreTone(scores.leakage, true);
@@ -317,6 +319,12 @@ export function GovernanceLab({ segment, segmentId }) {
     { label: 'Leakage Risk', value: scores.leakage, tone: leakTone },
     { label: 'Task Efficiency', value: scores.efficiency, tone: effTone },
   ];
+
+  useEffect(() => {
+    if (managerSubmitted) {
+      markLabCompleted(segmentId);
+    }
+  }, [managerSubmitted, markLabCompleted, segmentId]);
 
   // ── Manager Phase ──────────────────────────────────────────────────────
   if (phase === 'manager') {

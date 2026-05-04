@@ -31,7 +31,7 @@ export const mainSensitiveSegments = {
         role: 'Your Situation',
         headline: 'A strategy lead uploads a confidential presentation to an AI to fix typos and improve the writing.',
         context:
-          'The presentation contains financial targets and future product plans. Because there are no customer names or passwords in it, the team falsely assumes uploading it is safe.',
+          'The presentation contains financial targets and future product plans. Because there are no customer names or passwords in it, the team assumes uploading it is safe.',
         tone: 'delegation',
         riskLabel: 'Strategic Exposure & IP',
         decisionPrompt:
@@ -91,6 +91,7 @@ export const mainSensitiveSegments = {
   'main-sensitive-lab': {
     type: 'governanceLab',
     tone: 'input',
+    unlockRequirements: ['main-sensitive-legal'],
     eyebrow: 'Interactive Lab',
     title: 'The Governance Lab: Input and Output Assurance',
     description:
@@ -124,6 +125,7 @@ export const mainSensitiveSegments = {
   'main-sensitive-footer': {
     type: 'navigationFooter',
     previousPageId: 'main-part',
+    nextRequiresCompletion: ['main-sensitive-lab'],
     nextPageId: 'main-prompt-injection',
     nextLabel: 'Go to Prompt Injection →',
   },

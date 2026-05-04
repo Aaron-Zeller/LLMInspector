@@ -37,7 +37,7 @@ export const PAGE_SEQUENCE = [
   {
     id: 'overview',
     label: 'Overview',
-    segmentIds: ['overview-intro', 'overview-domains', 'overview-callout'],
+    segmentIds: ['overview-intro', 'overview-domains'],
   },
   {
     id: 'pre-assessment',
