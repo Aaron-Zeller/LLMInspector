@@ -6,12 +6,12 @@ export const postAssessmentSegments = {
     eyebrow: 'Section 10 · Post Assessment',
     title: 'Post Assessment',
     description:
-      'Now that you have worked through the teaching content, this assessment measures what has changed. It uses the same five-part structure as the pre-assessment.',
+      'Now that you have worked through the teaching content, this assessment captures what has changed. It follows the same five-part structure as the pre-assessment.',
   },
   'post-intro': {
     type: 'moduleIntro',
     paragraphs: [
-      'Your answers are saved as you go. Submit the assessment once all five parts are complete to reveal the solutions, then continue to the feedback page.',
+      'Your answers are saved as you go. Once all five parts are complete, submit the assessment to reveal the solutions, then continue to the feedback page.',
     ],
   },
   'post-questions': {
