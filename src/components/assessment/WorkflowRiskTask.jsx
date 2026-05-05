@@ -10,7 +10,7 @@ const TYPE_META = {
   'excessive-agency': { label: 'Excessive AI Agency', tone: 'danger' },
 };
 
-export function WorkflowRiskTask({ itemId }) {
+export function WorkflowRiskTask({ itemId, revealFeedback = true, locked = false }) {
   const item = ASSESSMENT_ITEMS[itemId];
   const selectedAnswer = useAssessmentStore((state) => state.answers[itemId]);
   const answerItem = useAssessmentStore((state) => state.answerItem);
@@ -20,14 +20,15 @@ export function WorkflowRiskTask({ itemId }) {
     return new Set();
   });
 
-  const submitted = Boolean(selectedAnswer);
+  const submitted = locked && Boolean(selectedAnswer);
   const riskySteps = item.steps.filter((s) => s.risky);
   const riskyIds = new Set(riskySteps.map((s) => s.id));
   const correctIds = new Set(item.correctOptionId.split(',').filter(Boolean));
   const isCorrect = submitted && selectedAnswer === item.correctOptionId;
+  const shouldReveal = revealFeedback && submitted;
 
   function toggleStep(stepId) {
-    if (submitted) return;
+    if (locked) return;
     setFlagged((prev) => {
       const next = new Set(prev);
       if (next.has(stepId)) next.delete(stepId);
@@ -59,7 +60,7 @@ export function WorkflowRiskTask({ itemId }) {
           const isRisky = step.risky;
 
           let revealClass = null;
-          if (submitted) {
+          if (shouldReveal) {
             if (isRisky && isFlagged) revealClass = 'workflow-step--correctly-flagged';
             else if (isRisky && !isFlagged) revealClass = 'workflow-step--missed';
             else if (!isRisky && isFlagged) revealClass = 'workflow-step--false-positive';
@@ -71,8 +72,8 @@ export function WorkflowRiskTask({ itemId }) {
           return (
             <li key={step.id} className="workflow-step-wrap">
               <button
-                className={cx('workflow-step', !submitted && 'workflow-step--interactive', revealClass)}
-                disabled={submitted}
+                className={cx('workflow-step', !locked && 'workflow-step--interactive', revealClass)}
+                disabled={locked}
                 onClick={() => toggleStep(step.id)}
                 type="button"
               >
@@ -81,17 +82,17 @@ export function WorkflowRiskTask({ itemId }) {
                 {!submitted && isFlagged && (
                   <span className="workflow-step__flag-badge" aria-hidden="true">⚠ Flagged</span>
                 )}
-                {submitted && isRisky && isFlagged && (
+                {shouldReveal && isRisky && isFlagged && (
                   <span className="workflow-step__flag-badge workflow-step__flag-badge--correct" aria-hidden="true">✓ Risk found</span>
                 )}
-                {submitted && isRisky && !isFlagged && (
+                {shouldReveal && isRisky && !isFlagged && (
                   <span className="workflow-step__flag-badge workflow-step__flag-badge--missed" aria-hidden="true">✕ Missed risk</span>
                 )}
-                {submitted && !isRisky && isFlagged && (
+                {shouldReveal && !isRisky && isFlagged && (
                   <span className="workflow-step__flag-badge workflow-step__flag-badge--fp" aria-hidden="true">False positive</span>
                 )}
               </button>
-              {submitted && (isRisky || isFlagged) && (
+              {shouldReveal && (isRisky || isFlagged) && (
                 <div className={cx('workflow-step__explanation', isRisky ? 'workflow-step__explanation--risk' : 'workflow-step__explanation--safe')}>
                   {isRisky && (
                     <span className={`workflow-step-type-badge workflow-step-type-badge--${(TYPE_META[step.type] ?? {}).tone ?? 'warn'}`}>
@@ -106,7 +107,7 @@ export function WorkflowRiskTask({ itemId }) {
         })}
       </ol>
 
-      {!submitted ? (
+      {!locked ? (
         <div className="workflow-risk-task__actions">
           <p className="workflow-risk-task__hint">
             {flagged.size === 0
@@ -119,10 +120,10 @@ export function WorkflowRiskTask({ itemId }) {
             onClick={handleSubmit}
             type="button"
           >
-            Submit Assessment
+            {selectedAnswer && !revealFeedback ? 'Update Assessment' : 'Submit Assessment'}
           </button>
         </div>
-      ) : (
+      ) : shouldReveal ? (
         <div className="workflow-risk-task__results">
           <div className={cx('workflow-risk-task__score', isCorrect && 'workflow-risk-task__score--full')}>
             <strong>{correctCount}</strong>
@@ -134,6 +135,10 @@ export function WorkflowRiskTask({ itemId }) {
           <div className={cx('feedback-box', isCorrect ? 'feedback-box--correct' : 'feedback-box--incorrect')}>
             {isCorrect ? item.feedback.correct : item.feedback.incorrect}
           </div>
+        </div>
+      ) : (
+        <div className="assessment-saved-note">
+          {selectedAnswer ? 'Response locked.' : 'No response submitted.'}
         </div>
       )}
     </Segment>

@@ -6,13 +6,13 @@ export const preAssessmentSegments = {
     eyebrow: 'Section 1 · Pre Assessment',
     title: 'Pre Assessment',
     description:
-      'Before the teaching content begins, this assessment captures your starting knowledge and confidence. It takes roughly 8–10 minutes.',
+      'Before the teaching content begins, this assessment captures your starting knowledge and confidence. It uses the same five-part structure as the post-assessment.',
   },
   'pre-intro': {
     type: 'moduleIntro',
     paragraphs: [
-      'This is a diagnostic, not a test. Your answers are stored anonymously and compared with your post-assessment responses to measure what changed.',
-      'Work through each part at your own pace. Answers are saved as you go — you can navigate between parts without losing progress.',
+      'This is a diagnostic, not a test. Your answers are stored anonymously.',
+      'Work through each part at your own pace. Answers are saved as you go, so you can navigate between parts without losing progress. Once you submit the assessment, you can no longer change your answers.',
     ],
   },
   'pre-questions': {
@@ -26,6 +26,5 @@ export const preAssessmentSegments = {
     action: 'submitPreAssessment',
     nextPageId: 'main-part',
     nextLabel: 'Submit & Begin Teaching Content →',
-    caption: 'Your pre-assessment answers are submitted anonymously when you continue.',
   },
 };

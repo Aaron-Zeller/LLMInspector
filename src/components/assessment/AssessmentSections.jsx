@@ -9,16 +9,16 @@ import { ScenarioCard } from './ScenarioCard.jsx';
 import { SelfEfficacyItem } from './SelfEfficacyItem.jsx';
 import { WorkflowRiskTask } from './WorkflowRiskTask.jsx';
 
-function renderAssessmentItem(itemId) {
+function renderAssessmentItem(itemId, revealFeedback, locked) {
   const item = ASSESSMENT_ITEMS[itemId];
   if (!item) return null;
 
-  if (item.type === 'scenario') return <ScenarioCard key={itemId} itemId={itemId} />;
-  if (item.type === 'ordering') return <OrderingTask key={itemId} itemId={itemId} />;
-  if (item.type === 'selfEfficacy') return <SelfEfficacyItem key={itemId} itemId={itemId} />;
-  if (item.type === 'sanitisePrompt') return <SanitisePromptTask key={itemId} itemId={itemId} />;
-  if (item.type === 'workflowRisk') return <WorkflowRiskTask key={itemId} itemId={itemId} />;
-  return <QuestionCard key={itemId} itemId={itemId} />;
+  if (item.type === 'scenario') return <ScenarioCard key={itemId} itemId={itemId} revealFeedback={revealFeedback} locked={locked} />;
+  if (item.type === 'ordering') return <OrderingTask key={itemId} itemId={itemId} revealFeedback={revealFeedback} locked={locked} />;
+  if (item.type === 'selfEfficacy') return <SelfEfficacyItem key={itemId} itemId={itemId} locked={locked} />;
+  if (item.type === 'sanitisePrompt') return <SanitisePromptTask key={itemId} itemId={itemId} revealFeedback={revealFeedback} locked={locked} />;
+  if (item.type === 'workflowRisk') return <WorkflowRiskTask key={itemId} itemId={itemId} revealFeedback={revealFeedback} locked={locked} />;
+  return <QuestionCard key={itemId} itemId={itemId} revealFeedback={revealFeedback} locked={locked} />;
 }
 
 function countAnswered(itemIds, answers) {
@@ -29,6 +29,7 @@ export function AssessmentSections({ segment, segmentId }) {
   const answers = useAssessmentStore((state) => state.answers);
   const sectionIndex = useAssessmentStore((state) => state.assessmentSectionIndex[segment.stage] ?? 0);
   const setAssessmentSectionIndex = useAssessmentStore((state) => state.setAssessmentSectionIndex);
+  const postAssessmentLocked = useAssessmentStore((state) => state.postAssessmentLocked);
   const sections = segment.sections ?? [];
 
   if (!sections.length) {
@@ -43,14 +44,20 @@ export function AssessmentSections({ segment, segmentId }) {
   const overallProgress = sections.length ? Math.round(((activeIndex + 1) / sections.length) * 100) : 0;
   const activeAnswered = countAnswered(activeSection.itemIds, answers);
   const stageLabel = segment.stage === 'post' ? 'Post assessment' : 'Pre assessment';
+  const locked = segment.stage === 'post' && postAssessmentLocked;
+  const revealFeedback = locked;
 
   function moveToSection(nextIndex) {
     const clampedIndex = Math.max(0, Math.min(nextIndex, maxIndex));
     setAssessmentSectionIndex(segment.stage, clampedIndex);
 
     if (typeof document !== 'undefined') {
-      const currentSegment = document.querySelector(`[data-segment-id="${segmentId}"]`);
-      currentSegment?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const currentSegment = document.querySelector(`[data-segment-id="${segmentId}"]`);
+          currentSegment?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
     }
   }
 
@@ -138,7 +145,7 @@ export function AssessmentSections({ segment, segmentId }) {
             </div>
           </div>
         ) : null}
-        <div className="assessment-group__items">{activeSection.itemIds.map((itemId) => renderAssessmentItem(itemId))}</div>
+        <div className="assessment-group__items">{activeSection.itemIds.map((itemId) => renderAssessmentItem(itemId, revealFeedback, locked))}</div>
         <div className="assessment-group__footer">
           <p className="assessment-group__hint">Answers stay saved while moving between parts.</p>
           <div className="assessment-group__actions">
@@ -151,7 +158,7 @@ export function AssessmentSections({ segment, segmentId }) {
               Previous part
             </button>
             {activeIndex === maxIndex ? (
-              <span className="assessment-group__status-note">Final part reached. Use the page footer below when you are ready to continue.</span>
+              <span />
             ) : (
               <button
                 className="btn-nav"

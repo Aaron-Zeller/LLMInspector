@@ -15,6 +15,7 @@ export function LikertFeedbackSection({ segment, segmentId }) {
   const feedbackResponses = useAssessmentStore((state) => state.feedbackResponses);
   const feedbackComment = useAssessmentStore((state) => state.feedbackComment);
   const feedbackState = useAssessmentStore((state) => state.feedbackState);
+  const postAssessmentSummary = useAssessmentStore((state) => state.postAssessmentSummary);
   const experienceMessage = useAssessmentStore((state) => state.experienceMessage);
   const experienceError = useAssessmentStore((state) => state.experienceError);
   const setFeedbackResponse = useAssessmentStore((state) => state.setFeedbackResponse);
@@ -69,6 +70,11 @@ export function LikertFeedbackSection({ segment, segmentId }) {
           value={feedbackComment}
         />
       </label>
+      {postAssessmentSummary ? (
+        <div className="feedback-status feedback-status--success">
+          Post-assessment submitted. {postAssessmentSummary}
+        </div>
+      ) : null}
       {experienceError ? <div className="feedback-status feedback-status--error">{experienceError}</div> : null}
       {experienceMessage ? <div className="feedback-status feedback-status--success">{experienceMessage}</div> : null}
     </Segment>

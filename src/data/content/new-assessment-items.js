@@ -17,6 +17,10 @@ function makeWorkflowRiskItem(config) {
   return { type: 'workflowRisk', ...config };
 }
 
+function cloneAssessmentItem(config) {
+  return JSON.parse(JSON.stringify(config));
+}
+
 const newItems = {
 
   // ─── PRE-ASSESSMENT PART 1: Knowledge Check ───────────────────────────────
@@ -559,12 +563,37 @@ const newItems = {
   'post-se4': makeSelfEfficacyItem('post-se4', 'I understand the difference between using an approved enterprise AI tool and a public chatbot.'),
 };
 
+const PRE_FROM_POST_ITEM_MAP = {
+  'pre-pq1': 'post-pq1',
+  'pre-pq2': 'post-pq2',
+  'pre-pq3': 'post-pq3',
+  'pre-pq4': 'post-pq4',
+  'pre-pq5': 'post-pq5',
+  'pre-pq6': 'post-pq6',
+  'pre-pps1': 'post-pps1',
+  'pre-pps2': 'post-pps2',
+  'pre-pat1': 'post-pat1',
+  'pre-edt1': 'post-edt1',
+  'pre-se1': 'post-se1',
+  'pre-se2': 'post-se2',
+  'pre-se3': 'post-se3',
+  'pre-se4': 'post-se4',
+};
+
+Object.entries(PRE_FROM_POST_ITEM_MAP).forEach(([preId, postId]) => {
+  newItems[preId] = cloneAssessmentItem({
+    ...newItems[postId],
+    id: preId,
+  });
+});
+
 Object.assign(ASSESSMENT_ITEMS, newItems);
 
 export const PRE_NEW_ITEM_IDS = [
   'pre-pq1', 'pre-pq2', 'pre-pq3', 'pre-pq4', 'pre-pq5', 'pre-pq6',
-  'pre-ps1', 'pre-ps2',
-  'pre-po1',
+  'pre-pps1', 'pre-pps2',
+  'pre-pat1',
+  'pre-edt1',
   'pre-se1', 'pre-se2', 'pre-se3', 'pre-se4',
 ];
 
@@ -580,38 +609,56 @@ export const PRE_NEW_SECTIONS = [
   {
     id: 'pre-knowledge',
     label: 'Part 1',
-    title: 'Baseline Knowledge Check',
-    description: 'Six concept questions covering input governance, output risks, and appropriate delegation.',
+    title: 'Core Knowledge Check',
+    description: 'Six concept questions covering awareness, privacy, critical thinking, and appropriate delegation of AI tasks.',
     introParagraphs: [],
     itemIds: ['pre-pq1', 'pre-pq2', 'pre-pq3', 'pre-pq4', 'pre-pq5', 'pre-pq6'],
   },
   {
     id: 'pre-scenarios',
     label: 'Part 2',
-    title: 'Scenario-Based Judgement',
-    description: 'Two short workplace scenarios. Choose the most appropriate course of action for each.',
-    introParagraphs: [],
-    itemIds: ['pre-ps1', 'pre-ps2'],
+    title: 'Scenario-Based Decisions',
+    description: 'Two higher-order scenarios requiring you to critique a situation and justify a course of action.',
+    introParagraphs: [
+      'These scenarios move beyond recognition and require you to evaluate a specific situation, identify what the risk is, and decide on the most defensible response.',
+    ],
+    itemIds: ['pre-pps1', 'pre-pps2'],
   },
   {
-    id: 'pre-ordering',
+    id: 'pre-applied',
     label: 'Part 3',
-    title: 'Input Governance Flow',
-    description: 'Arrange the steps of a safe LLM workflow into the correct order and remove any step that does not belong.',
+    title: 'Sanitise a Prompt',
+    description: 'Identify the parts of a workplace prompt that must be removed before it is safe to send to an AI tool.',
     introParagraphs: [
-      'Before data reaches a language model, several checks must happen in the right sequence. Out-of-order steps — even individually correct ones — can create privacy and compliance risks.',
+      'A professionally AI-literate person checks prompts before sending — not just outputs after receiving. This task tests your ability to spot what should not reach the model at all.',
     ],
     callout: {
-      variant: 'info',
-      icon: 'ℹ',
-      title: 'Drag to reorder · Click ✕ to remove',
-      body: 'Arrange the steps in the correct safe order. One step in the list does not belong in a compliant workflow — remove it before submitting.',
+      variant: 'warn',
+      icon: '⚠',
+      title: 'Input governance in practice',
+      body: 'Click every span you would remove or replace before sending this prompt. Missing a risky span or flagging a safe one both affect your score.',
     },
-    itemIds: ['pre-po1'],
+    itemIds: ['pre-pat1'],
+  },
+  {
+    id: 'pre-error-detection',
+    label: 'Part 4',
+    title: 'Workflow Error Detection',
+    description: 'Review an AI-assisted workflow and identify every step that introduces a governance or safety risk.',
+    introParagraphs: [
+      'Real AI risks often emerge not from one bad decision but from a chain of individually plausible steps that collectively bypass the safeguards that protect data and accountability.',
+    ],
+    callout: {
+      variant: 'warn',
+      icon: '⚠',
+      title: 'Click every risky step',
+      body: 'Some steps are safe. Some introduce measurable risk. Click each step you identify as problematic. You can click again to deselect.',
+    },
+    itemIds: ['pre-edt1'],
   },
   {
     id: 'pre-efficacy',
-    label: 'Part 4',
+    label: 'Part 5',
     title: 'Confidence Self-Assessment',
     description: 'Rate your current confidence on four statements. These responses are not scored — they capture your starting point.',
     introParagraphs: [],
@@ -647,7 +694,7 @@ export const POST_NEW_SECTIONS = [
   {
     id: 'post-applied',
     label: 'Part 3',
-    title: 'Applied Task — Sanitise a Prompt',
+    title: 'Sanitise a Prompt',
     description: 'Identify the parts of a workplace prompt that must be removed before it is safe to send to an AI tool.',
     introParagraphs: [
       'A professionally AI-literate person checks prompts before sending — not just outputs after receiving. This task tests your ability to spot what should not reach the model at all.',

@@ -10,7 +10,7 @@ const TYPE_META = {
   'confidential-data': { label: 'Confidential Internal Data', tone: 'warn' },
 };
 
-export function SanitisePromptTask({ itemId }) {
+export function SanitisePromptTask({ itemId, revealFeedback = true, locked = false }) {
   const item = ASSESSMENT_ITEMS[itemId];
   const selectedAnswer = useAssessmentStore((state) => state.answers[itemId]);
   const answerItem = useAssessmentStore((state) => state.answerItem);
@@ -20,15 +20,16 @@ export function SanitisePromptTask({ itemId }) {
     return new Set();
   });
 
-  const submitted = Boolean(selectedAnswer);
+  const submitted = locked && Boolean(selectedAnswer);
   const riskySpans = item.spans.filter((s) => !s.safe);
   const riskyIds = new Set(riskySpans.map((s) => s.id));
 
   const correctIds = new Set(item.correctOptionId.split(',').filter(Boolean));
   const isCorrect = submitted && selectedAnswer === item.correctOptionId;
+  const shouldReveal = revealFeedback && submitted;
 
   function toggleSpan(spanId) {
-    if (submitted) return;
+    if (locked) return;
     setSelected((prev) => {
       const next = new Set(prev);
       if (next.has(spanId)) next.delete(spanId);
@@ -65,7 +66,7 @@ export function SanitisePromptTask({ itemId }) {
             const isRisky = !span.safe;
 
             let stateClass = null;
-            if (submitted) {
+            if (shouldReveal) {
               if (isRisky && isSelected) stateClass = 'sanitise-span--correctly-removed';
               else if (isRisky && !isSelected) stateClass = 'sanitise-span--missed';
               else if (!isRisky && isSelected) stateClass = 'sanitise-span--false-positive';
@@ -76,8 +77,8 @@ export function SanitisePromptTask({ itemId }) {
             return (
               <span
                 key={span.id}
-                className={cx('sanitise-span', !submitted && !span.safe && 'sanitise-span--clickable', stateClass)}
-                onClick={() => !span.safe && toggleSpan(span.id)}
+                className={cx('sanitise-span', !locked && !span.safe && 'sanitise-span--clickable', stateClass)}
+                onClick={() => !locked && !span.safe && toggleSpan(span.id)}
               >
                 {span.text}
               </span>
@@ -86,7 +87,7 @@ export function SanitisePromptTask({ itemId }) {
         </p>
       </div>
 
-      {!submitted ? (
+      {!locked ? (
         <div className="sanitise-task__actions">
           <p className="sanitise-task__hint">
             {selected.size === 0
@@ -99,10 +100,10 @@ export function SanitisePromptTask({ itemId }) {
             onClick={handleSubmit}
             type="button"
           >
-            Submit
+            {selectedAnswer && !revealFeedback ? 'Update Selection' : 'Submit'}
           </button>
         </div>
-      ) : (
+      ) : shouldReveal ? (
         <div className="sanitise-task__results">
           <div className={cx('sanitise-task__score', isCorrect && 'sanitise-task__score--full')}>
             <strong>{correctCount}</strong>
@@ -137,6 +138,10 @@ export function SanitisePromptTask({ itemId }) {
           <div className={cx('feedback-box', isCorrect ? 'feedback-box--correct' : 'feedback-box--incorrect')}>
             {isCorrect ? item.feedback.correct : item.feedback.incorrect}
           </div>
+        </div>
+      ) : (
+        <div className="assessment-saved-note">
+          {selectedAnswer ? 'Response locked.' : 'No response submitted.'}
         </div>
       )}
     </Segment>

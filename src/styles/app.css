@@ -192,6 +192,8 @@ button:disabled {
 
 .page-shell--overview {
   padding: 0 24px 80px;
+  background: var(--navy);
+  min-height: calc(100vh - 64px);
 }
 
 .page-shell--overview .page-column {
@@ -202,6 +204,15 @@ button:disabled {
   max-width: 760px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.page-shell--overview .footer-nav {
+  border-top-color: rgba(255, 255, 255, 0.14);
+}
+
+.page-shell--overview .footer-nav__caption,
+.page-shell--overview .footer-nav__gate {
+  color: rgba(255, 255, 255, 0.68);
 }
 
 .page-shell--results {
@@ -388,7 +399,6 @@ button:disabled {
 }
 
 .page-header .section-desc {
-  max-width: 720px;
   text-wrap: pretty;
   font-size: 16px;
   line-height: 1.78;
@@ -1902,7 +1912,6 @@ button:disabled {
 
 .assessment-group__description {
   margin: 10px 0 0;
-  max-width: 600px;
   color: var(--text-mid);
   font-size: 14px;
   line-height: 1.6;
@@ -2035,6 +2044,12 @@ button:disabled {
   color: var(--navy);
 }
 
+.answer-option--selected {
+  border-color: var(--navy-mid);
+  background: #eef0f6;
+  color: var(--navy);
+}
+
 .answer-option--correct {
   border-color: var(--success);
   background: var(--success-bg);
@@ -2099,6 +2114,17 @@ button:disabled {
   background: var(--danger-bg);
   border: 1px solid #f9b4b4;
   color: var(--danger);
+}
+
+.assessment-saved-note {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text-mid);
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .scenario-card {
@@ -2203,6 +2229,11 @@ button:disabled {
 .decision-option--correct {
   border-color: var(--success);
   background: var(--success-bg);
+}
+
+.decision-option--selected {
+  border-color: var(--navy-mid);
+  background: #eef0f6;
 }
 
 .decision-option--incorrect {
@@ -7317,6 +7348,11 @@ details[open] .pi-explainer__toggle::before {
 .ordering-result--incorrect {
   background: var(--danger-bg);
   border-color: #f9b4b4;
+}
+
+.ordering-result--saved {
+  background: var(--surface);
+  border-color: var(--border);
 }
 
 .ordering-result__verdict {

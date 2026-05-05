@@ -36,7 +36,7 @@ export const PAGE_SEQUENCE = [
   {
     id: 'overview',
     label: 'Overview',
-    segmentIds: ['overview-intro', 'overview-domains'],
+    segmentIds: ['overview-intro'],
   },
   {
     id: 'pre-assessment',
@@ -46,7 +46,7 @@ export const PAGE_SEQUENCE = [
   {
     id: 'main-part',
     label: 'Lens Split',
-    segmentIds: ['main-header', 'main-intro', 'main-terms', 'main-problem-map', 'main-footer'],
+    segmentIds: ['main-header', 'main-intro', 'main-domains', 'main-footer'],
   },
   {
     id: 'main-sensitive-disclosure',
@@ -118,7 +118,7 @@ export const PAGE_SEQUENCE = [
   {
     id: 'experience-feedback',
     label: 'Feedback',
-    segmentIds: ['feedback-header', 'feedback-questions', 'feedback-footer'],
+    segmentIds: ['feedback-header', 'post-feedback', 'feedback-footer'],
   },
   {
     id: 'thank-you',

@@ -4,21 +4,40 @@ import { cx } from '../../lib/cx.js';
 import { useAssessmentStore } from '../../store/useAssessmentStore.js';
 import { Segment } from '../dev/Segment.jsx';
 
-export function OrderingTask({ itemId }) {
+function getInitialOrder(item, selectedAnswer) {
+  if (!selectedAnswer) {
+    return [...item.steps.map((s) => s.id)];
+  }
+
+  const selectedIds = selectedAnswer.split(',').filter(Boolean);
+  const missingIds = item.steps.map((s) => s.id).filter((id) => !selectedIds.includes(id));
+  return [...selectedIds, ...missingIds];
+}
+
+function getInitialRemoved(item, selectedAnswer) {
+  if (!selectedAnswer) {
+    return new Set();
+  }
+
+  const selectedIds = new Set(selectedAnswer.split(',').filter(Boolean));
+  return new Set(item.steps.map((s) => s.id).filter((id) => !selectedIds.has(id)));
+}
+
+export function OrderingTask({ itemId, revealFeedback = true, locked = false }) {
   const item = ASSESSMENT_ITEMS[itemId];
   const selectedAnswer = useAssessmentStore((state) => state.answers[itemId]);
   const answerItem = useAssessmentStore((state) => state.answerItem);
 
-  const [order, setOrder] = useState(() => [...item.steps.map((s) => s.id)]);
-  const [removed, setRemoved] = useState(() => new Set(item.steps.filter((s) => s.distractor).map((s) => s.id)));
+  const [order, setOrder] = useState(() => getInitialOrder(item, selectedAnswer));
+  const [removed, setRemoved] = useState(() => getInitialRemoved(item, selectedAnswer));
   const [dragIdx, setDragIdx] = useState(null);
 
-  const submitted = Boolean(selectedAnswer);
+  const submitted = locked && Boolean(selectedAnswer);
   const isCorrect = selectedAnswer === item.correctOptionId;
   const activeOrder = order.filter((id) => !removed.has(id));
 
   function toggleRemove(stepId) {
-    if (submitted) return;
+    if (locked) return;
     setRemoved((prev) => {
       const next = new Set(prev);
       if (next.has(stepId)) next.delete(stepId);
@@ -71,6 +90,33 @@ export function OrderingTask({ itemId }) {
   if (submitted) {
     const submittedOrder = selectedAnswer.split(',');
     const correctOrder = item.correctOptionId.split(',');
+
+    if (!revealFeedback) {
+      return (
+        <Segment className="ordering-task question-card" segmentId={itemId}>
+          <div className="question-card__meta">
+            <span>{item.meta}</span>
+            <span className={cx('question-card__badge', `question-card__badge--${item.badgeTone}`)}>{item.badge}</span>
+          </div>
+          <p className="ordering-task__prompt">{item.prompt}</p>
+
+          <div className="ordering-result ordering-result--saved">
+            <p className="ordering-result__verdict">Response recorded</p>
+            <ol className="ordering-result__list">
+              {submittedOrder.map((id, i) => {
+                const step = item.steps.find((s) => s.id === id);
+                return (
+                  <li key={id} className="ordering-result__item">
+                    <span className="ordering-result__num">{i + 1}</span>
+                    <span>{step?.label}</span>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        </Segment>
+      );
+    }
 
     return (
       <Segment className="ordering-task question-card" segmentId={itemId}>
@@ -151,9 +197,9 @@ export function OrderingTask({ itemId }) {
                 isRemoved && 'ordering-item--removed',
                 dragIdx === idx && 'ordering-item--dragging',
               )}
-              draggable={!isRemoved}
-              onDragStart={(e) => handleDragStart(e, idx)}
-              onDragOver={(e) => handleDragOver(e, idx)}
+              draggable={!locked && !isRemoved}
+              onDragStart={(e) => !locked && handleDragStart(e, idx)}
+              onDragOver={(e) => !locked && handleDragOver(e, idx)}
               onDragEnd={handleDragEnd}
               role="listitem"
             >
@@ -167,14 +213,14 @@ export function OrderingTask({ itemId }) {
                   <>
                     <button
                       className="ordering-item__arrow"
-                      disabled={idx === 0}
+                      disabled={locked || idx === 0}
                       onClick={() => handleMoveUp(idx)}
                       type="button"
                       aria-label="Move up"
                     >↑</button>
                     <button
                       className="ordering-item__arrow"
-                      disabled={idx === order.length - 1}
+                      disabled={locked || idx === order.length - 1}
                       onClick={() => handleMoveDown(idx)}
                       type="button"
                       aria-label="Move down"
@@ -184,6 +230,7 @@ export function OrderingTask({ itemId }) {
                 <button
                   className={cx('ordering-item__remove', isRemoved && 'ordering-item__remove--undo')}
                   onClick={() => toggleRemove(stepId)}
+                  disabled={locked}
                   type="button"
                 >
                   {isRemoved ? '+ Add back' : '✕ Remove'}
@@ -196,14 +243,16 @@ export function OrderingTask({ itemId }) {
 
       <div className="ordering-task__footer">
         <p className="ordering-task__count">{activeOrder.length} steps in workflow · {removed.size} removed</p>
-        <button
-          className="btn-nav"
-          disabled={activeOrder.length === 0}
-          onClick={handleSubmit}
-          type="button"
-        >
-          Submit Order
-        </button>
+        {locked ? null : (
+          <button
+            className="btn-nav"
+            disabled={activeOrder.length === 0}
+            onClick={handleSubmit}
+            type="button"
+          >
+            {selectedAnswer && !revealFeedback ? 'Update Order' : 'Submit Order'}
+          </button>
+        )}
       </div>
     </Segment>
   );

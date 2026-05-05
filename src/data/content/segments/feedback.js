@@ -16,7 +16,7 @@ export const feedbackSegments = {
   'feedback-footer': {
     type: 'navigationFooter',
     previousPageId: 'post-assessment',
-    action: 'submitPostFlow',
-    nextLabel: 'Submit Assessment and Feedback',
+    action: 'submitFeedback',
+    nextLabel: 'Submit Feedback',
   },
 };

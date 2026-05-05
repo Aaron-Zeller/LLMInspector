@@ -10,14 +10,15 @@ export function SectionProgress({ pageId }) {
 
   const currentIndex = Math.max(activeSection.pageIds.indexOf(pageId), 0);
   const totalPages = activeSection.pageIds.length;
-  const progress = ((currentIndex + 1) / totalPages) * 100;
+  const completedCount = currentIndex;
+  const progress = (completedCount / totalPages) * 100;
 
   return (
     <Segment className="section-progress" segmentId={`${activeSection.id}-progress`}>
       <div className="section-progress__meta">
         <span className="section-progress__label">{activeSection.label}</span>
         <span className="section-progress__count">
-          {currentIndex + 1} of {totalPages}
+          {completedCount} of {totalPages} completed
         </span>
       </div>
       <div className="section-progress__track" aria-hidden="true">

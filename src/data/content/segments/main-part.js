@@ -13,11 +13,16 @@ export const mainPartSegments = {
       'Each scenario in this course is built around a management decision. You first identify the boundary, review gate, or platform rule that should exist. Then you apply that judgement in a short interactive exercise that shows what happens if the rule is weak, missing, or well designed.',
     ],
   },
+  'main-domains': {
+    type: 'domainGrid',
+    title: 'How the core scenarios are organised',
+    description:
+      'The scenario sequence first separates input and output risk, then works through the major issues one by one before closing with platform choice.',
+  },
   'main-footer': {
     type: 'navigationFooter',
     previousPageId: 'pre-assessment',
     nextPageId: 'main-sensitive-disclosure',
-    caption: 'This page frames the five core scenario sections that follow.',
     nextLabel: 'Go to Sensitive Information Disclosure →',
   },
 };

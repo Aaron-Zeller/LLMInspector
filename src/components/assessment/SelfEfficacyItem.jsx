@@ -11,7 +11,7 @@ const LIKERT_OPTIONS = [
   { value: '5', label: 'Strongly agree' },
 ];
 
-export function SelfEfficacyItem({ itemId }) {
+export function SelfEfficacyItem({ itemId, locked = false }) {
   const item = ASSESSMENT_ITEMS[itemId];
   const selectedValue = useAssessmentStore((state) => state.answers[itemId]);
   const answerItem = useAssessmentStore((state) => state.answerItem);
@@ -27,7 +27,7 @@ export function SelfEfficacyItem({ itemId }) {
               'self-efficacy-option',
               selectedValue === option.value && 'self-efficacy-option--selected',
             )}
-            disabled={Boolean(selectedValue)}
+            disabled={locked}
             onClick={() => answerItem(item.id, option.value)}
             type="button"
           >
