@@ -68,6 +68,17 @@ export const useAssessmentStore = create((set, get) => ({
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   },
+  devGoToThankYou() {
+    set({
+      currentPageId: 'thank-you',
+      feedbackState: 'submitted',
+      experienceError: '',
+      experienceMessage: '',
+    });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  },
   answerItem(itemId, optionId) {
     set((state) => {
       return {

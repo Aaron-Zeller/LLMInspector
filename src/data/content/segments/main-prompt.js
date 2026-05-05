@@ -100,7 +100,7 @@ export const mainPromptSegments = {
     eyebrow: 'Interactive Lab',
     title: 'Corrupted Document Walkthrough',
     description:
-      'Run the workflow as the approving manager and see how a routine-looking document can push a tool-using agent past the boundary you thought was in place.',
+      'Run the workflow as the approving manager and watch how an ordinary-looking document pushes a tool-using agent past the boundary you thought was in place.',
     frame: {
       role: 'You are reviewing an internal AI assistant that can read documents and use real HR tools.',
       watch:

@@ -131,6 +131,8 @@ export function PageRenderer({ page }) {
       ? 'page-shell page-shell--results'
       : page.id === 'overview'
         ? 'page-shell page-shell--overview'
+        : page.id === 'thank-you'
+          ? 'page-shell page-shell--thank-you'
         : 'page-shell';
 
   return (

@@ -10,7 +10,7 @@ export function SegmentCallout({ segment, segmentId }) {
       )}
       segmentId={segmentId}
     >
-      <div className="callout-icon">{segment.icon}</div>
+      {segment.icon ? <div className="callout-icon">{segment.icon}</div> : null}
       <div>
         <strong>{segment.title}</strong>
         <span>{segment.body}</span>

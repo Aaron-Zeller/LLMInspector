@@ -134,6 +134,6 @@ export const PAGE_SEQUENCE = [
   {
     id: 'thank-you',
     label: 'Thank You',
-    segmentIds: ['thank-you-header', 'thank-you-message'],
+    segmentIds: ['thanks-header', 'thanks-intro', 'thanks-callout', 'thanks-footer'],
   },
 ];

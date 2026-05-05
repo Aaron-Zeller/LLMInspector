@@ -1,6 +1,14 @@
-import { NAV_SECTIONS } from '../../data/assessmentContent.js';
+import { NAV_SECTIONS, PAGE_SEQUENCE } from '../../data/assessmentContent.js';
 import { cx } from '../../lib/cx.js';
 import { useAssessmentStore } from '../../store/useAssessmentStore.js';
+
+const CORE_SCENARIO_LABELS = {
+  'main-sensitive-disclosure': 'Sensitive Data',
+  'main-prompt-injection': 'Prompt Injection',
+  'main-misinformation': 'Misinformation',
+  'main-output-handling': 'Oversight',
+  'main-platform-choice': 'Platform Choice',
+};
 
 export function TopNavigation() {
   const currentPageId = useAssessmentStore((state) => state.currentPageId);
@@ -14,6 +22,18 @@ export function TopNavigation() {
     0,
   );
   const onAboutPage = currentPageId === 'project-about';
+  const coreScenarioSection = NAV_SECTIONS.find((section) => section.id === 'main-part');
+  const coreScenarioPages = coreScenarioSection?.pageIds ?? [];
+  const onCoreScenarioPage = coreScenarioPages.includes(currentPageId);
+  const currentCoreScenarioIndex = coreScenarioPages.indexOf(currentPageId);
+  const coreScenarioItems = coreScenarioPages.map((pageId, index) => {
+    const page = PAGE_SEQUENCE.find((entry) => entry.id === pageId);
+    return {
+      pageId,
+      number: index + 4,
+      label: CORE_SCENARIO_LABELS[pageId] ?? page?.label ?? pageId,
+    };
+  });
 
   return (
     <header className="app-header">
@@ -69,6 +89,34 @@ export function TopNavigation() {
           </button>
         </div>
       </div>
+      {onCoreScenarioPage ? (
+        <div className="core-subnav" aria-label="Core scenario navigation">
+          <div className="core-subnav__inner">
+            <div className="core-subnav__label">Core Scenarios</div>
+            <div className="core-subnav__track" role="tablist" aria-label="Core scenarios">
+              {coreScenarioItems.map((item, index) => {
+                const isActive = item.pageId === currentPageId;
+                const isComplete = currentCoreScenarioIndex > index;
+                return (
+                  <button
+                    key={item.pageId}
+                    className={cx(
+                      'core-subnav__item',
+                      isActive && 'core-subnav__item--active',
+                      isComplete && 'core-subnav__item--complete',
+                    )}
+                    onClick={() => goToPage(item.pageId)}
+                    type="button"
+                  >
+                    <span className="core-subnav__number">{item.number}</span>
+                    <span className="core-subnav__text">{item.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      ) : null}
     </header>
   );
 }

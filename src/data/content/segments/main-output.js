@@ -182,126 +182,6 @@ export const mainOutputSegments = {
         ],
       },
       {
-        id: 'aoe-s3',
-        title: 'Marketing Email with Placeholder Error',
-        urgency: 'Campaign launches in 2 hours',
-        context:
-          'Your AI content system has drafted a re-engagement email campaign for 450 lapsed customers. You are the campaign manager. The email is scheduled to send automatically in 2 hours unless you intervene.',
-        aiOutputTitle: 'AI Draft: Re-engagement Email',
-        aiOutput:
-          'Subject: We miss you, [CUSTOMER NAME]\n\nHi [CUSTOMER NAME],\n\nIt\'s been a while since we\'ve seen you, and we\'d love to welcome you back.\n\nAs a valued customer, we\'re offering you an exclusive 20% discount on your next order, valid until October 31.\n\nClick below to claim your offer.\n\nWarm regards,\nThe Team',
-        options: [
-          {
-            id: 'approve',
-            icon: '✅',
-            label: 'Approve',
-            sublabel: 'Let it send as scheduled',
-            riskDelta: 28,
-            consequence: {
-              tone: 'danger',
-              verdict: 'Output error undetected',
-              title: '450 customers received a broken email',
-              body:
-                "The email went out with '[CUSTOMER NAME]' unreplaced in both the subject line and body. 450 customers received it. Within 2 hours, 23 complaints arrived and 11 customers unsubscribed. The campaign had to be recalled and a correction sent.",
-              lesson:
-                "AI output errors are not always semantic. Sometimes they are literal, like an unfilled template variable. A single human review of the final output before a bulk send is a minimal safeguard with outsized value. The AI did not fail at content; it failed at a step the pipeline should have enforced.",
-            },
-          },
-          {
-            id: 'review',
-            icon: '🔍',
-            label: 'Review Before Send',
-            sublabel: 'Read the draft carefully',
-            riskDelta: 0,
-            consequence: {
-              tone: 'success',
-              verdict: 'Error caught in time',
-              title: 'Campaign corrected before launch',
-              body:
-                'Reading the first few lines of the draft revealed the unfilled placeholder immediately. You corrected the template variable, re-ran the personalisation step, and the campaign launched on time with clean output.',
-              lesson:
-                "Bulk outbound communications are a high-consequence category: an error reaches hundreds of customers simultaneously and cannot be unsent. A review step before any mass send, even when the content looks routine, is proportionate and necessary.",
-            },
-          },
-          {
-            id: 'escalate',
-            icon: '⛔',
-            label: 'Escalate',
-            sublabel: 'Flag to marketing lead',
-            riskDelta: 8,
-            consequence: {
-              tone: 'warn',
-              verdict: 'Error caught, but slowly',
-              title: 'Campaign delayed by 3 hours',
-              body:
-                'The marketing lead eventually identified the placeholder error, but the review took 3 hours and the campaign missed its optimal send window. The error was caught before it reached customers.',
-              lesson:
-                'Escalating to a manager for a content review task adds overhead that was not necessary here. The issue was findable with a direct read. Marketing content errors are within the campaign manager\'s authority to catch and fix. The right call was a direct review, not a handoff.',
-            },
-          },
-        ],
-      },
-      {
-        id: 'aoe-s5',
-        title: 'Client Portfolio Email with Account Data',
-        urgency: 'Time-sensitive · 30 min to meeting',
-        context:
-          'An AI assistant has drafted an email to a wealth management client summarising their Q3 portfolio performance. You are the relationship manager and must send it before the client meeting. The draft is ready to go.',
-        aiOutputTitle: 'AI Draft: Client Email',
-        aiOutput:
-          'Dear Mr. Hartmann,\n\nYour portfolio (Account #CH-20044-88) recorded a value of €127,450 at Q3 close, representing an 8.3% decline.\n\nBased on current volatility projections, we recommend reducing your equity exposure from 65% to 45% effective next week.\n\nBest regards,\nWealth Management Team',
-        options: [
-          {
-            id: 'approve',
-            icon: '✅',
-            label: 'Approve',
-            sublabel: 'Send as drafted',
-            riskDelta: 30,
-            consequence: {
-              tone: 'danger',
-              verdict: 'Compliance failure',
-              title: 'Sensitive data sent without review',
-              body:
-                "The email included the client's full account number and exact portfolio value, both classified as sensitive personal data under GDPR and the firm's data processing agreement. Once sent, this cannot be recalled. The client's data left a controlled channel without compliance review.",
-              lesson:
-                'AI drafts for external communications must always be checked for sensitive data fields before sending. Account numbers and precise financial figures require specific handling under most data processing agreements. The time pressure was real, but it does not remove the obligation.',
-            },
-          },
-          {
-            id: 'review',
-            icon: '🔍',
-            label: 'Review and Edit',
-            sublabel: 'Revise before sending',
-            riskDelta: 0,
-            consequence: {
-              tone: 'success',
-              verdict: 'Risk identified and removed',
-              title: 'Email corrected and sent on time',
-              body:
-                'You caught the raw account number and replaced it with the approved masked format. You also removed the specific percentage recommendation, a field that triggers investment advice regulations, and substituted a general reference. The email went out 12 minutes later and passed compliance review.',
-              lesson:
-                'A structured review checklist for AI-drafted client communications (sensitive data fields, regulated language, investment recommendation triggers) takes less than two minutes and prevents reportable data incidents. This was the right call.',
-            },
-          },
-          {
-            id: 'escalate',
-            icon: '⛔',
-            label: 'Escalate',
-            sublabel: 'Flag for compliance review',
-            riskDelta: 0,
-            consequence: {
-              tone: 'success',
-              verdict: 'Risk contained via proper channel',
-              title: 'Compliance team reformatted and sent',
-              body:
-                'The compliance team reformatted the email using an approved template that avoids raw account references and specific portfolio values. The client received a policy-compliant communication. The meeting proceeded without incident.',
-              lesson:
-                "Client-facing communications involving account data and financial recommendations benefit from compliance review. Escalating when you are unsure is a legitimate and responsible choice. The cost here was a few minutes, not a reportable data incident.",
-            },
-          },
-        ],
-      },
-      {
         id: 'aoe-s6',
         title: 'Out-of-Policy Refund',
         urgency: 'Customer waiting · 3 days unresolved',
@@ -357,6 +237,66 @@ export const mainOutputSegments = {
                 "The manager reviewed the case, confirmed the refund was legitimate, and approved it with a documented exception. The customer received the refund within 2 hours. The process remained auditable and compliant.",
               lesson:
                 "Escalation is not a delay. It is a control. The customer's wait extended by 2 hours, but the organisation's financial controls stayed intact and the exception was properly documented. The AI did its job; so did you.",
+            },
+          },
+        ],
+      },
+      {
+        id: 'aoe-s3',
+        title: 'Marketing Email with Placeholder Error',
+        urgency: 'Campaign launches in 2 hours',
+        context:
+          'Your AI content system has drafted a re-engagement email campaign for 450 lapsed customers. You are the campaign manager. The email is scheduled to send automatically in 2 hours unless you intervene.',
+        aiOutputTitle: 'AI Draft: Re-engagement Email',
+        aiOutput:
+          'Subject: We miss you, [CUSTOMER NAME]\n\nHi [CUSTOMER NAME],\n\nIt\'s been a while since we\'ve seen you, and we\'d love to welcome you back.\n\nAs a valued customer, we\'re offering you an exclusive 20% discount on your next order, valid until October 31.\n\nClick below to claim your offer.\n\nWarm regards,\nThe Team',
+        options: [
+          {
+            id: 'approve',
+            icon: '✅',
+            label: 'Approve',
+            sublabel: 'Let it send as scheduled',
+            riskDelta: 28,
+            consequence: {
+              tone: 'danger',
+              verdict: 'Output error undetected',
+              title: '450 customers received a broken email',
+              body:
+                "The email went out with '[CUSTOMER NAME]' unreplaced in both the subject line and body. 450 customers received it. Within 2 hours, 23 complaints arrived and 11 customers unsubscribed. The campaign had to be recalled and a correction sent.",
+              lesson:
+                "AI output errors are not always semantic. Sometimes they are literal, like an unfilled template variable. A single human review of the final output before a bulk send is a minimal safeguard with outsized value. The AI did not fail at content; it failed at a step the pipeline should have enforced.",
+            },
+          },
+          {
+            id: 'review',
+            icon: '🔍',
+            label: 'Review Before Send',
+            sublabel: 'Read the draft carefully',
+            riskDelta: 0,
+            consequence: {
+              tone: 'success',
+              verdict: 'Error caught in time',
+              title: 'Campaign corrected before launch',
+              body:
+                'Reading the first few lines of the draft revealed the unfilled placeholder immediately. You corrected the template variable, re-ran the personalisation step, and the campaign launched on time with clean output.',
+              lesson:
+                "Bulk outbound communications are a high-consequence category: an error reaches hundreds of customers simultaneously and cannot be unsent. A review step before any mass send, even when the content looks routine, is proportionate and necessary.",
+            },
+          },
+          {
+            id: 'escalate',
+            icon: '⛔',
+            label: 'Escalate',
+            sublabel: 'Flag to marketing lead',
+            riskDelta: 8,
+            consequence: {
+              tone: 'warn',
+              verdict: 'Error caught, but slowly',
+              title: 'Campaign delayed by 3 hours',
+              body:
+                'The marketing lead eventually identified the placeholder error, but the review took 3 hours and the campaign missed its optimal send window. The error was caught before it reached customers.',
+              lesson:
+                'Escalating to a manager for a content review task adds overhead that was not necessary here. The issue was findable with a direct read. Marketing content errors are within the campaign manager\'s authority to catch and fix. The right call was a direct review, not a handoff.',
             },
           },
         ],
@@ -421,6 +361,66 @@ export const mainOutputSegments = {
           },
         ],
       },
+      {
+        id: 'aoe-s5',
+        title: 'Client Portfolio Email with Account Data',
+        urgency: 'Time-sensitive · 30 min to meeting',
+        context:
+          'An AI assistant has drafted an email to a wealth management client summarising their Q3 portfolio performance. You are the relationship manager and must send it before the client meeting. The draft is ready to go.',
+        aiOutputTitle: 'AI Draft: Client Email',
+        aiOutput:
+          'Dear Mr. Hartmann,\n\nYour portfolio (Account #CH-20044-88) recorded a value of €127,450 at Q3 close, representing an 8.3% decline.\n\nBased on current volatility projections, we recommend reducing your equity exposure from 65% to 45% effective next week.\n\nBest regards,\nWealth Management Team',
+        options: [
+          {
+            id: 'approve',
+            icon: '✅',
+            label: 'Approve',
+            sublabel: 'Send as drafted',
+            riskDelta: 30,
+            consequence: {
+              tone: 'danger',
+              verdict: 'Compliance failure',
+              title: 'Sensitive data sent without review',
+              body:
+                "The email included the client's full account number and exact portfolio value, both classified as sensitive personal data under GDPR and the firm's data processing agreement. Once sent, this cannot be recalled. The client's data left a controlled channel without compliance review.",
+              lesson:
+                'AI drafts for external communications must always be checked for sensitive data fields before sending. Account numbers and precise financial figures require specific handling under most data processing agreements. The time pressure was real, but it does not remove the obligation.',
+            },
+          },
+          {
+            id: 'review',
+            icon: '🔍',
+            label: 'Review and Edit',
+            sublabel: 'Revise before sending',
+            riskDelta: 0,
+            consequence: {
+              tone: 'success',
+              verdict: 'Risk identified and removed',
+              title: 'Email corrected and sent on time',
+              body:
+                'You caught the raw account number and replaced it with the approved masked format. You also removed the specific percentage recommendation, a field that triggers investment advice regulations, and substituted a general reference. The email went out 12 minutes later and passed compliance review.',
+              lesson:
+                'A structured review checklist for AI-drafted client communications (sensitive data fields, regulated language, investment recommendation triggers) takes less than two minutes and prevents reportable data incidents. This was the right call.',
+            },
+          },
+          {
+            id: 'escalate',
+            icon: '⛔',
+            label: 'Escalate',
+            sublabel: 'Flag for compliance review',
+            riskDelta: 0,
+            consequence: {
+              tone: 'success',
+              verdict: 'Risk contained via proper channel',
+              title: 'Compliance team reformatted and sent',
+              body:
+                'The compliance team reformatted the email using an approved template that avoids raw account references and specific portfolio values. The client received a policy-compliant communication. The meeting proceeded without incident.',
+              lesson:
+                "Client-facing communications involving account data and financial recommendations benefit from compliance review. Escalating when you are unsure is a legitimate and responsible choice. The cost here was a few minutes, not a reportable data incident.",
+            },
+          },
+        ],
+      },
     ],
     debrief: {
       eyebrow: 'After the Lab',
@@ -446,7 +446,6 @@ export const mainOutputSegments = {
     previousPageId: 'main-misinformation',
     nextRequiresCompletion: ['main-output-approve-escalate'],
     nextPageId: 'main-platform-choice',
-    caption: 'The lab is intentionally short and high-stakes: five decisions, one accumulated risk pattern.',
     nextLabel: 'Go to Platform Choice →',
   },
 };

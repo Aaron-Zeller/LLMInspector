@@ -21,8 +21,6 @@ export const thankYouSegments = {
   },
   'thanks-footer': {
     type: 'navigationFooter',
-    action: 'viewResults',
-    nextLabel: 'View Results →',
-    caption: 'Final Step',
+    previousPageId: 'experience-feedback',
   },
 };

@@ -326,7 +326,6 @@ export const mainPlatformSegments = {
   'main-platform-close': {
     type: 'callout',
     variant: 'platform',
-    icon: '◆',
     title: 'Default decision order',
     body:
       'When you are choosing between the three paths, do not start with brand familiarity. Start with data sensitivity, the governance burden, and the amount of authority the workflow will eventually carry.',
