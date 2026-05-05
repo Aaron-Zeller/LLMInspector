@@ -28,6 +28,7 @@ function createEmptyFeedbackResponses() {
 export const useAssessmentStore = create((set, get) => ({
   sessionId: getOrCreateAnonymousSessionId(),
   currentPageId: firstPageId,
+  aboutReturnPageId: firstPageId,
   decisionCheckStatus: {},
   completedLabs: {},
   answers: {},
@@ -46,6 +47,23 @@ export const useAssessmentStore = create((set, get) => ({
   experienceError: '',
   goToPage(pageId) {
     set({ currentPageId: pageId });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  },
+  openAboutPage() {
+    const currentPageId = get().currentPageId;
+    set({
+      aboutReturnPageId: currentPageId === 'project-about' ? get().aboutReturnPageId : currentPageId,
+      currentPageId: 'project-about',
+    });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  },
+  closeAboutPage() {
+    const aboutReturnPageId = get().aboutReturnPageId || firstPageId;
+    set({ currentPageId: aboutReturnPageId });
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -201,6 +219,7 @@ export const useAssessmentStore = create((set, get) => ({
     set({
       sessionId: getOrCreateAnonymousSessionId(),
       currentPageId: firstPageId,
+      aboutReturnPageId: firstPageId,
       decisionCheckStatus: {},
       completedLabs: {},
       answers: {},

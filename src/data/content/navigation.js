@@ -39,6 +39,17 @@ export const PAGE_SEQUENCE = [
     segmentIds: ['overview-intro'],
   },
   {
+    id: 'project-about',
+    label: 'About',
+    segmentIds: [
+      'project-about-header',
+      'project-about-intro',
+      'project-about-about',
+      'project-about-tool',
+      'project-about-resources',
+    ],
+  },
+  {
     id: 'pre-assessment',
     label: 'Pre Assessment',
     segmentIds: ['pre-header', 'pre-intro', 'pre-questions', 'pre-footer'],

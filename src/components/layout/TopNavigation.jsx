@@ -6,11 +6,14 @@ export function TopNavigation() {
   const currentPageId = useAssessmentStore((state) => state.currentPageId);
   const feedbackState = useAssessmentStore((state) => state.feedbackState);
   const goToPage = useAssessmentStore((state) => state.goToPage);
+  const openAboutPage = useAssessmentStore((state) => state.openAboutPage);
+  const closeAboutPage = useAssessmentStore((state) => state.closeAboutPage);
 
   const currentSectionIndex = Math.max(
     NAV_SECTIONS.findIndex((section) => section.pageIds.includes(currentPageId)),
     0,
   );
+  const onAboutPage = currentPageId === 'project-about';
 
   return (
     <header className="app-header">
@@ -50,6 +53,21 @@ export function TopNavigation() {
             );
           })}
         </nav>
+        <div className="topnav__actions">
+          <button
+            className={cx('nav-about', onAboutPage && 'nav-about--active')}
+            onClick={() => {
+              if (onAboutPage) {
+                closeAboutPage();
+                return;
+              }
+              openAboutPage();
+            }}
+            type="button"
+          >
+            About
+          </button>
+        </div>
       </div>
     </header>
   );

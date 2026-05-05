@@ -35,9 +35,11 @@ import { mainPlatformSegments } from './segments/main-platforms.js';
 import { postAssessmentSegments } from './segments/post-assessment.js';
 import { feedbackSegments } from './segments/feedback.js';
 import { thankYouSegments } from './segments/thank-you.js';
+import { projectAboutSegments } from './segments/project-about.js';
 
 export const SEGMENTS = {
   ...overviewSegments,
+  ...projectAboutSegments,
   ...preAssessmentSegments,
   ...mainPartSegments,
   ...mainSensitiveSegments,
