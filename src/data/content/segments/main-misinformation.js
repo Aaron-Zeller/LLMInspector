@@ -101,7 +101,7 @@ export const mainMisinformationSegments = {
     eyebrow: 'Verification Simulation',
     title: 'Source Verification Simulation',
     description:
-      'The claims below come from the analysis above. For each one, decide whether it should be externally verified, internally narrowed, or removed before it enters a professional document.',
+      'For each of the below claims, decide whether it should be externally verified, internally narrowed, or removed before it enters a professional document.',
     brief: {
       eyebrow: 'Verification Lens',
       prompt: 'Do not ask only, “Can I verify this?” Ask what should happen to the claim right now.',

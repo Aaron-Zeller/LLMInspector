@@ -414,7 +414,7 @@ export function PromptInjectionDemo({ segment, segmentId }) {
           <div className="pi-chat__body">
             {step === 0 && (
               <div className="pi-chat__empty">
-                Choose a boundary above, then begin the session and watch where the workflow loses control.
+                Examine the raw agent context and permissions, then begin the session and watch where the workflow loses control.
               </div>
             )}
             {visibleSteps.map((s) => (
