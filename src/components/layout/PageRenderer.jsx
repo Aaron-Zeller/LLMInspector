@@ -29,6 +29,8 @@ import { PlatformGovernanceStudio } from '../assessment/PlatformGovernanceStudio
 import { SegmentCallout } from '../common/SegmentCallout.jsx';
 import { NavigationFooter } from '../common/NavigationFooter.jsx';
 import { PageHeader } from '../common/PageHeader.jsx';
+import { ProjectAboutLead } from '../common/ProjectAboutLead.jsx';
+import { ProjectAboutSection } from '../common/ProjectAboutSection.jsx';
 import { SectionProgress } from '../common/SectionProgress.jsx';
 import { ContentCardSection } from '../common/ContentCardSection.jsx';
 import { LockedLabNotice } from '../common/LockedLabNotice.jsx';
@@ -48,6 +50,8 @@ const segmentRenderers = {
   domainGrid: CompetencyGrid,
   callout: SegmentCallout,
   pageHeader: PageHeader,
+  projectAboutLead: ProjectAboutLead,
+  projectAboutSection: ProjectAboutSection,
   moduleIntro: ModuleIntro,
   contentCards: ContentCardSection,
   transferCallout: TransferCallout,
@@ -131,13 +135,23 @@ export function PageRenderer({ page }) {
       ? 'page-shell page-shell--results'
       : page.id === 'overview'
         ? 'page-shell page-shell--overview'
+        : page.id === 'project-about'
+          ? 'page-shell page-shell--about'
         : page.id === 'thank-you'
           ? 'page-shell page-shell--thank-you'
         : 'page-shell';
 
   return (
     <main className={pageClassName}>
-      <div className={page.id === 'results' ? 'page-column page-column--results' : 'page-column'}>
+      <div
+        className={
+          page.id === 'results'
+            ? 'page-column page-column--results'
+            : page.id === 'project-about'
+              ? 'page-column page-column--about'
+              : 'page-column'
+        }
+      >
         {page.segmentIds.map((segmentId, index) => (
           <Fragment key={segmentId}>
             <SegmentRenderer segmentId={segmentId} />
