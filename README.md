@@ -107,6 +107,24 @@ You can change the default with `VITE_SHOW_SEGMENT_IDS`, and the in-browser togg
 
 The frontend submits only the answer map. The backend recomputes totals and domain scores from the shared scoring rules before writing to Postgres. That keeps the stored results aligned with the canonical assessment logic.
 
+## Data Export
+
+If you set an `EXPORT_TOKEN`, the backend exposes two protected export routes:
+
+- `/api/assessment-export?token=YOUR_TOKEN&format=csv`
+- `/api/feedback-export?token=YOUR_TOKEN&format=csv`
+
+Both routes also support `format=json`.
+
+Examples:
+
+```text
+https://colorcode-ai.ch/api/assessment-export?token=YOUR_TOKEN&format=csv
+https://colorcode-ai.ch/api/feedback-export?token=YOUR_TOKEN&format=json
+```
+
+If `EXPORT_TOKEN` is not configured, these export routes return `503`.
+
 ## Working With AI Coding Tools
 
 If you use ChatGPT, Claude, Codex, Cursor, or another AI coding tool on this repo, treat the current codebase as the source of truth. This project already went through a major refactor, and a few important design and structure choices are intentional.

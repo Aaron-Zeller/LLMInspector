@@ -7,9 +7,9 @@ export const thankYouSegments = {
       'Your assessment and feedback have been submitted successfully. You can now view your results.',
   },
   'thanks-intro': {
-    type: 'moduleIntro',
+    type: 'richModuleIntro',
     paragraphs: [
-      'This tool was developed as part of a Design in Educational Technology project at ETH Zurich. Your participation helps us understand how AI literacy can be taught more effectively in professional settings.',
+      'This tool was developed as part of the course <a href="https://peachlab.inf.ethz.ch/teaching/diet2026/" target="_blank" rel="noreferrer">Design in Educational Technology</a> at ETH Zurich. Your participation helps us understand how AI literacy can be taught more effectively in professional settings.',
     ],
   },
   'thanks-callout': {
