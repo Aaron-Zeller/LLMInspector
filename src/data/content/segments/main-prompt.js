@@ -2,7 +2,7 @@ export const mainPromptSegments = {
   'main-prompt-header': {
     type: 'pageHeader',
     tone: 'input',
-    eyebrow: 'Section 5 · Prompt Injection',
+    eyebrow: 'Section 2 · Prompt Injection',
     title: 'Why and how untrusted content can steer the model',
     frame: {
       label: 'Your role in this section',

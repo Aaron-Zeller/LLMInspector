@@ -2,7 +2,7 @@ export const mainMisinformationSegments = {
   'main-misinformation-header': {
     type: 'pageHeader',
     tone: 'output',
-    eyebrow: 'Section 6 · Misinformation and Hallucinations',
+    eyebrow: 'Section 3 · Misinformation and Hallucinations',
     title: 'When confident output is still wrong',
     frame: {
       label: 'Your role in this section',

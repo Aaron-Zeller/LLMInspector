@@ -2,7 +2,7 @@ export const mainSensitiveSegments = {
   'main-sensitive-header': {
     type: 'pageHeader',
     tone: 'input',
-    eyebrow: 'Section 4 · Sensitive Information Disclosure',
+    eyebrow: 'Section 1 · Sensitive Information Disclosure',
     title: 'The Input Risk: What never to paste or upload to an LLM',
     frame: {
       label: 'Your role in this section',

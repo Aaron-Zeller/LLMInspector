@@ -2,7 +2,7 @@ export const mainPlatformSegments = {
   'main-platform-header': {
     type: 'pageHeader',
     tone: 'platform',
-    eyebrow: 'Section 8 · Platform Choice',
+    eyebrow: 'Section 5 · Platform Choice',
     title: 'Different tools create different governance choices',
     frame: {
       label: 'Your role in this section',

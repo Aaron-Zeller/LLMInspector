@@ -30,7 +30,7 @@ export function TopNavigation() {
     const page = PAGE_SEQUENCE.find((entry) => entry.id === pageId);
     return {
       pageId,
-      number: index + 4,
+      number: index + 1,
       label: CORE_SCENARIO_LABELS[pageId] ?? page?.label ?? pageId,
     };
   });

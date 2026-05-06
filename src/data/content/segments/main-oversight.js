@@ -2,7 +2,7 @@ export const mainOversightSegments = {
   'main-agency-header': {
     type: 'pageHeader',
     tone: 'output',
-    eyebrow: 'Section 8 · Excessive Agency and Human Oversight',
+    eyebrow: 'Section 4 · Excessive Agency and Human Oversight',
     title: 'When the model should not act on its own',
   },
   'main-agency-outcomes': {

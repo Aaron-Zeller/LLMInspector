@@ -2,7 +2,7 @@ export const mainOutputSegments = {
   'main-output-header': {
     type: 'pageHeader',
     tone: 'output',
-    eyebrow: 'Section 7 · Excessive Agency and Human Oversight',
+    eyebrow: 'Section 4 · Excessive Agency and Human Oversight',
     title: 'Keep powerful AI workflows inside real human boundaries',
     frame: {
       label: 'Your role in this section',
