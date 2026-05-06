@@ -9,8 +9,8 @@ import {
 
 export const DOMAIN_MAX_SCORES = DOMAIN_ORDER.reduce((accumulator, key) => {
   accumulator[key] = Object.values(ASSESSMENT_ITEMS)
-    .filter((item) => item.domainKey === key)
-    .reduce((sum, item) => sum + item.points, 0);
+    .filter((item) => item.domainKey === key && item.correctOptionId)
+    .reduce((sum, item) => sum + (item.points ?? 0), 0);
   return accumulator;
 }, {});
 
@@ -25,11 +25,16 @@ export function sanitizeAnswers(value) {
       return accumulator;
     }
 
-    const isValidOption = item.options.some((option) => option.id === optionId);
-    if (!isValidOption) {
-      return accumulator;
+    // Items with an options array: validate that the chosen option exists
+    if (item.options) {
+      const isValidOption = item.options.some((option) => option.id === optionId);
+      if (!isValidOption) {
+        return accumulator;
+      }
     }
 
+    // Items without options (ordering, selfEfficacy, sanitisePrompt, workflowRisk):
+    // accept any non-empty string answer
     accumulator[itemId] = optionId;
     return accumulator;
   }, {});
@@ -58,6 +63,13 @@ export function buildQuestionResultsForStage(stage, rawAnswers = {}) {
   return Object.fromEntries(
     itemIds.map((itemId) => {
       const item = ASSESSMENT_ITEMS[itemId];
+
+      // Unscored items (selfEfficacy and any item with no correctOptionId):
+      // stored as null — not counted toward correct or total scored questions
+      if (!item || !item.correctOptionId) {
+        return [getBaseQuestionId(itemId), null];
+      }
+
       const selectedOptionId = answers[itemId];
       const result =
         typeof selectedOptionId === 'string'
@@ -73,11 +85,14 @@ export function summarizeStageResults(stage, rawAnswers = {}) {
   const questionResults = buildQuestionResultsForStage(stage, rawAnswers);
   const values = Object.values(questionResults);
 
+  // Only count items that have a definitive true/false result (scored items)
+  const scoredValues = values.filter((v) => v !== null);
+
   return {
     questionResults,
-    answeredCount: values.filter((value) => value !== null).length,
-    correctCount: values.filter((value) => value === true).length,
-    totalQuestions: values.length,
+    answeredCount: scoredValues.filter((value) => value !== null).length,
+    correctCount: scoredValues.filter((value) => value === true).length,
+    totalQuestions: scoredValues.length,
   };
 }
 
@@ -95,8 +110,9 @@ export function computeResultsFromAnswers(rawAnswers = {}) {
   const domainScores = Object.fromEntries(DOMAIN_ORDER.map((key) => [key, 0]));
 
   for (const item of Object.values(ASSESSMENT_ITEMS)) {
+    if (!item.correctOptionId) continue;
     if (answers[item.id] === item.correctOptionId) {
-      domainScores[item.domainKey] += item.points;
+      domainScores[item.domainKey] = (domainScores[item.domainKey] ?? 0) + (item.points ?? 0);
     }
   }
 

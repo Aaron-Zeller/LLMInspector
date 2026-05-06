@@ -1,5 +1,6 @@
 import { useEffect, useRef, useMemo, useState } from 'react';
 import { cx } from '../../lib/cx.js';
+import { AfterLabSection } from '../common/AfterLabSection.jsx';
 import { Segment } from '../dev/Segment.jsx';
 
 const SLIDER_MARKS = {
@@ -556,6 +557,14 @@ export function SystemTuning({ segment, segmentId }) {
           )}
         </div>
       )}
+      {segment.debrief ? (
+        <AfterLabSection
+          eyebrow={segment.debrief.eyebrow}
+          title={segment.debrief.title}
+          items={segment.debrief.items}
+          isComplete={streamDone}
+        />
+      ) : null}
     </Segment>
   );
 }

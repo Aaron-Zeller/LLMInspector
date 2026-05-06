@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cx } from '../../lib/cx.js';
+import { AfterLabSection } from '../common/AfterLabSection.jsx';
+import { useAssessmentStore } from '../../store/useAssessmentStore.js';
 import { Segment } from '../dev/Segment.jsx';
 
 const RISK_BANDS = [
@@ -17,6 +19,7 @@ export function ApproveOrEscalate({ segment, segmentId }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [choices, setChoices] = useState({});
   const [riskLevel, setRiskLevel] = useState(0);
+  const markLabCompleted = useAssessmentStore((state) => state.markLabCompleted);
 
   const { scenarios } = segment;
   const allDone = currentIndex >= scenarios.length;
@@ -43,6 +46,12 @@ export function ApproveOrEscalate({ segment, segmentId }) {
   }
 
   const band = getRiskBand(riskLevel);
+
+  useEffect(() => {
+    if (allDone) {
+      markLabCompleted(segmentId);
+    }
+  }, [allDone, markLabCompleted, segmentId]);
 
   return (
     <Segment className="content-section" segmentId={segmentId}>
@@ -215,6 +224,15 @@ export function ApproveOrEscalate({ segment, segmentId }) {
           </button>
         </div>
       )}
+
+      {segment.debrief ? (
+        <AfterLabSection
+          eyebrow={segment.debrief.eyebrow}
+          title={segment.debrief.title}
+          items={segment.debrief.items}
+          isComplete={allDone}
+        />
+      ) : null}
     </Segment>
   );
 }

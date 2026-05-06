@@ -4,14 +4,15 @@ export const postAssessmentSegments = {
   'post-header': {
     type: 'pageHeader',
     eyebrow: 'Section 10 · Post Assessment',
-    title: 'Post assessment',
+    title: 'Post Assessment',
     description:
-      'The post assessment is a direct copy of the pre assessment, so later comparison remains clean and intentional.',
+      'Now that you have worked through the teaching content, this assessment captures what has changed. It follows the same five-part structure as the pre-assessment.',
   },
   'post-intro': {
     type: 'moduleIntro',
     paragraphs: [
-      'This section mirrors the pre assessment as requested. The point is not a new structure here, but a stable before-and-after comparison.',
+      'This assessment captures your understanding after the teaching content. Your answers are stored anonymously.',
+      'Work through each part at your own pace. Answers are saved as you go and stored anonymously, so you can navigate between parts without losing progress. Once you submit the assessment, you can no longer change your answers. Solutions are then revealed, and you can continue to the feedback page.',
     ],
   },
   'post-questions': {
@@ -19,17 +20,12 @@ export const postAssessmentSegments = {
     stage: 'post',
     sections: POST_ASSESSMENT_SECTIONS,
   },
-  'post-feedback': {
-    type: 'likertFeedback',
-    eyebrow: 'Experience Feedback',
-    title: 'Feedback on the overall experience',
-    description:
-      'Please rate the experience before submitting. These responses are stored anonymously alongside the pre and post assessment outcomes.',
-  },
   'post-footer': {
     type: 'navigationFooter',
     previousPageId: 'main-platform-choice',
+    action: 'submitPostAssessment',
     nextPageId: 'experience-feedback',
-    nextLabel: 'Go to Feedback →',
+    nextLabel: 'Submit & Reveal Solutions',
+    submittedLabel: 'Go to Feedback →',
   },
 };

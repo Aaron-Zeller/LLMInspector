@@ -1,8 +1,53 @@
+export const NAV_SECTIONS = [
+  {
+    id: 'overview',
+    label: 'Overview',
+    pageIds: ['overview'],
+  },
+  {
+    id: 'pre-assessment',
+    label: 'Pre Assessment',
+    pageIds: ['pre-assessment'],
+  },
+  {
+    id: 'main-part',
+    label: 'Core Scenarios',
+    pageIds: [
+      'main-sensitive-disclosure',
+      'main-prompt-injection',
+      'main-misinformation',
+      'main-output-handling',
+      'main-platform-choice',
+    ],
+  },
+  {
+    id: 'post-assessment',
+    label: 'Post Assessment',
+    pageIds: ['post-assessment'],
+  },
+  {
+    id: 'experience-feedback',
+    label: 'Feedback',
+    pageIds: ['experience-feedback'],
+  },
+];
+
 export const PAGE_SEQUENCE = [
   {
     id: 'overview',
     label: 'Overview',
-    segmentIds: ['overview-intro', 'overview-domains', 'overview-callout'],
+    segmentIds: ['overview-intro'],
+  },
+  {
+    id: 'project-about',
+    label: 'About',
+    segmentIds: [
+      'project-about-header',
+      'project-about-intro',
+      'project-about-about',
+      'project-about-tool',
+      'project-about-resources',
+    ],
   },
   {
     id: 'pre-assessment',
@@ -12,17 +57,15 @@ export const PAGE_SEQUENCE = [
   {
     id: 'main-part',
     label: 'Lens Split',
-    segmentIds: ['main-header', 'main-intro', 'main-terms', 'main-problem-map', 'main-footer'],
+    segmentIds: ['main-header', 'main-intro', 'main-domains', 'main-footer'],
   },
   {
     id: 'main-sensitive-disclosure',
     label: 'Sensitive Data',
     segmentIds: [
       'main-sensitive-header',
-      'main-sensitive-intro',
+      'main-sensitive-outcomes',
       'main-sensitive-legal',
-      'main-sensitive-practical',
-      'main-sensitive-guidance',
       'main-sensitive-lab',
       'main-sensitive-footer',
     ],
@@ -32,6 +75,7 @@ export const PAGE_SEQUENCE = [
     label: 'Prompt Injection',
     segmentIds: [
       'main-prompt-header',
+      'main-prompt-outcomes',
       'main-prompt-intro',
       'main-prompt-mechanism',
       'main-prompt-risks',
@@ -45,51 +89,35 @@ export const PAGE_SEQUENCE = [
     label: 'Misinformation',
     segmentIds: [
       'main-misinformation-header',
-      'main-misinformation-intro',
+      'main-misinformation-outcomes',
       'main-misinformation-hallucinations',
-      'main-misinformation-engineering',
-      'main-misinformation-verification',
-      'main-misinformation-risks',
-      'main-misinformation-spot',
       'main-misinformation-verify',
+      'main-misinformation-spot',
       'main-misinformation-footer',
     ],
   },
   {
     id: 'main-output-handling',
-    label: 'Output Handling',
+    label: 'Excessive Agency and Human Oversight',
     segmentIds: [
       'main-output-header',
-      'main-output-intro',
+      'main-output-outcomes',
       'main-output-workflows',
-      'main-output-consequences',
-      'main-output-controls',
+      'main-output-bridge',
+      'main-agency-intro',
       'main-output-approve-escalate',
-      'main-output-system-tuning',
       'main-output-footer',
     ],
   },
   {
-    id: 'main-excessive-agency',
-    label: 'Oversight',
-    segmentIds: [
-      'main-agency-header',
-      'main-agency-intro',
-      'main-agency-risks',
-      'main-agency-supervision',
-      'main-agency-accountability',
-      'main-agency-footer',
-    ],
-  },
-  {
     id: 'main-platform-choice',
-    label: 'Platforms',
+    label: 'Platform Choice',
     segmentIds: [
       'main-platform-header',
+      'main-platform-outcomes',
       'main-platform-intro',
       'main-platform-cloud',
-      'main-platform-private',
-      'main-conclusion',
+      'main-platform-close',
       'main-platform-footer',
     ],
   },
@@ -107,46 +135,5 @@ export const PAGE_SEQUENCE = [
     id: 'thank-you',
     label: 'Thank You',
     segmentIds: ['thanks-header', 'thanks-intro', 'thanks-callout', 'thanks-footer'],
-  },
-];
-
-export const NAV_SECTIONS = [
-  {
-    id: 'overview',
-    label: 'Overview',
-    pageIds: ['overview'],
-  },
-  {
-    id: 'pre-assessment',
-    label: 'Pre Assessment',
-    pageIds: ['pre-assessment'],
-  },
-  {
-    id: 'main-part',
-    label: 'Main Part',
-    pageIds: [
-      'main-part',
-      'main-sensitive-disclosure',
-      'main-prompt-injection',
-      'main-misinformation',
-      'main-output-handling',
-      'main-excessive-agency',
-      'main-platform-choice',
-    ],
-  },
-  {
-    id: 'post-assessment',
-    label: 'Post Assessment',
-    pageIds: ['post-assessment'],
-  },
-  {
-    id: 'experience-feedback',
-    label: 'Feedback',
-    pageIds: ['experience-feedback'],
-  },
-  {
-    id: 'thank-you',
-    label: 'Thank You',
-    pageIds: ['thank-you'],
   },
 ];

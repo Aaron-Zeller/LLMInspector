@@ -4,12 +4,12 @@ export const thankYouSegments = {
     eyebrow: 'Section 12 · Completion',
     title: 'Thank you for participating',
     description:
-      'Your assessment and feedback have been submitted successfully. You can now see your results breakdown.',
+      'Your assessment and feedback have been submitted successfully. You can now view your results.',
   },
   'thanks-intro': {
     type: 'moduleIntro',
     paragraphs: [
-      'This tool was developed as part of a Design in Educational Technology project at ETH Zurich. Your participation helps us understand how to better teach AI literacy in a professional context.',
+      'This tool was developed as part of a Design in Educational Technology project at ETH Zurich. Your participation helps us understand how AI literacy can be taught more effectively in professional settings.',
     ],
   },
   'thanks-callout': {
@@ -21,8 +21,6 @@ export const thankYouSegments = {
   },
   'thanks-footer': {
     type: 'navigationFooter',
-    action: 'viewResults',
-    nextLabel: 'View Results →',
-    caption: 'Final Step',
+    previousPageId: 'experience-feedback',
   },
 };

@@ -1,7 +1,6 @@
 import { 
   DOMAIN_ORDER, 
   DOMAIN_DEFINITIONS, 
-  OVERVIEW_STATS, 
   OVERVIEW_DOMAINS 
 } from './shared.js';
 
@@ -11,13 +10,12 @@ import {
   TOTAL_ITEM_COUNT
 } from './questions.js';
 
-import { 
-  ASSESSMENT_SECTION_TEMPLATES, 
-  PRE_ASSESSMENT_ITEM_IDS, 
-  POST_ASSESSMENT_ITEM_IDS, 
-  PRE_ASSESSMENT_SECTIONS, 
-  POST_ASSESSMENT_SECTIONS, 
-  EXPERIENCE_FEEDBACK_QUESTIONS 
+import {
+  PRE_ASSESSMENT_ITEM_IDS,
+  POST_ASSESSMENT_ITEM_IDS,
+  PRE_ASSESSMENT_SECTIONS,
+  POST_ASSESSMENT_SECTIONS,
+  EXPERIENCE_FEEDBACK_QUESTIONS
 } from './assessment-logic.js';
 
 import { 
@@ -37,9 +35,11 @@ import { mainPlatformSegments } from './segments/main-platforms.js';
 import { postAssessmentSegments } from './segments/post-assessment.js';
 import { feedbackSegments } from './segments/feedback.js';
 import { thankYouSegments } from './segments/thank-you.js';
+import { projectAboutSegments } from './segments/project-about.js';
 
 export const SEGMENTS = {
   ...overviewSegments,
+  ...projectAboutSegments,
   ...preAssessmentSegments,
   ...mainPartSegments,
   ...mainSensitiveSegments,
@@ -56,12 +56,10 @@ export const SEGMENTS = {
 export {
   DOMAIN_ORDER,
   DOMAIN_DEFINITIONS,
-  OVERVIEW_STATS,
   OVERVIEW_DOMAINS,
   ASSESSMENT_ITEMS,
   ASSESSMENT_ITEM_ORDER,
   TOTAL_ITEM_COUNT,
-  ASSESSMENT_SECTION_TEMPLATES,
   PRE_ASSESSMENT_ITEM_IDS,
   POST_ASSESSMENT_ITEM_IDS,
   PRE_ASSESSMENT_SECTIONS,

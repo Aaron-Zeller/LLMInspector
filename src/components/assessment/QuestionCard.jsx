@@ -4,21 +4,18 @@ import { getItemFeedback } from '../../lib/assessment.js';
 import { useAssessmentStore } from '../../store/useAssessmentStore.js';
 import { Segment } from '../dev/Segment.jsx';
 
-export function QuestionCard({ itemId }) {
+export function QuestionCard({ itemId, revealFeedback = true, locked = false }) {
   const item = ASSESSMENT_ITEMS[itemId];
   const selectedOptionId = useAssessmentStore((state) => state.answers[itemId]);
   const answerItem = useAssessmentStore((state) => state.answerItem);
 
-  const feedback = getItemFeedback(itemId, selectedOptionId);
+  const feedback = revealFeedback ? getItemFeedback(itemId, selectedOptionId) : null;
   const isCorrect = selectedOptionId === item.correctOptionId;
 
   return (
     <Segment className="question-card" segmentId={item.id}>
       <div className="question-card__meta">
         <span>{item.meta}</span>
-        <span className={cx('question-card__badge', `question-card__badge--${item.badgeTone}`)}>
-          {item.badge}
-        </span>
       </div>
       <h2 className="question-card__title">{item.prompt}</h2>
       <div className="question-card__options">
@@ -30,10 +27,11 @@ export function QuestionCard({ itemId }) {
               key={option.id}
               className={cx(
                 'answer-option',
-                isSelected && isCorrect && 'answer-option--correct',
-                isSelected && !isCorrect && 'answer-option--incorrect',
+                isSelected && !revealFeedback && 'answer-option--selected',
+                revealFeedback && isSelected && isCorrect && 'answer-option--correct',
+                revealFeedback && isSelected && !isCorrect && 'answer-option--incorrect',
               )}
-              disabled={Boolean(selectedOptionId)}
+              disabled={locked}
               onClick={() => answerItem(item.id, option.id)}
               type="button"
             >

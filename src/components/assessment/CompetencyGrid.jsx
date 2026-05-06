@@ -13,9 +13,6 @@ export function CompetencyGrid({ segment, segmentId }) {
             key={domain.id}
           >
             <div className="domain-grid__icon">{domain.overviewIcon}</div>
-            <div className={`domain-grid__label domain-grid__label--${domain.accent}`}>
-              {domain.overviewLabel}
-            </div>
             <h3 className="domain-grid__title">{domain.label}</h3>
             <p className="domain-grid__body">{domain.overviewDescription}</p>
           </article>

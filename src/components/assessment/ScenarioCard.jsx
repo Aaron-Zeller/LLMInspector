@@ -23,12 +23,12 @@ function ScenarioBlock({ block }) {
   );
 }
 
-export function ScenarioCard({ itemId }) {
+export function ScenarioCard({ itemId, revealFeedback = true, locked = false }) {
   const item = ASSESSMENT_ITEMS[itemId];
   const selectedOptionId = useAssessmentStore((state) => state.answers[itemId]);
   const answerItem = useAssessmentStore((state) => state.answerItem);
 
-  const feedback = getItemFeedback(itemId, selectedOptionId);
+  const feedback = revealFeedback ? getItemFeedback(itemId, selectedOptionId) : null;
   const isCorrect = selectedOptionId === item.correctOptionId;
 
   return (
@@ -54,10 +54,11 @@ export function ScenarioCard({ itemId }) {
                 key={option.id}
                 className={cx(
                   'decision-option',
-                  isSelected && isCorrect && 'decision-option--correct',
-                  isSelected && !isCorrect && 'decision-option--incorrect',
+                  isSelected && !revealFeedback && 'decision-option--selected',
+                  revealFeedback && isSelected && isCorrect && 'decision-option--correct',
+                  revealFeedback && isSelected && !isCorrect && 'decision-option--incorrect',
                 )}
-                disabled={Boolean(selectedOptionId)}
+                disabled={locked}
                 onClick={() => answerItem(item.id, option.id)}
                 type="button"
               >

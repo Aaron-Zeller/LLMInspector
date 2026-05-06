@@ -68,16 +68,9 @@ export const DOMAIN_DEFINITIONS = {
   },
 };
 
-export const OVERVIEW_STATS = [
-  { label: 'Estimated time', value: '25 min' },
-  { label: 'Core lenses', value: '3' },
-  { label: 'Major sections', value: '12' },
-];
-
 export const OVERVIEW_DOMAINS = [
   {
     id: 'input-governance',
-    overviewLabel: 'Lens 1',
     overviewIcon: '🛡️',
     accent: 'critical',
     label: 'Input Governance',
@@ -86,18 +79,16 @@ export const OVERVIEW_DOMAINS = [
   },
   {
     id: 'output-assurance',
-    overviewLabel: 'Lens 2',
     overviewIcon: '⚠️',
-    accent: 'delegation',
+    accent: 'output',
     label: 'Output Assurance',
     overviewDescription:
       'How teams verify AI outputs, bound consequences, and decide who remains responsible when the model is wrong.',
   },
   {
     id: 'platform-choice',
-    overviewLabel: 'Lens 3',
     overviewIcon: '🧭',
-    accent: 'privacy',
+    accent: 'platform',
     label: 'Platform Choice',
     overviewDescription:
       'How ChatGPT, Claude, Gemini, and local or internal deployments should be compared before a team trusts them with work.',

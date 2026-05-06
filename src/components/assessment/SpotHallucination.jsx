@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cx } from '../../lib/cx.js';
+import { AfterLabSection } from '../common/AfterLabSection.jsx';
+import { useAssessmentStore } from '../../store/useAssessmentStore.js';
 import { Segment } from '../dev/Segment.jsx';
 
 const TYPE_META = {
@@ -12,6 +14,13 @@ const TYPE_META = {
 export function SpotHallucination({ segment, segmentId }) {
   const [selected, setSelected] = useState(new Set());
   const [submitted, setSubmitted] = useState(false);
+  const markLabCompleted = useAssessmentStore((state) => state.markLabCompleted);
+
+  useEffect(() => {
+    if (submitted) {
+      markLabCompleted(segmentId);
+    }
+  }, [submitted, markLabCompleted, segmentId]);
 
   const hallucinations = segment.spans.filter((s) => !s.safe);
   const hallucinationIds = new Set(hallucinations.map((s) => s.id));
@@ -100,7 +109,7 @@ export function SpotHallucination({ segment, segmentId }) {
             onClick={() => setSubmitted(true)}
             type="button"
           >
-            Submit Assessment
+            Review Your Assessment
           </button>
         </div>
       ) : (
@@ -148,19 +157,30 @@ export function SpotHallucination({ segment, segmentId }) {
               );
             })}
           </div>
-
-          <button
-            className="btn-secondary"
-            onClick={() => {
-              setSelected(new Set());
-              setSubmitted(false);
-            }}
-            type="button"
-          >
-            Try Again
-          </button>
         </div>
       )}
+
+      {segment.debrief ? (
+        <AfterLabSection
+          eyebrow={segment.debrief.eyebrow}
+          title={segment.debrief.title}
+          items={segment.debrief.items}
+          isComplete={submitted}
+        />
+      ) : null}
+
+      {submitted ? (
+        <button
+          className="btn-secondary"
+          onClick={() => {
+            setSelected(new Set());
+            setSubmitted(false);
+          }}
+          type="button"
+        >
+          Run Lab Again
+        </button>
+      ) : null}
     </Segment>
   );
 }

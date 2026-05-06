@@ -1,53 +1,299 @@
 export const mainMisinformationSegments = {
   'main-misinformation-header': {
     type: 'pageHeader',
+    tone: 'output',
     eyebrow: 'Section 6 · Misinformation and Hallucinations',
     title: 'When confident output is still wrong',
+    frame: {
+      label: 'Your role in this section',
+      body: 'You are reviewing AI-generated claims before they influence reports, guidance, or decisions that others may treat as evidence.',
+    },
+  },
+  'main-misinformation-outcomes': {
+    type: 'contentCards',
+    tone: 'output',
     description:
-      'This is the first output-side page. It focuses on false facts, unsupported claims, and plausible but unsafe code or recommendations.',
+      'This section is about review standards, not model theory. The goal is to catch weak claims before they gain authority.',
+    columns: 2,
+    cards: [
+      {
+        tone: 'output',
+        body: 'Spot when polished language and confident formatting are masking fabricated or unsupported statements.',
+      },
+      {
+        tone: 'output',
+        body: 'Apply repeatable verification rules and source-checking thresholds before AI output gains professional authority.',
+      },
+    ],
   },
   'main-misinformation-hallucinations': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'As humans, we pay a lot of attention not only to **what** is being presented to us, but also **how**. Herein lies one of the most deceptive traits of Large Language Models: their ability to present complete nonsense with absolute conviction.',
-      'This phenomenon, often called **”hallucination,"** it occurs when a model generates incorrect statistics, fabricated citations, or entirely invented events while maintaining a perfectly professional and authoritative tone. Because the language is polished and the reasoning appears structured, these errors are notoriously difficult to spot at a glance.',
+    type: 'misinformationWalkthrough',
+    title: 'Experience the risks firsthand',
+    description:
+      'This example shows why the claim feels ready, what the model is actually doing, and what review move should be required before it travels.',
+    scenarios: [
+      {
+        id: 'policy-citation',
+        role: 'Your Situation',
+        headline: 'A management memo includes a clean summary of legal or policy requirements with a confident citation that no one has opened yet.',
+        context:
+          'The text sounds measured and responsible, so it is tempting to treat it as a useful shortcut. The risk is that a fabricated or misquoted citation quietly reshapes policy expectations.',
+        riskLabel: 'Policy Risk',
+        decisionPrompt:
+          'What is the safer move when an AI-generated memo includes a polished legal or policy citation?',
+        decisionOptions: [
+          {
+            id: 'check-source',
+            label: 'Open the underlying source or remove the citation before the memo becomes guidance.',
+            feedback:
+              'This is the stronger move. Policy statements should not rest on citations that nobody has actually checked.',
+            correct: true,
+          },
+          {
+            id: 'use-internal',
+            label: 'Use the memo internally first and verify the citation only if someone challenges it later.',
+            feedback:
+              'This gives the claim authority before you know whether it is real. Internal circulation can still change decisions, expectations, and team behaviour.',
+          },
+        ],
+        analysis: [
+          {
+            title: 'Summary',
+            body: 'A calm tone, exact article references, and policy-style wording can make a weak claim feel far more reliable than it actually is.',
+          },
+          {
+            title: 'Possible Consequences:',
+            body: [
+              'Teams can align around a rule that does not exist or does not apply to the situation.',
+              'Later corrections weaken trust in internal guidance and review standards.',
+              'Escalation and cleanup get harder once the weak guidance has already spread.',
+            ],
+          },
+          {
+            title: 'Questions Before You Approve:',
+            body: [
+              'Has anyone opened the underlying source, or are we trusting the citation format alone?',
+              'Could the summary be flattening exceptions, conditions, or context that matter to the decision?',
+            ],
+          },
+          {
+            title: 'Guidelines:',
+            body: [
+              'If a statement sounds like policy, law, or compliance instruction, the underlying source should be opened and checked before distribution.',
+              'Remove legal-looking claims that cannot be traced quickly to a real source.',
+            ],
+          },
+          {
+            title: 'What The Team Should Hear:',
+            body: [
+              'Open the cited source before the memo becomes guidance.',
+              'Escalate ambiguous policy questions rather than letting AI settle them by default.',
+            ],
+          },
+        ],
+      },
     ],
-    },
-  'main-misinformation-engineering': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'To understand why this happens, we must remember that LLMs are **not** databases of verified facts; they are highly advanced probabilistic engines designed to predict the next most plausible word.',
-      '• **The Plausibility Trap:** Models prioritise sounding plausible over being factually accurate. If a legal citation or scientific paper looks structurally correct, the model considers its job done, even if that paper does not actually exist.',
-      '• **The Illusion of Understanding:** Misinformation is dangerous precisely because it often looks credible, leading users to lower their guard and accept plausible-sounding claims as established facts.',
-      ],
   },
-  'main-misinformation-verification': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'The risk extends far beyond narrative text. In technical and business contexts, hallucinations have immediate, tangible consequences:',
-      '1. **Technical & Security Vulnerabilities:** When asked for code, a model may suggest snippets that look syntactically correct but fail to run or, worse, introduce subtle security flaws. It might invent "hallucinated" software libraries that do not exist, or rely on deprecated coding patterns.',
-      '2. **Flawed Strategic Planning:** If asked for architectural advice or market analysis, the model may suggest a completely infeasible plan and present it as an easy, manageable task. Relying on this without oversight can lead to massive misallocation of resources and waste of time.',
-      '3. **Erosion of Quality and Reputation:** Publishing internal or external documents containing fabricated statistics, fake legal precedents, or non-existent product features can severely damage an organisation\'s credibility and erode client trust.',
+  'main-misinformation-verify': {
+    type: 'sourceVerification',
+    tone: 'output',
+    unlockRequirements: ['main-misinformation-hallucinations'],
+    eyebrow: 'Verification Simulation',
+    title: 'Source Verification Simulation',
+    description:
+      'For each of the below claims, decide whether it should be externally verified, internally narrowed, or removed before it enters a professional document.',
+    brief: {
+      eyebrow: 'Verification Lens',
+      prompt: 'Do not ask only, “Can I verify this?” Ask what should happen to the claim right now.',
+      points: [
+        'Match the check to the type of claim: internal evidence for internal facts, external evidence for external market claims.',
+        'If the source cannot be found or the number cannot be supported, remove or replace the claim instead of preserving it.',
+        'The higher the consequence of being wrong, the less unsupported precision should be allowed to travel.',
+      ],
+    },
+    claims: [
+      {
+        id: 'cv1',
+        text: '"Swiss SMEs have increased AI tool adoption by 34% year-over-year" (World Innovation Institute, Q2 2024)',
+        moveLabel: 'Decide whether this claim should be verified, narrowed, or removed.',
+        options: [
+          {
+            id: 'google',
+            title: 'Check source existence',
+            detail: 'If the report cannot be found, remove the statistic.',
+            icon: '🔍',
+            outcome: {
+              result: 'dead-link',
+              label: 'Strongest Move Here',
+              tone: 'success',
+              message:
+                'No results for the "World Innovation Institute Q2 2024" report. Multiple searches return no relevant results. The named source cannot be located, so the statistic should not stay in the document.',
+            },
+          },
+          {
+            id: 'internal',
+            title: 'Cross-check internally',
+            detail: 'Use internal survey data only to test whether the direction seems plausible.',
+            icon: '📂',
+            outcome: {
+              result: 'contradiction',
+              label: 'Useful But Weaker',
+              tone: 'warn',
+              message:
+                'Internal data does expose a contradiction, but it is still the wrong first move for a named external source. The fabrication problem remains: the cited report itself cannot be located.',
+            },
+          },
+          {
+            id: 'ignore',
+            title: 'Leave it in',
+            detail: 'Keep the claim unless someone later asks for the source.',
+            icon: '→',
+            outcome: {
+              result: 'risk',
+              label: 'Risk Accepted',
+              tone: 'danger',
+              message:
+                'The unverified statistic enters the board briefing. When a board member asks for the original report in a follow-up, it cannot be provided. The credibility of the whole analysis is now in question.',
+            },
+          },
+        ],
+        bestOptionId: 'google',
+        explanation:
+          'When a claim names a report and a precise figure, first verify that the source exists at all. If the source cannot be located quickly, the claim should be removed rather than defended with other evidence.',
+      },
+      {
+        id: 'cv2',
+        text: '"ChatGPT holds approximately 78% of the enterprise LLM market in Switzerland"',
+        moveLabel: 'Decide whether this market claim should be externally verified, internally reframed, or dropped.',
+        options: [
+          {
+            id: 'google',
+            title: 'Check external evidence',
+            detail: 'If no credible Swiss market-share source exists, remove or replace the figure.',
+            icon: '🔍',
+            outcome: {
+              result: 'strongest',
+              label: 'Strongest Move Here',
+              tone: 'success',
+              message:
+                'No credible Swiss enterprise market-share source supports the 78% claim. That means the number should not stay in the document unless it can be replaced with something defensible.',
+            },
+          },
+          {
+            id: 'internal',
+            title: 'Narrow it internally',
+            detail: 'Use internal usage data to replace the claim with a narrower internal observation.',
+            icon: '📂',
+            outcome: {
+              result: 'useful-next-step',
+              label: 'Useful Next Step',
+              tone: 'warn',
+              message:
+                'Your IT procurement records show that the organisation actively uses several LLM platforms. That helps you replace the original claim, but it is still a second step after establishing that no credible external source supports the 78% figure.',
+            },
+          },
+          {
+            id: 'ignore',
+            title: 'Keep it as context',
+            detail: 'Leave the 78% figure in place even without a clean source.',
+            icon: '→',
+            outcome: {
+              result: 'risk',
+              label: 'Risk Accepted',
+              tone: 'danger',
+              message:
+                'A board member with vendor relationships questions the figure mid-presentation. No source can be provided and the slide is withdrawn from the deck — in front of the full board.',
+            },
+          },
+        ],
+        bestOptionId: 'google',
+        explanation:
+          'For an external market-share claim, the first question is whether a credible external source exists at all. If it does not, remove the figure or replace it with a narrower internal observation you can actually support.',
+      },
+      {
+        id: 'cv3',
+        text: '"The Swiss AI market is projected to reach CHF 8.2 billion by 2026"',
+        moveLabel: 'Decide whether this forecast should be externally checked, internally reworked, or removed.',
+        options: [
+          {
+            id: 'google',
+            title: 'Check the forecast',
+            detail: 'Use a credible external forecast and replace or remove the number if it does not match.',
+            icon: '🔍',
+            outcome: {
+              result: 'contradiction',
+              label: 'Strongest Move Here',
+              tone: 'success',
+              message:
+                'A credible market research firm publishes a Swiss digital economy forecast, but their 2026 projection for AI-related services is CHF 3.1 billion — significantly lower than the AI figure. The 8.2 billion number should be replaced or removed before use.',
+            },
+          },
+          {
+            id: 'internal',
+            title: 'Use internal data',
+            detail: 'Try to support the national forecast with internal business information.',
+            icon: '📂',
+            outcome: {
+              result: 'not-applicable',
+              label: 'Wrong Source Type',
+              tone: 'warn',
+              message:
+                'Internal data may help with your own pipeline or revenue, but it does not validate a country-level market forecast. This claim needs an external forecast source, not an internal substitute.',
+            },
+          },
+          {
+            id: 'ignore',
+            title: 'Keep it for now',
+            detail: 'Leave the projection in place and add a source later if needed.',
+            icon: '→',
+            outcome: {
+              result: 'risk',
+              label: 'Risk Accepted',
+              tone: 'danger',
+              message:
+                'The figure enters board materials unchecked. A finance director later locates a credible source showing a significantly lower number. The report is revised after distribution and the discrepancy requires explanation.',
+            },
+          },
+        ],
+        bestOptionId: 'google',
+        explanation:
+          'Macro market projections require credible external forecasting sources. If the external number does not support the AI claim, replace or remove the claim instead of letting unsupported precision stay in the deck.',
+      },
     ],
-  },
-  'main-misinformation-risks': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'To mitigate these risks, a responsible workflow must move from blind trust to systematic verification. We cannot "patch" hallucinations out of the model entirely, but we can design processes to catch them:',
-      '• **Trust, but Verify:** Treat every AI output as a first draft. Critical figures, legal citations, and complex logic must be independently cross-checked against trusted primary sources before being integrated into any final product.',
-      '• **Provide Grounding Context:** Instead of asking the model to recall facts from its training data, provide the necessary information in your prompt (e.g., "Based only on the provided financial report, summarize..."). This constrains the model\'s tendency to invent details.',
-      '• **Domain-Expert Review:** A trustworthy workflow never treats the model as its own validator. Code must be tested and reviewed by engineers; architectural plans must be scrutinized by architects.',
-      '• **Ask for "Chain of Thought":** Encourage the model to break down its reasoning step-by-step. Asking it to explain how it arrived at an answer often reduces hallucinations and makes logical leaps easier for a human to spot.',
-      'A reliable AI workflow uses the model as a powerful accelerator, not an infallible oracle. By understanding the illusion of confidence, we can protect our projects from the hidden costs of misinformation.',
+    debrief: {
+      eyebrow: 'After the Lab',
+      title: 'Self-check questions:',
+      items: [
+        {
+          title: 'What type of source should this claim depend on?',
+          body: 'Use internal evidence for internal facts, and independent external evidence for market, policy, or regulatory claims.',
+        },
+        {
+          title: 'Should this claim be verified, replaced, or removed?',
+          body: 'If the source cannot be located or the number cannot be supported, the default should not be to keep the claim.',
+        },
+        {
+          title: 'How costly would this claim be if it stayed wrong?',
+          body: 'The stronger the consequence, the less unsupported precision should be allowed to travel.',
+        },
       ],
     },
-
+  },
   'main-misinformation-spot': {
     type: 'spotHallucination',
-    eyebrow: 'Interactive Exercise',
-    title: 'Spot the Hallucination',
+    tone: 'output',
+    unlockRequirements: ['main-misinformation-hallucinations'],
+    eyebrow: 'Interactive Lab',
+    title: 'Stress-test the analysis before you trust it',
     description:
-      'Read the AI-generated market analysis below. Click on every phrase you think is unreliable, fabricated, or overconfident. You can select as many phrases as you like, then submit your assessment.',
+      'Review the AI-generated market analysis below as if it were about to enter a professional briefing. Mark every phrase you judge to be unreliable, fabricated, or overconfident, then submit your assessment.',
+    frame: {
+      role: 'You are reviewing a board-facing market analysis before it reaches senior decision-makers.',
+      watch:
+        'Look for claims that feel authoritative but do not yet have the evidence or source quality required for professional use.',
+      emphasis:
+        'This first lab is about diagnosis. Your goal is not to prove every sentence false. Your goal is to stop unsupported precision from slipping into a document that others may mistake for evidence.',
+    },
     transcriptTitle: 'AI Assistant',
     context:
       'Summarise the latest AI adoption trends in Switzerland for a board briefing. Include relevant statistics and market projections.',
@@ -60,7 +306,7 @@ export const mainMisinformationSegments = {
         safe: false,
         type: 'invented-citation',
         explanation:
-          'No such institute or report can be verified. This is a fabricated citation — a named, specific-sounding source that does not exist. Models frequently invent plausible-sounding organisations to add credibility to their output.',
+          'No such institute or report can be verified. This is a fabricated citation: a named, specific-sounding source that does not exist. Models frequently invent plausible-sounding organisations to add credibility to their output.',
       },
       { id: 'sp3', text: ', Swiss SMEs have increased AI tool adoption by ', safe: true },
       {
@@ -69,7 +315,7 @@ export const mainMisinformationSegments = {
         safe: false,
         type: 'fabricated-stat',
         explanation:
-          'This statistic is unsourced and unverifiable. Specific percentage figures are one of the most common hallucination types — they look precise and authoritative, but are generated without any underlying data.',
+          'This statistic is unsourced and unverifiable. Specific percentage figures are one of the most common hallucination types. They look precise and authoritative, but are generated without any underlying data.',
       },
       { id: 'sp5', text: '. The report, authored by ', safe: true },
       {
@@ -122,154 +368,29 @@ export const mainMisinformationSegments = {
       },
       { id: 'sp15', text: ' for forward-thinking organisations.', safe: true },
     ],
-  },
-  'main-misinformation-verify': {
-    type: 'sourceVerification',
-    eyebrow: 'Verification Simulation',
-    title: 'Source Verification Simulation',
-    description:
-      'The claims below come from the analysis above. For each one, decide how you would verify it before using it in a professional document. Select one approach per claim, then submit to see what happens.',
-    claims: [
-      {
-        id: 'cv1',
-        text: '"Swiss SMEs have increased AI tool adoption by 34% year-over-year" (World Innovation Institute, Q2 2024)',
-        options: [
-          {
-            id: 'google',
-            label: 'Search online',
-            icon: '🔍',
-            outcome: {
-              result: 'dead-link',
-              label: 'Dead End',
-              tone: 'warn',
-              message:
-                'No results for the "World Innovation Institute Q2 2024" report. Multiple searches return no relevant results. The report cannot be located — the source appears to be fabricated.',
-            },
-          },
-          {
-            id: 'internal',
-            label: 'Check internal data',
-            icon: '📂',
-            outcome: {
-              result: 'contradiction',
-              label: 'Contradiction Found',
-              tone: 'danger',
-              message:
-                'Your own internal SME survey data from the same period shows a 12% adoption increase — significantly lower than the AI figure. The claim cannot be reconciled with your own data and the original source cannot be located.',
-            },
-          },
-          {
-            id: 'ignore',
-            label: 'Use it as-is',
-            icon: '→',
-            outcome: {
-              result: 'risk',
-              label: 'Risk Accepted',
-              tone: 'danger',
-              message:
-                'The unverified statistic enters the board briefing. When a board member asks for the original report in a follow-up, it cannot be provided. The credibility of the whole analysis is now in question.',
-            },
-          },
-        ],
-        bestOptionId: 'google',
-        explanation:
-          'Searching for the source first costs seconds and immediately exposes the fabrication. A failed search is itself useful information — it tells you the claim is unverifiable before it enters any professional document.',
-      },
-      {
-        id: 'cv2',
-        text: '"ChatGPT holds approximately 78% of the enterprise LLM market in Switzerland"',
-        options: [
-          {
-            id: 'google',
-            label: 'Search online',
-            icon: '🔍',
-            outcome: {
-              result: 'partial',
-              label: 'Partial Result',
-              tone: 'warn',
-              message:
-                'Global AI tool usage data exists, but Switzerland-specific enterprise market share figures at this precision are not published by any credible source. The 78% figure remains unverifiable even after an extensive search.',
-            },
-          },
-          {
-            id: 'internal',
-            label: 'Check internal data',
-            icon: '📂',
-            outcome: {
-              result: 'validated',
-              label: 'Best Approach Here',
-              tone: 'success',
-              message:
-                'Your IT procurement records show the organisation actively uses three different LLM platforms. The claim of near-total single-vendor dominance does not match operational reality, and no external source supports the figure either.',
-            },
-          },
-          {
-            id: 'ignore',
-            label: 'Use it as-is',
-            icon: '→',
-            outcome: {
-              result: 'risk',
-              label: 'Risk Accepted',
-              tone: 'danger',
-              message:
-                'A board member with vendor relationships questions the figure mid-presentation. No source can be provided and the slide is withdrawn from the deck — in front of the full board.',
-            },
-          },
-        ],
-        bestOptionId: 'internal',
-        explanation:
-          'Internal procurement data is a concrete secondary check that does not depend on finding a public source. Combining it with an online search (which shows no credible source) gives a reliable, multi-angle picture.',
-      },
-      {
-        id: 'cv3',
-        text: '"The Swiss AI market is projected to reach CHF 8.2 billion by 2026"',
-        options: [
-          {
-            id: 'google',
-            label: 'Search online',
-            icon: '🔍',
-            outcome: {
-              result: 'contradiction',
-              label: 'Contradiction Found',
-              tone: 'warn',
-              message:
-                'A credible market research firm publishes a Swiss digital economy forecast, but their 2026 projection for AI-related services is CHF 3.1 billion — significantly lower than the AI figure. The discrepancy must be flagged before use.',
-            },
-          },
-          {
-            id: 'internal',
-            label: 'Check internal data',
-            icon: '📂',
-            outcome: {
-              result: 'not-applicable',
-              label: 'Not Applicable',
-              tone: 'warn',
-              message:
-                'Internal data does not cover macro market projections. This approach does not help here — an external market research source is the right check for country-level forecasts.',
-            },
-          },
-          {
-            id: 'ignore',
-            label: 'Use it as-is',
-            icon: '→',
-            outcome: {
-              result: 'risk',
-              label: 'Risk Accepted',
-              tone: 'danger',
-              message:
-                'The figure enters board materials unchecked. A finance director later locates a credible source showing a significantly lower number. The report is revised after distribution and the discrepancy requires explanation.',
-            },
-          },
-        ],
-        bestOptionId: 'google',
-        explanation:
-          'For macro market projections, a credible external source is the right check. Even finding a different number is valuable — it shows the AI figure is inflated or unsupported and gives you something real to use instead.',
-      },
-    ],
+    debrief: {
+      eyebrow: 'After the Lab',
+      title: 'Self-check questions:',
+      items: [
+        {
+          title: 'What in this answer is factual, and what is only persuasive?',
+          body: 'Polished language and strong conclusions should not be treated as evidence on their own.',
+        },
+        {
+          title: 'Which claims need a source before they travel any further?',
+          body: 'Statistics, named reports, legal citations, and market projections should trigger verification automatically.',
+        },
+        {
+          title: 'What is the consequence if this claim is wrong?',
+          body: 'The higher the operational or reputational impact, the stronger the review should be.',
+        },
+      ],
+    },
   },
   'main-misinformation-footer': {
     type: 'navigationFooter',
     previousPageId: 'main-prompt-injection',
+    nextRequiresCompletion: ['main-misinformation-verify', 'main-misinformation-spot'],
     nextPageId: 'main-output-handling',
     nextLabel: 'Go to Improper Output Handling →',
   },

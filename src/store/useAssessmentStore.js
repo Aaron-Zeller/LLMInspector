@@ -28,6 +28,9 @@ function createEmptyFeedbackResponses() {
 export const useAssessmentStore = create((set, get) => ({
   sessionId: getOrCreateAnonymousSessionId(),
   currentPageId: firstPageId,
+  aboutReturnPageId: firstPageId,
+  decisionCheckStatus: {},
+  completedLabs: {},
   answers: {},
   assessmentSectionIndex: {
     pre: 0,
@@ -37,6 +40,8 @@ export const useAssessmentStore = create((set, get) => ({
   feedbackComment: '',
   preAssessmentState: 'idle',
   postAssessmentState: 'idle',
+  postAssessmentLocked: false,
+  postAssessmentSummary: '',
   feedbackState: 'idle',
   experienceMessage: '',
   experienceError: '',
@@ -46,12 +51,36 @@ export const useAssessmentStore = create((set, get) => ({
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   },
+  openAboutPage() {
+    const currentPageId = get().currentPageId;
+    set({
+      aboutReturnPageId: currentPageId === 'project-about' ? get().aboutReturnPageId : currentPageId,
+      currentPageId: 'project-about',
+    });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  },
+  closeAboutPage() {
+    const aboutReturnPageId = get().aboutReturnPageId || firstPageId;
+    set({ currentPageId: aboutReturnPageId });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  },
+  devGoToThankYou() {
+    set({
+      currentPageId: 'thank-you',
+      feedbackState: 'submitted',
+      experienceError: '',
+      experienceMessage: '',
+    });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  },
   answerItem(itemId, optionId) {
     set((state) => {
-      if (state.answers[itemId]) {
-        return state;
-      }
-
       return {
         answers: {
           ...state.answers,
@@ -59,6 +88,26 @@ export const useAssessmentStore = create((set, get) => ({
         },
       };
     });
+  },
+  recordDecisionCheck(segmentId, scenarioId, optionId, correct) {
+    set((state) => ({
+      decisionCheckStatus: {
+        ...state.decisionCheckStatus,
+        [segmentId]: {
+          scenarioId,
+          optionId,
+          correct: Boolean(correct),
+        },
+      },
+    }));
+  },
+  markLabCompleted(segmentId) {
+    set((state) => ({
+      completedLabs: {
+        ...state.completedLabs,
+        [segmentId]: true,
+      },
+    }));
   },
   setAssessmentSectionIndex(stage, index) {
     set((state) => ({
@@ -110,20 +159,12 @@ export const useAssessmentStore = create((set, get) => ({
       get().goToPage(nextPageId);
     }
   },
-  async submitPostAssessmentAndFeedback() {
-    const { sessionId, answers, feedbackResponses, feedbackComment } = get();
-    const allFeedbackAnswered = Object.values(feedbackResponses).every((value) => Number.isInteger(value));
-
-    if (!allFeedbackAnswered) {
-      set({
-        experienceError: 'Please complete all five feedback ratings before submitting.',
-      });
-      return;
-    }
+  async submitPostAssessment() {
+    const { sessionId, answers } = get();
 
     set({
+      postAssessmentLocked: true,
       postAssessmentState: 'submitting',
-      feedbackState: 'submitting',
       experienceError: '',
       experienceMessage: '',
     });
@@ -135,24 +176,51 @@ export const useAssessmentStore = create((set, get) => ({
         answers,
       });
 
+      const summary = summarizeStageResults('post', answers);
+
+      set({
+        postAssessmentState: 'submitted',
+        postAssessmentSummary: `${summary.correctCount} of ${summary.totalQuestions} post-assessment questions were marked correct.`,
+      });
+    } catch (error) {
+      set({
+        postAssessmentState: 'error',
+        experienceError: error.message,
+      });
+    }
+  },
+  async submitExperienceFeedbackOnly() {
+    const { sessionId, feedbackResponses, feedbackComment } = get();
+    const allFeedbackAnswered = Object.values(feedbackResponses).every((value) => Number.isInteger(value));
+
+    if (!allFeedbackAnswered) {
+      set({
+        experienceError: 'Please complete all five feedback ratings before submitting.',
+      });
+      return;
+    }
+
+    set({
+      feedbackState: 'submitting',
+      experienceError: '',
+      experienceMessage: '',
+    });
+
+    try {
       await submitExperienceFeedback({
         sessionId,
         responses: feedbackResponses,
         comment: feedbackComment.trim(),
       });
 
-      const summary = summarizeStageResults('post', answers);
-
       set({
-        postAssessmentState: 'submitted',
         feedbackState: 'submitted',
-        experienceMessage: `Thank you. Your anonymised post assessment and feedback were submitted successfully. ${summary.correctCount} of ${summary.totalQuestions} post-assessment questions were marked correct.`,
+        experienceMessage: 'Thank you. Your anonymised feedback was submitted successfully.',
       });
 
       get().goToPage('thank-you');
     } catch (error) {
       set({
-        postAssessmentState: 'error',
         feedbackState: 'error',
         experienceError: error.message,
       });
@@ -162,6 +230,9 @@ export const useAssessmentStore = create((set, get) => ({
     set({
       sessionId: getOrCreateAnonymousSessionId(),
       currentPageId: firstPageId,
+      aboutReturnPageId: firstPageId,
+      decisionCheckStatus: {},
+      completedLabs: {},
       answers: {},
       assessmentSectionIndex: {
         pre: 0,
@@ -171,6 +242,8 @@ export const useAssessmentStore = create((set, get) => ({
       feedbackComment: '',
       preAssessmentState: 'idle',
       postAssessmentState: 'idle',
+      postAssessmentLocked: false,
+      postAssessmentSummary: '',
       feedbackState: 'idle',
       experienceMessage: '',
       experienceError: '',

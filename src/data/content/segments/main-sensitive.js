@@ -1,59 +1,136 @@
 export const mainSensitiveSegments = {
   'main-sensitive-header': {
     type: 'pageHeader',
+    tone: 'input',
     eyebrow: 'Section 4 · Sensitive Information Disclosure',
-    title: 'What should never be pasted or uploaded casually',
-    description:
-      'This page introduces the most immediate input-side risk: employees sharing internal or personal data with an LLM before deciding whether the tool and the data are appropriate.',
+    title: 'The Input Risk: What never to paste or upload to an LLM',
+    frame: {
+      label: 'Your role in this section',
+      body: 'You are setting the boundary for what your teams may safely share with an LLM, and when a task belongs in a different environment.',
+    },
   },
-  'main-sensitive-intro': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'In the fast-paced modern workplace, Generative AI tools have become indispensable for efficiency. However, this productivity jump may come with a hidden risk: the casual disclosure of sensitive information.',
-      'It usually happens in a moment of flow—pasting a customer email for a summary, uploading a spreadsheet for analysis, or sharing a product draft for polishing. It feels productive because the answer comes instantly, but the long-term cost to the organisation can be severe.',
-      'The fundamental challenge is that most public AI tools are **not** "vaults." Unless specifically configured as private enterprise instances, the data you input may be used to train future models or could be accessible to the service provider\'s employees and systems.',
+  'main-sensitive-outcomes': {
+    type: 'contentCards',
+    tone: 'input',
+    description:
+      'This section addresses the most immediate LLM risk in everyday work: sensitive information being shared with tools that were never meant to receive it. By the end of this section, you will be able to:',
+    columns: 2,
+    cards: [
+      {
+        tone: 'input',
+        body: 'Distinguish between sensitive information and transformed data that can be processed more safely.',
+      },
+      {
+        tone: 'input',
+        body: 'Design workflows that protect data without creating unnecessary friction.',
+      },
     ],
   },
   'main-sensitive-legal': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'The legal implications of data disclosure to AI tools extend far beyond simple privacy concerns. Organisations must navigate a complex web of regulations and obligations:',
-      '• **Lawful Processing & GDPR:** Under frameworks like the GDPR, organisations must have a lawful basis for processing personal data. Uploading such data to an unapproved third-party AI tool often violates these principles.',
-      '• **The EU AI Act:** Companies are now legally required to ensure that the AI systems they use handle data according to strict transparency and safety standards.',
-      '• **Contractual & Sectoral Obligations:** A casual "copy-paste" can inadvertently breach client contracts or industry-specific laws (like HIPAA or MiFID II).',
-      '• **Delegation of Risk:** One of the greatest organisational risks is allowing data handling decisions to be delegated to individual employees under time pressure without clear guidance.',
-    ],
-  },
-  'main-sensitive-practical': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'Even if legal repercussions weren\'t a factor, the practical business risks are immediate and tangible:',
-      '1. **Intellectual Property Leakage:** Uploading a product design or a novel algorithm before a patent is filed can potentially invalidate that patent. Once information is "publicly" disclosed, it may lose its status as a trade secret.',
-      '2. **Strategic Exposure:** Pasting board decks or internal strategy documents can reveal the company’s future direction to the AI provider, where fragments of your strategy could theoretically surface in outputs for competitors.',
-      '3. **Breach of Trust:** For clients and employees, processing their sensitive data via an unapproved AI tool can lead to a total loss of trust.',
-    ],
-  },
-  'main-sensitive-guidance': {
-    type: 'moduleIntro',
-    paragraphs: [
-      'The goal is not to stop using AI, but to use it responsibly through **"safe transformation"**:',
-      '• **Minimisation and Abstraction:** Extract key points or replace names with placeholders (e.g., "Customer A") instead of pasting entire files.',
-      '• **Aggregation:** Provide high-level summaries rather than granular, identifiable data points.',
-      '• **Use Approved Internal Tools:** Use enterprise-grade AI instances vetted by IT and Legal that guarantee your data will not be used for training.',
-      '• **The "Escalation" Rule:** If a task cannot be completed safely, escalate to a manager or the security team rather than taking the risk.',
-      'Sensitive information disclosure is the most immediate "input-side" risk. By moving to intentional, transformed prompting, we can harness AI without compromising our reputation.',
+    type: 'sensitiveDisclosureWalkthrough',
+    title: 'Experience the risks firsthand',
+    description:
+      'See how an ordinary shortcut creates strategic exposure, and what rule prevents it.',
+    scenarios: [
+      {
+        role: 'Your Situation',
+        headline: 'A strategy lead uploads a confidential presentation to an AI to fix typos and improve the writing.',
+        context:
+          'The presentation contains financial targets and future product plans. Because it includes no customer names or passwords, the team assumes it is safe to upload.',
+        tone: 'delegation',
+        riskLabel: 'Strategic Exposure & IP',
+        decisionPrompt:
+          'How should you proceed?',
+        decisionOptions: [
+          {
+            id: 'excerpt-rule',
+            label: 'Only allow pasting the specific sentences that need editing. Never upload the full document.',
+            feedback:
+              'Correct. You still get writing support without exposing the full strategy deck.',
+            correct: true,
+          },
+          {
+            id: 'full-deck-editing',
+            label: 'Allow uploading the full document, as long as the employee only asks for writing help.',
+            feedback:
+              'Incorrect. The model still receives the full strategy document, even if the request is only to improve the wording.',
+          },
+        ],
+        analysis: [
+          {
+            title: 'Summary',
+            body: 'The shortcut feels harmless because the task is only editorial, but the full deck still exposes company strategy to the model.',
+          },
+          {
+            title: 'Possible Consequences:',
+            body: [
+              'Unfiled patents and future product plans can leave the approved environment.',
+              'Once strategic material is shared externally, legal protection and timing advantages may already be compromised.',
+            ],
+          },
+          {
+            title: 'Questions Before You Approve:',
+            body: [
+              'Does the task really require the full document, or only a short excerpt?',
+              'If the full file is required, should the task move into an approved internal environment instead?',
+            ],
+          },
+          {
+            title: 'Guidelines:',
+            body: [
+              'Keep the input as small as possible and share only the exact sentence or paragraph that needs editing.',
+              'If the full file is necessary, move the task into an approved internal AI environment.',
+            ],
+          },
+          {
+            title: 'What The Team Should Hear:',
+            body: [
+              'Do not upload full confidential decks just to get writing help.',
+              'If the boundary is unclear, pause and ask IT instead of improvising.',
+            ],
+          },
+        ],
+      },
     ],
   },
   'main-sensitive-lab': {
     type: 'governanceLab',
+    tone: 'input',
+    unlockRequirements: ['main-sensitive-legal'],
     eyebrow: 'Interactive Lab',
-    title: 'The Governance Lab: Input & Output Assurance',
+    title: 'The Governance Lab: Input and Output Assurance',
     description:
-      'Experience the full LLM task pipeline. Choose which documents to upload, how to phrase your prompt, and how to handle the output. Find the balance: too open leaks data, too restricted makes the task impossible.',
+      'Work through the full LLM task pipeline. Decide which documents to upload, how to phrase the prompt, and how to handle the output. The challenge is to protect the boundary without making the task impossible.',
+    frame: {
+      role: 'You are approving a team workflow for drafting public-facing content under time pressure.',
+      watch:
+        'Notice where convenience starts widening the boundary: document choice, prompt design, and the final decision to publish or pause.',
+      emphasis:
+        'This lab matters because most data leaks do not begin with one dramatic mistake. They begin when an ordinary task quietly normalises an unsafe workflow.',
+    },
+    debrief: {
+      eyebrow: 'After the Lab',
+      title: 'Self-check questions:',
+      items: [
+        {
+          title: 'Is the raw data necessary?',
+          body: 'If the work can be done using a summary or snippets, the original sensitive data must stay out.',
+        },
+        {
+          title: 'Is this the right tool for the job?',
+          body: 'Match the tool to the data classification, for example Public, Internal, or Confidential.',
+        },
+        {
+          title: 'What is the standard?',
+          body: 'Define team rules. If a task cannot be completed safely, employees must escalate rather than improvise.',
+        },
+      ],
+    },
   },
   'main-sensitive-footer': {
     type: 'navigationFooter',
     previousPageId: 'main-part',
+    nextRequiresCompletion: ['main-sensitive-lab'],
     nextPageId: 'main-prompt-injection',
     nextLabel: 'Go to Prompt Injection →',
   },
