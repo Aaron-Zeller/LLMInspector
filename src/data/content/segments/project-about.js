@@ -147,8 +147,20 @@ export const projectAboutSegments = {
       },
       { name: 'Aloha', initials: 'A', role: 'Photo placeholder' },
       { name: 'Nil', initials: 'N', role: 'Photo placeholder' },
-      { name: 'Sara', initials: 'S', role: 'Photo placeholder' },
-      { name: 'Sergey', initials: 'S', role: 'Photo placeholder' },
+      {
+        name: 'Sara',
+        initials: 'S',
+        role: 'Master’s Student ETH\nComputer Science',
+        image: '/team/sara.webp',
+        photoClassName: 'project-about-team__photo--sara',
+      },
+      {
+        name: 'Sergey',
+        initials: 'S',
+        role: 'Master’s Student ETH\nComputer Science',
+        image: '/team/sergey.webp',
+        photoClassName: 'project-about-team__photo--sergey',
+      },
     ],
   },
   'project-about-tool': {

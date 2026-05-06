@@ -259,6 +259,55 @@ export const mainMisinformationSegments = {
         explanation:
           'Macro market projections require credible external forecasting sources. If the external number does not support the AI claim, replace or remove the claim instead of letting unsupported precision stay in the deck.',
       },
+      {
+        id: 'cv4',
+        text: '"Last quarter, 38% of our support replies were drafted with AI before human review"',
+        moveLabel: 'Decide whether this is an internal metric to check locally, an external claim to source, or a number to remove.',
+        options: [
+          {
+            id: 'google',
+            title: 'Search for a public source',
+            detail: 'Look online for a report that confirms how much your own support team used AI.',
+            icon: '🔍',
+            outcome: {
+              result: 'wrong-source-type',
+              label: 'Wrong Source Type',
+              tone: 'warn',
+              message:
+                'No external source can verify an internal operational metric like this one. Public reports may discuss AI support trends in general, but not your own team’s drafting rate.',
+            },
+          },
+          {
+            id: 'internal',
+            title: 'Check the internal logs',
+            detail: 'Use approved usage or workflow records to confirm the metric before it enters the briefing.',
+            icon: '📂',
+            outcome: {
+              result: 'strongest-move',
+              label: 'Strongest Move Here',
+              tone: 'success',
+              message:
+                'Your internal support dashboard shows that 36% of replies were AI-drafted last quarter, not 38%. The slide is corrected before it reaches the operations review.',
+            },
+          },
+          {
+            id: 'ignore',
+            title: 'Trust the system',
+            detail: 'Assume the AI can retrieve the metric directly because it already has access to the support tooling.',
+            icon: '→',
+            outcome: {
+              result: 'risk',
+              label: 'Risk Accepted',
+              tone: 'danger',
+              message:
+                'The metric is questioned during the meeting, but no one can show where it came from. Confidence in the rest of the briefing drops because an internal number was left unsupported.',
+            },
+          },
+        ],
+        bestOptionId: 'internal',
+        explanation:
+          'Internal operational claims should be checked against internal records, dashboards, or approved reporting systems. The key question is not whether the number sounds plausible, but whether your own organisation can stand behind it.',
+      },
     ],
     debrief: {
       eyebrow: 'After the Lab',

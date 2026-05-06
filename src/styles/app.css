@@ -1364,6 +1364,16 @@ button:disabled {
   transform: translateY(12px);
 }
 
+.project-about-team__photo--sara img {
+  transform: translateY(42px) scale(1.18);
+  transform-origin: center bottom;
+}
+
+.project-about-team__photo--sergey img {
+  transform: translateY(8px) scale(1.16);
+  transform-origin: center bottom;
+}
+
 .project-about-team__name {
   margin: 0 0 4px;
   color: var(--navy);
