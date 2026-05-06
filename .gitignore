@@ -1,9 +1,14 @@
+.*
+!.gitignore
+
 node_modules/
 .env
+.env.example
 dist/
 .DS_Store
 
 # Local tool state and cache folders
+.agents/
 .claude/
 .cache/
 .vite/
