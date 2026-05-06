@@ -11,8 +11,8 @@ export const preAssessmentSegments = {
   'pre-intro': {
     type: 'moduleIntro',
     paragraphs: [
-      'This is a diagnostic, not a test. Your answers are stored anonymously.',
-      'Work through each part at your own pace. Answers are saved as you go, so you can navigate between parts without losing progress. Once you submit the assessment, you can no longer change your answers.',
+      'This assessment captures your starting point before the teaching content begins. Your answers are stored anonymously.',
+      'Work through each part at your own pace. Answers are saved as you go and stored anonymously, so you can navigate between parts without losing progress. Once you submit the assessment, you can no longer change your answers.',
     ],
   },
   'pre-questions': {

@@ -51,7 +51,6 @@ export function SanitisePromptTask({ itemId, revealFeedback = true, locked = fal
     <Segment className="sanitise-task question-card" segmentId={itemId}>
       <div className="question-card__meta">
         <span>{item.meta}</span>
-        <span className={cx('question-card__badge', `question-card__badge--${item.badgeTone}`)}>{item.badge}</span>
       </div>
       <p className="sanitise-task__prompt-label">{item.prompt}</p>
 

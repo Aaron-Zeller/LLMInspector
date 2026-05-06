@@ -65,7 +65,7 @@ export function ResultsSummary({ segmentId }) {
           <div className="score-grade-badge">{results.grade}</div>
         </div>
         <div className="results-summary__meta">
-          <span>{results.answeredCount} of {results.totalItems} answered</span>
+          <span>{results.answeredCount} / {results.totalItems} answered</span>
           <span>•</span>
           <span>{submissionLabel}</span>
         </div>

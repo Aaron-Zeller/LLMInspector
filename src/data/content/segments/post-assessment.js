@@ -11,7 +11,8 @@ export const postAssessmentSegments = {
   'post-intro': {
     type: 'moduleIntro',
     paragraphs: [
-      'Your answers are saved as you go. Once all five parts are complete, submit the assessment to reveal the solutions, then continue to the feedback page.',
+      'This assessment captures your understanding after the teaching content. Your answers are stored anonymously.',
+      'Work through each part at your own pace. Answers are saved as you go and stored anonymously, so you can navigate between parts without losing progress. Once you submit the assessment, you can no longer change your answers. Solutions are then revealed, and you can continue to the feedback page.',
     ],
   },
   'post-questions': {

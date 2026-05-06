@@ -23,12 +23,9 @@ export const projectAboutSegments = {
     type: 'pageHeader',
     eyebrow: 'Project Website',
     title: 'About COLORCODE',
-    description:
-      'COLORCODE is a scenario-based AI literacy tool for workplace decision-makers. This page explains the problem it addresses, the evidence that shaped it, and the materials that support its use.',
   },
   'project-about-intro': {
     type: 'projectAboutLead',
-    eyebrow: 'Project Overview',
     paragraphs: [
       'COLORCODE was designed for a moment in which AI adoption is moving faster than organisational judgement. The project therefore treats AI literacy not as a technical deep dive, but as a workplace governance problem.',
       'The result is a compact learning experience for managers who need to decide what can be shared with an AI system, what must be verified before it travels further, and where human responsibility must remain visible.',
@@ -36,6 +33,7 @@ export const projectAboutSegments = {
   },
   'project-about-about': {
     type: 'projectAboutSection',
+    headerFullWidth: true,
     chapter: 'About',
     title: 'Problem, audience, and rationale',
     description:
@@ -46,6 +44,7 @@ export const projectAboutSegments = {
         label: 'Organisations using generative AI',
         body:
           'McKinsey reported in 2024 that 65% of surveyed organisations were regularly using generative AI in at least one business function.',
+        showSourceIndex: false,
         sources: [{ label: 'McKinsey, The State of AI in Early 2024', href: MCKINSEY_AI_2024_URL }],
       },
       {
@@ -53,16 +52,18 @@ export const projectAboutSegments = {
         label: 'Reported negative consequences',
         body:
           'The same study found that 44% of organisations had already experienced at least one negative consequence from generative AI use.',
+        showSourceIndex: false,
         sources: [{ label: 'McKinsey, The State of AI in Early 2024', href: MCKINSEY_AI_2024_URL }],
       },
       {
         value: '84%',
         label: 'Europeans wanting careful management',
         body:
-          'The European Commission’s 2025 workplace survey found that 84% of Europeans think AI at work requires careful management to protect privacy and transparency.',
+          'The European Commission found in its 2025 workplace survey that 84% of Europeans think AI at work requires careful management to protect privacy and transparency.',
+        showSourceIndex: false,
         sources: [
           {
-            label: 'European Commission, Eurobarometer on AI in the workplace (2025)',
+            label: 'European Commission, AI at Work survey (2025)',
             href: EU_WORKPLACE_AI_URL,
           },
         ],
@@ -79,7 +80,7 @@ export const projectAboutSegments = {
         label: 'Policy Context',
         title: 'AI literacy is now a governance expectation, not only a best-practice ideal',
         body:
-          'Article 4 of the EU AI Act requires providers and deployers of AI systems to take measures to ensure a sufficient level of AI literacy among staff and other people using AI on their behalf. Recital 20 makes the intended outcome clear: people should be able to make informed decisions, interpret AI output appropriately, and support compliance in context.',
+          'Article 4 of the EU AI Act [1] requires providers and deployers of AI systems to take measures to ensure a sufficient level of AI literacy among staff and other people using AI on their behalf. Recital 20 makes the intended outcome clear: people should be able to make informed decisions, interpret AI output appropriately, and support compliance in context.',
         sources: [{ label: 'EU AI Act, Article 4 and Recital 20', href: EU_AI_ACT_URL }],
       },
       {
@@ -123,7 +124,7 @@ export const projectAboutSegments = {
         label: 'Related Work',
         title: 'Built on governance, security, and organisational AI-literacy work',
         body:
-          'The project builds on existing governance and security guidance rather than trying to replace it. NIST provides the risk-management frame, NCSC and ICO translate that frame into secure and privacy-aware organisational practice, and OWASP plus MITRE ATLAS supply concrete generative-AI threat patterns. On the organisational-learning side, the AI literacy development canvas helped frame AI literacy as a capability that needs to reach executives, middle managers, and non-technical staff, not only AI specialists.',
+          'The project builds on existing governance and security guidance rather than trying to replace it. NIST [1] provides the risk-management frame, NCSC [2] and ICO [3] translate that frame into secure and privacy-aware organisational practice, and OWASP [4] plus MITRE ATLAS [5] supply concrete generative-AI threat patterns. On the organisational-learning side, the AI literacy development canvas [6] helped frame AI literacy as a capability that needs to reach executives, middle managers, and non-technical staff, not only AI specialists.',
         sources: [
           { label: 'NIST AI Risk Management Framework', href: NIST_AIRMF_URL },
           { label: 'NCSC Guidelines for Secure AI System Development', href: NCSC_SECURE_AI_URL },
@@ -137,7 +138,13 @@ export const projectAboutSegments = {
       },
     ],
     team: [
-      { name: 'Aaron', initials: 'A', role: 'Photo placeholder' },
+      {
+        name: 'Aaron',
+        initials: 'A',
+        role: 'Master’s Student ETH\nComputer Science',
+        image: '/team/aaron.png',
+        photoClassName: 'project-about-team__photo--aaron',
+      },
       { name: 'Aloha', initials: 'A', role: 'Photo placeholder' },
       { name: 'Nil', initials: 'N', role: 'Photo placeholder' },
       { name: 'Sara', initials: 'S', role: 'Photo placeholder' },
@@ -146,6 +153,7 @@ export const projectAboutSegments = {
   },
   'project-about-tool': {
     type: 'projectAboutSection',
+    headerFullWidth: true,
     chapter: 'Tools',
     title: 'Access, use, and evaluation',
     description:
@@ -189,6 +197,7 @@ export const projectAboutSegments = {
   },
   'project-about-resources': {
     type: 'projectAboutSection',
+    headerFullWidth: true,
     chapter: 'Resources',
     title: 'Facilitation materials',
     description:

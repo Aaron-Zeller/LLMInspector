@@ -16,9 +16,6 @@ export function QuestionCard({ itemId, revealFeedback = true, locked = false }) 
     <Segment className="question-card" segmentId={item.id}>
       <div className="question-card__meta">
         <span>{item.meta}</span>
-        <span className={cx('question-card__badge', `question-card__badge--${item.badgeTone}`)}>
-          {item.badge}
-        </span>
       </div>
       <h2 className="question-card__title">{item.prompt}</h2>
       <div className="question-card__options">

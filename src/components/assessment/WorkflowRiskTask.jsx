@@ -50,7 +50,6 @@ export function WorkflowRiskTask({ itemId, revealFeedback = true, locked = false
     <Segment className="workflow-risk-task question-card" segmentId={itemId}>
       <div className="question-card__meta">
         <span>{item.meta}</span>
-        <span className={cx('question-card__badge', `question-card__badge--${item.badgeTone}`)}>{item.badge}</span>
       </div>
       <p className="workflow-risk-task__prompt">{item.prompt}</p>
 

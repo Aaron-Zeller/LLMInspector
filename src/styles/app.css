@@ -1056,21 +1056,35 @@ button:disabled {
 
 .project-about-section__header {
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr);
-  gap: 18px;
-  align-items: start;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 28px;
   margin-bottom: 28px;
 }
 
+.project-about-section__chapter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.project-about-section__header--full {
+  display: block;
+}
+
+.project-about-section__header--full .project-about-section__chapter {
+  padding-top: 0;
+  margin-bottom: 10px;
+}
+
 .project-about-section__rule {
-  width: 44px;
+  width: 32px;
   height: 1px;
-  margin-top: 14px;
   background: var(--gold);
 }
 
 .project-about-section__eyebrow {
-  margin: 0 0 8px;
+  margin: 0;
   color: var(--gold);
   font-size: 12px;
   font-weight: 700;
@@ -1211,6 +1225,16 @@ button:disabled {
 
 .project-about-sources li {
   margin: 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.project-about-sources__index {
+  color: var(--gold-deep);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .project-about-sources a {
@@ -1314,11 +1338,30 @@ button:disabled {
   justify-content: center;
   border: 1px dashed var(--border-strong);
   border-radius: 8px;
-  background: linear-gradient(180deg, #fbfaf7 0%, #f2eee6 100%);
+  background: var(--bg);
   color: var(--navy);
   font-family: 'Playfair Display', serif;
   font-size: 26px;
   margin-bottom: 12px;
+}
+
+.project-about-team__photo--image {
+  padding: 0;
+  overflow: hidden;
+  border-style: solid;
+}
+
+.project-about-team__photo--image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  transform: none;
+  display: block;
+}
+
+.project-about-team__photo--aaron img {
+  transform: translateY(12px);
 }
 
 .project-about-team__name {
@@ -1333,6 +1376,7 @@ button:disabled {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.5;
+  white-space: pre-line;
 }
 
 .project-about-resource-list {
@@ -2375,6 +2419,11 @@ button:disabled {
   margin-bottom: 18px;
 }
 
+.assessment-subprogress__header > :first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .assessment-subprogress__label {
   margin: 0 0 6px;
   font-size: 10px;
@@ -2402,11 +2451,13 @@ button:disabled {
 .assessment-subprogress__summary {
   margin: 4px 0 0;
   min-width: 110px;
+  flex-shrink: 0;
   text-align: right;
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-mid);
+  white-space: nowrap;
 }
 
 .assessment-subprogress__track {
@@ -2477,6 +2528,7 @@ button:disabled {
   margin-top: 6px;
   color: var(--text-mid);
   font-size: 12px;
+  white-space: nowrap;
 }
 
 .assessment-group {
@@ -2514,6 +2566,7 @@ button:disabled {
   text-transform: uppercase;
   color: var(--text-mid);
   text-align: right;
+  white-space: nowrap;
 }
 
 .assessment-group__description {
@@ -3546,9 +3599,8 @@ button:disabled {
     gap: 10px;
   }
 
-  .project-about-section__rule {
-    width: 32px;
-    margin-top: 0;
+  .project-about-section__chapter {
+    padding-top: 0;
   }
 
   .project-about-section__title {

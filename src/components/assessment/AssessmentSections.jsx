@@ -41,7 +41,8 @@ export function AssessmentSections({ segment, segmentId }) {
   const activeSection = sections[activeIndex];
   const totalItems = sections.reduce((sum, section) => sum + section.itemIds.length, 0);
   const totalAnswered = sections.reduce((sum, section) => sum + countAnswered(section.itemIds, answers), 0);
-  const overallProgress = sections.length ? Math.round(((activeIndex + 1) / sections.length) * 100) : 0;
+  const completedSectionCount = activeIndex;
+  const overallProgress = sections.length ? Math.round((completedSectionCount / sections.length) * 100) : 0;
   const activeAnswered = countAnswered(activeSection.itemIds, answers);
   const stageLabel = segment.stage === 'post' ? 'Post assessment' : 'Pre assessment';
   const locked = segment.stage === 'post' && postAssessmentLocked;
@@ -75,7 +76,7 @@ export function AssessmentSections({ segment, segmentId }) {
             </p>
           </div>
           <p className="assessment-subprogress__summary">
-            {totalAnswered} of {totalItems} items answered
+            {totalAnswered} / {totalItems} answered
           </p>
         </div>
         <div aria-hidden="true" className="assessment-subprogress__track">

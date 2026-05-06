@@ -1,11 +1,12 @@
 import { Segment } from '../dev/Segment.jsx';
 
-function SourceList({ sources }) {
+function SourceList({ sources, showIndex = true }) {
   if (!sources?.length) return null;
   return (
     <ul className="project-about-sources">
-      {sources.map((source) => (
+      {sources.map((source, index) => (
         <li key={`${source.label}-${source.href}`}>
+          {showIndex ? <span className="project-about-sources__index">{index + 1}</span> : null}
           <a href={source.href} rel="noreferrer" target="_blank">
             {source.label}
           </a>
@@ -18,10 +19,16 @@ function SourceList({ sources }) {
 export function ProjectAboutSection({ segment, segmentId }) {
   return (
     <Segment className="project-about-section" segmentId={segmentId}>
-      <header className="project-about-section__header">
-        <div className="project-about-section__rule" />
-        <div className="project-about-section__head">
+      <header
+        className={`project-about-section__header${
+          segment.headerFullWidth ? ' project-about-section__header--full' : ''
+        }`}
+      >
+        <div className="project-about-section__chapter">
+          <div className="project-about-section__rule" />
           <p className="project-about-section__eyebrow">{segment.chapter}</p>
+        </div>
+        <div className="project-about-section__head">
           <h2 className="project-about-section__title">{segment.title}</h2>
           {segment.description ? (
             <p className="project-about-section__description">{segment.description}</p>
@@ -36,7 +43,7 @@ export function ProjectAboutSection({ segment, segmentId }) {
               <p className="project-about-stats__value">{stat.value}</p>
               <h3 className="project-about-stats__label">{stat.label}</h3>
               <p className="project-about-stats__body">{stat.body}</p>
-              <SourceList sources={stat.sources} />
+              <SourceList sources={stat.sources} showIndex={stat.showSourceIndex !== false} />
             </article>
           ))}
         </div>
@@ -57,7 +64,7 @@ export function ProjectAboutSection({ segment, segmentId }) {
                     ))}
                   </ul>
                 ) : null}
-                <SourceList sources={row.sources} />
+                <SourceList sources={row.sources} showIndex={row.showSourceIndex !== false} />
               </div>
             </section>
           ))}
@@ -86,9 +93,19 @@ export function ProjectAboutSection({ segment, segmentId }) {
         <div className="project-about-team">
           {segment.team.map((member) => (
             <article className="project-about-team__member" key={member.name}>
-              <div className="project-about-team__photo" aria-hidden="true">
-                {member.initials}
-              </div>
+              {member.image ? (
+                <div
+                  className={`project-about-team__photo project-about-team__photo--image${
+                    member.photoClassName ? ` ${member.photoClassName}` : ''
+                  }`}
+                >
+                  <img alt={member.name} src={member.image} />
+                </div>
+              ) : (
+                <div className="project-about-team__photo" aria-hidden="true">
+                  {member.initials}
+                </div>
+              )}
               <h3 className="project-about-team__name">{member.name}</h3>
               <p className="project-about-team__role">{member.role}</p>
             </article>
