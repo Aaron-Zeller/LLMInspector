@@ -2,3 +2,10 @@ node_modules/
 .env
 dist/
 .DS_Store
+
+# Local tool state and cache folders
+.claude/
+.cache/
+.vite/
+.idea/
+.vscode/
