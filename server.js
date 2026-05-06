@@ -315,6 +315,48 @@ app.get('/api/feedback-export', async (req, res) => {
   }
 });
 
+app.get('/api/participant-export', async (req, res) => {
+  if (!assertExportAllowed(req, res)) {
+    return;
+  }
+
+  const format = parseExportFormat(req.query?.format);
+
+  try {
+    const queryResult = await pool.query(
+      `SELECT
+        session_id,
+        pre_submission_id,
+        pre_answered_count,
+        pre_correct_count,
+        pre_total_questions,
+        pre_question_results,
+        pre_app_version,
+        pre_submitted_at,
+        post_submission_id,
+        post_answered_count,
+        post_correct_count,
+        post_total_questions,
+        post_question_results,
+        post_app_version,
+        post_submitted_at,
+        feedback_id,
+        feedback_responses,
+        feedback_comment,
+        feedback_app_version,
+        feedback_submitted_at,
+        last_activity_at
+      FROM participant_exports
+      ORDER BY last_activity_at DESC`,
+    );
+
+    sendExport(res, 'participant-export', format, queryResult.rows);
+  } catch (error) {
+    console.error('Participant export failed:', error);
+    res.status(500).json({ error: 'Unable to export participant records.' });
+  }
+});
+
 const distDirectory = path.join(__dirname, 'dist');
 const distIndex = path.join(distDirectory, 'index.html');
 

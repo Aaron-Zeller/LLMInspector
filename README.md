@@ -113,14 +113,18 @@ If you set an `EXPORT_TOKEN`, the backend exposes two protected export routes:
 
 - `/api/assessment-export?token=YOUR_TOKEN&format=csv`
 - `/api/feedback-export?token=YOUR_TOKEN&format=csv`
+- `/api/participant-export?token=YOUR_TOKEN&format=csv`
 
 Both routes also support `format=json`.
+
+`participant-export` is the most useful analysis format: it returns one row per anonymous `session_id`, combining pre-assessment, post-assessment, and feedback data into a single record.
 
 Examples:
 
 ```text
 https://colorcode-ai.ch/api/assessment-export?token=YOUR_TOKEN&format=csv
 https://colorcode-ai.ch/api/feedback-export?token=YOUR_TOKEN&format=json
+https://colorcode-ai.ch/api/participant-export?token=YOUR_TOKEN&format=csv
 ```
 
 If `EXPORT_TOKEN` is not configured, these export routes return `503`.
