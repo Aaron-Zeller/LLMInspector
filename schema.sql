@@ -52,7 +52,9 @@ CREATE INDEX IF NOT EXISTS idx_assessment_submissions_submitted_at
 CREATE INDEX IF NOT EXISTS idx_experience_feedback_submitted_at
   ON experience_feedback (submitted_at);
 
-CREATE OR REPLACE VIEW participant_exports AS
+DROP VIEW IF EXISTS participant_exports;
+
+CREATE VIEW participant_exports AS
 WITH session_ids AS (
   SELECT session_id FROM assessment_submissions
   UNION
