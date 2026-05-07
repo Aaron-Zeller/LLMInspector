@@ -77,14 +77,11 @@ export function ProjectAboutSection({ segment, segmentId }) {
             <p className="project-about-media__eyebrow">{segment.media.eyebrow}</p>
             <h3 className="project-about-media__title">{segment.media.title}</h3>
             <p className="project-about-media__body">{segment.media.body}</p>
-          </div>
-          <div className="project-about-media__placeholder" aria-hidden="true">
-            <div className="project-about-media__window">
-              <span />
-              <span />
-              <span />
-            </div>
-            <div className="project-about-media__screen">{segment.media.placeholder}</div>
+            {segment.media.status ? (
+              <div className="project-about-resource__status project-about-media__status">
+                {segment.media.status}
+              </div>
+            ) : null}
           </div>
         </div>
       ) : null}

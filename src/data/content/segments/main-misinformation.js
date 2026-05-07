@@ -115,149 +115,149 @@ export const mainMisinformationSegments = {
       {
         id: 'cv1',
         text: '"Swiss SMEs have increased AI tool adoption by 34% year-over-year" (World Innovation Institute, Q2 2024)',
-        moveLabel: 'Decide whether this claim should be verified, narrowed, or removed.',
+        moveLabel: 'Decide what should happen before this named external statistic enters the briefing.',
         options: [
           {
             id: 'google',
-            title: 'Check source existence',
-            detail: 'If the report cannot be found, remove the statistic.',
+            title: 'Locate the exact report',
+            detail: 'Search for the named institute, report, period, and figure before using the statistic.',
             icon: '🔍',
             outcome: {
               result: 'dead-link',
               label: 'Strongest Move Here',
               tone: 'success',
               message:
-                'No results for the "World Innovation Institute Q2 2024" report. Multiple searches return no relevant results. The named source cannot be located, so the statistic should not stay in the document.',
+                'No credible record of the "World Innovation Institute Q2 2024" report can be located. Because the claim names a precise external source, the statistic should be removed or replaced rather than supported with weaker evidence.',
             },
           },
           {
             id: 'internal',
-            title: 'Cross-check internally',
-            detail: 'Use internal survey data only to test whether the direction seems plausible.',
+            title: 'Compare with internal survey data',
+            detail: 'Use your own SME client survey to see whether the trend direction seems plausible.',
             icon: '📂',
             outcome: {
-              result: 'contradiction',
-              label: 'Useful But Weaker',
+              result: 'scope-mismatch',
+              label: 'Wrong Scope',
               tone: 'warn',
               message:
-                'Internal data does expose a contradiction, but it is still the wrong first move for a named external source. The fabrication problem remains: the cited report itself cannot be located.',
+                'Internal survey data can support a narrower claim about your own respondents, but it cannot validate a named external report. If you use the internal data, the sentence must be rewritten to match that narrower evidence.',
             },
           },
           {
             id: 'ignore',
-            title: 'Leave it in',
-            detail: 'Keep the claim unless someone later asks for the source.',
+            title: 'Leave it in with the citation',
+            detail: 'The source name looks specific and the statistic is only one supporting line in a longer briefing.',
             icon: '→',
             outcome: {
               result: 'risk',
               label: 'Risk Accepted',
               tone: 'danger',
               message:
-                'The unverified statistic enters the board briefing. When a board member asks for the original report in a follow-up, it cannot be provided. The credibility of the whole analysis is now in question.',
+                'The precise citation makes the claim look more reliable than it is. When a reviewer asks for the report, no one can provide it, and the unsupported number weakens confidence in the rest of the briefing.',
             },
           },
         ],
         bestOptionId: 'google',
         explanation:
-          'When a claim names a report and a precise figure, first verify that the source exists at all. If the source cannot be located quickly, the claim should be removed rather than defended with other evidence.',
+          'A named external report needs external verification. If the source cannot be found, remove the statistic or replace it with a claim that matches evidence you actually have.',
       },
       {
         id: 'cv2',
-        text: '"ChatGPT holds approximately 78% of the enterprise LLM market in Switzerland"',
-        moveLabel: 'Decide whether this market claim should be externally verified, internally reframed, or dropped.',
+        text: '"ChatGPT is the dominant tool in our Swiss manager pilot, with most participants choosing it for everyday drafting tasks"',
+        moveLabel: 'Decide whether this internal pilot claim needs public market evidence, internal evidence, or no extra check.',
         options: [
           {
             id: 'google',
-            title: 'Check external evidence',
-            detail: 'If no credible Swiss market-share source exists, remove or replace the figure.',
+            title: 'Search for market-share evidence',
+            detail: 'Look for public Swiss enterprise LLM market-share data to support the statement.',
             icon: '🔍',
+            outcome: {
+              result: 'wrong-source-type',
+              label: 'Wrong Source Type',
+              tone: 'warn',
+              message:
+                'Public market-share evidence would support a country-level market claim, not a statement about your own pilot group. The claim is internal, so the evidence needs to come from pilot records.',
+            },
+          },
+          {
+            id: 'internal',
+            title: 'Check pilot records',
+            detail: 'Use the participant choices or usage logs and rewrite the wording to match what they actually show.',
+            icon: '📂',
             outcome: {
               result: 'strongest',
               label: 'Strongest Move Here',
               tone: 'success',
               message:
-                'No credible Swiss enterprise market-share source supports the 78% claim. That means the number should not stay in the document unless it can be replaced with something defensible.',
-            },
-          },
-          {
-            id: 'internal',
-            title: 'Narrow it internally',
-            detail: 'Use internal usage data to replace the claim with a narrower internal observation.',
-            icon: '📂',
-            outcome: {
-              result: 'useful-next-step',
-              label: 'Useful Next Step',
-              tone: 'warn',
-              message:
-                'Your IT procurement records show that the organisation actively uses several LLM platforms. That helps you replace the original claim, but it is still a second step after establishing that no credible external source supports the 78% figure.',
+                'The pilot records show ChatGPT was the most frequently selected tool, but not by a majority of participants. The sentence is rewritten to "the most frequently selected tool in our pilot" before it travels further.',
             },
           },
           {
             id: 'ignore',
-            title: 'Keep it as context',
-            detail: 'Leave the 78% figure in place even without a clean source.',
+            title: 'Keep the qualitative wording',
+            detail: 'It says "dominant" and "most", not an exact percentage, so it feels safe enough for a project summary.',
             icon: '→',
             outcome: {
               result: 'risk',
               label: 'Risk Accepted',
               tone: 'danger',
               message:
-                'A board member with vendor relationships questions the figure mid-presentation. No source can be provided and the slide is withdrawn from the deck — in front of the full board.',
+                'The soft wording still overstates the pilot result. A reader later compares it with the participant records and finds that "most" was not supported.',
             },
           },
         ],
-        bestOptionId: 'google',
+        bestOptionId: 'internal',
         explanation:
-          'For an external market-share claim, the first question is whether a credible external source exists at all. If it does not, remove the figure or replace it with a narrower internal observation you can actually support.',
+          'Internal facts need internal evidence. Public market data cannot validate what happened in your own pilot, and qualitative wording still needs to match the underlying records.',
       },
       {
         id: 'cv3',
-        text: '"The Swiss AI market is projected to reach CHF 8.2 billion by 2026"',
-        moveLabel: 'Decide whether this forecast should be externally checked, internally reworked, or removed.',
+        text: '"The Swiss AI market is projected to reach CHF 8.2 billion by 2026, creating a clear case for immediate enterprise-wide rollout"',
+        moveLabel: 'Decide what to do with a high-consequence external forecast that supports a major recommendation.',
         options: [
           {
             id: 'google',
-            title: 'Check the forecast',
-            detail: 'Use a credible external forecast and replace or remove the number if it does not match.',
+            title: 'Check the forecast source',
+            detail: 'Locate a credible external forecast and confirm both the number and what it actually measures.',
             icon: '🔍',
             outcome: {
               result: 'contradiction',
               label: 'Strongest Move Here',
               tone: 'success',
               message:
-                'A credible market research firm publishes a Swiss digital economy forecast, but their 2026 projection for AI-related services is CHF 3.1 billion — significantly lower than the AI figure. The 8.2 billion number should be replaced or removed before use.',
+                'A credible forecast exists, but it measures a broader digital automation category, not the Swiss AI market alone. Because this number supports an enterprise-wide rollout recommendation, the claim must be removed or rewritten before use.',
             },
           },
           {
             id: 'internal',
-            title: 'Use internal data',
-            detail: 'Try to support the national forecast with internal business information.',
+            title: 'Support it with internal demand',
+            detail: 'Use internal interest from business units to show that the rollout recommendation is directionally right.',
             icon: '📂',
             outcome: {
               result: 'not-applicable',
               label: 'Wrong Source Type',
               tone: 'warn',
               message:
-                'Internal data may help with your own pipeline or revenue, but it does not validate a country-level market forecast. This claim needs an external forecast source, not an internal substitute.',
+                'Internal demand may justify a pilot or staged rollout, but it does not validate an external market-size forecast. The market claim and the recommendation need separate evidence.',
             },
           },
           {
             id: 'ignore',
-            title: 'Keep it for now',
-            detail: 'Leave the projection in place and add a source later if needed.',
+            title: 'Keep it as directional context',
+            detail: 'The precise number gives urgency, and the recommendation can still be debated later.',
             icon: '→',
             outcome: {
               result: 'risk',
               label: 'Risk Accepted',
               tone: 'danger',
               message:
-                'The figure enters board materials unchecked. A finance director later locates a credible source showing a significantly lower number. The report is revised after distribution and the discrepancy requires explanation.',
+                'The unsupported forecast anchors a high-cost recommendation. Once the number is challenged, both the evidence and the rollout proposal have to be walked back.',
             },
           },
         ],
         bestOptionId: 'google',
         explanation:
-          'Macro market projections require credible external forecasting sources. If the external number does not support the AI claim, replace or remove the claim instead of letting unsupported precision stay in the deck.',
+          'External forecasts require external evidence, and high-consequence recommendations need a stricter threshold. Unsupported precision should not travel when it is used to justify major action.',
       },
       {
         id: 'cv4',
@@ -292,15 +292,15 @@ export const mainMisinformationSegments = {
           },
           {
             id: 'ignore',
-            title: 'Trust the system',
-            detail: 'Assume the AI can retrieve the metric directly because it already has access to the support tooling.',
+            title: 'Leave the dashboard export as-is',
+            detail: 'The number came from an internal dashboard summary, and the difference is unlikely to change the story.',
             icon: '→',
             outcome: {
               result: 'risk',
               label: 'Risk Accepted',
               tone: 'danger',
               message:
-                'The metric is questioned during the meeting, but no one can show where it came from. Confidence in the rest of the briefing drops because an internal number was left unsupported.',
+                'The metric is questioned during the meeting, but no one can show the underlying log query or definition. Confidence drops because an internal number was left unsupported.',
             },
           },
         ],

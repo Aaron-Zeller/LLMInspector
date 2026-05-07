@@ -8,13 +8,26 @@ CREATE TABLE IF NOT EXISTS assessment_submissions (
   session_id       UUID NOT NULL,
   assessment_stage VARCHAR(10) NOT NULL CHECK (assessment_stage IN ('pre', 'post')),
   question_results JSONB NOT NULL,
-  answered_count   INTEGER NOT NULL CHECK (answered_count BETWEEN 0 AND 13),
-  correct_count    INTEGER NOT NULL CHECK (correct_count BETWEEN 0 AND 13),
-  total_questions  INTEGER NOT NULL CHECK (total_questions = 13),
+  answered_count   INTEGER NOT NULL CHECK (answered_count >= 0),
+  correct_count    INTEGER NOT NULL CHECK (correct_count >= 0),
+  total_questions  INTEGER NOT NULL CHECK (total_questions >= 0),
   app_version      VARCHAR(12) NOT NULL DEFAULT 'v3',
   submitted_at     TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   UNIQUE (session_id, assessment_stage)
 );
+
+ALTER TABLE assessment_submissions
+  DROP CONSTRAINT IF EXISTS assessment_submissions_answered_count_check,
+  DROP CONSTRAINT IF EXISTS assessment_submissions_correct_count_check,
+  DROP CONSTRAINT IF EXISTS assessment_submissions_total_questions_check;
+
+ALTER TABLE assessment_submissions
+  ADD CONSTRAINT assessment_submissions_answered_count_check
+    CHECK (answered_count >= 0 AND answered_count <= total_questions),
+  ADD CONSTRAINT assessment_submissions_correct_count_check
+    CHECK (correct_count >= 0 AND correct_count <= answered_count),
+  ADD CONSTRAINT assessment_submissions_total_questions_check
+    CHECK (total_questions >= 0);
 
 CREATE TABLE IF NOT EXISTS experience_feedback (
   id           SERIAL PRIMARY KEY,
@@ -23,6 +36,14 @@ CREATE TABLE IF NOT EXISTS experience_feedback (
   comment      TEXT,
   app_version  VARCHAR(12) NOT NULL DEFAULT 'v3',
   submitted_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS participant_progress (
+  session_id                      UUID PRIMARY KEY,
+  pre_assessment_submitted_at     TIMESTAMPTZ,
+  post_assessment_submitted_at    TIMESTAMPTZ,
+  feedback_submitted_at           TIMESTAMPTZ,
+  updated_at                      TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE INDEX IF NOT EXISTS idx_assessment_submissions_submitted_at
@@ -36,6 +57,8 @@ WITH session_ids AS (
   SELECT session_id FROM assessment_submissions
   UNION
   SELECT session_id FROM experience_feedback
+  UNION
+  SELECT session_id FROM participant_progress
 )
 SELECT
   session_ids.session_id,
@@ -62,10 +85,16 @@ SELECT
   feedback.app_version AS feedback_app_version,
   feedback.submitted_at AS feedback_submitted_at,
 
+  progress.pre_assessment_submitted_at AS progress_pre_assessment_submitted_at,
+  progress.post_assessment_submitted_at AS progress_post_assessment_submitted_at,
+  progress.feedback_submitted_at AS progress_feedback_submitted_at,
+  progress.updated_at AS progress_updated_at,
+
   GREATEST(
     COALESCE(pre.submitted_at, TIMESTAMPTZ 'epoch'),
     COALESCE(post.submitted_at, TIMESTAMPTZ 'epoch'),
-    COALESCE(feedback.submitted_at, TIMESTAMPTZ 'epoch')
+    COALESCE(feedback.submitted_at, TIMESTAMPTZ 'epoch'),
+    COALESCE(progress.updated_at, TIMESTAMPTZ 'epoch')
   ) AS last_activity_at
 FROM session_ids
 LEFT JOIN assessment_submissions AS pre
@@ -75,4 +104,6 @@ LEFT JOIN assessment_submissions AS post
   ON post.session_id = session_ids.session_id
  AND post.assessment_stage = 'post'
 LEFT JOIN experience_feedback AS feedback
-  ON feedback.session_id = session_ids.session_id;
+  ON feedback.session_id = session_ids.session_id
+LEFT JOIN participant_progress AS progress
+  ON progress.session_id = session_ids.session_id;

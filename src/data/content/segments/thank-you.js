@@ -17,7 +17,7 @@ export const thankYouSegments = {
     variant: 'success',
     icon: '🏆',
     title: 'Assessment Complete',
-    body: 'You have completed all sections. Click below to view your results and recommendations.',
+    body: 'You have completed all sections.',
   },
   'thanks-footer': {
     type: 'navigationFooter',

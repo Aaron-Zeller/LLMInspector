@@ -1251,10 +1251,6 @@ button:disabled {
 }
 
 .project-about-media {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 28px;
-  align-items: start;
   margin-top: 18px;
   padding-top: 24px;
   border-top: 1px solid var(--border);
@@ -1284,37 +1280,9 @@ button:disabled {
   line-height: 1.72;
 }
 
-.project-about-media__placeholder {
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: #fbfaf7;
-  overflow: hidden;
-}
-
-.project-about-media__window {
-  display: flex;
-  gap: 7px;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--border);
-  background: #f5f1e8;
-}
-
-.project-about-media__window span {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(26, 35, 64, 0.18);
-}
-
-.project-about-media__screen {
-  min-height: 240px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 28px;
-  color: var(--muted);
-  font-size: 14px;
-  text-align: center;
+.project-about-media__status {
+  display: inline-block;
+  margin-top: 14px;
 }
 
 .project-about-team {
@@ -1364,8 +1332,13 @@ button:disabled {
   transform: translateY(12px);
 }
 
+.project-about-team__photo--aloha img {
+  transform: none;
+  transform-origin: center bottom;
+}
+
 .project-about-team__photo--sara img {
-  transform: translateY(42px) scale(1.18);
+  transform: translateY(10px);
   transform-origin: center bottom;
 }
 
@@ -2717,6 +2690,11 @@ button:disabled {
   border-color: var(--navy-mid);
   background: #eef0f6;
   color: var(--navy);
+}
+
+.answer-option--selected .answer-option__radio {
+  border-color: var(--navy);
+  background: var(--navy);
 }
 
 .answer-option--correct {

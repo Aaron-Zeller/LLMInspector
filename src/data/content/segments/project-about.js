@@ -145,13 +145,19 @@ export const projectAboutSegments = {
         image: '/team/aaron.png',
         photoClassName: 'project-about-team__photo--aaron',
       },
-      { name: 'Aloha', initials: 'A', role: 'Photo placeholder' },
-      { name: 'Nil', initials: 'N', role: 'Photo placeholder' },
+      {
+        name: 'Aloha',
+        initials: 'A',
+        role: 'Master’s Student ETH\nComputer Science',
+        image: '/team/aloha-no-green-transparent.png',
+        photoClassName: 'project-about-team__photo--aloha',
+      },
+      { name: 'Nil', initials: 'N', role: 'Master’s Student ETH\nComputer Science' },
       {
         name: 'Sara',
         initials: 'S',
         role: 'Master’s Student ETH\nComputer Science',
-        image: '/team/sara.webp',
+        image: '/team/sara-cropped.png',
         photoClassName: 'project-about-team__photo--sara',
       },
       {
@@ -204,7 +210,7 @@ export const projectAboutSegments = {
       title: 'A small visual tour would complete the public project page',
       body:
         'The final public website should include one overview screenshot, one core-scenario screenshot, and one lab screenshot or short walkthrough video. The aim is not to reproduce the whole experience, but to show the look and rhythm of the interaction clearly.',
-      placeholder: 'Screenshot or short walkthrough video placeholder',
+      status: 'Planned',
     },
   },
   'project-about-resources': {
