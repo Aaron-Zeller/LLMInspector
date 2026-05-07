@@ -38,29 +38,17 @@ CREATE TABLE IF NOT EXISTS experience_feedback (
   submitted_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE IF NOT EXISTS participant_progress (
-  session_id                      UUID PRIMARY KEY,
-  pre_assessment_submitted_at     TIMESTAMPTZ,
-  post_assessment_submitted_at    TIMESTAMPTZ,
-  feedback_submitted_at           TIMESTAMPTZ,
-  updated_at                      TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
-
 CREATE INDEX IF NOT EXISTS idx_assessment_submissions_submitted_at
   ON assessment_submissions (submitted_at);
 
 CREATE INDEX IF NOT EXISTS idx_experience_feedback_submitted_at
   ON experience_feedback (submitted_at);
 
-DROP VIEW IF EXISTS participant_exports;
-
-CREATE VIEW participant_exports AS
+CREATE OR REPLACE VIEW participant_exports AS
 WITH session_ids AS (
   SELECT session_id FROM assessment_submissions
   UNION
   SELECT session_id FROM experience_feedback
-  UNION
-  SELECT session_id FROM participant_progress
 )
 SELECT
   session_ids.session_id,
@@ -87,16 +75,10 @@ SELECT
   feedback.app_version AS feedback_app_version,
   feedback.submitted_at AS feedback_submitted_at,
 
-  progress.pre_assessment_submitted_at AS progress_pre_assessment_submitted_at,
-  progress.post_assessment_submitted_at AS progress_post_assessment_submitted_at,
-  progress.feedback_submitted_at AS progress_feedback_submitted_at,
-  progress.updated_at AS progress_updated_at,
-
   GREATEST(
     COALESCE(pre.submitted_at, TIMESTAMPTZ 'epoch'),
     COALESCE(post.submitted_at, TIMESTAMPTZ 'epoch'),
-    COALESCE(feedback.submitted_at, TIMESTAMPTZ 'epoch'),
-    COALESCE(progress.updated_at, TIMESTAMPTZ 'epoch')
+    COALESCE(feedback.submitted_at, TIMESTAMPTZ 'epoch')
   ) AS last_activity_at
 FROM session_ids
 LEFT JOIN assessment_submissions AS pre
@@ -106,6 +88,4 @@ LEFT JOIN assessment_submissions AS post
   ON post.session_id = session_ids.session_id
  AND post.assessment_stage = 'post'
 LEFT JOIN experience_feedback AS feedback
-  ON feedback.session_id = session_ids.session_id
-LEFT JOIN participant_progress AS progress
-  ON progress.session_id = session_ids.session_id;
+  ON feedback.session_id = session_ids.session_id;

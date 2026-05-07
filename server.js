@@ -98,33 +98,6 @@ function assertExportAllowed(req, res) {
   return true;
 }
 
-async function updateParticipantProgress(client, sessionId, milestone, submittedAt) {
-  const columnByMilestone = {
-    pre: 'pre_assessment_submitted_at',
-    post: 'post_assessment_submitted_at',
-    feedback: 'feedback_submitted_at',
-  };
-  const columnName = columnByMilestone[milestone];
-
-  if (!columnName) {
-    throw new Error(`Unknown progress milestone: ${milestone}`);
-  }
-
-  await client.query(
-    `INSERT INTO participant_progress (
-      session_id,
-      ${columnName},
-      updated_at
-    )
-    VALUES ($1::uuid, $2, NOW())
-    ON CONFLICT (session_id)
-    DO UPDATE SET
-      ${columnName} = EXCLUDED.${columnName},
-      updated_at = NOW()`,
-    [sessionId, submittedAt],
-  );
-}
-
 app.get('/api/health', async (_req, res) => {
   if (!pool) {
     res.json({
@@ -173,13 +146,8 @@ app.post('/api/assessment-submissions', async (req, res) => {
 
   const summary = summarizeStageResults(assessmentStage, req.body?.answers);
 
-  let client;
-
   try {
-    client = await pool.connect();
-    await client.query('BEGIN');
-
-    const queryResult = await client.query(
+    const queryResult = await pool.query(
       `INSERT INTO assessment_submissions (
         session_id,
         assessment_stage,
@@ -210,15 +178,6 @@ app.post('/api/assessment-submissions', async (req, res) => {
       ],
     );
 
-    await updateParticipantProgress(
-      client,
-      sessionId,
-      assessmentStage,
-      queryResult.rows[0].submitted_at,
-    );
-
-    await client.query('COMMIT');
-
     res.status(201).json({
       success: true,
       id: queryResult.rows[0].id,
@@ -227,11 +186,8 @@ app.post('/api/assessment-submissions', async (req, res) => {
       answeredCount: summary.answeredCount,
     });
   } catch (error) {
-    await client?.query('ROLLBACK').catch(() => {});
     console.error('Assessment submission failed:', error);
     res.status(500).json({ error: 'Unable to store the assessment submission.' });
-  } finally {
-    client?.release();
   }
 });
 
@@ -267,13 +223,8 @@ app.post('/api/experience-feedback', async (req, res) => {
     return;
   }
 
-  let client;
-
   try {
-    client = await pool.connect();
-    await client.query('BEGIN');
-
-    const queryResult = await client.query(
+    const queryResult = await pool.query(
       `INSERT INTO experience_feedback (
         session_id,
         responses,
@@ -296,26 +247,14 @@ app.post('/api/experience-feedback', async (req, res) => {
       ],
     );
 
-    await updateParticipantProgress(
-      client,
-      sessionId,
-      'feedback',
-      queryResult.rows[0].submitted_at,
-    );
-
-    await client.query('COMMIT');
-
     res.status(201).json({
       success: true,
       id: queryResult.rows[0].id,
       submittedAt: queryResult.rows[0].submitted_at,
     });
   } catch (error) {
-    await client?.query('ROLLBACK').catch(() => {});
     console.error('Feedback submission failed:', error);
     res.status(500).json({ error: 'Unable to store the experience feedback.' });
-  } finally {
-    client?.release();
   }
 });
 
@@ -406,10 +345,6 @@ app.get('/api/participant-export', async (req, res) => {
         feedback_comment,
         feedback_app_version,
         feedback_submitted_at,
-        progress_pre_assessment_submitted_at,
-        progress_post_assessment_submitted_at,
-        progress_feedback_submitted_at,
-        progress_updated_at,
         last_activity_at
       FROM participant_exports
       ORDER BY last_activity_at DESC`,
