@@ -5697,21 +5697,6 @@ button:disabled {
   background: var(--surface);
 }
 
-.gl-doc--critical.gl-doc--selected {
-  border-color: var(--danger);
-  background: var(--danger-bg);
-}
-
-.gl-doc--medium.gl-doc--selected {
-  border-color: var(--warn);
-  background: var(--warn-bg);
-}
-
-.gl-doc--safe.gl-doc--selected {
-  border-color: var(--success);
-  background: var(--success-bg);
-}
-
 .gl-doc--excluded {
   opacity: 0.38;
   cursor: default;
@@ -5756,21 +5741,9 @@ button:disabled {
   white-space: nowrap;
   flex-shrink: 0;
   letter-spacing: 0.03em;
-}
-
-.gl-doc__tag--critical {
-  background: var(--danger-bg);
-  color: var(--danger);
-}
-
-.gl-doc__tag--medium {
-  background: var(--warn-bg);
-  color: var(--warn);
-}
-
-.gl-doc__tag--safe {
-  background: var(--success-bg);
-  color: var(--success);
+  background: var(--surface);
+  color: var(--muted);
+  border: 1px solid var(--border);
 }
 
 .gl-doc__check {

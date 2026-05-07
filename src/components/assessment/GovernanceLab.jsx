@@ -76,12 +76,6 @@ const PROMPT_STYLES = [
   },
 ];
 
-const DOC_RISK_CLS = {
-  critical: 'gl-doc--critical',
-  medium: 'gl-doc--medium',
-  safe: 'gl-doc--safe',
-};
-
 const PROMPT_TONE_CLS = {
   danger: 'gl-prompt-opt--danger',
   success: 'gl-prompt-opt--success',
@@ -546,7 +540,6 @@ export function GovernanceLab({ segment, segmentId }) {
                   disabled={locked}
                   className={cx(
                     'gl-doc',
-                    DOC_RISK_CLS[doc.risk],
                     isSelected && 'gl-doc--selected',
                     locked && !isSelected && 'gl-doc--excluded',
                   )}
@@ -557,7 +550,7 @@ export function GovernanceLab({ segment, segmentId }) {
                     <span className="gl-doc__name">{doc.name}</span>
                     <span className="gl-doc__desc">{doc.desc}</span>
                   </span>
-                  <span className={`gl-doc__tag gl-doc__tag--${doc.risk}`}>{doc.tag}</span>
+                  <span className="gl-doc__tag">{doc.tag}</span>
                   {!locked && (
                     <span className={cx('gl-doc__check', isSelected && 'gl-doc__check--on')} />
                   )}
