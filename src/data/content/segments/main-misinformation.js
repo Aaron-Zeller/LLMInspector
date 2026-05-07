@@ -115,12 +115,12 @@ export const mainMisinformationSegments = {
       {
         id: 'cv1',
         text: '"Swiss SMEs have increased AI tool adoption by 34% year-over-year" (World Innovation Institute, Q2 2024)',
-        moveLabel: 'Decide what should happen before this named external statistic enters the briefing.',
+        moveLabel: 'Choose the strongest review move before this statistic enters the briefing.',
         options: [
           {
             id: 'google',
-            title: 'Locate the exact report',
-            detail: 'Search for the named institute, report, period, and figure before using the statistic.',
+            title: 'Trace the named citation',
+            detail: 'Look for the exact institute, report, quarter, and figure cited in the sentence.',
             icon: '🔍',
             outcome: {
               result: 'dead-link',
@@ -132,28 +132,28 @@ export const mainMisinformationSegments = {
           },
           {
             id: 'internal',
-            title: 'Compare with internal survey data',
-            detail: 'Use your own SME client survey to see whether the trend direction seems plausible.',
+            title: 'Use client survey as a proxy',
+            detail: 'Check whether your own SME client survey shows a similar adoption trend.',
             icon: '📂',
             outcome: {
               result: 'scope-mismatch',
               label: 'Wrong Scope',
               tone: 'warn',
               message:
-                'Internal survey data can support a narrower claim about your own respondents, but it cannot validate a named external report. If you use the internal data, the sentence must be rewritten to match that narrower evidence.',
+                'Your client survey may support a narrower statement about your own respondents, but it cannot rescue a citation to a report that cannot be found. If you use the survey, the sentence must be rewritten around that evidence.',
             },
           },
           {
             id: 'ignore',
-            title: 'Leave it in with the citation',
-            detail: 'The source name looks specific and the statistic is only one supporting line in a longer briefing.',
+            title: 'Keep it for review copy',
+            detail: 'Leave the citation in the draft and flag it for source cleanup during the final edit.',
             icon: '→',
             outcome: {
               result: 'risk',
               label: 'Risk Accepted',
               tone: 'danger',
               message:
-                'The precise citation makes the claim look more reliable than it is. When a reviewer asks for the report, no one can provide it, and the unsupported number weakens confidence in the rest of the briefing.',
+                'The citation survives because it looks specific and no one owns the cleanup step. When a reviewer asks for the report, no one can provide it, and the unsupported number weakens confidence in the rest of the briefing.',
             },
           },
         ],
@@ -164,25 +164,25 @@ export const mainMisinformationSegments = {
       {
         id: 'cv2',
         text: '"ChatGPT is the dominant tool in our Swiss manager pilot, with most participants choosing it for everyday drafting tasks"',
-        moveLabel: 'Decide whether this internal pilot claim needs public market evidence, internal evidence, or no extra check.',
+        moveLabel: 'Choose the strongest review move for a claim about your own pilot.',
         options: [
           {
             id: 'google',
-            title: 'Search for market-share evidence',
-            detail: 'Look for public Swiss enterprise LLM market-share data to support the statement.',
+            title: 'Use a public adoption benchmark',
+            detail: 'Find a recent Swiss or European AI adoption report and use it to support the pilot wording.',
             icon: '🔍',
             outcome: {
               result: 'wrong-source-type',
               label: 'Wrong Source Type',
               tone: 'warn',
               message:
-                'Public market-share evidence would support a country-level market claim, not a statement about your own pilot group. The claim is internal, so the evidence needs to come from pilot records.',
+                'A public benchmark can provide context, but it cannot prove what happened in your own pilot. The claim is about your participants, so the wording needs to be checked against pilot records.',
             },
           },
           {
             id: 'internal',
-            title: 'Check pilot records',
-            detail: 'Use the participant choices or usage logs and rewrite the wording to match what they actually show.',
+            title: 'Check the pilot counts',
+            detail: 'Use participant choices or usage logs and revise the wording to match the actual distribution.',
             icon: '📂',
             outcome: {
               result: 'strongest',
@@ -194,8 +194,8 @@ export const mainMisinformationSegments = {
           },
           {
             id: 'ignore',
-            title: 'Keep the qualitative wording',
-            detail: 'It says "dominant" and "most", not an exact percentage, so it feels safe enough for a project summary.',
+            title: 'Keep it as qualitative',
+            detail: 'Because it avoids a percentage, treat “dominant” and “most” as acceptable summary language.',
             icon: '→',
             outcome: {
               result: 'risk',
@@ -213,12 +213,12 @@ export const mainMisinformationSegments = {
       {
         id: 'cv3',
         text: '"The Swiss AI market is projected to reach CHF 8.2 billion by 2026, creating a clear case for immediate enterprise-wide rollout"',
-        moveLabel: 'Decide what to do with a high-consequence external forecast that supports a major recommendation.',
+        moveLabel: 'Choose the strongest review move for a forecast used to justify a major recommendation.',
         options: [
           {
             id: 'google',
-            title: 'Check the forecast source',
-            detail: 'Locate a credible external forecast and confirm both the number and what it actually measures.',
+            title: 'Trace the forecast definition',
+            detail: 'Find the forecast, confirm the number, and check whether it measures the same market category.',
             icon: '🔍',
             outcome: {
               result: 'contradiction',
@@ -230,21 +230,21 @@ export const mainMisinformationSegments = {
           },
           {
             id: 'internal',
-            title: 'Support it with internal demand',
-            detail: 'Use internal interest from business units to show that the rollout recommendation is directionally right.',
+            title: 'Pair it with demand signals',
+            detail: 'Add internal business-unit interest to make the rollout recommendation feel better supported.',
             icon: '📂',
             outcome: {
               result: 'not-applicable',
               label: 'Wrong Source Type',
               tone: 'warn',
               message:
-                'Internal demand may justify a pilot or staged rollout, but it does not validate an external market-size forecast. The market claim and the recommendation need separate evidence.',
+                'Internal demand may justify a pilot or staged rollout, but it does not validate the market-size forecast. The number and the recommendation need separate evidence.',
             },
           },
           {
             id: 'ignore',
-            title: 'Keep it as directional context',
-            detail: 'The precise number gives urgency, and the recommendation can still be debated later.',
+            title: 'Keep it in the appendix',
+            detail: 'Use the number as background context rather than the main basis for the rollout decision.',
             icon: '→',
             outcome: {
               result: 'risk',
@@ -262,25 +262,25 @@ export const mainMisinformationSegments = {
       {
         id: 'cv4',
         text: '"Last quarter, 38% of our support replies were drafted with AI before human review"',
-        moveLabel: 'Decide whether this is an internal metric to check locally, an external claim to source, or a number to remove.',
+        moveLabel: 'Choose the strongest review move for an operational metric from your own workflow.',
         options: [
           {
             id: 'google',
-            title: 'Search for a public source',
-            detail: 'Look online for a report that confirms how much your own support team used AI.',
+            title: 'Benchmark against industry reports',
+            detail: 'Compare the number with public customer-service AI adoption reports to see whether it is plausible.',
             icon: '🔍',
             outcome: {
               result: 'wrong-source-type',
               label: 'Wrong Source Type',
               tone: 'warn',
               message:
-                'No external source can verify an internal operational metric like this one. Public reports may discuss AI support trends in general, but not your own team’s drafting rate.',
+                'Public reports can tell you whether the number sounds plausible, but they cannot verify your own team’s drafting rate. The metric needs the underlying workflow records.',
             },
           },
           {
             id: 'internal',
-            title: 'Check the internal logs',
-            detail: 'Use approved usage or workflow records to confirm the metric before it enters the briefing.',
+            title: 'Trace the dashboard number',
+            detail: 'Open the underlying usage logs or query definition before the metric enters the briefing.',
             icon: '📂',
             outcome: {
               result: 'strongest-move',
@@ -293,7 +293,7 @@ export const mainMisinformationSegments = {
           {
             id: 'ignore',
             title: 'Leave the dashboard export as-is',
-            detail: 'The number came from an internal dashboard summary, and the difference is unlikely to change the story.',
+            detail: 'The number came from a dashboard tile, and a few percentage points will not change the story.',
             icon: '→',
             outcome: {
               result: 'risk',
