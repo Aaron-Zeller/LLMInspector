@@ -6,7 +6,7 @@ import { Segment } from '../dev/Segment.jsx';
 
 const TYPE_META = {
   'pii-identity': { label: 'Personal Identity Data', tone: 'danger' },
-  'pii-financial': { label: 'Sensitive Financial Data', tone: 'danger' },
+  'pii-financial': { label: 'Confidential Employment Data', tone: 'danger' },
   'confidential-data': { label: 'Confidential Internal Data', tone: 'warn' },
 };
 
@@ -76,8 +76,8 @@ export function SanitisePromptTask({ itemId, revealFeedback = true, locked = fal
             return (
               <span
                 key={span.id}
-                className={cx('sanitise-span', !locked && !span.safe && 'sanitise-span--clickable', stateClass)}
-                onClick={() => !locked && !span.safe && toggleSpan(span.id)}
+                className={cx('sanitise-span', !locked && 'sanitise-span--clickable', stateClass)}
+                onClick={() => !locked && toggleSpan(span.id)}
               >
                 {span.text}
               </span>
