@@ -80,7 +80,7 @@ export const projectAboutSegments = {
         label: 'Policy Context',
         title: 'AI literacy is now a governance expectation, not only a best-practice ideal',
         body:
-          'Article 4 of the EU AI Act [1] requires providers and deployers of AI systems to take measures to ensure a sufficient level of AI literacy among staff and other people using AI on their behalf. Recital 20 makes the intended outcome clear: people should be able to make informed decisions, interpret AI output appropriately, and support compliance in context.',
+          'Article 4 of the EU AI Act [1] requires providers and deployers of AI systems, to their best extent, to take measures to ensure a sufficient level of AI literacy among staff and other people using AI on their behalf. Recital 20 makes the intended outcome clear: people should be able to make informed decisions, interpret AI output appropriately, and support compliance in context.',
         sources: [{ label: 'EU AI Act, Article 4 and Recital 20', href: EU_AI_ACT_URL }],
       },
       {
@@ -196,7 +196,7 @@ export const projectAboutSegments = {
         label: 'Evaluation Logic',
         title: 'Stable before-and-after structure',
         body:
-          'The pre- and post-assessments use the same structure so before-and-after responses can be compared directly. The pre-assessment stays neutral and does not reveal correctness. The post-assessment reveals solutions only after submission. This keeps the baseline cleaner while still turning the end of the course into a reflective learning moment.',
+          'The pre- and post-assessments use the same item structure and mirrored questions so before-and-after responses can be compared directly, while recognising that repeated items may also capture some familiarity with the assessment itself. The pre-assessment stays neutral and does not reveal correctness. The post-assessment reveals solutions only after submission. This keeps the baseline cleaner while still turning the end of the course into a reflective learning moment.',
       },
       {
         label: 'AI Disclosure',

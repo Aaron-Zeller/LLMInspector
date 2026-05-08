@@ -445,7 +445,7 @@ export function PromptInjectionDemo({ segment, segmentId }) {
         <details className="pi-explainer">
           <summary className="pi-explainer__toggle">How this works</summary>
           <div className="pi-explainer__body">
-            <p>The agent's system prompt requires confirmation before sending any email. The injected instruction told it to disregard that rule. Because the model treats all text in its context as equally authoritative, the injection overwrote the guardrail. The agent used its real tool access to exfiltrate data and gave the employee a normal-looking summary. The severity scales with what tools the agent can access.</p>
+            <p>The agent's system prompt requires confirmation before sending any email. The injected instruction told it to disregard that rule. Because the workflow does not reliably separate untrusted document content from instructions, the injected text can steer the agent despite the system prompt. The agent used its real tool access to exfiltrate data and gave the employee a normal-looking summary. The severity scales with what tools the agent can access.</p>
           </div>
         </details>
       </div>

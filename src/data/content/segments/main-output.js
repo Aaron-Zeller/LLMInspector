@@ -382,7 +382,7 @@ export const mainOutputSegments = {
               verdict: 'Compliance failure',
               title: 'Sensitive data sent without review',
               body:
-                "The email included the client's full account number and exact portfolio value, both classified as sensitive personal data under GDPR and the firm's data processing agreement. Once sent, this cannot be recalled. The client's data left a controlled channel without compliance review.",
+                "The email included the client's full account number and exact portfolio value, both personal and confidential financial data under GDPR and the firm's data processing agreement. Once sent, this cannot be recalled. The client's data left a controlled channel without compliance review.",
               lesson:
                 'AI drafts for external communications must always be checked for sensitive data fields before sending. Account numbers and precise financial figures require specific handling under most data processing agreements. The time pressure was real, but it does not remove the obligation.',
             },

@@ -309,12 +309,12 @@ const newItems = {
     points: 7,
     correctOptionId: 'legal-basis',
     feedback: {
-      correct: 'Customer names and account IDs are personal data under GDPR. Processing them in a public AI tool without a lawful basis, a data processing agreement, or appropriate safeguards is a compliance violation regardless of whether the output is accurate.',
-      incorrect: 'The primary risk is not formatting or accuracy — it is that personal data (names, account IDs) is being processed by a third-party AI provider without the legal basis or contractual safeguards required by data protection law.',
+      correct: 'Customer names and account IDs are personal data under GDPR. Processing them in a public AI tool without a lawful basis, a data processing agreement, or appropriate safeguards creates serious compliance risk regardless of whether the output is accurate.',
+      incorrect: 'The primary risk is not formatting or accuracy — it is that personal data (names, account IDs) may be processed by a third-party AI provider without the legal basis or contractual safeguards required by data protection law.',
     },
     options: [
       { id: 'inaccurate', label: 'The AI may give inaccurate summaries.' },
-      { id: 'legal-basis', label: 'Sensitive personal data may be processed without proper legal basis or safeguards.' },
+      { id: 'legal-basis', label: 'Personal data may be processed without proper legal basis or safeguards.' },
       { id: 'formatting', label: 'The data might not be formatted correctly.' },
       { id: 'charge', label: 'The AI provider may charge extra for data usage.' },
     ],
@@ -482,7 +482,7 @@ const newItems = {
         text: 'CHF 128,000 per year',
         safe: false,
         type: 'pii-financial',
-        explanation: 'Salary data is sensitive personal data under GDPR Article 9 when combined with an identified person. It must be removed or replaced with a role-level band.',
+        explanation: 'Salary data is personal and confidential employment data under GDPR Article 4 when combined with an identified person. It must be removed or replaced with a role-level band.',
       },
       { id: 'sp5', text: ' in the Finance department. Compare her recent output to the ', safe: true },
       {
