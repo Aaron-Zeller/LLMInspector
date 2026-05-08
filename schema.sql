@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS assessment_submissions (
   session_id       UUID NOT NULL,
   assessment_stage VARCHAR(10) NOT NULL CHECK (assessment_stage IN ('pre', 'post')),
   question_results JSONB NOT NULL,
+  selected_answers JSONB NOT NULL DEFAULT '{}'::jsonb,
   answered_count   INTEGER NOT NULL CHECK (answered_count >= 0),
   correct_count    INTEGER NOT NULL CHECK (correct_count >= 0),
   total_questions  INTEGER NOT NULL CHECK (total_questions >= 0),
@@ -15,6 +16,9 @@ CREATE TABLE IF NOT EXISTS assessment_submissions (
   submitted_at     TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   UNIQUE (session_id, assessment_stage)
 );
+
+ALTER TABLE assessment_submissions
+  ADD COLUMN IF NOT EXISTS selected_answers JSONB NOT NULL DEFAULT '{}'::jsonb;
 
 ALTER TABLE assessment_submissions
   DROP CONSTRAINT IF EXISTS assessment_submissions_answered_count_check,
@@ -79,7 +83,10 @@ SELECT
     COALESCE(pre.submitted_at, TIMESTAMPTZ 'epoch'),
     COALESCE(post.submitted_at, TIMESTAMPTZ 'epoch'),
     COALESCE(feedback.submitted_at, TIMESTAMPTZ 'epoch')
-  ) AS last_activity_at
+  ) AS last_activity_at,
+
+  pre.selected_answers AS pre_selected_answers,
+  post.selected_answers AS post_selected_answers
 FROM session_ids
 LEFT JOIN assessment_submissions AS pre
   ON pre.session_id = session_ids.session_id

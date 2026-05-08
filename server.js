@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import cors from 'cors';
 import express from 'express';
-import { summarizeStageResults } from './src/lib/assessment.js';
+import { sanitizeAnswers, summarizeStageResults } from './src/lib/assessment.js';
 import { createDatabasePool, initializeDatabase } from './src/server/database.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -144,7 +144,8 @@ app.post('/api/assessment-submissions', async (req, res) => {
     return;
   }
 
-  const summary = summarizeStageResults(assessmentStage, req.body?.answers);
+  const selectedAnswers = sanitizeAnswers(req.body?.answers);
+  const summary = summarizeStageResults(assessmentStage, selectedAnswers);
 
   try {
     const queryResult = await pool.query(
@@ -152,15 +153,17 @@ app.post('/api/assessment-submissions', async (req, res) => {
         session_id,
         assessment_stage,
         question_results,
+        selected_answers,
         answered_count,
         correct_count,
         total_questions,
         app_version
       )
-      VALUES ($1::uuid, $2, $3::jsonb, $4, $5, $6, $7)
+      VALUES ($1::uuid, $2, $3::jsonb, $4::jsonb, $5, $6, $7, $8)
       ON CONFLICT (session_id, assessment_stage)
       DO UPDATE SET
         question_results = EXCLUDED.question_results,
+        selected_answers = EXCLUDED.selected_answers,
         answered_count = EXCLUDED.answered_count,
         correct_count = EXCLUDED.correct_count,
         total_questions = EXCLUDED.total_questions,
@@ -171,6 +174,7 @@ app.post('/api/assessment-submissions', async (req, res) => {
         sessionId,
         assessmentStage,
         JSON.stringify(summary.questionResults),
+        JSON.stringify(selectedAnswers),
         summary.answeredCount,
         summary.correctCount,
         summary.totalQuestions,
@@ -272,6 +276,7 @@ app.get('/api/assessment-export', async (req, res) => {
         session_id,
         assessment_stage,
         question_results,
+        selected_answers,
         answered_count,
         correct_count,
         total_questions,
@@ -345,7 +350,9 @@ app.get('/api/participant-export', async (req, res) => {
         feedback_comment,
         feedback_app_version,
         feedback_submitted_at,
-        last_activity_at
+        last_activity_at,
+        pre_selected_answers,
+        post_selected_answers
       FROM participant_exports
       ORDER BY last_activity_at DESC`,
     );
