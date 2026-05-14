@@ -1,4 +1,5 @@
 import { Segment } from '../dev/Segment.jsx';
+import { useAssessmentStore } from '../../store/useAssessmentStore.js';
 
 function SourceList({ sources, showIndex = true }) {
   if (!sources?.length) return null;
@@ -17,6 +18,8 @@ function SourceList({ sources, showIndex = true }) {
 }
 
 export function ProjectAboutSection({ segment, segmentId }) {
+  const goToPage = useAssessmentStore((state) => state.goToPage);
+
   return (
     <Segment className="project-about-section" segmentId={segmentId}>
       <header
@@ -66,6 +69,15 @@ export function ProjectAboutSection({ segment, segmentId }) {
                 ) : null}
                 <SourceList sources={row.sources} showIndex={row.showSourceIndex !== false} />
               </div>
+              {row.actionLabel && row.actionPageId ? (
+                <button
+                  className="project-about-row__action"
+                  onClick={() => goToPage(row.actionPageId)}
+                  type="button"
+                >
+                  {row.actionLabel}
+                </button>
+              ) : null}
             </section>
           ))}
         </div>
@@ -83,6 +95,15 @@ export function ProjectAboutSection({ segment, segmentId }) {
               </div>
             ) : null}
           </div>
+          {segment.media.actionLabel && segment.media.actionPageId ? (
+            <button
+              className="project-about-media__button"
+              onClick={() => goToPage(segment.media.actionPageId)}
+              type="button"
+            >
+              {segment.media.actionLabel}
+            </button>
+          ) : null}
         </div>
       ) : null}
 
@@ -120,6 +141,25 @@ export function ProjectAboutSection({ segment, segmentId }) {
               </div>
               {resource.status ? (
                 <div className="project-about-resource__status">{resource.status}</div>
+              ) : null}
+              {resource.href ? (
+                <a
+                  className="project-about-resource__link"
+                  href={resource.href}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  {resource.linkLabel ?? 'Open link'}
+                </a>
+              ) : null}
+              {resource.actionLabel && resource.actionPageId ? (
+                <button
+                  className="project-about-resource__link"
+                  onClick={() => goToPage(resource.actionPageId)}
+                  type="button"
+                >
+                  {resource.actionLabel}
+                </button>
               ) : null}
             </article>
           ))}

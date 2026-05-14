@@ -31,6 +31,12 @@ import { NavigationFooter } from '../common/NavigationFooter.jsx';
 import { PageHeader } from '../common/PageHeader.jsx';
 import { ProjectAboutLead } from '../common/ProjectAboutLead.jsx';
 import { ProjectAboutSection } from '../common/ProjectAboutSection.jsx';
+import { ProjectFaq } from '../common/ProjectFaq.jsx';
+import { ProjectFacilitationGuide } from '../common/ProjectFacilitationGuide.jsx';
+import { ProjectLessonPlan } from '../common/ProjectLessonPlan.jsx';
+import { ProjectSetupInstructions } from '../common/ProjectSetupInstructions.jsx';
+import { ProjectWalkthrough } from '../common/ProjectWalkthrough.jsx';
+import { ProjectWorksheets } from '../common/ProjectWorksheets.jsx';
 import { SectionProgress } from '../common/SectionProgress.jsx';
 import { ContentCardSection } from '../common/ContentCardSection.jsx';
 import { LockedLabNotice } from '../common/LockedLabNotice.jsx';
@@ -52,6 +58,12 @@ const segmentRenderers = {
   pageHeader: PageHeader,
   projectAboutLead: ProjectAboutLead,
   projectAboutSection: ProjectAboutSection,
+  projectFaq: ProjectFaq,
+  projectFacilitationGuide: ProjectFacilitationGuide,
+  projectLessonPlan: ProjectLessonPlan,
+  projectSetupInstructions: ProjectSetupInstructions,
+  projectWalkthrough: ProjectWalkthrough,
+  projectWorksheets: ProjectWorksheets,
   moduleIntro: ModuleIntro,
   contentCards: ContentCardSection,
   transferCallout: TransferCallout,
@@ -135,7 +147,13 @@ export function PageRenderer({ page }) {
       ? 'page-shell page-shell--results'
       : page.id === 'overview'
         ? 'page-shell page-shell--overview'
-        : page.id === 'project-about'
+        : page.id === 'project-about' ||
+            page.id === 'project-faq' ||
+            page.id === 'project-walkthrough' ||
+            page.id === 'project-lesson-plan' ||
+            page.id === 'project-worksheets' ||
+            page.id === 'project-facilitation-guide' ||
+            page.id === 'project-setup'
           ? 'page-shell page-shell--about'
         : page.id === 'thank-you'
           ? 'page-shell page-shell--thank-you'
@@ -147,7 +165,13 @@ export function PageRenderer({ page }) {
         className={
           page.id === 'results'
             ? 'page-column page-column--results'
-            : page.id === 'project-about'
+            : page.id === 'project-about' ||
+                page.id === 'project-faq' ||
+                page.id === 'project-walkthrough' ||
+                page.id === 'project-lesson-plan' ||
+                page.id === 'project-worksheets' ||
+                page.id === 'project-facilitation-guide' ||
+                page.id === 'project-setup'
               ? 'page-column page-column--about'
               : 'page-column'
         }

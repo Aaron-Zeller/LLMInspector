@@ -21,7 +21,14 @@ export function TopNavigation() {
     NAV_SECTIONS.findIndex((section) => section.pageIds.includes(currentPageId)),
     0,
   );
-  const onAboutPage = currentPageId === 'project-about';
+  const onAboutPage =
+    currentPageId === 'project-about' ||
+    currentPageId === 'project-faq' ||
+    currentPageId === 'project-walkthrough' ||
+    currentPageId === 'project-lesson-plan' ||
+    currentPageId === 'project-worksheets' ||
+    currentPageId === 'project-facilitation-guide' ||
+    currentPageId === 'project-setup';
   const coreScenarioSection = NAV_SECTIONS.find((section) => section.id === 'main-part');
   const coreScenarioPages = coreScenarioSection?.pageIds ?? [];
   const onCoreScenarioPage = coreScenarioPages.includes(currentPageId);

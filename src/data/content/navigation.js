@@ -50,6 +50,36 @@ export const PAGE_SEQUENCE = [
     ],
   },
   {
+    id: 'project-faq',
+    label: 'FAQ',
+    segmentIds: ['project-faq-header', 'project-faq'],
+  },
+  {
+    id: 'project-walkthrough',
+    label: 'Walkthrough',
+    segmentIds: ['project-walkthrough-header', 'project-walkthrough'],
+  },
+  {
+    id: 'project-lesson-plan',
+    label: 'Lesson Plan',
+    segmentIds: ['project-lesson-plan-header', 'project-lesson-plan'],
+  },
+  {
+    id: 'project-worksheets',
+    label: 'Worksheets',
+    segmentIds: ['project-worksheets-header', 'project-worksheets'],
+  },
+  {
+    id: 'project-facilitation-guide',
+    label: 'Facilitation Guide',
+    segmentIds: ['project-facilitation-guide-header', 'project-facilitation-guide'],
+  },
+  {
+    id: 'project-setup',
+    label: 'Setup Instructions',
+    segmentIds: ['project-setup-header', 'project-setup'],
+  },
+  {
     id: 'pre-assessment',
     label: 'Pre Assessment',
     segmentIds: ['pre-header', 'pre-intro', 'pre-questions', 'pre-footer'],
