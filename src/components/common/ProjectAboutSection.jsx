@@ -71,7 +71,7 @@ export function ProjectAboutSection({ segment, segmentId }) {
               </div>
               {row.actionLabel && row.actionPageId ? (
                 <button
-                  className="project-about-row__action"
+                  className="project-about-resource__link project-about-row__action"
                   onClick={() => goToPage(row.actionPageId)}
                   type="button"
                 >

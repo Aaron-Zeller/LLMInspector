@@ -1219,24 +1219,9 @@ button:disabled {
 }
 
 .project-about-row__action {
-  margin-top: 2px;
-  padding: 5px 10px;
-  border: 1px solid rgba(26, 35, 64, 0.22);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--navy);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  line-height: inherit;
-  text-transform: uppercase;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.project-about-row__action:hover {
-  border-color: rgba(184, 150, 62, 0.4);
-  color: var(--gold);
+  align-self: start;
+  justify-self: start;
+  font-family: inherit;
 }
 
 .project-about-sources {
