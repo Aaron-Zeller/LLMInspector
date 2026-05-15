@@ -2,8 +2,45 @@ import { create } from 'zustand';
 import { EXPERIENCE_FEEDBACK_QUESTIONS, PAGE_SEQUENCE } from '../data/assessmentContent.js';
 import { submitAssessmentStage, submitExperienceFeedback } from '../lib/api.js';
 import { summarizeStageResults } from '../lib/assessment.js';
+import { getPageIdFromHash, getPageRoute } from '../lib/pageRoutes.js';
 
 const firstPageId = PAGE_SEQUENCE[0].id;
+
+function updateHashForPage(pageId) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  const route = getPageRoute(pageId);
+  const nextHash = route ? `#/${route}` : '';
+
+  if (window.location.hash === nextHash) {
+    return;
+  }
+
+  if (nextHash) {
+    window.history.pushState(null, '', nextHash);
+    return;
+  }
+
+  window.history.pushState(null, '', `${window.location.pathname}${window.location.search}`);
+}
+
+function replaceHashForPage(pageId) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  const route = getPageRoute(pageId);
+  if (!route) {
+    return;
+  }
+
+  const nextHash = `#/${route}`;
+  if (window.location.hash !== nextHash) {
+    window.history.replaceState(null, '', nextHash);
+  }
+}
 
 function getOrCreateAnonymousSessionId() {
   if (typeof window === 'undefined') {
@@ -27,7 +64,7 @@ function createEmptyFeedbackResponses() {
 
 export const useAssessmentStore = create((set, get) => ({
   sessionId: getOrCreateAnonymousSessionId(),
-  currentPageId: firstPageId,
+  currentPageId: typeof window === 'undefined' ? firstPageId : getPageIdFromHash(window.location.hash) ?? firstPageId,
   aboutReturnPageId: firstPageId,
   decisionCheckStatus: {},
   completedLabs: {},
@@ -45,18 +82,23 @@ export const useAssessmentStore = create((set, get) => ({
   feedbackState: 'idle',
   experienceMessage: '',
   experienceError: '',
-  goToPage(pageId) {
+  goToPage(pageId, options = {}) {
     set({ currentPageId: pageId });
+    if (!options.skipHashUpdate) {
+      updateHashForPage(pageId);
+    }
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   },
   openAboutPage() {
     const currentPageId = get().currentPageId;
+    replaceHashForPage(currentPageId);
     set({
       aboutReturnPageId: currentPageId === 'project-about' ? get().aboutReturnPageId : currentPageId,
       currentPageId: 'project-about',
     });
+    updateHashForPage('project-about');
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -64,6 +106,7 @@ export const useAssessmentStore = create((set, get) => ({
   closeAboutPage() {
     const aboutReturnPageId = get().aboutReturnPageId || firstPageId;
     set({ currentPageId: aboutReturnPageId });
+    updateHashForPage(aboutReturnPageId);
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -75,6 +118,7 @@ export const useAssessmentStore = create((set, get) => ({
       experienceError: '',
       experienceMessage: '',
     });
+    updateHashForPage('thank-you');
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -248,6 +292,7 @@ export const useAssessmentStore = create((set, get) => ({
       experienceMessage: '',
       experienceError: '',
     });
+    updateHashForPage(firstPageId);
 
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
